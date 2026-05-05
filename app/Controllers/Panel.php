@@ -14,3 +14,4 @@ class Panel extends BaseController
     }
 
 }
+?>
