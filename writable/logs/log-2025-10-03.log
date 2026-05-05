@@ -1,0 +1,160 @@
+CRITICAL - 2025-10-03 21:51:41 --> Error: Class "App\Controllers\ClientesModel" not found
+[Method: GET, Route: clientes]
+in APPPATH/Controllers/Clientes.php on line 11.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Clientes->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:13:19 --> ErrorException: Undefined variable $proveedores
+[Method: GET, Route: clientes]
+in APPPATH/Views/bienvenidos.php on line 3.
+ 1 APPPATH/Views/bienvenidos.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $proveedores', '/opt/lampp/htdocs/ci/app/Views/bienvenidos.php', 3)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/bienvenidos.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('bienvenidos', [], true)
+ 5 APPPATH/Controllers/Clientes.php(24): view('bienvenidos', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:14:13 --> ErrorException: Undefined variable $proveedores
+[Method: GET, Route: clientes]
+in APPPATH/Views/bienvenidos.php on line 3.
+ 1 APPPATH/Views/bienvenidos.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $proveedores', '/opt/lampp/htdocs/ci/app/Views/bienvenidos.php', 3)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/bienvenidos.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('bienvenidos', [], true)
+ 5 APPPATH/Controllers/Clientes.php(24): view('bienvenidos', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:14:15 --> ErrorException: Undefined variable $proveedores
+[Method: GET, Route: clientes]
+in APPPATH/Views/bienvenidos.php on line 3.
+ 1 APPPATH/Views/bienvenidos.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $proveedores', '/opt/lampp/htdocs/ci/app/Views/bienvenidos.php', 3)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/bienvenidos.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('bienvenidos', [], true)
+ 5 APPPATH/Controllers/Clientes.php(24): view('bienvenidos', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:14:17 --> ErrorException: Undefined variable $proveedores
+[Method: GET, Route: clientes]
+in APPPATH/Views/bienvenidos.php on line 3.
+ 1 APPPATH/Views/bienvenidos.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $proveedores', '/opt/lampp/htdocs/ci/app/Views/bienvenidos.php', 3)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/bienvenidos.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('bienvenidos', [], true)
+ 5 APPPATH/Controllers/Clientes.php(24): view('bienvenidos', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:15:33 --> Error: Class "App\Models\ProveedoresModel" not found
+[Method: GET, Route: proveedores]
+in APPPATH/Controllers/Proveedores.php on line 13.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Proveedores->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:16:46 --> Error: Class "App\Models\ProveedoresModel" not found
+[Method: GET, Route: proveedores]
+in APPPATH/Controllers/Proveedores.php on line 13.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Proveedores->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:16:47 --> Error: Class "App\Models\ProveedoresModel" not found
+[Method: GET, Route: proveedores]
+in APPPATH/Controllers/Proveedores.php on line 13.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Proveedores->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:19:46 --> Error: Class "App\Models\ProveedoresModel" not found
+[Method: GET, Route: proveedores]
+in APPPATH/Controllers/Proveedores.php on line 13.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Proveedores->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:21:55 --> Error: Class "App\Models\ProveedoresModel" not found
+[Method: GET, Route: proveedores]
+in APPPATH/Controllers/Proveedores.php on line 13.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Proveedores->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:21:57 --> Error: Class "App\Models\ProveedoresModel" not found
+[Method: GET, Route: proveedores]
+in APPPATH/Controllers/Proveedores.php on line 13.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Proveedores->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:22:33 --> Error: Class "App\Controllers\ProveedoresModel" not found
+[Method: GET, Route: proveedores]
+in APPPATH/Controllers/Proveedores.php on line 13.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Proveedores->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:22:35 --> Error: Class "App\Controllers\ProveedoresModel" not found
+[Method: GET, Route: proveedores]
+in APPPATH/Controllers/Proveedores.php on line 13.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Proveedores->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:23:04 --> Error: Class "App\Models\ProveedoresModel" not found
+[Method: GET, Route: proveedores]
+in APPPATH/Controllers/Proveedores.php on line 13.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Proveedores->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-03 22:42:20 --> ErrorException: Undefined variable $proveedores
+[Method: GET, Route: clientes]
+in APPPATH/Views/contenidoClientes.php on line 28.
+ 1 APPPATH/Views/contenidoClientes.php(28): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $proveedores', '/opt/lampp/htdocs/ci/app/Views/contenidoClientes.php', 28)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/contenidoClientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('contenidoClientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(24): view('contenidoClientes', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
