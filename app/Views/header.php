@@ -21,7 +21,8 @@
 
     <!-- Custom styles for this template-->
     <link href="vendor/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <!-- cdn de data table -->
+    <link href="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-2.3.8/b-3.2.6/b-html5-3.2.6/datatables.min.css" rel="stylesheet" integrity="sha384-KqCux+UMRtmKJpx+3FvAaZ0245U9Ef/GVNvlKYMhDvODlThuTnGhxo1hmcmyTIkw" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
