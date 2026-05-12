@@ -55,6 +55,8 @@
     <!-- Page level custom scripts -->
     <script src="vendor/js/chart-area-demo.js"></script>
     <script src="vendor/js/chart-pie-demo.js"></script>
+    <!--script de data table-->
+    
 
 </body>
 

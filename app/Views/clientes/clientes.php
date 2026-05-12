@@ -1,1 +1,5 @@
-<p> <h2> Clientes</h2> </p>
+    <p> <h2> 
+        <?php 
+        echo $titulo;
+        ?>
+    </h2> </p>

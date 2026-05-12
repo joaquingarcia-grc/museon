@@ -15,10 +15,11 @@ class Panel extends BaseController
     }
     public function index()
     {
-        $datos = $this->veterinaria->first();
+        $veterinaria = $this->veterinaria->first();
+        $datos = ['veterinaria'=>$veterinaria];
 
-        echo view('header');
-        echo view('content', $datos);
+        echo view('header', $datos);
+        echo view('content');
         echo  view('footer');
     }
 
