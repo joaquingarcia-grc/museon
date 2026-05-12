@@ -14,7 +14,15 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($clientes as $cliente)?>
+                <?php foreach ($clientes as $cliente)
+                    {   echo 
+                            "
+                            <tr>
+                                <td>".$cliente["nombre"]."</td>
+                                <td>".$cliente["apellido"]."</td>                            
+                            </tr>";
+                    }    
+                ?>
             </tbody>
         </table>
     </div>

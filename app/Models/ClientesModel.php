@@ -7,9 +7,9 @@
   class ClientesModel extends Model
   {
     //vamos a llamar a la tabla usando la bariable $table
-    protected $table      = 'administracion';
+    protected $table      = 'clientes';
     //id seria el atributo primero de nuestra tabla
-    protected $primaryKey = 'id_cliente';
+    protected $primaryKey = 'id';
     //indicamos que nuestra clabe primaria es auto incrementable
     protected $useAutoIncrement = true;
     //como devuelve los modelos
@@ -17,7 +17,7 @@
     //esto depende si queremos hacer un hard delet(false) o un soft delet(true)
     protected $useSoftDeletes = false;
     //aca defino las columnas que quiero que sean visibles
-    protected $allowedFields = ['nombre', 'apellido','telefono', 'email','domicilio', 'cuenta'];
+    protected $allowedFields = ['nombre', '','telefono', 'email','domicilio', 'cuenta'];
 
     protected $dateFormat = 'datetime';
 

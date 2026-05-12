@@ -2,3 +2,507 @@ CRITICAL - 2026-05-12 01:27:34 --> ErrorException: Cannot declare class App\Mode
 [Method: GET, Route: clientes]
 in APPPATH/Models/ClientesModel.php on line 7.
  1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-05-12 11:53:29 --> ErrorException: Undefined array key "nombre"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 21.
+ 1 APPPATH/Views/clientes/clientes.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 21)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:53:48 --> ErrorException: Undefined array key "nombre"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 21.
+ 1 APPPATH/Views/clientes/clientes.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 21)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:55:03 --> ErrorException: Undefined array key "nombre"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 21.
+ 1 APPPATH/Views/clientes/clientes.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 21)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:56:28 --> ErrorException: Undefined array key "nombre"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 21.
+ 1 APPPATH/Views/clientes/clientes.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 21)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:56:54 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:56:56 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:56:58 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:56:58 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:56:58 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:56:59 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:57:09 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:57:09 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:57:10 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:57:10 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:57:37 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:57:41 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:58:41 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 11:59:54 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:00:18 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:00:19 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:02:57 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:06:01 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:06:47 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:06:49 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:19 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:21 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:22 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:22 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:22 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:23 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:23 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:23 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:23 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:23 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:24 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-12 12:07:24 --> ErrorException: Undefined array key "apellido"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 22.
+ 1 APPPATH/Views/clientes/clientes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "apellido"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 22)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
