@@ -15,9 +15,9 @@
     //como devuelve los modelos
     protected $returnType     = 'array';
     //esto depende si queremos hacer un hard delet(false) o un soft delet(true)
-    protected $useSoftDeletes = false;
+    protected $useSoftDeletes = true;
     //aca defino las columnas que quiero que sean visibles
-    protected $allowedFields = ['nombre', '','telefono', 'email','domicilio', 'cuenta'];
+    protected $allowedFields = ['nombre','telefono', 'email','domicilio', 'cuenta'];
 
     protected $dateFormat = 'datetime';
 
@@ -27,7 +27,7 @@
     //fecha de edicion
     protected $updatedField  = 'fecha_edicion';
     //Esto ayuda al borrado de datoss
-    protected $deletedField  = 'deleted_at';
+    protected $deletedField  = 'fecha_borrado';
 
     protected $validationRules    = [];
     protected $validationMessages = [];

@@ -14,15 +14,28 @@
     ?></title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url();?>vendor/css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="vendor/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>vendor/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- cdn de data table -->
     <link href="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-2.3.8/b-3.2.6/b-html5-3.2.6/datatables.min.css" rel="stylesheet" integrity="sha384-KqCux+UMRtmKJpx+3FvAaZ0245U9Ef/GVNvlKYMhDvODlThuTnGhxo1hmcmyTIkw" crossorigin="anonymous">
+
+    <!-- Icono de la pagina -->
+    <link rel="shortcut icon" href="favico/favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Libreria de iconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
 </head>
 
 <body id="page-top">

@@ -32,6 +32,17 @@ class Clientes extends BaseController
         echo  view('footer');
     }
 
+    public function borrar($id){
+        
+        $this->clientes->delete($id);
+
+        $veterinaria = $this->veterinaria->first();
+        $datos = ['veterinaria'=>$veterinaria];
+
+        echo view('header',$datos);
+        echo view('clientes/avisoborrado');
+        echo  view('footer');
+    } 
 }
 
 ?>
