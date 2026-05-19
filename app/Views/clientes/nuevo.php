@@ -31,5 +31,6 @@
                 No posee cuenta
             </label>
         </div>
-        <a href=""></a>
+        <a href="" class="btn btn-outline-success">Guardar</a>
+        <a href="" class="btn btn-outline-danger">Cancelar</a>
     </form>

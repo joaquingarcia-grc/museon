@@ -9,7 +9,7 @@
                 </h2></p>
             </div>
             <div class="col text-right  py-3 px-4">
-                <a class="btn btn-outline-success" href="<?php base_url(); ?>">
+                <a class="btn btn-outline-success" href="<?php base_url();?>clientes/nuevo">
                     <i class="bi bi-plus">Nuevo</i>
                 </a>
             </div>

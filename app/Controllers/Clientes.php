@@ -46,7 +46,6 @@ class Clientes extends BaseController
 
     public function nuevo(){
 
-        $this->clientes->delete($id);
 
         $veterinaria = $this->veterinaria->first();
         $datos = ['veterinaria'=>$veterinaria];
