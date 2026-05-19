@@ -9,9 +9,9 @@
                 </h2></p>
             </div>
             <div class="col text-right  py-3 px-4">
-                <button type="button" class="btn btn-outline-success">
+                <a class="btn btn-outline-success" href="<?php base_url(); ?>">
                     <i class="bi bi-plus">Nuevo</i>
-                </button>
+                </a>
             </div>
         </div>
         
@@ -19,7 +19,7 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th class='text-center' >Apellido</th>
+                    <th class='text-center'>Apellido</th>
                     <th class='text-end'>Acciones</th>
                 </tr>
             </thead>
