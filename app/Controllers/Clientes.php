@@ -55,6 +55,20 @@ class Clientes extends BaseController
         echo  view('footer');
 
     }
+
+    public function insertar(){
+        // Guarda la nueva noticia (CodeIgniter Model -> save())
+        $this->clientes->save([
+            'nombre' => $this->request->getPost('nombre'),
+            'apellido'  => $this->request->getPost('apellido'),
+            'telefono'  => $this->request->getPost('telefono'),
+            'email'  => $this->request->getPost('email'),
+            'domicilio'  => $this->request->getPost('domicilio'),
+        ]);
+        // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
+        return redirect()->to(base_url() . 'clientes');
+    }
+    
 }
 
 ?>
