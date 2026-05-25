@@ -4,27 +4,24 @@ namespace App\Controllers;
 
 use App\Models\ParaleloModel;
 
-class Clientes extends BaseController
+class Paralelo extends BaseController
 {   
-    protected $clientes;
 
-    protected $veterinaria;
+    //variable protegida de una instancia del paralelo
 
+    protected $paralelo;
 
+    //funcion constructora de mi objeto paralelo
     public function __construct() {
+        // En su interior contiene una instancia de la base de datos
+        $this->paralelo = new ParaleloModel();
 
-        $this->veterinaria = new AdministracionModel();
-
-        $this->clientes = new ClientesModel();
     }
     public function index()
     {
-        $clientes = $this->clientes->findAll();
-        $veterinaria = $this->veterinaria->first();
+        $paralelo = $this->paralelo->findAll();
         
-        $datos = ['veterinaria'=>$veterinaria, 
-                  'clientes'=>$clientes,
-                  'titulo' => 'Clientes'];
+        $datos = ['paralelo'=>$paralelo];
 
         echo view('header',$datos);
         echo view('clientes/clientes');
