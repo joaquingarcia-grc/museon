@@ -1,14 +1,16 @@
 
-    <div>
-        <div class="row">
-            <div class="col">
-                <p><h2> 
+    <div class="container-fluid">
+        <div class="row text-left">
+            <p>
+                <h2> 
                     <?php 
                         echo $titulo;
                     ?>
-                </h2></p>
-            </div>
-            <div class="col text-right  py-3 px-4">
+                </h2>
+            </p>
+        </div>
+
+        <div class="col text-right  py-3 px-4">
                 <a class="btn btn-outline-success" href="<?php base_url();?>clientes/nuevo">
                     <i class="bi bi-plus">Nuevo</i>
                 </a>
@@ -33,9 +35,10 @@
                                     <?php echo $cliente["apellido"];?> 
                                 </td> 
                                 <td class='text-end'>    
-                                    <button type='button' class='btn btn-primary'>
+                                    <a class='btn btn-primary' 
+                                        href="<?php echo base_url()?>clientes/editar/<?php echo $cliente["id"];?>">
                                         <i class='bi bi-pencil-square'></i>
-                                    </button>   
+                                    </a>   
                                     <a class='btn btn-danger' 
                                                     href="<?php echo base_url(); ?>clientes/borrar/<?php echo $cliente["id"];?>">
                                         <i class='bi bi-trash2-fill'></i>

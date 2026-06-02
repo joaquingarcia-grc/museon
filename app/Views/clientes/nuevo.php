@@ -1,4 +1,13 @@
     <div class="container-fluid ">
+        <div class="row text-left">
+            <p>
+                <h2> 
+                    <?php 
+                        echo $titulo;
+                    ?>
+                </h2>
+            </p>
+        </div>
         <form action="<?php echo base_url();?>clientes/insertar" method="post">
             <div class="mb-3">
                 <label for="nombre">Nombre</label>
@@ -33,6 +42,6 @@
                 </label>
             </div>
             <button class="btn btn-outline-success" type="submit">Guardar</button>
-            <a href="" class="btn btn-outline-danger">Cancelar</a>
+            <a href="<?php echo base_url();?>clientes/" class="btn btn-outline-danger">Cancelar</a>
         </form>
     </div>
