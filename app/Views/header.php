@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title><?php 
-        echo ($veterinaria['nombre']);
+        echo ($museos['denominacion']);
     ?></title>
 
     <!-- Custom fonts for this template-->
@@ -53,7 +53,7 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">
                     <?php
-                        echo ($veterinaria['nombre']);
+                        echo ($museos['denominacion']);
                     ?><sup>2</sup></div>
             </a>
 

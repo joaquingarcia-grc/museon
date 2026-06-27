@@ -4,10 +4,10 @@
   //manera de la  cual vamos a llamar estos modelos 
   use CodeIgniter\Model;
   //esto es para indicar que vamos a usar los modelos de codeigniter
-  class ParaleloModel extends Model
+  class UsuariosModel extends Model
   {
     //vamos a llamar a la tabla usando la bariable $table
-    protected $table      = 'datos';
+    protected $table      = 'usuarios';
     //id seria el atributo primero de nuestra tabla
     protected $primaryKey = 'id';
     //indicamos que nuestra clabe primaria es auto incrementable
@@ -17,7 +17,7 @@
     //esto depende si queremos hacer un hard delet(false) o un soft delet(true)
     protected $useSoftDeletes = true;
     //aca defino las columnas que quiero que sean visibles
-    protected $allowedFields = ['nombre','domicilio','telefono','email', 'instagram', 'facebook'];
+    protected $allowedFields = ['denominacion', 'email', 'telefono', 'fecha_baja'];
 
     protected $dateFormat = 'datetime';
 
@@ -27,10 +27,10 @@
     //fecha de edicion
     protected $updatedField  = 'fecha_edicion';
     //Esto ayuda al borrado de datoss
-    protected $deletedField  = 'fecha_borrado';
+    protected $deletedField  = 'fecha_baja';
 
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
   }
-?>
+ ?>

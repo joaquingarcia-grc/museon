@@ -5,9 +5,10 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
-$routes->get('/panel', 'Panel::index');
-$routes->get('/clientes', 'Clientes::index');
-$routes->get('/clientes/borrar/(:num)','Clientes::borrar/$1');
-$routes->get('/clientes/nuevo','Clientes::nuevo');
-$routes->post('/clientes/insertar','Clientes::insertar');
+$routes->get('/usuarios', 'Usuarios::index');
+$routes->get('/usuarios/borrar/(:num)','Usuarios::borrar/$1');
+$routes->get('/usuarios/nuevo','Usuarios::nuevo');
+$routes->post('/usuarios/insertar','Usuarios::insertar');
+$routes->post('/usuarios/actualizar/(:num)', 'Usuarios::actualizar/$1');
+$routes->get('/usuarios/editar/(:num)', 'Usuarios::editar/$1');
+
