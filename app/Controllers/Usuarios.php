@@ -38,7 +38,8 @@ class Usuarios extends BaseController
         $this->usuarios->delete($id);
         $museos = $this->museos->first();
 
-        $usuarios = $this->usuarios->first();
+        $datos = [ 'museos'=>$museos,
+                  'titulo' => 'Usuario borrado'];
 
         echo view('header',$datos);
         echo view('usuarios/avisoborrado');
@@ -97,16 +98,22 @@ class Usuarios extends BaseController
     }
 
     public function papelera(){
-        $usuarios = $this->clientes->onlyDeleted()->findAll();
-                $datos = [
+
+        $usuarios = $this->usuarios->onlyDeleted()->findAll();
+        
+        $museos = $this->museos->first();
+
+        $datos = [ 'museos'=>$museos,
             'usuarios'     => $usuarios, // <--- Aquí enviamos los datos
             'titulo'      => 'Usuarios borrados'
         ];
         echo view('header', $datos);
-        echo view('clientes/papelera');
+        echo view('usuarios/papelera');
         echo view('footer');
     }
+
     public function recuperacion($id){
+
         $this->usuarios->update($id,['fecha_baja' => null]);
         return redirect()->to(base_url() . 'usuarios');
     }

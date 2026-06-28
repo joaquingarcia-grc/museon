@@ -8,8 +8,8 @@
             </h2>
         </div>
         <div class="col text-right  py-3 px-4">
-            <a class="btn btn-success" href="<?php echo base_url();?>clientes/">
-                Clientes <i class="bi bi-person-circle"></i>
+            <a class="btn btn-success" href="<?php echo base_url();?>usuarios/">
+                Usuarios <i class="bi bi-person-circle"></i>
             </a>
         </div>
     </div>
@@ -18,30 +18,30 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th class='text-center'>Nombre</th>
-                    <th class='text-center'>Apellido</th>
+                    <th class='text-center'>Denominacion</th>
+                    <th class='text-center'>Telefono</th>
                     <th class='text-center'>fecha de borrado</th>
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($clientes as $cliente){ ?>
+                <?php foreach ($usuarios as $usuario){ ?>
                             <tr>
                                 <td>
-                                    <?php echo $cliente["id"];?> 
+                                    <?php echo $usuario["id"];?> 
                                 </td>
                                 <td>
-                                    <?php echo $cliente["nombre"];?> 
+                                    <?php echo $usuario["denominacion"];?> 
                                 </td>
                                 <td class='text-center'>
-                                    <?php echo $cliente["apellido"];?> 
+                                    <?php echo $usuario["telefono"];?> 
                                 </td> 
                                 <td class='tex-center'>
-                                    <?php echo $cliente["fecha_borrado"]?>
+                                    <?php echo $usuario["fecha_baja"]?>
                                 </td>
                                 <td class='text-center'>
                                     <a class='btn btn-warning' 
-                                        href="<?php echo base_url(); ?>clientes/recuperacion/<?php echo $cliente["id"];?>">
+                                        href="<?php echo base_url(); ?>usuarios/recuperacion/<?php echo $usuario["id"];?>">
                                         Resuperar<i class="bi bi-recycle"></i>
                                     </a>  
                                 </td>                            
