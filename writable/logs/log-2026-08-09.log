@@ -28,3 +28,307 @@ in SYSTEMPATH/Router/Router.php on line 741.
  5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-08-09 01:47:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-09 02:19:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-09 02:19:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-09 02:20:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-09 02:20:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-08-09 02:57:30 --> Error: Class "App\Controllers\AtributosModel" not found
+[Method: GET, Route: etiquetas]
+in APPPATH/Controllers/Etiquetas.php on line 15.
+ 1 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\Etiquetas->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 02:57:53 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: etiquetas]
+in APPPATH/Controllers/Etiquetas.php on line 27.
+ 1 APPPATH/Controllers/Etiquetas.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Controllers/Etiquetas.php', 27)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->index()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:00:24 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: etiquetas]
+in APPPATH/Controllers/Etiquetas.php on line 27.
+ 1 APPPATH/Controllers/Etiquetas.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Controllers/Etiquetas.php', 27)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->index()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:00:31 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: etiquetas]
+in APPPATH/Controllers/Etiquetas.php on line 27.
+ 1 APPPATH/Controllers/Etiquetas.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Controllers/Etiquetas.php', 27)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->index()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:01:13 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: etiquetas]
+in APPPATH/Controllers/Etiquetas.php on line 27.
+ 1 APPPATH/Controllers/Etiquetas.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Controllers/Etiquetas.php', 27)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->index()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:01:55 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: etiquetas]
+in APPPATH/Controllers/Etiquetas.php on line 27.
+ 1 APPPATH/Controllers/Etiquetas.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Controllers/Etiquetas.php', 27)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->index()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:02:07 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: etiquetas]
+in APPPATH/Controllers/Etiquetas.php on line 27.
+ 1 APPPATH/Controllers/Etiquetas.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Controllers/Etiquetas.php', 27)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->index()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:07:07 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Controllers/Etiquetas.php on line 77.
+ 1 APPPATH/Controllers/Etiquetas.php(77): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Controllers/Etiquetas.php', 77)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:08:37 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Controllers/Etiquetas.php on line 77.
+ 1 APPPATH/Controllers/Etiquetas.php(77): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Controllers/Etiquetas.php', 77)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:08:57 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:09:25 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:09:42 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:09:52 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:09:52 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:09:53 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:10:57 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:11:41 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:11:44 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:12:15 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:12:22 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:14:45 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:15:14 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:15:17 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 03:15:22 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: etiquetas/editar/1]
+in APPPATH/Views/usuarios/editar.php on line 20.
+ 1 APPPATH/Views/usuarios/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/editar', [], true)
+ 5 APPPATH/Controllers/Etiquetas.php(82): view('usuarios/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Etiquetas->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Etiquetas))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

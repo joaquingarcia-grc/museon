@@ -64,7 +64,7 @@
             <hr class="sidebar-divider">
             
             <!-- Heading nuevo de la pagina-->
-            <div class="sidebar-heading text-dark">Interfaz</div>
+            <div class="sidebar-heading text-dark">Interfaz de usuario</div>
             
             <!-- Heading viejo de la pagina original
             <div class="sidebar-heading">Interfas</div>-->
@@ -109,14 +109,40 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            <!-- Encabezado -->
+            <div class="sidebar-heading text-dark">
+                Museo
+            </div>
+
+            <!-- Nav Item - Museo Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMuseo"
+                    aria-expanded="true" aria-controls="collapseMuseo">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Componentes</span>
+                </a>
+                <div id="collapseMuseo" class="collapse" aria-labelledby="headingMuseo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <h6 class="collapse-header text-dark">Componentes de Museo</h6>
+                        <a class="collapse-item" href="login.html">Salas</a>
+                        <a class="collapse-item" href="register.html">Piezas</a>
+                        <a class="collapse-item" href="forgot-password.html">Exhibición</a>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
             <!-- Heading 
             <div class="sidebar-heading">
                 Addons
             </div> -->
 
             <!-- Encabezado -->
-            <div class="sidebar-heading">
-                Vistas
+            <div class="sidebar-heading text-dark">
+                Pieza
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -124,20 +150,15 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Paginas</span>
+                    <span>Componentes</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         
-                        <h6 class="collapse-header text-dark">Componentes de pagina</h6>
+                        <h6 class="collapse-header text-dark">Componentes de Pieza</h6>
                         <a class="collapse-item" href="login.html">Atributos</a>
-                        <a class="collapse-item" href="register.html">Etiquetas</a>
+                        <a class="collapse-item" href='<?php echo base_url();?>etiquetas'>Etiquetas</a>
                         <a class="collapse-item" href="forgot-password.html">Objetos</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Otros complementos</h6>
-                        <a class="collapse-item" href="404.html">Salas</a>
-                        <a class="collapse-item" href="blank.html">Piezas</a>
-                        <a class="collapse-item" href="blank.html">Exposiciones</a>
                     </div>
                 </div>
             </li>
@@ -339,9 +360,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Datos de usuario</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="<?php echo base_url();?>imagenes/logo_museo.png">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -359,7 +380,7 @@
                                     Actividad
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href='<?php echo base_url();?>login/sesion' data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar secion
                                 </a>

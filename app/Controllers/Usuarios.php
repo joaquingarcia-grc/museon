@@ -61,10 +61,13 @@ class Usuarios extends BaseController
 
     public function insertar(){
 
+        $hash = password_hash($this->request->getPost('password'),PASSWORD_DEFAULT);
+
         $this->usuarios->save([
             'denominacion' => $this->request->getPost('denominacion'),
             'email'  => $this->request->getPost('email'),
-            'telefono'  => $this->request->getPost('telefono')
+            'telefono'  => $this->request->getPost('telefono'),
+            'password' => $hash
         ]);
         // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
         return redirect()->to(base_url() . 'usuarios');

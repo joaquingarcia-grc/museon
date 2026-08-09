@@ -81,5 +81,12 @@ class Login extends BaseController{
         }
     }
 
+    public function salir(){
+        $sesion = session();
+        $sesion->destroy();
+
+        return redirect()->to(base_url() . 'registro/');
+    }
+
 }
 ?>
