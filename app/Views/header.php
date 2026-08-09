@@ -25,7 +25,7 @@
     <link href="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-2.3.8/b-3.2.6/b-html5-3.2.6/datatables.min.css" rel="stylesheet" integrity="sha384-KqCux+UMRtmKJpx+3FvAaZ0245U9Ef/GVNvlKYMhDvODlThuTnGhxo1hmcmyTIkw" crossorigin="anonymous">
 
     <!-- Icono de la pagina -->
-    <link rel="shortcut icon" href="favico/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo base_url();?>imagenes/favicon/favicon.ico/"type="image/x-icon">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -78,7 +78,7 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
+                        <h6 class="collapse-header">Componentes de usuario</h6>
                         
                         <a class="collapse-item" href="<?php echo base_url();?>usuarios">Usuarios</a>
                         <a class="collapse-item" href="<?php echo base_url();?>usuarios/nuevo">Nuevo usuario</a>

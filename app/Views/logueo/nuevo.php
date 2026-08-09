@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid registro-page">
     <div class="row align-items-center">
         <div class="text-center">
             <h2> 
@@ -6,11 +6,6 @@
                     echo $titulo;
                 ?>
             </h2>
-        </div>
-        <div class="text-right">
-            <a class="btn btn-success" href="<?php echo base_url();?>usuarios/">
-                Usuarios <i class="bi bi-person-circle"></i>
-            </a>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -35,12 +30,12 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="password" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" name="password" placeholder="••••••••">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="••••••••">
                             </div>
                         </div>
                         <div class="d-flex gap-2">
-                            <button class="btn btn-outline-success" type="submit">Guardar</button>
-                            <a href="<?php echo base_url();?>usuarios/" class="btn btn-outline-danger">Cancelar</a>
+                            <button class="btn btn-outline-success" type="submit">Registrarme</button>
+                            <a href="<?php echo base_url();?>registro/" class="btn btn-outline-danger">Cancelar</a>
                         </div>
                     </form>
                 </div>
