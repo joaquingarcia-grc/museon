@@ -21,7 +21,7 @@
 
     protected $dateFormat = 'datetime';
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     //fecha de registro
     protected $createdField  = 'fecha_alta';
     //fecha de edicion

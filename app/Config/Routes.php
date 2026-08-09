@@ -27,3 +27,21 @@ $routes->post('/etiquetas/actualizar/(:num)', 'Etiquetas::actualizar/$1');
 $routes->get('/etiquetas/editar/(:num)', 'Etiquetas::editar/$1');
 $routes->get('/etiquetas/papelera/', 'Etiquetas::papelera/');
 $routes->get('/etiquetas/recuperacion/(:num)','Etiquetas::recuperacion/$1');
+
+$routes->get('/atributos', 'Atributos::index');
+$routes->get('/atributos/borrar/(:num)','Atributos::borrar/$1');
+$routes->get('/atributos/nuevo','Atributos::nuevo');
+$routes->post('/atributos/insertar','Atributos::insertar');
+$routes->post('/atributos/actualizar/(:num)', 'Atributos::actualizar/$1');
+$routes->get('/atributos/editar/(:num)', 'Atributos::editar/$1');
+$routes->get('/atributos/papelera/', 'Atributos::papelera/');
+$routes->get('/atributos/recuperacion/(:num)','Atributos::recuperacion/$1');
+
+$routes->get('/objetos', 'Objetos::index');
+$routes->get('/objetos/borrar/(:num)','Objetos::borrar/$1');
+$routes->get('/objetos/nuevo','Objetos::nuevo');
+$routes->post('/objetos/insertar','Objetos::insertar');
+$routes->post('/objetos/actualizar/(:num)', 'Objetos::actualizar/$1');
+$routes->get('/objetos/editar/(:num)', 'Objetos::editar/$1');
+$routes->get('/objetos/papelera/', 'Objetos::papelera/');
+$routes->get('/objetos/recuperacion/(:num)','Objetos::recuperacion/$1');

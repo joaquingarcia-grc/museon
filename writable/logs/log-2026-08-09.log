@@ -332,3 +332,213 @@ in APPPATH/Views/usuarios/editar.php on line 20.
  9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
 10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 16:46:05 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: atributos]
+in APPPATH/Views/atributos/listado.php on line 25.
+ 1 APPPATH/Views/atributos/listado.php(25): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Views/atributos/listado.php', 25)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/atributos/listado.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('atributos/listado', [], true)
+ 5 APPPATH/Controllers/Atributos.php(31): view('atributos/listado')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Atributos->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Atributos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:00:44 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: atributos/editar/1]
+in APPPATH/Views/atributos/editar.php on line 20.
+ 1 APPPATH/Views/atributos/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Views/atributos/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/atributos/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('atributos/editar', [], true)
+ 5 APPPATH/Controllers/Atributos.php(83): view('atributos/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Atributos->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Atributos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:06:15 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: atributos/editar/1]
+in APPPATH/Views/atributos/editar.php on line 20.
+ 1 APPPATH/Views/atributos/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Views/atributos/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/atributos/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('atributos/editar', [], true)
+ 5 APPPATH/Controllers/Atributos.php(83): view('atributos/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Atributos->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Atributos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:07:19 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: atributos/editar/1]
+in APPPATH/Views/atributos/editar.php on line 20.
+ 1 APPPATH/Views/atributos/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Views/atributos/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/atributos/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('atributos/editar', [], true)
+ 5 APPPATH/Controllers/Atributos.php(83): view('atributos/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Atributos->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Atributos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:08:10 --> ErrorException: Undefined variable $etiquetas
+[Method: GET, Route: atributos/editar/1]
+in APPPATH/Views/atributos/editar.php on line 20.
+ 1 APPPATH/Views/atributos/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $etiquetas', '/opt/lampp/htdocs/ci.03/app/Views/atributos/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/atributos/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('atributos/editar', [], true)
+ 5 APPPATH/Controllers/Atributos.php(83): view('atributos/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Atributos->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Atributos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:40:11 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "objetos/listado.php"
+[Method: GET, Route: objetos]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('objetos/listado.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/listado', [], true)
+ 3 APPPATH/Controllers/Objetos.php(31): view('objetos/listado')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->index()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:41:54 --> ErrorException: Undefined variable $atributos
+[Method: GET, Route: objetos]
+in APPPATH/Views/objetos/listado.php on line 26.
+ 1 APPPATH/Views/objetos/listado.php(26): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $atributos', '/opt/lampp/htdocs/ci.03/app/Views/objetos/listado.php', 26)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/objetos/listado.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/listado', [], true)
+ 5 APPPATH/Controllers/Objetos.php(31): view('objetos/listado')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:50:58 --> ErrorException: Undefined variable $atributos
+[Method: GET, Route: objetos/papelera]
+in APPPATH/Views/objetos/papelera.php on line 27.
+ 1 APPPATH/Views/objetos/papelera.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $atributos', '/opt/lampp/htdocs/ci.03/app/Views/objetos/papelera.php', 27)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/objetos/papelera.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/papelera', [], true)
+ 5 APPPATH/Controllers/Objetos.php(108): view('objetos/papelera')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->papelera('')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:53:33 --> ErrorException: Undefined variable $atributos
+[Method: GET, Route: objetos/papelera]
+in APPPATH/Views/objetos/papelera.php on line 27.
+ 1 APPPATH/Views/objetos/papelera.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $atributos', '/opt/lampp/htdocs/ci.03/app/Views/objetos/papelera.php', 27)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/objetos/papelera.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/papelera', [], true)
+ 5 APPPATH/Controllers/Objetos.php(108): view('objetos/papelera')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->papelera('')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:55:00 --> ErrorException: Undefined variable $atributo
+[Method: GET, Route: objetos]
+in APPPATH/Views/objetos/listado.php on line 42.
+ 1 APPPATH/Views/objetos/listado.php(42): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $atributo', '/opt/lampp/htdocs/ci.03/app/Views/objetos/listado.php', 42)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/objetos/listado.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/listado', [], true)
+ 5 APPPATH/Controllers/Objetos.php(31): view('objetos/listado')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:55:54 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: objetos]
+in APPPATH/Views/objetos/listado.php on line 42.
+ 1 APPPATH/Views/objetos/listado.php(42): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci.03/app/Views/objetos/listado.php', 42)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/objetos/listado.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/listado', [], true)
+ 5 APPPATH/Controllers/Objetos.php(31): view('objetos/listado')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:56:02 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: objetos]
+in APPPATH/Views/objetos/listado.php on line 42.
+ 1 APPPATH/Views/objetos/listado.php(42): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci.03/app/Views/objetos/listado.php', 42)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/objetos/listado.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/listado', [], true)
+ 5 APPPATH/Controllers/Objetos.php(31): view('objetos/listado')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 17:56:17 --> ErrorException: Undefined variable $atributos
+[Method: GET, Route: objetos/papelera]
+in APPPATH/Views/objetos/papelera.php on line 27.
+ 1 APPPATH/Views/objetos/papelera.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $atributos', '/opt/lampp/htdocs/ci.03/app/Views/objetos/papelera.php', 27)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/objetos/papelera.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/papelera', [], true)
+ 5 APPPATH/Controllers/Objetos.php(108): view('objetos/papelera')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->papelera('')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 18:00:38 --> ErrorException: Undefined variable $atributos
+[Method: GET, Route: objetos/papelera]
+in APPPATH/Views/objetos/papelera.php on line 27.
+ 1 APPPATH/Views/objetos/papelera.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $atributos', '/opt/lampp/htdocs/ci.03/app/Views/objetos/papelera.php', 27)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/objetos/papelera.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/papelera', [], true)
+ 5 APPPATH/Controllers/Objetos.php(108): view('objetos/papelera')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->papelera('')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-09 18:02:35 --> ErrorException: Undefined variable $atributos
+[Method: GET, Route: objetos/editar/2]
+in APPPATH/Views/objetos/editar.php on line 20.
+ 1 APPPATH/Views/objetos/editar.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $atributos', '/opt/lampp/htdocs/ci.03/app/Views/objetos/editar.php', 20)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/objetos/editar.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('objetos/editar', [], true)
+ 5 APPPATH/Controllers/Objetos.php(83): view('objetos/editar')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Objetos->editar('2')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-08-09 18:10:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-09 18:10:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

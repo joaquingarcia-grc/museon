@@ -4,10 +4,10 @@
   //manera de la  cual vamos a llamar estos modelos 
   use CodeIgniter\Model;
   //esto es para indicar que vamos a usar los modelos de codeigniter
-  class UsuariosModel extends Model
+  class AtributosModel extends Model
   {
     //vamos a llamar a la tabla usando la bariable $table
-    protected $table      = 'usuarios';
+    protected $table      = 'atributos';
     //id seria el atributo primero de nuestra tabla
     protected $primaryKey = 'id';
     //indicamos que nuestra clabe primaria es auto incrementable
@@ -17,7 +17,7 @@
     //esto depende si queremos hacer un hard delet(false) o un soft delet(true)
     protected $useSoftDeletes = true;
     //aca defino las columnas que quiero que sean visibles
-    protected $allowedFields = ['denominacion', 'email', 'telefono', 'fecha_baja'];
+    protected $allowedFields = ['denominacion','tipo_dato','fecha_baja','fecha_alta'];
 
     protected $dateFormat = 'datetime';
 

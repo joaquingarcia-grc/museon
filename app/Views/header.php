@@ -156,9 +156,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         
                         <h6 class="collapse-header text-dark">Componentes de Pieza</h6>
-                        <a class="collapse-item" href="login.html">Atributos</a>
+                        <a class="collapse-item" href='<?php echo base_url();?>atributos'>Atributos</a>
                         <a class="collapse-item" href='<?php echo base_url();?>etiquetas'>Etiquetas</a>
-                        <a class="collapse-item" href="forgot-password.html">Objetos</a>
+                        <a class="collapse-item" href='<?php echo base_url();?>objetos'>Objetos</a>
                     </div>
                 </div>
             </li>
