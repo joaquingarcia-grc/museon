@@ -7,18 +7,25 @@ use App\Models\MuseosModel;
 
 class Atributos extends BaseController{   
     
+    protected $sesion;
+
     protected $atributos;
     protected $museos;
 
-    public function __construct() {
+    public function __construct(){
 
+        $this->sesion = session();
         $this->atributos = new AtributosModel();
         $this->museos = new MuseosModel();
 
     }
 
-    public function index()
-    {
+    public function index(){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+
         $atributos = $this->atributos->findAll();
         $museos = $this->museos->first();
 
@@ -34,6 +41,10 @@ class Atributos extends BaseController{
 
     public function borrar($id){
         
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        
         $this->atributos->delete($id);
         $museos = $this->museos->first();
 
@@ -47,6 +58,9 @@ class Atributos extends BaseController{
 
     public function nuevo(){
 
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $museos = $this->museos->first();
 
         $datos = [ 'museos'=>$museos,
@@ -59,16 +73,33 @@ class Atributos extends BaseController{
     }
 
     public function insertar(){
+
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         
-        $this->atributos->save([
-            'denominacion' => $this->request->getPost('denominacion'),
-            'tipo_dato' => $this->request->getPost('tipo_dato'),
-        ]);
-        // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
-        return redirect()->to(base_url() . 'atributos');
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+        $tipoDato = strtolower(trim($this->request->getPost('tipo_dato')));
+
+        $datoAtributo = $this->atributos->where('denominacion', $denominacion)->first();
+
+        if (!$datoAtributo) {
+            $this->atributos->save([
+                'denominacion' => $denominacion,
+                'tipo_dato'    => $tipoDato,
+            ]);
+
+            return redirect()->to(base_url() . 'atributos');
+        } else {
+            echo "el dato ya existe";
+        }
     }
 
     public function editar($id){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         // 1. Trae el cliente de la BD
         $atributos = $this->atributos->where('id', $id)->first();
 
@@ -85,17 +116,33 @@ class Atributos extends BaseController{
     }
 
     public function actualizar($id){
-
-        $this->atributos->update($id,[
-            'denominacion' => $this->request->getPost('denominacion'),
-            'tipo_dato' => $this->request->getPost('tipo_dato'),
-        ]);
-        // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
-        return redirect()->to(base_url() . 'atributos');
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+        $tipoDato     = strtolower(trim($this->request->getPost('tipo_dato')));
+    
+        // Busca si existe OTRO registro (id distinto) con la misma denominación
+        $datoAtributo = $this->atributos->where('denominacion', $denominacion)->where('id !=', $id)->first();
+    
+        if ($datoAtributo === null) {
+            $this->atributos->update($id, [
+                'denominacion' => $denominacion,
+                'tipo_dato'    => $tipoDato,
+            ]);
+    
+            return redirect()->to(base_url() . 'atributos');
+        } else {
+            echo "el dato ya existe";
+        }
     }
 
     public function papelera(){
 
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $atributos = $this->atributos->onlyDeleted()->findAll();
         
         $museos = $this->museos->first();
@@ -110,7 +157,9 @@ class Atributos extends BaseController{
     }
 
     public function recuperacion($id){
-
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $this->atributos->update($id,['fecha_baja' => null]);
         return redirect()->to(base_url() . 'atributos');
     }

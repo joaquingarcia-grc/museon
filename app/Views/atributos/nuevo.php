@@ -25,7 +25,13 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="tipo_dato">Tipo de dato</label>
-                                <input class="form-control" type="text" placeholder="" id="tipo_dato" name="tipo_dato" aria-label="default input example">
+                                <select class="form-control" id="tipo_dato" name="tipo_dato">
+                                    <option value="" selected disabled>Seleccione una opción</option>
+                                    <option value="numerico">Numérico</option>
+                                    <option value="texto">Texto</option>
+                                    <option value="archivo">Archivo</option>
+                                    <option value="fecha">Fecha</option>
+                                </select>
                             </div>
                         </div>
                         <div class="d-flex gap-2">

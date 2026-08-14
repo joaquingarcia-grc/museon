@@ -6,6 +6,7 @@ use App\Models\MuseosModel;
 use App\Models\UsuariosModel;
 
 class Login extends BaseController{
+    
     protected $museos;
 
     protected $usuarios;
@@ -15,7 +16,6 @@ class Login extends BaseController{
         $this->museos = new MuseosModel();
         
         $this->usuarios = new UsuariosModel();
-
 
     }
 
@@ -28,30 +28,6 @@ class Login extends BaseController{
 
         echo view('logueo/header',$datos);
         echo view('logueo/registro');
-        echo  view('logueo/footer');
-    }
-    public function nuevo(){
-
-        $museos = $this->museos->first();
-
-        $datos = [ 'museos'=>$museos,
-                'titulo' => 'Formulario de Usuarios'];
-
-        echo view('logueo/header',$datos);
-        echo view('logueo/nuevo');
-        echo  view('logueo/footer');
-
-    }
-
-    public function contrasenia(){
-        
-        $museos = $this->museos->first();
-
-        $datos = [ 'museos'=>$museos,
-                'titulo' => 'Recupere su contraseña'];
-
-        echo view('logueo/header',$datos);
-        echo view('logueo/contrasenia');
         echo  view('logueo/footer');
     }
 
@@ -89,4 +65,3 @@ class Login extends BaseController{
     }
 
 }
-?>

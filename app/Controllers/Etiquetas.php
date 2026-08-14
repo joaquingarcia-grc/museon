@@ -5,20 +5,27 @@ namespace App\Controllers;
 use App\Models\EtiquetasModel;
 use App\Models\MuseosModel;
 
-class Etiquetas extends BaseController{   
+class Etiquetas extends BaseController{ 
     
+    protected $sesion;
+
     protected $etiquetas;
     protected $museos;
 
     public function __construct() {
-
+        
+        $this->sesion = session();
         $this->etiquetas = new EtiquetasModel();
         $this->museos = new MuseosModel();
 
     }
 
-    public function index()
-    {
+    public function index(){
+
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        
         $etiquetas = $this->etiquetas->findAll();
         $museos = $this->museos->first();
 
@@ -34,6 +41,10 @@ class Etiquetas extends BaseController{
 
     public function borrar($id){
         
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }    
+
         $this->etiquetas->delete($id);
         $museos = $this->museos->first();
 
@@ -47,6 +58,10 @@ class Etiquetas extends BaseController{
 
     public function nuevo(){
 
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        
         $museos = $this->museos->first();
 
         $datos = [ 'museos'=>$museos,
@@ -60,14 +75,29 @@ class Etiquetas extends BaseController{
 
     public function insertar(){
         
-        $this->etiquetas->save([
-            'denominacion' => $this->request->getPost('denominacion'),
-        ]);
-        // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
-        return redirect()->to(base_url() . 'etiquetas');
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+
+        $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->first();
+
+        if ($datoEtiqueta === null) {
+            $this->etiquetas->save([
+                'denominacion' => $denominacion,
+            ]);
+
+            return redirect()->to(base_url() . 'etiquetas');
+        } else {
+            echo "el dato ya existe";
+        }
     }
 
     public function editar($id){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }    
         // 1. Trae el cliente de la BD
         $etiquetas = $this->etiquetas->where('id', $id)->first();
 
@@ -84,16 +114,32 @@ class Etiquetas extends BaseController{
     }
 
     public function actualizar($id){
-
-        $this->etiquetas->update($id,[
-            'denominacion' => $this->request->getPost('denominacion')
-        ]);
-        // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
-        return redirect()->to(base_url() . 'etiquetas');
+                
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+    
+        // Busca si existe OTRO registro (id distinto) con la misma denominación
+        $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->where('id !=', $id)->first();
+    
+        if ($datoEtiqueta === null) {
+            $this->etiquetas->update($id, [
+                'denominacion' => $denominacion,
+            ]);
+    
+            return redirect()->to(base_url() . 'etiquetas');
+        } else {
+            echo "el dato ya existe";
+        }
     }
 
     public function papelera(){
 
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $etiquetas = $this->etiquetas->onlyDeleted()->findAll();
         
         $museos = $this->museos->first();
@@ -108,7 +154,11 @@ class Etiquetas extends BaseController{
     }
 
     public function recuperacion($id){
-
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        
         $this->etiquetas->update($id,['fecha_baja' => null]);
         return redirect()->to(base_url() . 'etiquetas');
     }

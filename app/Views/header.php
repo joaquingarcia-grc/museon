@@ -81,7 +81,7 @@
                         <h6 class="collapse-header">Componentes de usuario</h6>
                         
                         <a class="collapse-item" href="<?php echo base_url();?>usuarios">Usuarios</a>
-                        <a class="collapse-item" href="<?php echo base_url();?>usuarios/nuevo">Nuevo usuario</a>
+        
                         
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                         <h6 class="collapse-header text-dark">Componentes de Pieza</h6>
                         <a class="collapse-item" href='<?php echo base_url();?>atributos'>Atributos</a>
                         <a class="collapse-item" href='<?php echo base_url();?>etiquetas'>Etiquetas</a>
-                        <a class="collapse-item" href='<?php echo base_url();?>objetos'>Objetos</a>
+                        <a class="collapse-item" href='<?php echo base_url();?>objetos'>Piezas</a>
                     </div>
                 </div>
             </li>

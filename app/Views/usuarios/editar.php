@@ -32,6 +32,7 @@
                                 value="<?php echo($usuarios['email']); ?>"
                                 name="email" placeholder="name@example.com">
                             </div>
+                        </div>         
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="telefono">Telefono</label>

@@ -5,21 +5,26 @@ namespace App\Controllers;
 use App\Models\UsuariosModel;
 use App\Models\MuseosModel;
 
-class Usuarios extends BaseController
-{   
+class Usuarios extends BaseController{
+    
+    protected $sesion;
     protected $usuarios;
-
     protected $museos;
 
     public function __construct() {
 
+        $this->sesion = session();
         $this->usuarios = new UsuariosModel();
         $this->museos = new MuseosModel();
 
     }
 
-    public function index()
-    {
+    public function index(){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+
         $usuarios = $this->usuarios->findAll();
         $museos = $this->museos->first();
 
@@ -35,6 +40,10 @@ class Usuarios extends BaseController
 
     public function borrar($id){
         
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+
         $this->usuarios->delete($id);
         $museos = $this->museos->first();
 
@@ -48,6 +57,10 @@ class Usuarios extends BaseController
 
     public function nuevo(){
 
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+
         $museos = $this->museos->first();
 
         $datos = [ 'museos'=>$museos,
@@ -60,20 +73,37 @@ class Usuarios extends BaseController
     }
 
     public function insertar(){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
 
-        $hash = password_hash($this->request->getPost('password'),PASSWORD_DEFAULT);
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
 
-        $this->usuarios->save([
-            'denominacion' => $this->request->getPost('denominacion'),
-            'email'  => $this->request->getPost('email'),
-            'telefono'  => $this->request->getPost('telefono'),
-            'password' => $hash
-        ]);
-        // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
-        return redirect()->to(base_url() . 'usuarios');
+        $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->first();
+        
+        if ($datoUsuario === null){
+        
+            $hash = password_hash($this->request->getPost('password'),PASSWORD_DEFAULT);
+            $this->usuarios->save([
+                'denominacion' => $this->request->getPost('denominacion'),
+                'email'  => $this->request->getPost('email'),
+                'telefono'  => $this->request->getPost('telefono'),
+                'password' => $hash
+            ]);
+            // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
+            return redirect()->to(base_url() . 'usuarios');
+            
+            }else{
+                echo "el usuario ya existe";
+            }
     }
 
     public function editar($id){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         // 1. Trae el cliente de la BD
         $usuarios = $this->usuarios->where('id', $id)->first();
 
@@ -90,6 +120,10 @@ class Usuarios extends BaseController
     }
 
     public function actualizar($id){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
 
         $this->usuarios->update($id,[
             'denominacion' => $this->request->getPost('denominacion'),
@@ -101,6 +135,10 @@ class Usuarios extends BaseController
     }
 
     public function papelera(){
+
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
 
         $usuarios = $this->usuarios->onlyDeleted()->findAll();
         
@@ -116,7 +154,11 @@ class Usuarios extends BaseController
     }
 
     public function recuperacion($id){
-
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        
         $this->usuarios->update($id,['fecha_baja' => null]);
         return redirect()->to(base_url() . 'usuarios');
     }

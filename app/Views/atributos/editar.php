@@ -26,13 +26,15 @@
                                 value="<?php echo($atributos['denominacion']); ?>"
                                 aria-label="default input example">
                             </div>
-                            
                             <div class="col-md-6">
                                 <label for="tipo_dato">Tipo de dato</label>
-                                <input class="form-control" type="text" placeholder="" 
-                                id="tipo_dato" name="tipo_dato" 
-                                value="<?php echo($atributos['tipo_dato']); ?>"
-                                aria-label="default input example">
+                                <select class="form-control" id="tipo_dato" name="tipo_dato">
+                                    <option value="" disabled>Seleccione una opción</option>
+                                    <option value="numerico" <?php echo ($atributos['tipo_dato'] == 'numerico') ? 'selected' : ''; ?>>Numérico</option>
+                                    <option value="texto" <?php echo ($atributos['tipo_dato'] == 'texto') ? 'selected' : ''; ?>>Texto</option>
+                                    <option value="archivo" <?php echo ($atributos['tipo_dato'] == 'archivo') ? 'selected' : ''; ?>>Archivo</option>
+                                    <option value="fecha" <?php echo ($atributos['tipo_dato'] == 'fecha') ? 'selected' : ''; ?>>Fecha</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row mb-3">
