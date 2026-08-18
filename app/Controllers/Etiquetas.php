@@ -80,6 +80,11 @@ class Etiquetas extends BaseController{
         }
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
 
+        if ($denominacion === '') {
+            echo "faltan datos obligatorios";
+            return;
+        }
+
         $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->first();
 
         if ($datoEtiqueta === null) {
@@ -120,6 +125,11 @@ class Etiquetas extends BaseController{
         }
         
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+
+        if ($denominacion === '') {
+            echo "faltan datos obligatorios";
+            return;
+        }
     
         // Busca si existe OTRO registro (id distinto) con la misma denominación
         $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->where('id !=', $id)->first();

@@ -80,6 +80,12 @@ class Atributos extends BaseController{
         
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipoDato = strtolower(trim($this->request->getPost('tipo_dato')));
+        
+        
+        if ($denominacion === '' || $tipoDato === '') {
+            echo "faltan datos obligatorios";
+            return;
+        }
 
         $datoAtributo = $this->atributos->where('denominacion', $denominacion)->first();
 
@@ -122,7 +128,11 @@ class Atributos extends BaseController{
         }
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipoDato     = strtolower(trim($this->request->getPost('tipo_dato')));
-    
+
+        if ($denominacion === '' || $tipoDato === '') {
+            echo "faltan datos obligatorios";
+            return;
+        }
         // Busca si existe OTRO registro (id distinto) con la misma denominación
         $datoAtributo = $this->atributos->where('denominacion', $denominacion)->where('id !=', $id)->first();
     
