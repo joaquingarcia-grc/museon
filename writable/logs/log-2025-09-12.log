@@ -1,0 +1,62 @@
+CRITICAL - 2025-09-12 22:40:48 --> ArgumentCountError: Too few arguments to function CodeIgniter\Router\RouteCollection::get(), 1 passed in /opt/lampp/htdocs/ci/app/Config/Routes.php on line 11 and at least 2 expected
+[Method: GET, Route: Clientes]
+in SYSTEMPATH/Router/RouteCollection.php on line 1050.
+ 1 APPPATH/Config/Routes.php(11): CodeIgniter\Router\RouteCollection->get('Clientes::clientes')
+ 2 SYSTEMPATH/Router/RouteCollection.php(339): require('/opt/lampp/htdocs/ci/app/Config/Routes.php')
+ 3 SYSTEMPATH/CodeIgniter.php(821): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 4 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-12 22:41:33 --> ArgumentCountError: Too few arguments to function CodeIgniter\Router\RouteCollection::get(), 1 passed in /opt/lampp/htdocs/ci/app/Config/Routes.php on line 11 and at least 2 expected
+[Method: GET, Route: Clientes]
+in SYSTEMPATH/Router/RouteCollection.php on line 1050.
+ 1 APPPATH/Config/Routes.php(11): CodeIgniter\Router\RouteCollection->get('Clientes::clientes')
+ 2 SYSTEMPATH/Router/RouteCollection.php(339): require('/opt/lampp/htdocs/ci/app/Config/Routes.php')
+ 3 SYSTEMPATH/CodeIgniter.php(821): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 4 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-12 22:41:58 --> ArgumentCountError: Too few arguments to function CodeIgniter\Router\RouteCollection::get(), 1 passed in /opt/lampp/htdocs/ci/app/Config/Routes.php on line 11 and at least 2 expected
+[Method: GET, Route: Clientes]
+in SYSTEMPATH/Router/RouteCollection.php on line 1050.
+ 1 APPPATH/Config/Routes.php(11): CodeIgniter\Router\RouteCollection->get('Clientes::clientes')
+ 2 SYSTEMPATH/Router/RouteCollection.php(339): require('/opt/lampp/htdocs/ci/app/Config/Routes.php')
+ 3 SYSTEMPATH/CodeIgniter.php(821): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 4 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-12 22:43:43 --> ArgumentCountError: Too few arguments to function CodeIgniter\Router\RouteCollection::get(), 1 passed in /opt/lampp/htdocs/ci/app/Config/Routes.php on line 11 and at least 2 expected
+[Method: GET, Route: Clientes]
+in SYSTEMPATH/Router/RouteCollection.php on line 1050.
+ 1 APPPATH/Config/Routes.php(11): CodeIgniter\Router\RouteCollection->get('Clientes::clientes')
+ 2 SYSTEMPATH/Router/RouteCollection.php(339): require('/opt/lampp/htdocs/ci/app/Config/Routes.php')
+ 3 SYSTEMPATH/CodeIgniter.php(821): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 4 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-12 22:48:13 --> TypeError: App\Controllers\Clientes::index(): Return value must be of type string, none returned
+[Method: GET, Route: clientes]
+in APPPATH/Controllers/Clientes.php on line 12.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-12 22:54:37 --> ParseError: syntax error, unexpected end of file
+[Method: GET, Route: listado]
+in APPPATH/Config/Routes.php on line 12.
+ 1 SYSTEMPATH/CodeIgniter.php(821): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 2 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

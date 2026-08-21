@@ -1,0 +1,152 @@
+CRITICAL - 2026-05-19 00:02:32 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 40.
+ 1 APPPATH/Views/clientes/clientes.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 40)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 00:02:56 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 40.
+ 1 APPPATH/Views/clientes/clientes.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 40)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 00:05:23 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 40.
+ 1 APPPATH/Views/clientes/clientes.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 40)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 00:05:35 --> ErrorException: Undefined array key "id_clientes"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 40.
+ 1 APPPATH/Views/clientes/clientes.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id_clientes"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 40)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 00:06:45 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 40.
+ 1 APPPATH/Views/clientes/clientes.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 40)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 00:19:02 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 40.
+ 1 APPPATH/Views/clientes/clientes.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 40)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 00:39:56 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 40.
+ 1 APPPATH/Views/clientes/clientes.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 40)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 00:41:52 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: clientes]
+in APPPATH/Views/clientes/clientes.php on line 40.
+ 1 APPPATH/Views/clientes/clientes.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php', 40)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci/app/Views/clientes/clientes.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/clientes', [], true)
+ 5 APPPATH/Controllers/Clientes.php(31): view('clientes/clientes')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 02:21:08 --> ErrorException: Undefined variable $id
+[Method: GET, Route: clientes/nuevo]
+in APPPATH/Controllers/Clientes.php on line 49.
+ 1 APPPATH/Controllers/Clientes.php(49): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $id', '/opt/lampp/htdocs/ci/app/Controllers/Clientes.php', 49)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->nuevo()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 02:21:21 --> ErrorException: Undefined variable $id
+[Method: GET, Route: clientes/nuevo]
+in APPPATH/Controllers/Clientes.php on line 49.
+ 1 APPPATH/Controllers/Clientes.php(49): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $id', '/opt/lampp/htdocs/ci/app/Controllers/Clientes.php', 49)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->nuevo()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 02:22:49 --> ErrorException: Undefined variable $id
+[Method: GET, Route: clientes/nuevo]
+in APPPATH/Controllers/Clientes.php on line 49.
+ 1 APPPATH/Controllers/Clientes.php(49): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $id', '/opt/lampp/htdocs/ci/app/Controllers/Clientes.php', 49)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->nuevo()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-19 02:23:03 --> ErrorException: Undefined variable $id
+[Method: GET, Route: clientes/nuevo]
+in APPPATH/Controllers/Clientes.php on line 49.
+ 1 APPPATH/Controllers/Clientes.php(49): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $id', '/opt/lampp/htdocs/ci/app/Controllers/Clientes.php', 49)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->nuevo()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

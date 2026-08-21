@@ -1,0 +1,86 @@
+CRITICAL - 2025-10-31 22:17:07 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\Clientes:clientes/AltasClientes"
+[Method: GET, Route: formulario]
+in SYSTEMPATH/Router/Router.php on line 496.
+ 1 SYSTEMPATH/Router/Router.php(496): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\Clientes:clientes/AltasClientes')
+ 2 SYSTEMPATH/Router/Router.php(213): CodeIgniter\Router\Router->checkRoutes('formulario')
+ 3 SYSTEMPATH/CodeIgniter.php(832): CodeIgniter\Router\Router->handle('formulario')
+ 4 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 22:35:47 --> mysqli_sql_exception: Unknown column 'fecha_alta' in 'field list' in /opt/lampp/htdocs/ci/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /opt/lampp/htdocs/ci/system/Database/MySQLi/Connection.php(327): mysqli->query('INSERT INTO `cl...', 0)
+#1 /opt/lampp/htdocs/ci/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `cl...')
+#2 /opt/lampp/htdocs/ci/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `cl...')
+#3 /opt/lampp/htdocs/ci/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `cl...', Array, false)
+#4 /opt/lampp/htdocs/ci/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /opt/lampp/htdocs/ci/system/BaseModel.php(843): CodeIgniter\Model->doInsert(Array)
+#6 /opt/lampp/htdocs/ci/system/Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#7 /opt/lampp/htdocs/ci/system/BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#8 /opt/lampp/htdocs/ci/app/Controllers/Clientes.php(43): CodeIgniter\BaseModel->save(Array)
+#9 /opt/lampp/htdocs/ci/system/CodeIgniter.php(933): App\Controllers\Clientes->guardar()
+#10 /opt/lampp/htdocs/ci/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+#11 /opt/lampp/htdocs/ci/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 /opt/lampp/htdocs/ci/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 /opt/lampp/htdocs/ci/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 /opt/lampp/htdocs/ci/public/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-10-31 22:35:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'fecha_alta' in 'field list'
+[Method: POST, Route: clientes/guardar]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `clientes` (`denominacion`, `email`, `domicilio`, `fecha_alta`, `fecha_edicion`) VALUES (:denominacion:, :email:, :domicilio:, :fecha_alta:, :fecha_edicion:)', [...], false)
+ 2 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH/BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH/Controllers/Clientes.php(43): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->guardar()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 22:35:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'fecha_alta' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `clientes` (`denominacion`, `email`, `domicilio`, `fecha_alta`, `fecha_edicion`) VALUES (\'juan\', \'joaquinalejandrogarcia500@gmail.com\', \'dorrego 32\', \'2025-10-31 22:35:47\', \'2025-10-31 22:35:47\')')
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `clientes` (`denominacion`, `email`, `domicilio`, `fecha_alta`, `fecha_edicion`) VALUES (\'juan\', \'joaquinalejandrogarcia500@gmail.com\', \'dorrego 32\', \'2025-10-31 22:35:47\', \'2025-10-31 22:35:47\')')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `clientes` (`denominacion`, `email`, `domicilio`, `fecha_alta`, `fecha_edicion`) VALUES (:denominacion:, :email:, :domicilio:, :fecha_alta:, :fecha_edicion:)', [...], false)
+ 4 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 7 SYSTEMPATH/BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 8 APPPATH/Controllers/Clientes.php(43): CodeIgniter\BaseModel->save([...])
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->guardar()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 22:35:47 --> [Caused by] mysqli_sql_exception: Unknown column 'fecha_alta' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query('INSERT INTO `clientes` (`denominacion`, `email`, `domicilio`, `fecha_alta`, `fecha_edicion`) VALUES (\'juan\', \'joaquinalejandrogarcia500@gmail.com\', \'dorrego 32\', \'2025-10-31 22:35:47\', \'2025-10-31 22:35:47\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `clientes` (`denominacion`, `email`, `domicilio`, `fecha_alta`, `fecha_edicion`) VALUES (\'juan\', \'joaquinalejandrogarcia500@gmail.com\', \'dorrego 32\', \'2025-10-31 22:35:47\', \'2025-10-31 22:35:47\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `clientes` (`denominacion`, `email`, `domicilio`, `fecha_alta`, `fecha_edicion`) VALUES (\'juan\', \'joaquinalejandrogarcia500@gmail.com\', \'dorrego 32\', \'2025-10-31 22:35:47\', \'2025-10-31 22:35:47\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `clientes` (`denominacion`, `email`, `domicilio`, `fecha_alta`, `fecha_edicion`) VALUES (:denominacion:, :email:, :domicilio:, :fecha_alta:, :fecha_edicion:)', [...], false)
+ 5 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH/BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH/Controllers/Clientes.php(43): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->guardar()
+11 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+12 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 22:37:47 --> Error: Undefined constant "App\Controllers\base_url"
+[Method: POST, Route: clientes/guardar]
+in APPPATH/Controllers/Clientes.php on line 50.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Clientes->guardar()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clientes))
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

@@ -1,0 +1,120 @@
+/* --- Fondo general de la página --- */
+body {
+    background-color: #eef2f5 !important;
+}
+
+#content {
+    background-color: #eef2f5 !important;
+}
+
+/* --- Mejoras para los botones comunes del sistema --- */
+.btn {
+    border-radius: 8px !important;
+    padding: 6px 14px !important;
+    font-weight: 500;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
+}
+
+/* Efecto hover (al pasar el mouse) en botones generales */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+}
+
+/* --- Estilo específico para el botón "Nuevo atributo" (Verde) --- */
+.btn-outline-success {
+    background-color: #28a745 !important;
+    color: white !important;
+    border-color: #28a745 !important;
+}
+
+/* --- Espaciado general --- */
+.container-fluid {
+    padding: 20px;
+}
+
+/* --- Tabla con líneas divisorias claras y separadas --- */
+#tablaclientes {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    background-color: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+#tablaclientes th, 
+#tablaclientes td {
+    border: 1px solid #dee2e6 !important; /* Líneas divisorias en cada celda */
+    padding: 12px 15px !important;
+    vertical-align: middle !important;
+}
+
+#tablaclientes thead th {
+    background-color: #eaecf4 !important; /* Gris elegante para el encabezado */
+    color: #4e73df !important;
+    font-weight: bold;
+    border-bottom: 2px solid #b7bcc8 !important;
+}
+
+/* Franjas alternadas suaves para facilitar la lectura */
+#tablaclientes tbody tr:nth-child(even) {
+    background-color: #f8f9fc !important;
+}
+
+#tablaclientes tbody tr:hover {
+    background-color: #eaecf4 !important; /* Resalta la fila al pasar el mouse */
+}
+
+
+/* --- Botones de DataTables y Botón de Papelera (Excel, PDF, Copiar, CSV, Papelera) --- */
+.dt-buttons {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.dt-buttons .dt-button, 
+div.dt-button-container .dt-button {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    background: #ffffff !important;
+    color: #3a3b45 !important;
+    border: 1px solid #d1d3e2 !important;
+    padding: 8px 14px !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+}
+
+/* Efecto al pasar el mouse por encima de los botones */
+.dt-buttons .dt-button:hover {
+    background: #4e73df !important;
+    color: #ffffff !important;
+    border-color: #4e73df !important;
+    transform: translateY(-2px);
+}
+
+.dt-buttons .dt-button i {
+    font-size: 14px;
+}
+
+
+/* --- Adaptación a celulares (Responsivo) --- */
+@media (max-width: 768px) {
+    td.text-end, 
+    td.text-center {
+        display: flex;
+        gap: 5px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+}

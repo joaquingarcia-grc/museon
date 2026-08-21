@@ -1,0 +1,131 @@
+/* --- 1. Contenedor principal adaptable y fluido --- */
+.container-fluid {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 85vh; /* Se adapta dinámicamente al tamaño de la pantalla sin bloquear el scroll */
+}
+
+/* --- 2. Estructura flexible de DataTables para mantener los controles abajo --- */
+.dataTables_wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between; /* Empuja el contenido principal arriba y la paginación/botones abajo */
+}
+
+/* Fila inferior (Excel, PDF, Paginación) al fondo del bloque */
+.dataTables_wrapper .row:last-child {
+    margin-top: 25px !important; 
+    padding-top: 15px !important;
+    border-top: 1px solid #e3e6f0;
+    align-items: center !important;
+}
+
+/* --- 3. Tabla clara con líneas divisorias --- */
+#tablaclientes {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    background-color: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+#tablaclientes th, 
+#tablaclientes td {
+    border: 1px solid #dee2e6 !important; /* Líneas divisorias en cada celda */
+    padding: 12px 15px !important;
+    vertical-align: middle !important;
+}
+
+#tablaclientes thead th {
+    background-color: #eaecf4 !important; /* Gris elegante para el encabezado */
+    color: #4e73df !important;
+    font-weight: bold;
+    border-bottom: 2px solid #b7bcc8 !important;
+}
+
+/* Franjas alternadas para facilitar la lectura */
+#tablaclientes tbody tr:nth-child(even) {
+    background-color: #f8f9fc !important;
+}
+
+#tablaclientes tbody tr:hover {
+    background-color: #eaecf4 !important;
+}
+
+/* --- 4. Botones y Estilos Visuales --- */
+.btn {
+    border-radius: 8px !important;
+    padding: 6px 14px !important;
+    font-weight: 500;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+}
+
+.btn-outline-success {
+    background-color: #28a745 !important;
+    color: white !important;
+    border-color: #28a745 !important;
+}
+
+/* Botones de DataTables (Excel, PDF, etc.) */
+.dt-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.dt-buttons .dt-button, 
+div.dt-button-container .dt-button {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    background: #ffffff !important;
+    color: #3a3b45 !important;
+    border: 1px solid #d1d3e2 !important;
+    padding: 8px 14px !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+    transition: all 0.2s ease !important;
+}
+
+.dt-buttons .dt-button:hover {
+    background: #4e73df !important;
+    color: #ffffff !important;
+    border-color: #4e73df !important;
+    transform: translateY(-2px);
+}
+
+/* Íconos de FontAwesome para DataTables */
+.buttons-excel::before { content: "\f1c3"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.buttons-pdf::before { content: "\f1c1"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.buttons-copy::before { content: "\f0c5"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.buttons-csv::before { content: "\f6dd"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+
+/* --- 5. Responsividad fluida para Celulares y Zoom --- */
+@media (max-width: 768px) {
+    .container-fluid {
+        min-height: auto; /* En celulares se adapta al contenido para evitar espacios raros */
+    }
+    
+    td.text-end, 
+    td.text-center {
+        display: flex;
+        gap: 5px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+}

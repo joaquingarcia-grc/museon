@@ -1,0 +1,117 @@
+/* ==========================================================
+   LOGIN - Museo
+   Paleta: madera / beige, con fondo de imagen + gradiente
+   ========================================================== */
+
+.login-page {
+  /* Poné acá la ruta de tu imagen de fondo */
+  background-image:
+    linear-gradient(160deg, rgba(59, 39, 26, 0.75), rgba(139, 101, 62, 0.55)),
+    url("/ci.03/public/imagenes/fondos/fondo1.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.login-page h1 {
+  color: #f3e9d8;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.login-page form {
+  background: linear-gradient(145deg, #e9dcc3, #d8c4a0);
+  border: 1px solid #8b653e;
+  border-radius: 8px;
+  padding: 30px 28px;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+}
+
+.login-page form:first-of-type {
+  margin-bottom: 16px;
+}
+
+.login-page input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 1px solid #b89b73;
+  border-radius: 4px;
+  background: #fbf6ec;
+  color: #3b271a;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-page input::placeholder {
+  color: #8b7355;
+}
+
+.login-page input:focus {
+  outline: none;
+  border-color: #8b653e;
+  box-shadow: 0 0 0 3px rgba(139, 101, 62, 0.25);
+}
+
+.login-page .btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 4px;
+  background: linear-gradient(135deg, #8b653e, #6b4a2b);
+  color: #f3e9d8;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.login-page .btn:hover {
+  background: linear-gradient(135deg, #6b4a2b, #543a22);
+}
+
+.login-page .btn:active {
+  transform: translateY(1px);
+}
+
+.login-page .login-form {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+  padding: 0;
+}
+
+.login-page .message {
+  color: #f3e9d8;
+  font-size: 0.9rem;
+  margin: 6px 0;
+}
+
+.login-page .login-form a {
+  color: #f3e9d8;
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.login-page .login-form a:hover {
+  color: #d8c4a0;
+}
