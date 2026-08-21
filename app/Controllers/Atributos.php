@@ -82,7 +82,7 @@ class Atributos extends BaseController{
         $tipoDato = strtolower(trim($this->request->getPost('tipo_dato')));
         
         
-        if ($denominacion === '' || $tipoDato === '') {
+        if (!$denominacion  || !$tipoDato) {
             echo "faltan datos obligatorios";
             return;
         }
@@ -129,7 +129,7 @@ class Atributos extends BaseController{
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipoDato     = strtolower(trim($this->request->getPost('tipo_dato')));
 
-        if ($denominacion === '' || $tipoDato === '') {
+        if (!$denominacion  || !$tipoDato ) {
             echo "faltan datos obligatorios";
             return;
         }
@@ -153,6 +153,7 @@ class Atributos extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        
         $atributos = $this->atributos->onlyDeleted()->findAll();
         
         $museos = $this->museos->first();
@@ -167,8 +168,18 @@ class Atributos extends BaseController{
     }
 
     public function recuperacion($id){
+        
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+
+        $atributo = $this->atributos->withDeleted()->find($id);
+        
+        $atributoActivo = $this->atributos->where('denominacion', $atributo['denominacion'])->first();
+        
+        if ($atributoActivo) {
+            echo "ya existe un atributo activo con esa denominacion";
+            return;
         }
         $this->atributos->update($id,['fecha_baja' => null]);
         return redirect()->to(base_url() . 'atributos');

@@ -79,16 +79,23 @@ class Usuarios extends BaseController{
         }
 
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+        $email = trim($this->request->getPost('email'));
+        $telefono = trim($this->request->getPost('telefono'));
+
+        if (!$denominacion || !$email){
+            echo "faltan datos obligatorios";
+            return;
+        }
 
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->first();
         
-        if ($datoUsuario === null){
+        if (!$datoUsuario){
         
             $hash = password_hash($this->request->getPost('password'),PASSWORD_DEFAULT);
             $this->usuarios->save([
-                'denominacion' => $this->request->getPost('denominacion'),
-                'email'  => $this->request->getPost('email'),
-                'telefono'  => $this->request->getPost('telefono'),
+                'denominacion' => $denominacion,
+                'email'  => $email,
+                'telefono'  => $telefono,
                 'password' => $hash
             ]);
             // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
@@ -157,6 +164,15 @@ class Usuarios extends BaseController{
         
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+
+        $usuarios = $this->usuarios->withDeleted()->find($id);
+        
+        $usuarioActivo = $this->usuarios->where('denominacion', $usuarios['denominacion'])->first();
+        
+        if ($usuarioActivo) {
+            echo "ya existe un usuario activo con esa denominacion";
+            return;
         }
         
         $this->usuarios->update($id,['fecha_baja' => null]);

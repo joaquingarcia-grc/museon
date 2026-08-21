@@ -33,7 +33,7 @@ class Login extends BaseController{
 
     public function validacion(){
         
-        $denominacion = $this->request->getPost('denominacion');
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $password = $this->request->getPost('password');
         
         $datosUsuario = $this->usuarios->where('denominacion',$denominacion)->first();

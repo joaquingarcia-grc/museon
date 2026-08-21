@@ -80,14 +80,14 @@ class Etiquetas extends BaseController{
         }
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
 
-        if ($denominacion === '') {
+        if (!$denominacion) {
             echo "faltan datos obligatorios";
             return;
         }
 
         $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->first();
 
-        if ($datoEtiqueta === null) {
+        if (!$datoEtiqueta) {
             $this->etiquetas->save([
                 'denominacion' => $denominacion,
             ]);
@@ -126,7 +126,7 @@ class Etiquetas extends BaseController{
         
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
 
-        if ($denominacion === '') {
+        if (!$denominacion) {
             echo "faltan datos obligatorios";
             return;
         }
@@ -134,7 +134,7 @@ class Etiquetas extends BaseController{
         // Busca si existe OTRO registro (id distinto) con la misma denominación
         $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->where('id !=', $id)->first();
     
-        if ($datoEtiqueta === null) {
+        if (!$datoEtiqueta) {
             $this->etiquetas->update($id, [
                 'denominacion' => $denominacion,
             ]);
@@ -169,6 +169,14 @@ class Etiquetas extends BaseController{
             return redirect()->to(base_url() . "registro/");
         }
         
+        $etiquetas = $this->etiquetas->withDeleted()->find($id);
+        
+        $etiquetaActiva = $this->etiquetas->where('denominacion', $etiquetas['denominacion'])->first();
+        
+        if ($etiquetaActiva) {
+            echo "ya existe un etiqueta activa con esa denominacion";
+            return;
+        }        
         $this->etiquetas->update($id,['fecha_baja' => null]);
         return redirect()->to(base_url() . 'etiquetas');
     }
