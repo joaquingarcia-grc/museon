@@ -81,17 +81,23 @@ class Usuarios extends BaseController{
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $email = trim($this->request->getPost('email'));
         $telefono = trim($this->request->getPost('telefono'));
+        $password = trim($this->request->getPost('password'));
+
+        if(strlen($password) < 8 || !strpbrk($password, '#!*@$%&?¿')){
+            echo "La contraseña debe de tener minimanete 8 caracteres junto a un carcter especial, ejemplos: #!*@$%&?¿";
+            return;
+        }
 
         if (!$denominacion || !$email){
             echo "faltan datos obligatorios";
             return;
         }
 
-        $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->first();
+        $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->withDeleted()->first();
         
         if (!$datoUsuario){
         
-            $hash = password_hash($this->request->getPost('password'),PASSWORD_DEFAULT);
+            $hash = password_hash($password ,PASSWORD_DEFAULT);
             $this->usuarios->save([
                 'denominacion' => $denominacion,
                 'email'  => $email,
@@ -101,9 +107,13 @@ class Usuarios extends BaseController{
             // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
             return redirect()->to(base_url() . 'usuarios');
             
+        }else{
+            if(!$datoUsuario['fecha_baja']){
+                echo "El dato existe.";                
             }else{
-                echo "el usuario ya existe";
+                echo "El dato existe en la papelera, si desea recuperarlo.";
             }
+        }
     }
 
     public function editar($id){
@@ -131,14 +141,32 @@ class Usuarios extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+        $email = trim($this->request->getPost('email'));
+        $telefono = trim($this->request->getPost('telefono'));
+        $password = trim($this->request->getPost('password'));
 
-        $this->usuarios->update($id,[
-            'denominacion' => $this->request->getPost('denominacion'),
-            'email'  => $this->request->getPost('email'),
-            'telefono'  => $this->request->getPost('telefono')
-        ]);
-        // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
-        return redirect()->to(base_url() . 'usuarios');
+        if (!$denominacion || !$email){
+            echo "faltan datos obligatorios";
+            return;
+        }
+            
+        $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->first();
+
+        if (!$datoUsuario){
+            $this->usuarios->update($id,[
+                'denominacion' => $denominacion,
+                'email'  => $email,
+                'telefono'  => $telefono,
+                'password' => $password
+            ]);
+            // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
+            return redirect()->to(base_url() . 'usuarios');
+        }else{
+            echo "el dato ya existe";
+        }
+
     }
 
     public function papelera(){

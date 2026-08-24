@@ -41,6 +41,12 @@
                                 value="<?php echo($usuarios['telefono']); ?>"
                                 aria-label="default input example">
                             </div>
+                            <div class="col-md-6">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                        </div>
+                        <div>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-outline-success" type="submit">Actualizar</button>
                                 <a href="<?php echo base_url();?>usuarios/" class="btn btn-outline-danger">Cancelar</a>

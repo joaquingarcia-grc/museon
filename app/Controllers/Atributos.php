@@ -87,7 +87,7 @@ class Atributos extends BaseController{
             return;
         }
 
-        $datoAtributo = $this->atributos->where('denominacion', $denominacion)->first();
+        $datoAtributo = $this->atributos->where('denominacion', $denominacion)->withDeleted()->first();
 
         if (!$datoAtributo) {
             $this->atributos->save([
@@ -96,8 +96,12 @@ class Atributos extends BaseController{
             ]);
 
             return redirect()->to(base_url() . 'atributos');
-        } else {
-            echo "el dato ya existe";
+        } else{
+            if(!$datoAtributo['fecha_baja']){
+                echo "El dato existe.";                
+            }else{
+                echo "El dato existe en la papelera, si desea recuperarlo.";
+            }
         }
     }
 
@@ -136,14 +140,14 @@ class Atributos extends BaseController{
         // Busca si existe OTRO registro (id distinto) con la misma denominación
         $datoAtributo = $this->atributos->where('denominacion', $denominacion)->where('id !=', $id)->first();
     
-        if ($datoAtributo === null) {
+        if (!$datoAtributo) {
             $this->atributos->update($id, [
                 'denominacion' => $denominacion,
                 'tipo_dato'    => $tipoDato,
             ]);
     
             return redirect()->to(base_url() . 'atributos');
-        } else {
+        } else{
             echo "el dato ya existe";
         }
     }

@@ -85,16 +85,20 @@ class Etiquetas extends BaseController{
             return;
         }
 
-        $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->first();
+        $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->withDeleted()->first();
 
-        if (!$datoEtiqueta) {
+        if (!$datoEtiqueta){
             $this->etiquetas->save([
                 'denominacion' => $denominacion,
             ]);
 
             return redirect()->to(base_url() . 'etiquetas');
-        } else {
-            echo "el dato ya existe";
+        }else{
+            if(!$datoEtiqueta['fecha_baja']){
+                echo "El dato existe.";                
+            }else{
+                echo "El dato existe en la papelera, si desea recuperarlo.";
+            }
         }
     }
 
