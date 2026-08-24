@@ -94,9 +94,8 @@ class Atributos extends BaseController{
                 'denominacion' => $denominacion,
                 'tipo_dato'    => $tipoDato,
             ]);
-
             return redirect()->to(base_url() . 'atributos');
-        } else{
+        }else{
             if(!$datoAtributo['fecha_baja']){
                 echo "El dato existe.";                
             }else{
