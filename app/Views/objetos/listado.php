@@ -16,6 +16,7 @@
             <thead>
                 <tr>
                     <th>id</th>
+                    <th class='text-center'>Código</th>
                     <th class='text-center'>Denominacion</th>
                     <th class='text-center'>Descripcion</th>
                     <th class='text-center'>Fecha alta</th>
@@ -24,34 +25,35 @@
             </thead>
             <tbody>
                 <?php foreach ($objetos as $objeto){ ?>
-                            <tr>
-                                <td>
-                                    <?php echo $objeto["id"];?> 
-                                </td>
-                                <td class='text-center'>
-                                    <?php echo $objeto["denominacion"];?> 
-                                </td> 
-                                <td class='text-center'>
-                                    <?php echo $objeto["descripcion"];?> 
-                                </td> 
-                                <td class='tex-center'>
-                                    <?php echo $objeto["fecha_alta"]?>
-                                </td>
-                                <td class='text-end'>    
-                                    <a class='btn btn-primary' 
-                                        href="<?php echo base_url()?>objetos/editar/<?php echo $objeto["id"];?>">
-                                        <i class='bi bi-pencil-square'></i>
-                                    </a>   
-                                    <a class='btn btn-danger' 
-                                                    href="<?php echo base_url(); ?>objetos/borrar/<?php echo $objeto["id"];?>">
-                                        <i class='bi bi-trash2-fill'></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-info">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                </td>                            
-                            </tr>
-                    <?php }?>
+                    <tr>
+                        <td>
+                            <?php echo $objeto["id"];?> 
+                        </td>
+                        <td class='text-center'>
+                            <?php echo $objeto["codigo"];?> 
+                        </td> 
+                        <td class='text-center'>
+                            <?php echo $objeto["denominacion"];?> 
+                        </td>
+                        <td class='text-center'>
+                            <?php echo $objeto["descripcion"];?> 
+                        </td> 
+                        <td class='text-center'>
+                            <?php echo $objeto["fecha_alta"];?>
+                        </td>
+                        <td class='text-end'>    
+                            <a class='btn btn-primary' href="<?php echo base_url();?>objetos/editar/<?php echo $objeto["id"];?>">
+                                <i class='bi bi-pencil-square'></i>
+                            </a>   
+                            <a class='btn btn-danger' href="<?php echo base_url(); ?>objetos/borrar/<?php echo $objeto["id"];?>">
+                                <i class='bi bi-trash2-fill'></i>
+                            </a>
+                            <a href="<?php echo base_url(); ?>objetos/ver/<?php echo $objeto["id"]; ?>" class="btn btn-outline-info">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>                            
+                    </tr>
+                <?php }?>
             </tbody>
         </table>
     </div>
