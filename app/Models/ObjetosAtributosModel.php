@@ -40,5 +40,15 @@
                     ->where('objeto_atributos.objeto_id', $objeto_id)
                     ->findAll();
     }
+    
+     // Vincula un objeto con un atributo y su valor
+    public function vincularAtributo($objeto_id, $atributo_id, $valor)
+    {
+        return $this->insert([
+            'objeto_id'   => $objeto_id,
+            'atributo_id' => $atributo_id,
+            'valor'       => $valor,
+        ]);
+    }
   }
  ?>

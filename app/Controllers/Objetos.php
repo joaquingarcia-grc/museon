@@ -5,18 +5,21 @@ namespace App\Controllers;
 use App\Models\ObjetosModel;
 use App\Models\MuseosModel;
 use App\Models\ObjetosAtributosModel;
+use App\Models\ObjetosEtiquetasModel;
 
 class Objetos extends BaseController {   
 
     protected $objetos;
     protected $museos;
     protected $objetosatributos;
+    protected $objetosetiquetas;
 
     public function __construct() {
         
         $this->objetos = new ObjetosModel();
         $this->museos = new MuseosModel();
         $this->objetosatributos = new ObjetosAtributosModel();
+        $this->objetosetiquetas = new ObjetosEtiquetasModel();
     }
 
     public function index() {
@@ -83,8 +86,7 @@ class Objetos extends BaseController {
             $etiqueta_ids = $this->request->getPost('etiqueta_ids');
             if (!empty($etiqueta_ids) && is_array($etiqueta_ids)) {
                 foreach ($etiqueta_ids as $id_etiqueta) {
-                    $this->objetos->vincularEtiqueta($objeto_id, $id_etiqueta);
-                }
+                        $this->objetosetiquetas->vincularEtiqueta($objeto_id, $id_etiqueta);                }
             }
 
             // --- ATRIBUTOS DINÁMICOS
@@ -95,7 +97,7 @@ class Objetos extends BaseController {
                 foreach ($atributo_ids as $id_atributo) {
                     if (isset($atributo_valores[$id_atributo])) {
                         $valor = $atributo_valores[$id_atributo];
-                        $this->objetos->vincularAtributo($objeto_id, $id_atributo, $valor);
+                       $this->objetosatributos->vincularAtributo($objeto_id, $id_atributo, $valor);
                     }
                 }
             }
@@ -155,11 +157,12 @@ class Objetos extends BaseController {
         $museos = $this->museos->first();
 
         $objetosatributos = $this->objetosatributos->obtenerAtributosPorObjeto($id);
+        $objetosetiquetas = $this->objetosetiquetas->obtenerEtiquetasPorObjeto($id);
 
         $datos = [ 
             'museos'    => $museos,
             'objeto'    => $objeto,
-    
+            'etiquetas' => $objetosetiquetas,
             'atributos' => $objetosatributos,
             'titulo'    => 'Detalle del Objeto'
         ];
@@ -169,54 +172,5 @@ class Objetos extends BaseController {
         echo view('footer');
         
     }
-    // Guarda la relación entre un objeto y una etiqueta.
-
-    public function vincularEtiqueta($objeto_id, $etiqueta_id)
-    {
-        $data = [
-            // Asigna el ID del objeto a la columna correspondiente
-            'objeto_id'   => $objeto_id,
-            // Asigna el ID de la etiqueta a la columna correspondiente
-            'etiqueta_id' => $etiqueta_id,
-            'fecha_alta'  => date('Y-m-d H:i:s')
-        ];
-        // Accede a la tabla 'objeto_etiqueta' e inserta los datos asignados
-        $this->db->table('objeto_etiquetas')->insert($data);
-    }
-
-    // Guarda la relación entre un objeto, un atributo y su valor escrito.
     
-  public function vincularAtributo($objeto_id, $atributo_id, $valor)
-    {
-        $data = [
-            // ID del objeto al que pertenece el atributo
-            'objeto_id'   => $objeto_id,
-            // ID del atributo que se le asigna
-            'atributo_id' => $atributo_id,
-            // Valor explicito del atributo asignado al objeto
-            'valor'       => $valor,
-            'fecha_alta'  => date('Y-m-d H:i:s')
-        ];
-        // Accede a la tabla ' objeto_atributo' e inserta el registro
-        $this->db->table('objeto_atributos')->insert($data);
-    }
-
-    // Trae todas las etiquetas asociadas a un objeto
-    public function obtenerEtiquetasPorObjeto($id_objeto)
-    {
-        // Hace la consulta a la tabla 'objeto_etiqueta'
-        return $this->db->table('objeto_etiquetas')
-            // Selecciona unicamente la columna denominacion de la tabla etiquetas
-            ->select('etiquetas.denominacion')
-            // Une la tabla 'etiquetas' comparando sus IDs para traer los nombres reales
-            ->join('etiquetas', 'etiquetas.id = objeto_etiquetas.etiqueta_id')
-            // Filtra para traer solo las etiquetas del objeto pasado por parametro
-            ->where('objeto_etiquetas.objeto_id', $id_objeto)
-            // Ejecuta la consulta SQL 
-            ->get()->getResultArray();
-    }
-
-    // Trae todos los atributos y sus valores asociados a un objeto
-    
-   
 }
