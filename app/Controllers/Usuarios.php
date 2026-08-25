@@ -83,7 +83,7 @@ class Usuarios extends BaseController{
         $telefono = trim($this->request->getPost('telefono'));
         $password = trim($this->request->getPost('password'));
 
-        if(strlen($password) < 8 || !strpbrk($password, '#!*@$%&?¿')){
+        if(!$password || strlen($password) < 8 || !strpbrk($password, '#!*@$%&?¿')){
             echo "La contraseña debe de tener minimanete 8 caracteres junto a un carcter especial, ejemplos: #!*@$%&?¿";
             return;
         }
