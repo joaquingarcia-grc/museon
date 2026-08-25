@@ -32,5 +32,13 @@
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    public function obtenerAtributosPorObjeto($objeto_id)
+    {
+        return $this->select('atributos.denominacion, objeto_atributos.valor')
+                    ->join('atributos', 'atributos.id = objeto_atributos.atributo_id')
+                    ->where('objeto_atributos.objeto_id', $objeto_id)
+                    ->findAll();
+    }
   }
  ?>

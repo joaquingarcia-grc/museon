@@ -7,12 +7,13 @@ use App\Models\MuseosModel;
 use App\Models\ObjetosAtributosModel;
 
 class Objetos extends BaseController {   
-    
+
     protected $objetos;
     protected $museos;
     protected $objetosatributos;
 
     public function __construct() {
+        
         $this->objetos = new ObjetosModel();
         $this->museos = new MuseosModel();
         $this->objetosatributos = new ObjetosAtributosModel();
@@ -153,15 +154,8 @@ class Objetos extends BaseController {
         $objeto = $this->objetos->where('id', $id)->first();
         $museos = $this->museos->first();
 
-        // 2. Traemos las etiquetas y atributos usando los métodos nuevos del modelo
-        // $etiquetas = $this->objetos->obtenerEtiquetasPorObjeto($id);
-           // 2. Traemos los atributos del objeto (con join a la tabla 'atributos' para traer la denominación)
-        $objetosatributos = $this->db->table('objeto_atributos')
-            ->select('atributos.denominacion, objeto_atributos.valor')
-            ->join('atributos', 'atributos.id = objeto_atributos.atributo_id')
-            ->where('objeto_atributos.objeto_id', $id)
-            ->get()->getResultArray();
-        
+        $objetosatributos = $this->objetosatributos->obtenerAtributosPorObjeto($id);
+
         $datos = [ 
             'museos'    => $museos,
             'objeto'    => $objeto,
