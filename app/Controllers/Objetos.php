@@ -8,21 +8,27 @@ use App\Models\ObjetosAtributosModel;
 use App\Models\ObjetosEtiquetasModel;
 
 class Objetos extends BaseController {   
-
+    
+    protected $sesion;
     protected $objetos;
     protected $museos;
     protected $objetosatributos;
     protected $objetosetiquetas;
 
     public function __construct() {
-        
+    
+        $this->sesion = session();        
         $this->objetos = new ObjetosModel();
         $this->museos = new MuseosModel();
         $this->objetosatributos = new ObjetosAtributosModel();
         $this->objetosetiquetas = new ObjetosEtiquetasModel();
     }
 
-    public function index() {
+    public function index(){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $objetos = $this->objetos->findAll();
         $museos = $this->museos->first();
 
@@ -37,7 +43,11 @@ class Objetos extends BaseController {
         echo view('footer');
     }
 
-    public function borrar($id) {
+    public function borrar($id){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $this->objetos->delete($id);
         $museos = $this->museos->first();
 
@@ -51,7 +61,12 @@ class Objetos extends BaseController {
         echo view('footer');
     } 
 
-    public function nuevo() {
+    public function nuevo(){
+
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+
         $museos = $this->museos->first();
 
         $etiquetasModel = new \App\Models\EtiquetasModel();
@@ -69,15 +84,46 @@ class Objetos extends BaseController {
         echo view('footer');
     }
 
-    public function insertar() {
-        // 1. Guardamos el objeto principal
-        $dataObjeto = [
-            'codigo'       => $this->request->getPost('codigo'),
-            'denominacion' => $this->request->getPost('denominacion'),
-            'descripcion'  => $this->request->getPost('descripcion'),
-        ];
+    public function insertar(){
+
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+
+        $codigo = trim($this->request->getPost('codigo'));
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+        $descripcion = trim($this->request->getPost('descripcion'));
         
-        $objeto_id = $this->objetos->insert($dataObjeto, true);
+        if (!$denominacion || !$codigo){
+            echo "faltan datos obligatorios";
+            return;
+        }
+
+        $datoObjeto = $this->objetos->where('denominacion', $denominacion)->withDeleted()->first();
+
+        // 1. Guardamos el objeto principal
+
+        if (!$datoObjeto) {
+            $this->objetos->save([
+                'denominacion' => $denominacion,
+                'codigo'    => $codigo,
+                'descripcion'    => $descripcion
+            ]);
+        }else{
+            if(!$datoObjeto['fecha_baja']){
+                echo "El dato existe.";                
+            }else{
+                echo "El dato existe en la papelera, si desea recuperarlo.";
+            }
+        }
+        
+        
+        // Insertamos y obtenemos el id generado
+        $objeto_id = $this->objetos->insert([
+            'denominacion' => $denominacion,
+            'codigo'       => $codigo,
+            'descripcion'  => $descripcion
+        ], true);
 
         // 2. Si se guardó correctamente, procesamos etiquetas y atributos dinámicos
         if ($objeto_id) {
@@ -92,7 +138,7 @@ class Objetos extends BaseController {
             // --- ATRIBUTOS DINÁMICOS
             $atributo_ids     = $this->request->getPost('atributo_ids');
             $atributo_valores = $this->request->getPost('atributo_valores');
-
+            
             if (!empty($atributo_ids) && is_array($atributo_ids)) {
                 foreach ($atributo_ids as $id_atributo) {
                     if (isset($atributo_valores[$id_atributo])) {
@@ -102,11 +148,14 @@ class Objetos extends BaseController {
                 }
             }
         }
-
         return redirect()->to(base_url('objetos'));
     }
 
-    public function editar($id) {
+    public function editar($id){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $objetos = $this->objetos->where('id', $id)->first();
         $museos = $this->museos->first();
 
@@ -121,7 +170,11 @@ class Objetos extends BaseController {
         echo view('footer');
     }
 
-    public function actualizar($id) {
+    public function actualizar($id){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $this->objetos->update($id, [
             'codigo'       => $this->request->getPost('codigo'),
             'denominacion' => $this->request->getPost('denominacion'),
@@ -131,7 +184,11 @@ class Objetos extends BaseController {
         return redirect()->to(base_url('objetos'));
     }
 
-    public function papelera() {
+    public function papelera(){
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $objetos = $this->objetos->onlyDeleted()->findAll();
         $museos = $this->museos->first();
 
@@ -147,11 +204,20 @@ class Objetos extends BaseController {
     }
 
     public function recuperacion($id) {
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+
         $this->objetos->update($id, ['fecha_baja' => null]);
         return redirect()->to(base_url('objetos'));
     }
 
     public function ver($id) {
+        
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         // 1. Traemos los datos principales del objeto
         $objeto = $this->objetos->where('id', $id)->first();
         $museos = $this->museos->first();
