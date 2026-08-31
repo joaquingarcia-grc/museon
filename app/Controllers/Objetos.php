@@ -110,10 +110,17 @@ class Objetos extends BaseController {
         $objetos = $this->objetos->where('id', $id)->first();
         $museos = $this->museos->first();
 
+        $etiquetasModel = new \App\Models\EtiquetasModel();
+        $atributosModel = new \App\Models\AtributosModel();
+
         $datos = [ 
-            'museos'  => $museos,
-            'objetos' => $objetos,
-            'titulo'  => 'Editar objeto'
+            'museos'                 => $museos,
+            'objetos'                => $objetos,
+            'etiquetas'              => $etiquetasModel->findAll(),
+            'atributos'              => $atributosModel->findAll(),
+            'etiquetasSeleccionadas' => $this->objetosetiquetas->obtenerEtiquetasPorObjeto($id),
+            'atributosSeleccionados' => $this->objetosatributos->obtenerAtributosPorObjeto($id),
+            'titulo'                 => 'Editar objeto'
         ];
         
         echo view('header', $datos);
@@ -122,12 +129,39 @@ class Objetos extends BaseController {
     }
 
     public function actualizar($id) {
+        // 1. Actualizamos los datos principales del objeto
         $this->objetos->update($id, [
             'codigo'       => $this->request->getPost('codigo'),
             'denominacion' => $this->request->getPost('denominacion'),
             'descripcion'  => $this->request->getPost('descripcion'),
         ]);
-        
+
+        // 2. Damos de baja las asociaciones anteriores para volver a armarlas
+        //    con lo que llegó del formulario (misma lógica que insertar())
+        $this->objetosetiquetas->where('objeto_id', $id)->delete();
+        $this->objetosatributos->where('objeto_id', $id)->delete();
+
+        // --- ETIQUETAS DINÁMICAS (Múltiples seleccionadas) ---
+        $etiqueta_ids = $this->request->getPost('etiqueta_ids');
+        if (!empty($etiqueta_ids) && is_array($etiqueta_ids)) {
+            foreach ($etiqueta_ids as $id_etiqueta) {
+                $this->objetosetiquetas->vincularEtiqueta($id, $id_etiqueta);
+            }
+        }
+
+        // --- ATRIBUTOS DINÁMICOS ---
+        $atributo_ids     = $this->request->getPost('atributo_ids');
+        $atributo_valores = $this->request->getPost('atributo_valores');
+
+        if (!empty($atributo_ids) && is_array($atributo_ids)) {
+            foreach ($atributo_ids as $id_atributo) {
+                if (isset($atributo_valores[$id_atributo])) {
+                    $valor = $atributo_valores[$id_atributo];
+                    $this->objetosatributos->vincularAtributo($id, $id_atributo, $valor);
+                }
+            }
+        }
+
         return redirect()->to(base_url('objetos'));
     }
 

@@ -1,6 +1,6 @@
 <div class="container mt-4 mb-5">
     
-    <!-- Botón para volver (fuera del área de impresión) -->
+    <!-- Botón para volver  -->
     <div class="mb-3 d-print-none" style="max-width: 850px; margin: 0 auto;">
        
        <div class="col text-right">
@@ -20,6 +20,11 @@
         <table class="table table-bordered border-dark" style="font-size: 14px;">
             <tbody>
                 <!-- Datos fijos del Objeto -->
+                 <tr>
+                    <td colspan="2" class="bg-danger text-white text-center fw-bold">
+                        Datos Esenciales
+                    </td>
+                </tr>
                 <tr>
                     <td class="bg-light fw-bold" style="width: 35%;">Número de inventario (ID)</td>
                     <td><?php echo $objeto['id']; ?></td>
@@ -62,6 +67,11 @@
                         <td class="text-muted fst-italic">Sin atributos registrados</td>
                     </tr>
                 <?php endif; ?>
+                <tr>
+                    <td colspan="2" class="bg-danger text-white text-center fw-bold">
+                        Detalle de Etiquetas 
+                    </td>
+                </tr>
 
                 <!-- Etiquetas -->
                 <tr>
@@ -84,7 +94,7 @@
 
     </div>
 </div>
-<div class="text-center">
+<div class="text-center d-print-none">
      <button onclick="window.print()" class=" btn btn-primary btn-sm">
             Imprimir Ficha
         </button>
