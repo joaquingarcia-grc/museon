@@ -4,8 +4,7 @@
   //manera de la  cual vamos a llamar estos modelos 
   use CodeIgniter\Model;
   //esto es para indicar que vamos a usar los modelos de codeigniter
-  class ObjetosModel extends Model
-  {
+  class ObjetosModel extends Model{
     //vamos a llamar a la tabla usando la bariable $table
     protected $table      = 'objetos';
     //id seria el atributo primero de nuestra tabla
@@ -17,7 +16,7 @@
     //esto depende si queremos hacer un hard delet(false) o un soft delet(true)
     protected $useSoftDeletes = true;
     //aca defino las columnas que quiero que sean visibles
-    protected $allowedFields = ['denominacion','descripcion','fecha_baja','fecha_alta'];
+    protected $allowedFields = ['codigo','denominacion','descripcion','fecha_baja','fecha_alta'];
 
     protected $dateFormat = 'datetime';
 
@@ -32,5 +31,8 @@
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
-  }
- ?>
+
+    
+}
+
+?>

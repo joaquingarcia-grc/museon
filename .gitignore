@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 writable/session/*
 writable/logs/*
 writable/debugbar/*
@@ -8,3 +9,7 @@ writable/uploads/*
 !writable/debugbar/index.html
 !writable/cache/index.html
 !writable/uploads/index.html
+=======
+writable/debugbar/*
+writable/logs/*
+>>>>>>> 8d3b7371a0767997d9d436feb6a998b09c5e145e

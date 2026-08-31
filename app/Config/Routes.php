@@ -45,3 +45,4 @@ $routes->post('/objetos/actualizar/(:num)', 'Objetos::actualizar/$1');
 $routes->get('/objetos/editar/(:num)', 'Objetos::editar/$1');
 $routes->get('/objetos/papelera/', 'Objetos::papelera/');
 $routes->get('/objetos/recuperacion/(:num)','Objetos::recuperacion/$1');
+$routes->get('objetos/ver/(:num)', 'Objetos::ver/$1');
