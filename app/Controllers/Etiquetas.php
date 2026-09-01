@@ -136,7 +136,7 @@ class Etiquetas extends BaseController{
         }
     
         // Busca si existe OTRO registro (id distinto) con la misma denominación
-        $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->where('id !=', $id)->first();
+        $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
     
         if (!$datoEtiqueta) {
             $this->etiquetas->update($id, [
@@ -144,8 +144,12 @@ class Etiquetas extends BaseController{
             ]);
     
             return redirect()->to(base_url() . 'etiquetas');
-        } else {
-            echo "el dato ya existe";
+        } else{
+            if(!$datoEtiqueta['fecha_baja']){
+                echo "el dato ya existe";
+            }else{
+                echo "El dato existe en la papelera, si desea recuperarlo.";
+            }
         }
     }
 

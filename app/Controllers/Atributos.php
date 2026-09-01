@@ -137,7 +137,7 @@ class Atributos extends BaseController{
             return;
         }
         // Busca si existe OTRO registro (id distinto) con la misma denominación
-        $datoAtributo = $this->atributos->where('denominacion', $denominacion)->where('id !=', $id)->first();
+        $datoAtributo = $this->atributos->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
     
         if (!$datoAtributo) {
             $this->atributos->update($id, [
@@ -147,7 +147,11 @@ class Atributos extends BaseController{
     
             return redirect()->to(base_url() . 'atributos');
         } else{
-            echo "el dato ya existe";
+            if(!$datoAtributo['fecha_baja']){
+                echo "El dato existe.";                
+            }else{
+                echo "El dato existe en la papelera, si desea recuperarlo.";}
+                
         }
     }
 
@@ -180,7 +184,7 @@ class Atributos extends BaseController{
         
         $atributoActivo = $this->atributos->where('denominacion', $atributo['denominacion'])->first();
         
-        if ($atributoActivo) {
+        if ($atributoActivo){
             echo "ya existe un atributo activo con esa denominacion";
             return;
         }

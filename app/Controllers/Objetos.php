@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\ObjetosModel;
 use App\Models\MuseosModel;
+use App\Models\AtributosModel;
+use App\Models\EtiquetasModel;
 use App\Models\ObjetosAtributosModel;
 use App\Models\ObjetosEtiquetasModel;
 
@@ -12,6 +14,8 @@ class Objetos extends BaseController {
     protected $sesion;
     protected $objetos;
     protected $museos;
+    protected $etiquetas;
+    protected $atributos;
     protected $objetosatributos;
     protected $objetosetiquetas;
 
@@ -20,6 +24,8 @@ class Objetos extends BaseController {
         $this->sesion = session();        
         $this->objetos = new ObjetosModel();
         $this->museos = new MuseosModel();
+        $this->etiquetas = new EtiquetasModel();
+        $this->atributos = new AtributosModel();
         $this->objetosatributos = new ObjetosAtributosModel();
         $this->objetosetiquetas = new ObjetosEtiquetasModel();
     }
@@ -68,14 +74,14 @@ class Objetos extends BaseController {
         }
 
         $museos = $this->museos->first();
-
-        $etiquetasModel = new \App\Models\EtiquetasModel();
-        $atributosModel = new \App\Models\AtributosModel();
+        
+        $etiquetas = $this->etiquetas->findAll();
+        $atributos = $this->atributos->findAll();
 
         $datos = [ 
             'museos'    => $museos,
-            'etiquetas' => $etiquetasModel->findAll(), 
-            'atributos' => $atributosModel->findAll(), 
+            'etiquetas' => $etiquetas, 
+            'atributos' => $atributos, 
             'titulo'    => 'Formulario de objetos'
         ];
 
@@ -103,7 +109,7 @@ class Objetos extends BaseController {
 
         // 1. Guardamos el objeto principal
 
-        if (!$datoObjeto) {
+        if (!$datoObjeto){
             $this->objetos->save([
                 'denominacion' => $denominacion,
                 'codigo'    => $codigo,
@@ -156,13 +162,20 @@ class Objetos extends BaseController {
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        
         $objetos = $this->objetos->where('id', $id)->first();
         $museos = $this->museos->first();
+        $etiquetas = $this->etiquetas->findAll();
+        $atributos = $this->atributos->findAll();
 
         $datos = [ 
-            'museos'  => $museos,
-            'objetos' => $objetos,
-            'titulo'  => 'Editar objeto'
+            'museos'                 => $museos,
+            'objetos'                => $objetos,
+            'etiquetas'              => $etiquetas,
+            'atributos'              => $atributos,
+            'etiquetasSeleccionadas' => $this->objetosetiquetas->obtenerEtiquetasPorObjeto($id),
+            'atributosSeleccionados' => $this->objetosatributos->obtenerAtributosPorObjeto($id),
+            'titulo'                 => 'Editar objeto'
         ];
         
         echo view('header', $datos);
@@ -175,12 +188,59 @@ class Objetos extends BaseController {
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
-        $this->objetos->update($id, [
-            'codigo'       => $this->request->getPost('codigo'),
-            'denominacion' => $this->request->getPost('denominacion'),
-            'descripcion'  => $this->request->getPost('descripcion'),
-        ]);
-        
+
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+        $codigo = trim($this->request->getPost('codigo'));
+        $descripcion = trim($this->request->getPost('descripcion'));
+
+        if(!$denominacion || !$codigo){
+            
+            echo "faltan datos obligatorios";
+            return;
+        }
+
+        $datoObjeto = $this->objetos->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
+
+        if (!$datoObjeto){
+            $this->objetos->update($id,[
+                'codigo' => $codigo,    
+                'denominacion' => $denominacion,
+                'descripcion' => $descripcion     
+            ]);
+        }else {
+            if(!$datoObjeto['fecha_baja']){
+                echo "El dato existe";
+            }else{
+                echo "El dato existe en la papelera, si desea recuperarlo.";
+            }
+        }
+
+        // 2. Damos de baja las asociaciones anteriores para volver a armarlas
+        //    con lo que llegó del formulario (misma lógica que insertar())
+        $this->objetosetiquetas->where('objeto_id', $id)->delete();
+        $this->objetosatributos->where('objeto_id', $id)->delete();
+
+        // --- ETIQUETAS DINÁMICAS (Múltiples seleccionadas) ---
+        $etiqueta_ids = $this->request->getPost('etiqueta_ids');
+        if (!empty($etiqueta_ids) && is_array($etiqueta_ids)) {
+            foreach ($etiqueta_ids as $id_etiqueta) {
+                $this->objetosetiquetas->vincularEtiqueta($id, $id_etiqueta);
+            }
+        }
+
+        // --- ATRIBUTOS DINÁMICOS ---
+        $atributo_ids     = $this->request->getPost('atributo_ids');
+        $atributo_valores = $this->request->getPost('atributo_valores');
+
+        if (!empty($atributo_ids) && is_array($atributo_ids)) {
+            foreach ($atributo_ids as $id_atributo) {
+                if (isset($atributo_valores[$id_atributo])) {
+                    $valor = $atributo_valores[$id_atributo];
+                    $this->objetosatributos->vincularAtributo($id, $id_atributo, $valor);
+                }
+            }
+        }
+
         return redirect()->to(base_url('objetos'));
     }
 
@@ -207,6 +267,15 @@ class Objetos extends BaseController {
         
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+
+        $objeto = $this->objetos->withDeleted()->find($id);
+        
+        $objetoActivo = $this->objetos->where('denominacion', $objeto['denominacion'])->first();
+
+        if($objetoActivo){
+            echo "ya existe un atributo activo con esa denominacion";
+            return;
         }
 
         $this->objetos->update($id, ['fecha_baja' => null]);

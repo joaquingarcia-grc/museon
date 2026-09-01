@@ -152,7 +152,7 @@ class Usuarios extends BaseController{
             return;
         }
             
-        $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->first();
+        $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
 
         if (!$datoUsuario){
             $this->usuarios->update($id,[
@@ -164,7 +164,11 @@ class Usuarios extends BaseController{
             // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
             return redirect()->to(base_url() . 'usuarios');
         }else{
-            echo "el dato ya existe";
+            if(!$datoUsuario['fecha_baja']){
+                echo "El dato existe."; 
+            }else{
+                echo "El dato existe en la papelera, si desea recuperarlo.";
+            }
         }
 
     }

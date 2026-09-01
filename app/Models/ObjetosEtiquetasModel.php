@@ -45,7 +45,7 @@
     
     public function obtenerEtiquetasPorObjeto($objeto_id)
     {
-        return $this->select('etiquetas.denominacion')
+        return $this->select('etiquetas.id, etiquetas.denominacion')
                     ->join('etiquetas', 'etiquetas.id = objeto_etiquetas.etiqueta_id')
                     ->where('objeto_etiquetas.objeto_id', $objeto_id)
                     ->findAll();
