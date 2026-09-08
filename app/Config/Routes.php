@@ -29,7 +29,7 @@ $routes->get('/etiquetas/papelera/', 'Etiquetas::papelera/');
 $routes->get('/etiquetas/recuperacion/(:num)','Etiquetas::recuperacion/$1');
 
 $routes->get('/atributos', 'Atributos::index');
-$routes->get('/atributos/borrar/(:num)','Atributos::borrar/$1');
+$routes->post('/atributos/borrar/(:num)','Atributos::borrar/$1');
 $routes->get('/atributos/nuevo','Atributos::nuevo');
 $routes->post('/atributos/insertar','Atributos::insertar');
 $routes->post('/atributos/actualizar/(:num)', 'Atributos::actualizar/$1');

@@ -46,14 +46,8 @@ class Atributos extends BaseController{
         }
         
         $this->atributos->delete($id);
-        $museos = $this->museos->first();
-
-        $datos = [ 'museos'=>$museos,
-                  'titulo' => 'Atributo borrado'];
-
-        echo view('header',$datos);
-        echo view('atributos/avisoborrado');
-        echo  view('footer');
+        $atributo = $this->atributos->withDeleted()->find($id); 
+        return $this->response->setStatusCode(200);
     } 
 
     public function nuevo(){
