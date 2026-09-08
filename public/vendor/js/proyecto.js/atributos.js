@@ -34,7 +34,7 @@ $(document).ready(function() {
         });
     });
     function mensaje(mensaje){//funcion del mensaje que aparece una vez hacemos una insercion
-      const toast = document.getElementById('toatsExito');//se podria utilizar una sola funcion para ejecutar el 
+      const toast = document.getElementById('toats');//se podria utilizar una sola funcion para ejecutar el 
       toast.innerHTML = `${mensaje}`;                     //mensaje pero todavia no se que hacer  
       toast.classList.add('show');
 
