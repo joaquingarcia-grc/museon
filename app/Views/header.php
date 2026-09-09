@@ -35,6 +35,8 @@
 
     <!-- Libreria de iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+   
+    <link  href="<?php echo base_url();?>vendor/css/atributos.css/atributos.css" rel="stylesheet" type="text/css">
 
 </head>
 

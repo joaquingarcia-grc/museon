@@ -1,0 +1,31 @@
+#toats {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: #333;
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 9999;
+}
+
+#toats.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+#toats.success {
+  background-color: #2e7d32;
+}
+#toats.error {
+  background-color: #c62828;
+}
+#toats.warning {
+  background-color: #ef6c00;
+}
