@@ -39,10 +39,14 @@
                                 </td>
 
                                 <td class='text-center'>
-                                    <a class='btn btn-warning' 
+                                    <button class='btn btn-warning btn-recuperar' 
+                                    data-id="<?php echo $atributo["id"];?>" id="btnRecuperar">
+                                    Resuperar
+                                    <i class="bi bi-recycle"></i> </button>
+                                    <!--a class='btn btn-warning' 
                                         href="<?php echo base_url(); ?>atributos/recuperacion/<?php echo $atributo["id"];?>">
                                         Resuperar<i class="bi bi-recycle"></i>
-                                    </a>  
+                                    </a-->  
                                 </td>                            
                             </tr>
                     <?php }?>

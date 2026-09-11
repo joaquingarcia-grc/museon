@@ -87,10 +87,16 @@ $(document).ready(function() {
                         window.location.href = 'http://localhost/ci.03/public/atributos';
                     },  3000);
                 }else{
-                    mensajes('Aviso: ' + response.mensaje);}
+                    mensajes('Aviso: ' + response.mensaje);
+                    setTimeout(function(){
+                        location.reload();
+                    }, 3000);
+                }
+                    
             },
             error: function(){
-                mensajes('Error en el servidor');         
+                mensajes('Error en el servidor'); 
+        
             },
             complete: function(){
                 

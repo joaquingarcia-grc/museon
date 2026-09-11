@@ -35,7 +35,7 @@ $routes->post('/atributos/insertar','Atributos::insertar');
 $routes->post('/atributos/actualizar/(:num)', 'Atributos::actualizar/$1');
 $routes->get('/atributos/editar/(:num)', 'Atributos::editar/$1');
 $routes->get('/atributos/papelera/', 'Atributos::papelera/');
-$routes->get('/atributos/recuperacion/(:num)','Atributos::recuperacion/$1');
+$routes->post('/atributos/recuperacion/(:num)','Atributos::recuperacion/$1');
 
 $routes->get('/objetos', 'Objetos::index');
 $routes->get('/objetos/borrar/(:num)','Objetos::borrar/$1');
