@@ -2,6 +2,7 @@ $(document).ready(function() {
     
     let idABorrar = null;
     let idActualizar = null;
+
     $('#formularioATB').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
         // en vez de guardar, solo mostramos el modal
@@ -13,7 +14,6 @@ $(document).ready(function() {
             denominacion: $('#denominacion').val(),
             tipo_dato: $('#tipo_dato').val(),
         }   
-
         $.ajax({
             url: 'http://localhost/ci.03/public/atributos/insertar',
             method: 'POST',

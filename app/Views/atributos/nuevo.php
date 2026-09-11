@@ -17,7 +17,7 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-body p-4">
-                    <form action="<?php echo base_url();?>atributos/insertar" method="post">
+                    <form id="formularioATB" method="post">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="denominacion">Denominacion</label>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="d-flex gap-2">
-                            <button class="btn btn-outline-success" type="button" id="btnGuardar" >Guardar</button>
+                            <button class="btn btn-outline-success" type="submit" id="btnGuardar" >Guardar</button>
                             <a href="<?php echo base_url();?>atributos/" class="btn btn-outline-danger">Cancelar</a>
                         </div>
                     </form>
@@ -58,7 +58,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="modalGuardado">Guardar</button>
+        <button type="button" class="btn btn-primary btn-modalGuardado" id="modalGuardado">Guardar</button>
       </div>
     </div>
   </div>

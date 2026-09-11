@@ -72,6 +72,8 @@ class Atributos extends BaseController{
             return redirect()->to(base_url() . "registro/");
         }
         
+        header('Content-Type: application/json');
+
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipoDato = strtolower(trim($this->request->getPost('tipo_dato')));
         
@@ -88,13 +90,16 @@ class Atributos extends BaseController{
                 'denominacion' => $denominacion,
                 'tipo_dato'    => $tipoDato,
             ]);
-            return redirect()->to(base_url() . 'atributos');
+            $id = $this->atributos->getInsertID();
+            echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
+            exit;
         }else{
             if(!$datoAtributo['fecha_baja']){
-                echo "El dato existe.";                
+                echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
-                echo "El dato existe en la papelera, si desea recuperarlo.";
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
             }
+            exit;
         }
     }
 
