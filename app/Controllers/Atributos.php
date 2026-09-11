@@ -75,20 +75,20 @@ class Atributos extends BaseController{
         header('Content-Type: application/json');
 
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
-        $tipoDato = strtolower(trim($this->request->getPost('tipo_dato')));
+        $tipo_dato = strtolower(trim($this->request->getPost('tipo_dato')));
         
         
-        if (!$denominacion  || !$tipoDato) {
-            echo "faltan datos obligatorios";
-            return;
+        if (empty($denominacion) || empty($tipo_dato)){
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            exit;
         }
 
         $datoAtributo = $this->atributos->where('denominacion', $denominacion)->withDeleted()->first();
 
-        if (!$datoAtributo) {
+        if (empty($datoAtributo)) {
             $this->atributos->save([
                 'denominacion' => $denominacion,
-                'tipo_dato'    => $tipoDato,
+                'tipo_dato'    => $tipo_dato,
             ]);
             $id = $this->atributos->getInsertID();
             echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
@@ -101,6 +101,7 @@ class Atributos extends BaseController{
             }
             exit;
         }
+        return redirect()->to(base_url() . 'atributos');
     }
 
     public function editar($id){
@@ -179,16 +180,19 @@ class Atributos extends BaseController{
             return redirect()->to(base_url() . "registro/");
         }
 
+        header('Content-Type: application/json');
+
         $atributo = $this->atributos->withDeleted()->find($id);
+        $existeActivo = $this->atributos->where('denominacion', $atributo['denominacion'])->first();
         
-        $atributoActivo = $this->atributos->where('denominacion', $atributo['denominacion'])->first();
-        
-        if ($atributoActivo){
-            echo "ya existe un atributo activo con esa denominacion";
-            return;
+        if ($existeActivo){
+            echo json_encode(['exito' => false, 'mensaje' => 'Dato activo']);
+            exit;
+        }else{
+            $this->atributos->update($id, ['fecha_baja' => null]);
+            echo json_encode(['exito' => true   , 'id' => $id, 'mensaje' => 'Se actualizo correctamente']);
+            exit;
         }
-        $this->atributos->update($id,['fecha_baja' => null]);
         return redirect()->to(base_url() . 'atributos');
     }
 }
-?>

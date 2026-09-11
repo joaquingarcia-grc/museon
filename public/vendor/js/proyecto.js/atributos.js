@@ -24,7 +24,6 @@ $(document).ready(function() {
                     $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
                     mensajes("Atributo guardado con ID: " + response.id + response.mensaje);
                     $('#formularioATB')[0].reset();
-                    
                     setTimeout(function(){
                         window.location.href = 'http://localhost/ci.03/public/atributos';
                     },  3000);
