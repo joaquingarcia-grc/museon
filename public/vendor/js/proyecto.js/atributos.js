@@ -1,55 +1,58 @@
 $(document).ready(function() {
     
-    var denominacion;
-    var tipoDato;
     let idABorrar = null;
-    //atraves del selector de id busco el btnGuardar el que se encarga de accionar la siguiente funcion
-    $('#btnGuardar').click(function(){
-        denominacion = $('#denominacion').val();//por id guardo el las variables locales denominacion el dato
-        tipoDato = $('#tipo_dato').val();       //recuperado del formulario
-        if (!denominacion || !tipoDato){//pregunto si no estan vacios
-            mensaje('Fltan comlpetar Campos')//llamo a la funcion mostrar error mas un parametro
-        }else{//si no acciona el modal de guardar
-            $('#modalGuardar').modal('show');
-        }
+    let idActualizar = null;
+    $('#formularioATB').on('submit',function(e){
+        e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
+        // en vez de guardar, solo mostramos el modal
+        $('#modalGuardar').modal('show');
     });
-    //desde el modal guardar recupero la accion del boton modalGuardado
-    $('#modalGuardado').click(function(){
-        $.ajax({//para realizar la siguiente peticion post en ajax
-            url:  "http://localhost/ci.03/public/atributos/insertar",
+    //los datos seran enviado una ves obtengamos la accion desde el boton del modal
+    $('#modalGuardado').on('click', function(){
+        const dato = {//creamos un objeto con todos nuestros datos
+            denominacion: $('#denominacion').val(),
+            tipo_dato: $('#tipo_dato').val(),
+        }   
+
+        $.ajax({
+            url: 'http://localhost/ci.03/public/atributos/insertar',
             method: 'POST',
-            data: {
-                "denominacion": denominacion,
-                "tipo_dato": tipoDato
-            },
+            data: dato,
+            dataType: 'json',
             success: function(response){
-                $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
-                mensaje('Datos Guardados exitosamente');//mostramos el mensaje de exito
+                if (response.exito){
+                    $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                    mensajes("Atributo guardado con ID: " + response.id + response.mensaje);
+                    $('#formularioATB')[0].reset();
+                    
+                    setTimeout(function(){
+                        window.location.href = 'http://localhost/ci.03/public/atributos';
+                    },  3000);
+                }else if (response.papelera){
+                    $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                    mensajes('Aviso: ' + response.mensaje);
+                    $('#formularioATB')[0].reset();
+                    
+                }else{
+                    $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                    mensajes('Error: ' + response.mensaje);
+                    $('#formularioATB')[0].reset();
+                    
+                }
             },
-            error: function(){
-            console.log("Error, Esta mal");},
+            error: function() {
+                $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                mensajes('Error en el servidor');
+            },
             complete: function(){
-                limpiarCampos();//como complemento limpiamos los campos
+                $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                $('#formularioATB')[0].reset();
             } 
         });
     });
-    function mensaje(mensaje){//funcion del mensaje que aparece una vez hacemos una insercion
-      const toast = document.getElementById('toats');//se podria utilizar una sola funcion para ejecutar el 
-      toast.innerHTML = `${mensaje}`;                     //mensaje pero todavia no se que hacer  
-      toast.classList.add('show');
-
-      setTimeout(() => {
-        toast.classList.remove('show');
-        },2000
-    );}    
-    function limpiarCampos() {
-        $('#denominacion').val('');
-        $('#tipo_dato').val('');
-    }
-
-    $('#btnBorrarAtributo').click(function(){
+    $('.btn-borrar').click(function(){
         idABorrar = $(this).data('id');
-        $('#modalBorrado').modal('show')
+        $('#modalBorrado').modal('show');
     });
     $('#botonBorradosAtributos').click(function(){
         $.ajax({
@@ -57,18 +60,50 @@ $(document).ready(function() {
             method: 'POST',
             success: function(response){
                 $('#modalBorrado').modal('hide');
-                 mensaje('Datos borrados exitosamente');
+                mensajes('Dato borrado exitosamente');
                 setTimeout(function(){
                     location.reload();
-                }, 2005);
+                }, 3000);
             },
             error: function(){
-                alert('Error al borrar');
-                
+                $('#modalBorrado').modal('hide');//ocultamos el modal de guardar
+                mensajes('Error en el servidor');         
             },
             complete: function(){
                 
             } 
         });
     });
+    $('.btn-recuperar').click(function(){
+
+        idActualizar = $(this).data('id');
+        
+        $.ajax({
+            url: 'http://localhost/ci.03/public/atributos/recuperacion/' + idActualizar,
+            method: 'POST',
+            success: function(response){
+                if (response.exito){
+                    mensajes("Atributo Recuperado: " + response.mensaje);                    
+                    setTimeout(function(){
+                        window.location.href = 'http://localhost/ci.03/public/atributos';
+                    },  3000);
+                }else{
+                    mensajes('Aviso: ' + response.mensaje);}
+            },
+            error: function(){
+                mensajes('Error en el servidor');         
+            },
+            complete: function(){
+                
+            } 
+        });
+    });
+    function mensajes(mensaje){//funcion del mensaje que aparece una vez hacemos una insercion
+        const toast = document.getElementById('toats');//se podria utilizar una sola funcion para ejecutar el 
+        toast.innerHTML = `${mensaje}`;                     //mensaje pero todavia no se que hacer  
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+          },4000
+    );}
 });
