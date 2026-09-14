@@ -89,8 +89,8 @@
                 bottomStart:{
                     buttons: ['excel', 'pdf', 'copy', 'csv', 'print'],
                 }
-            }
-
+            },
+            order : [[0, 'desc']]
         });
         });
 
