@@ -94,7 +94,7 @@ class Atributos extends BaseController{
             echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
             exit;
         }else{
-            if(!$datoAtributo['fecha_baja']){
+            if(empty($datoAtributo['fecha_baja'])){
                 echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
                 echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
@@ -129,30 +129,37 @@ class Atributos extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+
+        header('Content-Type: application/json');
+        
+
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipoDato     = strtolower(trim($this->request->getPost('tipo_dato')));
 
-        if (!$denominacion  || !$tipoDato ) {
-            echo "faltan datos obligatorios";
-            return;
+        if (empty($denominacion)  || empty($tipoDato) ) {
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            exit;
         }
         // Busca si existe OTRO registro (id distinto) con la misma denominación
         $datoAtributo = $this->atributos->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
     
-        if (!$datoAtributo) {
+        if (empty($datoAtributo)) {
             $this->atributos->update($id, [
                 'denominacion' => $denominacion,
                 'tipo_dato'    => $tipoDato,
             ]);
-    
-            return redirect()->to(base_url() . 'atributos');
-        } else{
-            if(!$datoAtributo['fecha_baja']){
-                echo "El dato existe.";                
+            
+            echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' actualizado con éxito']);
+            exit;
+        }else{
+            if(empty($datoAtributo['fecha_baja'])){
+                echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
-                echo "El dato existe en la papelera, si desea recuperarlo.";}
-                
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+            }
+            exit;
         }
+        return redirect()->to(base_url() . 'atributos');
     }
 
     public function papelera(){
