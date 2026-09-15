@@ -46,14 +46,8 @@ class Etiquetas extends BaseController{
         }    
 
         $this->etiquetas->delete($id);
-        $museos = $this->museos->first();
-
-        $datos = [ 'museos'=>$museos,
-                  'titulo' => 'Etiqueta borrada'];
-
-        echo view('header',$datos);
-        echo view('etiquetas/avisoborrado');
-        echo  view('footer');
+        $etiquetas = $this->etiquetas->withDeleted()->find($id); 
+        return $this->response->setStatusCode(200);
     } 
 
     public function nuevo(){
@@ -78,28 +72,32 @@ class Etiquetas extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        //esto nos indica que esperamos peticiones json
+        header('Content-Type: application/json');
+        
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
 
-        if (!$denominacion) {
-            echo "faltan datos obligatorios";
-            return;
+        if (empty($denominacion)) {
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            exit;
         }
 
         $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->withDeleted()->first();
 
-        if (!$datoEtiqueta){
+        if (empty($datoEtiqueta)){
             $this->etiquetas->save([
                 'denominacion' => $denominacion,
             ]);
-
-            return redirect()->to(base_url() . 'etiquetas');
+            $id = $this->etiquetas->getInsertID();
+            echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
+            exit;
         }else{
-            if(!$datoEtiqueta['fecha_baja']){
-                echo "El dato existe.";                
+            if(empty($datoEtiqueta['fecha_baja'])){
+                echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
-                echo "El dato existe en la papelera, si desea recuperarlo.";
-            }
-        }
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+            }exit;
+        }return redirect()->to(base_url() . 'etiquetas');
     }
 
     public function editar($id){
@@ -128,29 +126,29 @@ class Etiquetas extends BaseController{
             return redirect()->to(base_url() . "registro/");
         }
         
+        header('Content-Type: application/json');
+
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
 
-        if (!$denominacion) {
-            echo "faltan datos obligatorios";
-            return;
-        }
-    
+        if (empty($denominacion)) {
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            exit;}
         // Busca si existe OTRO registro (id distinto) con la misma denominación
         $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
-    
-        if (!$datoEtiqueta) {
+
+        if (empty($datoEtiqueta)) {
             $this->etiquetas->update($id, [
                 'denominacion' => $denominacion,
             ]);
-    
-            return redirect()->to(base_url() . 'etiquetas');
-        } else{
-            if(!$datoEtiqueta['fecha_baja']){
-                echo "el dato ya existe";
+            echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' actualizado con éxito']);
+            exit;
+        }else{
+            if(empty($datoEtiqueta['fecha_baja'])){
+                echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
-                echo "El dato existe en la papelera, si desea recuperarlo.";
-            }
-        }
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+            }exit;
+        }return redirect()->to(base_url() . 'etiquetas');
     }
 
     public function papelera(){
@@ -176,16 +174,20 @@ class Etiquetas extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
-        
-        $etiquetas = $this->etiquetas->withDeleted()->find($id);
-        
+        header('Content-Type: application/json');
+
+        $etiquetas = $this->etiquetas->withDeleted()->find($id); 
         $etiquetaActiva = $this->etiquetas->where('denominacion', $etiquetas['denominacion'])->first();
         
-        if ($etiquetaActiva) {
-            echo "ya existe un etiqueta activa con esa denominacion";
-            return;
-        }        
-        $this->etiquetas->update($id,['fecha_baja' => null]);
+        if ($etiquetaActiva){
+            echo json_encode(['exito' => false, 'mensaje' => 'Dato activo']);
+            exit;
+        }else{
+            $this->etiquetas->update($id, ['fecha_baja' => null]);
+            echo json_encode(['exito' => true   , 'id' => $id, 'mensaje' => 'Se actualizo correctamente']);
+            exit;
+        }
+        
         return redirect()->to(base_url() . 'etiquetas');
     }
 }

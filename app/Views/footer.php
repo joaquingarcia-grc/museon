@@ -97,5 +97,6 @@
     </script>
 
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js"></script>
 </body>
 </html>

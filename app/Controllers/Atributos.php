@@ -67,17 +67,17 @@ class Atributos extends BaseController{
     }
 
     public function insertar(){
-
+        // validacion que no deja ingresar a la funcion del controlador
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
-        
+        //esto nos indica que esperamos peticiones json
         header('Content-Type: application/json');
-
+        //convertimos los datos que resivimos por post en las variables locales para poder trabajar
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipo_dato = strtolower(trim($this->request->getPost('tipo_dato')));
         
-        
+        //revisemson de no recibir vacios
         if (empty($denominacion) || empty($tipo_dato)){
             echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
             exit;
@@ -148,7 +148,6 @@ class Atributos extends BaseController{
                 'denominacion' => $denominacion,
                 'tipo_dato'    => $tipoDato,
             ]);
-            
             echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' actualizado con éxito']);
             exit;
         }else{
@@ -191,7 +190,6 @@ class Atributos extends BaseController{
 
         $atributo = $this->atributos->withDeleted()->find($id);
         $existeActivo = $this->atributos->where('denominacion', $atributo['denominacion'])->first();
-        
         if ($existeActivo){
             echo json_encode(['exito' => false, 'mensaje' => 'Dato activo']);
             exit;
