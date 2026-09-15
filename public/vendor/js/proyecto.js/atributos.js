@@ -16,7 +16,7 @@ $(document).ready(function() {
             tipo_dato: $('#tipo_dato').val(),
         }   
         $.ajax({
-            url: 'http://localhost/ci.03/public/atributos/insertar',
+            url: BASE + 'atributos/insertar',
             method: 'POST',
             data: dato,
             dataType: 'json',
@@ -58,7 +58,7 @@ $(document).ready(function() {
     });
     $('#botonBorradosAtributos').click(function(){
         $.ajax({
-            url: 'http://localhost/ci.03/public/atributos/borrar/' + idABorrar,
+            url: BASE + 'atributos/borrar/' + idABorrar,
             method: 'POST',
             success: function(response){
                 $('#modalBorrado').modal('hide');
@@ -82,7 +82,7 @@ $(document).ready(function() {
         idARecuperar = $(this).data('id');
         
         $.ajax({
-            url: 'http://localhost/ci.03/public/atributos/recuperacion/' + idARecuperar,
+            url: BASE + 'atributos/recuperacion/' + idARecuperar,
             method: 'POST',
             success: function(response){
                 if (response.exito){
@@ -118,7 +118,7 @@ $(document).ready(function() {
             tipo_dato: $('#tipo_dato').val(),
         } 
         $.ajax({
-            url: 'http://localhost/ci.03/public/atributos/actualizar/' + idActualizar,
+            url: BASE + 'atributos/actualizar/' + idActualizar,
             method: 'POST',
             data: dato,
             dataType: 'json',

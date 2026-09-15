@@ -20,13 +20,13 @@ $routes->get('/login/sesion', 'Login::salir');
 
 
 $routes->get('/etiquetas', 'Etiquetas::index');
-$routes->get('/etiquetas/borrar/(:num)','Etiquetas::borrar/$1');
+$routes->post('/etiquetas/borrar/(:num)','Etiquetas::borrar/$1');
 $routes->get('/etiquetas/nuevo','Etiquetas::nuevo');
 $routes->post('/etiquetas/insertar','Etiquetas::insertar');
 $routes->post('/etiquetas/actualizar/(:num)', 'Etiquetas::actualizar/$1');
 $routes->get('/etiquetas/editar/(:num)', 'Etiquetas::editar/$1');
 $routes->get('/etiquetas/papelera/', 'Etiquetas::papelera/');
-$routes->get('/etiquetas/recuperacion/(:num)','Etiquetas::recuperacion/$1');
+$routes->post('/etiquetas/recuperacion/(:num)','Etiquetas::recuperacion/$1');
 
 $routes->get('/atributos', 'Atributos::index');
 $routes->post('/atributos/borrar/(:num)','Atributos::borrar/$1');

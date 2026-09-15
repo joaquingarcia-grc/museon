@@ -38,10 +38,9 @@
                                         href="<?php echo base_url()?>etiquetas/editar/<?php echo $etiqueta["id"];?>">
                                         <i class='bi bi-pencil-square'></i>
                                     </a>   
-                                    <a class='btn btn-danger' 
-                                                    href="<?php echo base_url(); ?>etiquetas/borrar/<?php echo $etiqueta["id"];?>">
+                                    <button type="button" class="btn btn-danger btn-borrar" id="btnBorrarAtributo" data-id="<?php echo $etiqueta["id"];?>">
                                         <i class='bi bi-trash2-fill'></i>
-                                    </a>
+                                    </button>
                                     <button type="button" class="btn btn-outline-info">
                                         <i class="bi bi-eye"></i>
                                     </button>
@@ -56,4 +55,25 @@
             <i class='bi bi-trash2-fill'>Papelera</i>
         </a>
     </div>
+</div>
+<div class="modal fade" id="modalBorrado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmacion de borrado</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ¿Segura desa borrar este dato?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-danger" id="botonBorradosAtributos">Borrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+  <div id='toats'>
+  </div>
 </div>

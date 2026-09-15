@@ -15,7 +15,7 @@ $(document).ready(function() {
             denominacion: $('#denominacion').val(),
         }   
         $.ajax({
-            url: 'http://localhost/ci.03/public/etiquetas/insertar',
+            url: BASE + 'etiquetas/insertar',
             method: 'POST',
             data: dato,
             dataType: 'json',
@@ -25,7 +25,7 @@ $(document).ready(function() {
                     mensajes("Etiqueta guardado con ID: " + response.id + response.mensaje);
                     $('#formularioET')[0].reset();
                     setTimeout(function(){
-                        window.location.href = 'http://localhost/ci.03/public/etiquetas';
+                        window.location.href = BASE + 'etiquetas';
                     },  3000);
                 }else if (response.papelera){
                     $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
@@ -57,7 +57,7 @@ $(document).ready(function() {
     });
     $('#botonBorradosAtributos').click(function(){
         $.ajax({
-            url: 'http://localhost/ci.03/public/atributos/borrar/' + idABorrar,
+            url: BASE + 'etiquetas/borrar/' + idABorrar,
             method: 'POST',
             success: function(response){
                 $('#modalBorrado').modal('hide');
@@ -81,13 +81,13 @@ $(document).ready(function() {
         idARecuperar = $(this).data('id');
         
         $.ajax({
-            url: 'http://localhost/ci.03/public/atributos/recuperacion/' + idARecuperar,
+            url: BASE + 'etiquetas/recuperacion/' + idARecuperar,
             method: 'POST',
             success: function(response){
                 if (response.exito){
-                    mensajes("Atributo Recuperado: " + response.mensaje);                    
+                    mensajes("Etiqueta Recuperada: " + response.mensaje);                    
                     setTimeout(function(){
-                        window.location.href = 'http://localhost/ci.03/public/atributos';
+                        window.location.href = BASE + 'etiquetas';
                     },  3000);
                 }else{
                     mensajes('Aviso: ' + response.mensaje);
@@ -117,7 +117,7 @@ $(document).ready(function() {
             tipo_dato: $('#tipo_dato').val(),
         } 
         $.ajax({
-            url: 'http://localhost/ci.03/public/atributos/actualizar/' + idActualizar,
+            url: BASE + 'atributos/actualizar/' + idActualizar,
             method: 'POST',
             data: dato,
             dataType: 'json',
@@ -125,7 +125,7 @@ $(document).ready(function() {
                 if (response.exito){
                     mensajes("Atributo: " + response.mensaje);
                     setTimeout(function(){
-                        window.location.href = 'http://localhost/ci.03/public/atributos';
+                        window.location.href = BASE + 'atributos';
                     },  3000);
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje);
