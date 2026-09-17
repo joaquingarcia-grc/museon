@@ -41,6 +41,7 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?php echo base_url();?>vendor/js/jquery.min.js"></script>
+    
     <script src="vendor/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -95,12 +96,6 @@
         });
 
     </script>
-
-    <script>
-        const BASE = "<?php echo base_url();?>"
-    </script>
-
-    <script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js"></script>
-    <script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js"></script>
+    
 </body>
 </html>

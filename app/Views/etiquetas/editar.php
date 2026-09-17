@@ -17,11 +17,11 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-body p-4">
-                    <form action="<?php echo base_url();?>etiquetas/actualizar/<?php echo $etiquetas['id'];?>" method="post">
+                    <form data-id="<?php echo $etiquetas['id'];?>" id="actualizarETQ" method="post">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="denominacion">Denominacion</label>
-                                <input class="form-control" type="text" placeholder="" 
+                                <input class="form-control form-denominacion" type="text" placeholder="" 
                                 id="denominacion" name="denominacion" 
                                 value="<?php echo($etiquetas['denominacion']); ?>"
                                 aria-label="default input example">
@@ -30,7 +30,7 @@
                         <div class="row mb-3">
 
                             <div class="d-flex gap-2">
-                                <button class="btn btn-outline-success" type="submit">Actualizar</button>
+                                <button class="btn btn-outline-success" type="submit"  >Actualizar</button>
                                 <a href="<?php echo base_url();?>etiquetas/" class="btn btn-outline-danger">Cancelar</a>
                             </div>
                         </div>
@@ -40,3 +40,15 @@
         </div>
     </div>
 </div>
+<div>
+  <div id='toats'>
+  </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="<?php echo base_url();?>vendor/js/jquery.min.js"></script>
+    
+<script>
+    const BASE = "<?php echo base_url();?>"
+</script>
+<script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js"></script>

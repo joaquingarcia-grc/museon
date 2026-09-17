@@ -30,12 +30,12 @@ $(document).ready(function() {
                     },  3000);
                 }else if (response.papelera){
                     $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
-                    mensajes('Aviso: ' + response.mensaje);
+                    mensajes('Aviso: ' + response.mensaje, 'warning');
                     $('#formularioATB')[0].reset();
                     
                 }else{
                     $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
-                    mensajes('Error: ' + response.mensaje);
+                    mensajes('Error: ' + response.mensaje, 'error');
                     $('#formularioATB')[0].reset();
                     
                 }
@@ -69,7 +69,7 @@ $(document).ready(function() {
             },
             error: function(){
                 $('#modalBorrado').modal('hide');//ocultamos el modal de guardar
-                mensajes('Error en el servidor');         
+                mensajes('Error en el servidor','error');         
             },
             complete: function(){
                 
@@ -91,7 +91,7 @@ $(document).ready(function() {
                         window.location.href = 'http://localhost/ci.03/public/atributos';
                     },  3000);
                 }else{
-                    mensajes('Aviso: ' + response.mensaje);
+                    mensajes('Aviso: ' + response.mensaje, 'warning');
                     setTimeout(function(){
                         location.reload();
                     }, 3000);
@@ -99,7 +99,7 @@ $(document).ready(function() {
                     
             },
             error: function(){
-                mensajes('Error en el servidor'); 
+                mensajes('Error en el servidor','error'); 
         
             },
             complete: function(){
@@ -129,13 +129,13 @@ $(document).ready(function() {
                         window.location.href = 'http://localhost/ci.03/public/atributos';
                     },  3000);
                 }else if (response.papelera){
-                    mensajes('Aviso: ' + response.mensaje);
+                    mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{
-                    mensajes('Error: ' + response.mensaje);
+                    mensajes('Error: ' + response.mensaje, 'error');
                 }
             },
             error: function() {
-                mensajes('Error en el servidor');
+                mensajes('Error en el servidor', 'error');
             },
             complete: function(){
 
@@ -143,12 +143,18 @@ $(document).ready(function() {
         });
     });
 
-    function mensajes(mensaje){//funcion del mensaje que aparece una vez hacemos una insercion
-        const toast = document.getElementById('toats');//se podria utilizar una sola funcion para ejecutar el 
-        toast.innerHTML = `${mensaje}`;                     //mensaje pero todavia no se que hacer  
+    function mensajes(mensaje, tipo = 'success'){
+        const toast = document.getElementById('toats');
+        toast.innerHTML = `${mensaje}`;
+
+        // limpiamos clases de tipo anteriores
+        toast.classList.remove('success', 'error', 'warning');
+
+        // agregamos la clase según el tipo
+        toast.classList.add(tipo);
+
         toast.classList.add('show');
         setTimeout(() => {
           toast.classList.remove('show');
-          },4000
-    );}
+        }, 4000);}
 });

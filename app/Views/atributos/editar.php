@@ -53,3 +53,10 @@
   <div id='toats'>
   </div>
 </div>
+<!-- Bootstrap core JavaScript-->
+<script src="<?php echo base_url();?>vendor/js/jquery.min.js"></script>
+    
+<script>
+    const BASE = "<?php echo base_url();?>"
+</script>
+<script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js"></script>
