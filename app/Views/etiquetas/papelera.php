@@ -36,7 +36,7 @@
                                     <?php echo $etiqueta["fecha_baja"]?>
                                 </td>
                                 <td class='text-center'>
-                                    <button class='btn btn-warning btn-recuperar' 
+                                    <button class='btn btn-warning btn-recuperarET' 
                                         data-id="<?php echo $etiqueta["id"];?>" id="btnRecuperar">
                                         Resuperar
                                         <i class="bi bi-recycle"></i>
@@ -56,11 +56,3 @@
   <div id='toats'>
   </div>
 </div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="<?php echo base_url();?>vendor/js/jquery.min.js"></script>
-    
-<script>
-    const BASE = "<?php echo base_url();?>"
-</script>
-<script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js"></script>

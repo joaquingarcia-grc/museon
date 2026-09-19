@@ -39,8 +39,8 @@
                                 </td>
 
                                 <td class='text-center'>
-                                    <button class='btn btn-warning btn-recuperar' 
-                                    data-id="<?php echo $atributo["id"];?>" id="btnRecuperar">
+                                    <button type="submit" class='btn btn-warning btn-recuperarATB' 
+                                    data-id="<?php echo $atributo["id"];?>" id="btnRecuperarATB">
                                     Resuperar
                                     <i class="bi bi-recycle"></i> </button>
                                     <!--a class='btn btn-warning' 
@@ -58,10 +58,4 @@
   <div id='toats'>
   </div>
 </div>
-<!-- Bootstrap core JavaScript-->
-<script src="<?php echo base_url();?>vendor/js/jquery.min.js"></script>
-    
-<script>
-    const BASE = "<?php echo base_url();?>"
-</script>
-<script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js"></script>
+

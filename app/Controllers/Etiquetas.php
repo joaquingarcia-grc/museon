@@ -140,7 +140,7 @@ class Etiquetas extends BaseController{
             $this->etiquetas->update($id, [
                 'denominacion' => $denominacion,
             ]);
-            echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' actualizado con éxito']);
+            echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' actualizada con éxito']);
             exit;
         }else{
             if(empty($datoEtiqueta['fecha_baja'])){
@@ -180,7 +180,7 @@ class Etiquetas extends BaseController{
         $etiquetaActiva = $this->etiquetas->where('denominacion', $etiquetas['denominacion'])->first();
         
         if ($etiquetaActiva){
-            echo json_encode(['exito' => false, 'mensaje' => 'Dato activo']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Dato activo, No se puede recuperar']);
             exit;
         }else{
             $this->etiquetas->update($id, ['fecha_baja' => null]);

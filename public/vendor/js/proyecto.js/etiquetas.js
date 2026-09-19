@@ -7,10 +7,10 @@ $(document).ready(function() {
     $('#formularioET').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
         // en vez de guardar, solo mostramos el modal
-        $('#modalGuardar').modal('show');
+        $('#modalGuardarET').modal('show');
     });
     //los datos seran enviado una ves obtengamos la accion desde el boton del modal
-    $('#modalGuardado').on('click', function(){
+    $('#modalGuardadoET').on('click', function(){
         const dato = {//creamos un objeto con todos nuestros datos
             denominacion: $('#denominacion').val(),
         }   
@@ -21,37 +21,37 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response){
                 if (response.exito){
-                    $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
-                    mensajes("Etiqueta guardado con ID: " + response.id + response.mensaje,'success');
+                    $('#modalGuardarET').modal('hide');//ocultamos el modal de guardar
+                    mensajes("Etiqueta guardada con ID: " + response.id + response.mensaje,'success');
                     $('#formularioET')[0].reset();
                     setTimeout(function(){
                         window.location.href = BASE + 'etiquetas';
                     },  3000);
                 }else if (response.papelera){
-                    $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                    $('#modalGuardarET').modal('hide');//ocultamos el modal de guardar
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     $('#formularioET')[0].reset();
                     
                 }else{
-                    $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                    $('#modalGuardarET').modal('hide');//ocultamos el modal de guardar
                     mensajes('Error: ' + response.mensaje, 'error');
                     $('#formularioET')[0].reset();
                     
                 }
             },
             error: function() {
-                $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                $('#modalGuardarET').modal('hide');//ocultamos el modal de guardar
                 mensajes('Error en el servidor');
             },
             complete: function(){
-                $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                $('#modalGuardarET').modal('hide');//ocultamos el modal de guardar
                 $('#formularioET')[0].reset();
             } 
         });
     });
 
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
-    $('.btn-borrar').click(function(){
+    $('.btn-borrarET').click(function(){
         idABorrar = $(this).data('id');
         $('#modalBorrado').modal('show');
     });
@@ -76,7 +76,7 @@ $(document).ready(function() {
         });
     });
     //obtenemos el selector del boton recuperar de vista papelera
-    $('.btn-recuperar').click(function(){
+    $('.btn-recuperarET').click(function(){
 
         idARecuperar = $(this).data('id');
         
@@ -90,7 +90,7 @@ $(document).ready(function() {
                         window.location.href = BASE + 'etiquetas';
                     },  3000);
                 }else{
-                    mensajes('Aviso: ' + response.mensaje);
+                    mensajes('Aviso: ' + response.mensaje,'warning');
                     setTimeout(function(){
                         location.reload();
                     }, 3000);
@@ -122,7 +122,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.exito){
-                    mensajes("Atributo: " + response.mensaje);
+                    mensajes("Etiqueta: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'etiquetas';
                     },  3000);

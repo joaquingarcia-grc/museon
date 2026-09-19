@@ -46,7 +46,7 @@
 </div>
 
 <!-- Modal de guardado -->
-<div class="modal fade" id="modalGuardar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalGuardarATB" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -58,7 +58,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary btn-modalGuardado" id="modalGuardado">Guardar</button>
+        <button type="submit" class="btn btn-primary btn-modalGuardado" id="btnGuardarATB">Guardar</button>
       </div>
     </div>
   </div>
@@ -67,11 +67,3 @@
   <div id='toats'>
   </div>
 </div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="<?php echo base_url();?>vendor/js/jquery.min.js"></script>
-    
-<script>
-    const BASE = "<?php echo base_url();?>"
-</script>
-<script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js"></script>

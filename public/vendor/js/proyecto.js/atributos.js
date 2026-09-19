@@ -7,10 +7,10 @@ $(document).ready(function() {
     $('#formularioATB').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
         // en vez de guardar, solo mostramos el modal
-        $('#modalGuardar').modal('show');
+        $('#modalGuardarATB').modal('show');
     });
     //los datos seran enviado una ves obtengamos la accion desde el boton del modal
-    $('#modalGuardado').on('click', function(){
+    $('#btnGuardarATB').on('click', function(){
         const dato = {//creamos un objeto con todos nuestros datos
             denominacion: $('#denominacion').val(),
             tipo_dato: $('#tipo_dato').val(),
@@ -22,37 +22,37 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response){
                 if (response.exito){
-                    $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                    $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
                     mensajes("Atributo guardado con ID: " + response.id + response.mensaje);
                     $('#formularioATB')[0].reset();
                     setTimeout(function(){
                         window.location.href = 'http://localhost/ci.03/public/atributos';
                     },  3000);
                 }else if (response.papelera){
-                    $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                    $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     $('#formularioATB')[0].reset();
                     
                 }else{
-                    $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                    $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
                     mensajes('Error: ' + response.mensaje, 'error');
                     $('#formularioATB')[0].reset();
                     
                 }
             },
             error: function() {
-                $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                $('#modalGuardadoATB').modal('hide');//ocultamos el modal de guardar
                 mensajes('Error en el servidor');
             },
             complete: function(){
-                $('#modalGuardar').modal('hide');//ocultamos el modal de guardar
+                $('#modalGuardadoATB').modal('hide');//ocultamos el modal de guardar
                 $('#formularioATB')[0].reset();
             } 
         });
     });
 
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
-    $('.btn-borrar').click(function(){
+    $('.btn-borrarATB').click(function(){
         idABorrar = $(this).data('id');
         $('#modalBorrado').modal('show');
     });
@@ -68,8 +68,8 @@ $(document).ready(function() {
                 }, 3000);
             },
             error: function(){
-                $('#modalBorrado').modal('hide');//ocultamos el modal de guardar
-                mensajes('Error en el servidor','error');         
+                $('#modalBorrado').modal('hide');//ocultamos el modal de borrado
+                mensajes('Error en el servidor', 'error');         
             },
             complete: function(){
                 
@@ -77,7 +77,7 @@ $(document).ready(function() {
         });
     });
     //obtenemos el selector del boton recuperar de vista papelera
-    $('.btn-recuperar').click(function(){
+    $('.btn-recuperarATB').click(function(){
 
         idARecuperar = $(this).data('id');
         

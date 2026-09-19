@@ -189,9 +189,9 @@ class Atributos extends BaseController{
         header('Content-Type: application/json');
 
         $atributo = $this->atributos->withDeleted()->find($id);
-        $existeActivo = $this->atributos->where('denominacion', $atributo['denominacion'])->first();
-        if ($existeActivo){
-            echo json_encode(['exito' => false, 'mensaje' => 'Dato activo']);
+        $atributoActivo = $this->atributos->where('denominacion', $atributo['denominacion'])->first();
+        if ($atributoActivo){
+            echo json_encode(['exito' => false, 'mensaje' => 'Dato activo, No se puede recuperar']);
             exit;
         }else{
             $this->atributos->update($id, ['fecha_baja' => null]);

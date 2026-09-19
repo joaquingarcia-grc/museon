@@ -4,7 +4,7 @@
   left: 50%;
   transform: translateX(-50%) translateY(20px);
   background-color: #333;
-  color: #fff;
+  color: #131212;
   padding: 14px 22px;
   border-radius: 10px;
   font-size: 15px;
@@ -21,7 +21,7 @@
   transform: translateX(-50%) translateY(0);
 }
 #toats.success {
-  background-color: #2e7d32;
+  background-color: #449147;
 }
 #toats.error {
   background-color: #c62828;

@@ -38,7 +38,7 @@
                                         href="<?php echo base_url()?>etiquetas/editar/<?php echo $etiqueta["id"];?>">
                                         <i class='bi bi-pencil-square'></i>
                                     </a>   
-                                    <button type="button" class="btn btn-danger btn-borrar" id="btnBorrarAtributo" data-id="<?php echo $etiqueta["id"];?>">
+                                    <button type="button" class="btn btn-danger btn-borrarET" id="btnBorrarAtributo" data-id="<?php echo $etiqueta["id"];?>">
                                         <i class='bi bi-trash2-fill'></i>
                                     </button>
                                     <button type="button" class="btn btn-outline-info">
@@ -77,11 +77,3 @@
   <div id='toats'>
   </div>
 </div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="<?php echo base_url();?>vendor/js/jquery.min.js"></script>
-    
-<script>
-    const BASE = "<?php echo base_url();?>"
-</script>
-<script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js"></script>
