@@ -26,7 +26,7 @@ $(document).ready(function() {
                     mensajes("Atributo guardado con ID: " + response.id + response.mensaje);
                     $('#formularioATB')[0].reset();
                     setTimeout(function(){
-                        window.location.href = 'http://localhost/ci.03/public/atributos';
+                        window.location.href = BASE + 'atributos';
                     },  3000);
                 }else if (response.papelera){
                     $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
@@ -42,7 +42,7 @@ $(document).ready(function() {
             },
             error: function() {
                 $('#modalGuardadoATB').modal('hide');//ocultamos el modal de guardar
-                mensajes('Error en el servidor');
+                mensajes('Error en el servidor', 'error');
             },
             complete: function(){
                 $('#modalGuardadoATB').modal('hide');//ocultamos el modal de guardar
@@ -88,7 +88,7 @@ $(document).ready(function() {
                 if (response.exito){
                     mensajes("Atributo Recuperado: " + response.mensaje);                    
                     setTimeout(function(){
-                        window.location.href = 'http://localhost/ci.03/public/atributos';
+                        window.location.href = BASE + 'atributos';
                     },  3000);
                 }else{
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -126,7 +126,7 @@ $(document).ready(function() {
                 if (response.exito){
                     mensajes("Atributo: " + response.mensaje);
                     setTimeout(function(){
-                        window.location.href = 'http://localhost/ci.03/public/atributos';
+                        window.location.href = BASE + 'atributos';
                     },  3000);
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
