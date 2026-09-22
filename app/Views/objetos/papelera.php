@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table id="tablaclientes">
+        <table class='table table-striped' id="tablaclientes">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
@@ -34,7 +34,7 @@
                                     <?php echo $objeto["denominacion"];?> 
                                 </td>
                                 
-                                <td class='tex-center'>
+                                <td class='text-center'>
                                     <?php echo $objeto["fecha_baja"]?>
                                 </td>
 

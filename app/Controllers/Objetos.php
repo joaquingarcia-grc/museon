@@ -41,7 +41,7 @@ class Objetos extends BaseController {
         $datos = [ 
             'museos'  => $museos,
             'objetos' => $objetos,
-            'titulo'  => 'Listado de objetos'
+            'titulo'  => 'Listado de Piezas'
         ];
 
         echo view('header', $datos);
@@ -82,7 +82,7 @@ class Objetos extends BaseController {
             'museos'    => $museos,
             'etiquetas' => $etiquetas, 
             'atributos' => $atributos, 
-            'titulo'    => 'Formulario de objetos'
+            'titulo'    => 'Formulario de Pieza'
         ];
 
         echo view('header', $datos);
@@ -175,7 +175,7 @@ class Objetos extends BaseController {
             'atributos'              => $atributos,
             'etiquetasSeleccionadas' => $this->objetosetiquetas->obtenerEtiquetasPorObjeto($id),
             'atributosSeleccionados' => $this->objetosatributos->obtenerAtributosPorObjeto($id),
-            'titulo'                 => 'Editar objeto'
+            'titulo'                 => 'Editar pieza'
         ];
         
         echo view('header', $datos);
@@ -255,7 +255,7 @@ class Objetos extends BaseController {
         $datos = [ 
             'museos'  => $museos,
             'objetos' => $objetos, 
-            'titulo'  => 'Objetos borrados'
+            'titulo'  => 'Piezas borradas'
         ];
         
         echo view('header', $datos);
@@ -299,7 +299,7 @@ class Objetos extends BaseController {
             'objeto'    => $objeto,
             'etiquetas' => $objetosetiquetas,
             'atributos' => $objetosatributos,
-            'titulo'    => 'Detalle del Objeto'
+            'titulo'    => 'Detalle de la Pieza'
         ];
         
         echo view('header', $datos);

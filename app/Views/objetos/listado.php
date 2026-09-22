@@ -12,21 +12,21 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table id="tablaclientes">
+        <table class='table table-striped' id="tablaclientes">
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th class='text-center'>id</th>
                     <th class='text-center'>Código</th>
                     <th class='text-center'>Denominacion</th>
                     <th class='text-center'>Descripcion</th>
                     <th class='text-center'>Fecha alta</th>
-                    <th class='text-end'>Acciones</th>
+                    <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($objetos as $objeto){ ?>
                     <tr>
-                        <td>
+                        <td class='text-center'>
                             <?php echo $objeto["id"];?> 
                         </td>
                         <td class='text-center'>
@@ -41,7 +41,7 @@
                         <td class='text-center'>
                             <?php echo $objeto["fecha_alta"];?>
                         </td>
-                        <td class='text-end'>    
+                        <td class='text-center'>    
                             <a class='btn btn-primary' href="<?php echo base_url();?>objetos/editar/<?php echo $objeto["id"];?>">
                                 <i class='bi bi-pencil-square'></i>
                             </a>   
