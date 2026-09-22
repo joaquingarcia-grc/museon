@@ -14,10 +14,10 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table id="tablaclientes">
+        <table class='table table-striped' id="tablaclientes">
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th class='text-center'>id</th>
                     <th class='text-center'>Denominacion</th>
                     <th class='text-center'>Telefono</th>
                     <th class='text-center'>fecha de borrado</th>
@@ -27,27 +27,37 @@
             <tbody>
                 <?php foreach ($usuarios as $usuario){ ?>
                             <tr>
-                                <td>
+                                <td class='text-center'>
                                     <?php echo $usuario["id"];?> 
                                 </td>
-                                <td>
+                                <td class='text-center'>
                                     <?php echo $usuario["denominacion"];?> 
                                 </td>
                                 <td class='text-center'>
                                     <?php echo $usuario["telefono"];?> 
                                 </td> 
-                                <td class='tex-center'>
+                                <td class='text-center'>
                                     <?php echo $usuario["fecha_baja"]?>
                                 </td>
                                 <td class='text-center'>
-                                    <a class='btn btn-warning' 
+                                    <button class='btn btn-warning btn-recuperarUSR' 
+                                        data-id="<?php echo $usuario["id"];?>" id="btnRecuperar">
+                                        Resuperar
+                                        <i class="bi bi-recycle"></i>
+                                    </button>
+
+                                    <!--a class='btn btn-warning' 
                                         href="<?php echo base_url(); ?>usuarios/recuperacion/<?php echo $usuario["id"];?>">
                                         Resuperar<i class="bi bi-recycle"></i>
-                                    </a>  
+                                    </a-->  
                                 </td>                            
                             </tr>
                     <?php }?>
             </tbody>
         </table>
     </div>
+</div>
+<div>
+  <div id='toats'>
+  </div>
 </div>

@@ -27,7 +27,7 @@ $(document).ready(function() {
                     $('#formularioATB')[0].reset();
                     setTimeout(function(){
                         window.location.href = BASE + 'atributos';
-                    },  3000);
+                    },  5000);
                 }else if (response.papelera){
                     $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -54,53 +54,51 @@ $(document).ready(function() {
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
     $('.btn-borrarATB').click(function(){
         idABorrar = $(this).data('id');
-        $('#modalBorrado').modal('show');
+        $('#modalBorradoATB').modal('show');
     });
-    $('#botonBorradosAtributos').click(function(){
+    $('#botonBorradoATB').click(function(){
+        //Controlador borrar
         $.ajax({
             url: BASE + 'atributos/borrar/' + idABorrar,
             method: 'POST',
             success: function(response){
-                $('#modalBorrado').modal('hide');
-                mensajes('Dato borrado exitosamente');
+                $('#modalBorradoATB').modal('hide');
+                mensajes('Atributo borrado exitosamente');
                 setTimeout(function(){
                     location.reload();
-                }, 3000);
+                }, 5000);
             },
             error: function(){
-                $('#modalBorrado').modal('hide');//ocultamos el modal de borrado
+                $('#modalBorradoATB').modal('hide');//ocultamos el modal de borrado
                 mensajes('Error en el servidor', 'error');         
             },
-            complete: function(){
-                
+            complete: function(){  
             } 
         });
     });
     //obtenemos el selector del boton recuperar de vista papelera
     $('.btn-recuperarATB').click(function(){
-
-        idARecuperar = $(this).data('id');
-        
+    //este id a recuperar nos permiter almacenar el id obtenido desde la base de datos para posteriormente ser enviado al controlador
+        idARecuperar = $(this).data('id'); 
+        //Controlador de recuperacion
         $.ajax({
             url: BASE + 'atributos/recuperacion/' + idARecuperar,
             method: 'POST',
             success: function(response){
                 if (response.exito){
-                    mensajes("Atributo Recuperado: " + response.mensaje);                    
+                    mensajes("Atributo recuperado: " + response.mensaje);                    
                     setTimeout(function(){
                         window.location.href = BASE + 'atributos';
-                    },  3000);
+                    },  5000);
                 }else{
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     setTimeout(function(){
                         location.reload();
-                    }, 3000);
+                    }, 5000);
                 }
-                    
             },
             error: function(){
                 mensajes('Error en el servidor','error'); 
-        
             },
             complete: function(){
                 
@@ -116,7 +114,8 @@ $(document).ready(function() {
         const dato = {//creamos un objeto con todos nuestros datos
             denominacion: $('#denominacion').val(),
             tipo_dato: $('#tipo_dato').val(),
-        } 
+        }
+        //controlador actualizar 
         $.ajax({
             url: BASE + 'atributos/actualizar/' + idActualizar,
             method: 'POST',
@@ -127,7 +126,7 @@ $(document).ready(function() {
                     mensajes("Atributo: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'atributos';
-                    },  3000);
+                    },  5000);
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{
@@ -146,13 +145,10 @@ $(document).ready(function() {
     function mensajes(mensaje, tipo = 'success'){
         const toast = document.getElementById('toats');
         toast.innerHTML = `${mensaje}`;
-
         // limpiamos clases de tipo anteriores
         toast.classList.remove('success', 'error', 'warning');
-
         // agregamos la clase según el tipo
         toast.classList.add(tipo);
-
         toast.classList.add('show');
         setTimeout(() => {
           toast.classList.remove('show');

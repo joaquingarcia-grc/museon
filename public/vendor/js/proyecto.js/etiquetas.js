@@ -53,21 +53,21 @@ $(document).ready(function() {
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
     $('.btn-borrarET').click(function(){
         idABorrar = $(this).data('id');
-        $('#modalBorrado').modal('show');
+        $('#modalBorradoET').modal('show');
     });
-    $('#botonBorradosAtributos').click(function(){
+    $('#btnBorrarET').click(function(){
         $.ajax({
             url: BASE + 'etiquetas/borrar/' + idABorrar,
             method: 'POST',
             success: function(response){
-                $('#modalBorrado').modal('hide');
-                mensajes('Dato borrado exitosamente');
+                $('#modalBorradoET').modal('hide');
+                mensajes('Etiqueta borrada exitosamente');
                 setTimeout(function(){
                     location.reload();
                 }, 3000);
             },
             error: function(){
-                $('#modalBorrado').modal('hide');//ocultamos el modal de guardar
+                $('#modalBorradoET').modal('hide');//ocultamos el modal de guardar
                 mensajes('Error en el servidor');         
             },
             complete: function(){

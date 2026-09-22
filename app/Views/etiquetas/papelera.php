@@ -14,10 +14,10 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table id="tablaclientes">
+        <table class='table table-striped' id="tablaclientes">
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th class='text-center'>id</th>
                     <th class='text-center'>Denominacion</th>
                     <th class='text-center'>fecha de borrado</th>
                     <th class='text-center'>Acciones</th>
@@ -26,13 +26,13 @@
             <tbody>
                 <?php foreach ($etiquetas as $etiqueta){ ?>
                             <tr>
-                                <td>
+                                <td class='text-center'>
                                     <?php echo $etiqueta["id"];?> 
                                 </td>
-                                <td>
+                                <td class='text-center'>
                                     <?php echo $etiqueta["denominacion"];?> 
                                 </td>
-                                <td class='tex-center'>
+                                <td class='text-center'>
                                     <?php echo $etiqueta["fecha_baja"]?>
                                 </td>
                                 <td class='text-center'>

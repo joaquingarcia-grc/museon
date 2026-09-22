@@ -45,14 +45,8 @@ class Usuarios extends BaseController{
         }
 
         $this->usuarios->delete($id);
-        $museos = $this->museos->first();
-
-        $datos = [ 'museos'=>$museos,
-                  'titulo' => 'Usuario borrado'];
-
-        echo view('header',$datos);
-        echo view('usuarios/avisoborrado');
-        echo  view('footer');
+        $usuario = $this->usuarios->withDeleted()->find($id); 
+        return $this->response->setStatusCode(200);
     } 
 
     public function nuevo(){
@@ -155,35 +149,41 @@ class Usuarios extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+
+        //esto nos indica que esperamos peticiones json
+        header('Content-Type: application/json');
         
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $email = trim($this->request->getPost('email'));
         $telefono = trim($this->request->getPost('telefono'));
         $password = trim($this->request->getPost('password'));
 
-        if (!$denominacion || !$email){
-            echo "faltan datos obligatorios";
-            return;
+        if (empty($denominacion) || empty($email)){
+            echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios']);
+            exit;
         }
             
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
-
-        if (!$datoUsuario){
+        
+        if (empty($datoUsuario)){
+            $hash = password_hash($password ,PASSWORD_DEFAULT);
             $this->usuarios->update($id,[
                 'denominacion' => $denominacion,
                 'email'  => $email,
                 'telefono'  => $telefono,
-                'password' => $password
+                'password' => $hash
             ]);
-            // Redirige a la ruta /noticias/tabla (asegúrate de que esa ruta exista y apunte a contenidoTabla)
-            return redirect()->to(base_url() . 'usuarios');
+            echo json_encode(['exito' => true, 'mensaje' => ' Actualizado con éxito']);
+            exit;
         }else{
-            if(!$datoUsuario['fecha_baja']){
-                echo "El dato existe."; 
+            if(empty($datoUsuario['fecha_baja'])){
+                echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Usuario existente']);                
             }else{
-                echo "El dato existe en la papelera, si desea recuperarlo.";
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Usuario existente en la papelera, recuperelo']);
             }
+            exit;
         }
+        return redirect()->to(base_url() . 'usuarios');
 
     }
 
@@ -211,17 +211,20 @@ class Usuarios extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        header('Content-Type: application/json');
 
         $usuarios = $this->usuarios->withDeleted()->find($id);
-        
         $usuarioActivo = $this->usuarios->where('denominacion', $usuarios['denominacion'])->first();
         
         if ($usuarioActivo) {
-            echo "ya existe un usuario activo con esa denominacion";
-            return;
+            
+            echo json_encode(['exito' => false, 'mensaje' => 'Usuario activo, No se puede recuperar']);
+            exit;
+        }else{
+            $this->usuarios->update($id,['fecha_baja' => null]);
+            echo json_encode(['exito' => true   , 'id' => $id, 'mensaje' => 'Usuario actualizo correctamente']);
+            exit;
         }
-        
-        $this->usuarios->update($id,['fecha_baja' => null]);
         return redirect()->to(base_url() . 'usuarios');
     }
 }

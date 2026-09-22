@@ -12,20 +12,20 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table id="tablaclientes">
+        <table class='table table-striped' id="tablaclientes">
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th class='text-center'>id</th>
                     <th class='text-center'>Denominacion</th>
                     <th class='text-center'>Tipos de datos</th>
                     <th class='text-center'>Fecha alta</th>
-                    <th class='text-end'>Acciones</th>
+                    <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($atributos as $atributo){ ?>
                             <tr>
-                                <td>
+                                <td class='text-center'>
                                     <?php echo $atributo["id"];?> 
                                 </td>
                                 <td class='text-center'>
@@ -34,19 +34,16 @@
                                 <td class='text-center'>
                                     <?php echo $atributo["tipo_dato"];?> 
                                 </td> 
-                                <td class='tex-center'>
+                                <td class='text-center'>
                                     <?php echo $atributo["fecha_alta"]?>
                                 </td>
-                                <td class='text-end'>    
+                                <td class='text-center'>    
                                     <a class='btn btn-primary' 
                                         href="<?php echo base_url()?>atributos/editar/<?php echo $atributo["id"];?>">
                                         <i class='bi bi-pencil-square'></i>
                                     </a>   
                                     <button type="submit" class="btn btn-danger btn-borrarATB" id="btnBorrarATB" data-id="<?php echo $atributo["id"];?>">
                                         <i class='bi bi-trash2-fill'></i>
-                                    </button>
-                                    <button type="button" class="btn btn-outline-info">
-                                        <i class="bi bi-eye"></i>
                                     </button>
                                 </td>                            
                             </tr>
@@ -60,7 +57,7 @@
         </a>
     </div>
 </div>
-<div class="modal fade" id="modalBorrado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalBorradoATB" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -72,7 +69,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-danger" id="botonBorradosAtributos">Borrar</button>
+              <button type="button" class="btn btn-danger" id="botonBorradoATB">Borrar</button>
             </div>
         </div>
     </div>
