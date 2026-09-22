@@ -26,7 +26,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Libreria de iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link  href="<?php echo base_url();?>vendor/css/toatscss/toatscss.css" rel="stylesheet" type="text/css">
+    <link  href="<?php echo base_url();?>vendor/css/cssproyecto/toatscss.css" rel="stylesheet" type="text/css">
+    <link  href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css" rel="stylesheet" type="text/css">
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -129,9 +130,8 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <!-- Barra de busqueda -->
+                    <form class="d-none d-sm-inline-block form-inline my-2 my-md-0 mw-100 navbar-search navbar-search-custom ml-auto mr-3">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar por..."
                                 aria-label="Search" aria-describedby="basic-addon2" id="buscador">
