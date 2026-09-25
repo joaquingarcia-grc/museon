@@ -111,8 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Escapamos comillas para evitar fallos HTML si el valor las incluye
         const valorEscapado = (valorInicial ?? '').toString().replace(/"/g, '&quot;');
+        const esFecha = item.tipo_dato === 'fecha';
         const campoValor = requiereValor
-            ? `<input type="text" class="form-control form-control-sm" name="${prefix}_valores[${item.id}]" placeholder="Ingresar dato..." value="${valorEscapado}" required>`
+            ? `<input type="text" class="form-control form-control-sm${esFecha ? ' campo-fecha' : ''}" name="${prefix}_valores[${item.id}]" placeholder="${esFecha ? 'Seleccionar fecha...' : 'Ingresar dato...'}" value="${valorEscapado}" autocomplete="off" required>`
             : '';
 
         // Armamos la estructura HTML dejando una etiqueta vacía con clase .texto-item para inyectar seguro el nombre
@@ -153,13 +154,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (requiereValor) {
             const inputGenerado = div.querySelector('input[type="text"]');
             if (inputGenerado) {
-                setTimeout(() => {
-                    inputGenerado.focus();
-                }, 10);
+                if (esFecha) {
+                    new Datepicker(inputGenerado, {
+                        format: 'yyyy-mm-dd',   // formato que se guarda en la BD (varchar 'valor')
+                        language: 'es',
+                        autohide: true,
+                        todayHighlight: true
+                    });
+                } else {
+                    setTimeout(() => {
+                        inputGenerado.focus();
+                    }, 10);
+                }
             }
         }
     }
-
     // --- LÓGICA DEL MODAL DE ATRIBUTOS ---
     const modalAtributos = document.getElementById('modalAtributos');
     const listaModalAtributos = document.getElementById('listaTodosAtributosModal');

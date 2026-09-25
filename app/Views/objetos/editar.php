@@ -137,5 +137,7 @@
     'atributosSeleccionados' => $atributosSeleccionados ?? []
 ]); ?>
 </script>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker-bs5.min.css">
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/locales/es.min.js"></script>
 <script src="<?php echo base_url(); ?>vendor/js/jsproyecto/objetos.js"></script>
