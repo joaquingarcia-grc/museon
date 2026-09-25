@@ -162,17 +162,29 @@ class Usuarios extends BaseController{
             echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios']);
             exit;
         }
+
+        if (!empty($password)){
+            if (strlen($password) < 8) {
+            echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos 8 caracteres']);
+            exit;
+        }
+            if (empty(strpbrk($password, '#!*@$%&?¿'))) {
+            echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos un carácter especial']);
+            exit;
+        }}
             
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
         
         if (empty($datoUsuario)){
-            $hash = password_hash($password ,PASSWORD_DEFAULT);
-            $this->usuarios->update($id,[
+            $datoActualizar = [
                 'denominacion' => $denominacion,
-                'email'  => $email,
-                'telefono'  => $telefono,
-                'password' => $hash
-            ]);
+                'email' => $email,
+                'telefono' => $telefono
+            ];
+            if (!empty($password)){
+                $datoActualizar['password']= password_hash($password, PASSWORD_DEFAULT);  
+            }
+            $this->usuarios->update($id, $datoActualizar);
             echo json_encode(['exito' => true, 'mensaje' => ' Actualizado con éxito']);
             exit;
         }else{
