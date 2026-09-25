@@ -17,7 +17,7 @@
     //esto depende si queremos hacer un hard delet(false) o un soft delet(true)
     protected $useSoftDeletes = true;
     //aca defino las columnas que quiero que sean visibles
-    protected $allowedFields = ['denominacion','tipo_dato','fecha_baja','fecha_alta'];
+    protected $allowedFields = ['denominacion','tipo_dato','unidad','fecha_baja','fecha_alta'];
 
     protected $dateFormat = 'datetime';
 

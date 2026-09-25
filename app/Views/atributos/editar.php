@@ -36,6 +36,27 @@
                                     <option value="fecha" <?php echo ($atributos['tipo_dato'] == 'fecha') ? 'selected' : ''; ?>>Fecha</option>
                                 </select>
                             </div>
+                            <!-- bloque de unidad simela -->
+                            <div class="col-md-6 mt-3" id="grupoUnidad" style="display:none;">
+                                <label for="unidad">Unidad de medida (SIMELA)</label>
+                                <select class="form-control" id="unidad" name="unidad">
+                                    <option value="" <?php echo empty($atributos['unidad']) ? 'selected' : ''; ?>>Sin unidad</option>
+                                    <optgroup label="Longitud">
+                                        <option value="mm" <?php echo ($atributos['unidad'] == 'mm') ? 'selected' : ''; ?>>Milímetros (mm)</option>
+                                        <option value="cm" <?php echo ($atributos['unidad'] == 'cm') ? 'selected' : ''; ?>>Centímetros (cm)</option>
+                                        <option value="m" <?php echo ($atributos['unidad'] == 'm') ? 'selected' : ''; ?>>Metros (m)</option>
+                                    </optgroup>
+                                    <optgroup label="Masa">
+                                        <option value="g" <?php echo ($atributos['unidad'] == 'g') ? 'selected' : ''; ?>>Gramos (g)</option>
+                                        <option value="kg" <?php echo ($atributos['unidad'] == 'kg') ? 'selected' : ''; ?>>Kilogramos (kg)</option>
+                                    </optgroup>
+                                    <optgroup label="Volumen">
+                                        <option value="ml" <?php echo ($atributos['unidad'] == 'ml') ? 'selected' : ''; ?>>Mililitros (ml)</option>
+                                        <option value="l" <?php echo ($atributos['unidad'] == 'l') ? 'selected' : ''; ?>>Litros (l)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <!-- FIN  -->
                         </div>
                         <div class="row mb-3">
                             <div class="d-flex gap-2">

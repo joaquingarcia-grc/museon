@@ -76,6 +76,7 @@ class Atributos extends BaseController{
         //convertimos los datos que resivimos por post en las variables locales para poder trabajar
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipo_dato = strtolower(trim($this->request->getPost('tipo_dato')));
+        $unidad = trim($this->request->getPost('unidad'));
         
         //revisemson de no recibir vacios
         if (empty($denominacion) || empty($tipo_dato)){
@@ -89,6 +90,7 @@ class Atributos extends BaseController{
             $this->atributos->save([
                 'denominacion' => $denominacion,
                 'tipo_dato'    => $tipo_dato,
+                'unidad'       => $tipo_dato === 'numerico' ? ($unidad ?: null) : null,
             ]);
             $id = $this->atributos->getInsertID();
             echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
@@ -135,6 +137,7 @@ class Atributos extends BaseController{
 
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipoDato     = strtolower(trim($this->request->getPost('tipo_dato')));
+        $unidad = trim($this->request->getPost('unidad'));
 
         if (empty($denominacion)  || empty($tipoDato) ) {
             echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
@@ -147,6 +150,7 @@ class Atributos extends BaseController{
             $this->atributos->update($id, [
                 'denominacion' => $denominacion,
                 'tipo_dato'    => $tipoDato,
+                'unidad'       => $tipoDato === 'numerico' ? ($unidad ?: null) : null,
             ]);
             echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' actualizado con éxito']);
             exit;

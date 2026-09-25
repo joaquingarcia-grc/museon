@@ -58,7 +58,12 @@
                     <?php foreach ($atributos as $atr): ?>
                         <tr>
                             <td class="bg-light fw-bold"><?php echo $atr['denominacion']; ?></td>
-                            <td><?php echo $atr['valor']; ?></td>
+                            <td>
+                                <?php echo $atr['valor']; ?>
+                                <?php if (!empty($atr['unidad'])): ?>
+                                    <?php echo ' ' . $atr['unidad']; ?>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

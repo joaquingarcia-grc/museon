@@ -32,8 +32,28 @@
                                     <option value="archivo">Archivo</option>
                                     <option value="fecha">Fecha</option>
                                 </select>
+                             </div>
+                <!-- unidad simela-->   
+                                <div class="col-md-6 mt-3" id="grupoUnidad" style="display:none;">
+                                    <label for="unidad">Unidad de medida (SIMELA)</label>
+                                    <select class="form-control" id="unidad" name="unidad">
+                                        <option value="">Sin unidad</option>
+                                        <optgroup label="Longitud">
+                                            <option value="mm">Milímetros (mm)</option>
+                                            <option value="cm">Centímetros (cm)</option>
+                                            <option value="m">Metros (m)</option>
+                                        </optgroup>
+                                        <optgroup label="Masa">
+                                            <option value="g">Gramos (g)</option>
+                                            <option value="kg">Kilogramos (kg)</option>
+                                        </optgroup>
+                                        <optgroup label="Volumen">
+                                            <option value="ml">Mililitros (ml)</option>
+                                            <option value="l">Litros (l)</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
                         <div class="d-flex gap-2">
                             <button class="btn btn-outline-success" type="submit" id="btnGuardar" >Guardar</button>
                             <a href="<?php echo base_url();?>atributos/" class="btn btn-outline-danger">Cancelar</a>

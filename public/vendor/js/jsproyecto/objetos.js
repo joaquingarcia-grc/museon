@@ -110,10 +110,20 @@ document.addEventListener('DOMContentLoaded', () => {
         div.className = tipo === 'Etiqueta' ? 'col-6' : 'col-12';
 
         // Escapamos comillas para evitar fallos HTML si el valor las incluye
+       // Escapamos comillas para evitar fallos HTML si el valor las incluye
         const valorEscapado = (valorInicial ?? '').toString().replace(/"/g, '&quot;');
+        
         const esFecha = item.tipo_dato === 'fecha';
+        const esNumerico = item.tipo_dato === 'numerico';
+        const sufijoUnidad = esNumerico && item.unidad ? `<span class="input-group-text">${item.unidad}</span>` : '';
+
         const campoValor = requiereValor
-            ? `<input type="text" class="form-control form-control-sm${esFecha ? ' campo-fecha' : ''}" name="${prefix}_valores[${item.id}]" placeholder="${esFecha ? 'Seleccionar fecha...' : 'Ingresar dato...'}" value="${valorEscapado}" autocomplete="off" required>`
+            ? esFecha
+                ? `<input type="text" class="form-control form-control-sm campo-fecha" name="${prefix}_valores[${item.id}]" placeholder="Seleccionar fecha..." value="${valorEscapado}" autocomplete="off" required>`
+                : `<div class="input-group input-group-sm">
+                    <input type="${esNumerico ? 'number' : 'text'}" ${esNumerico ? 'step="any"' : ''} class="form-control" name="${prefix}_valores[${item.id}]" placeholder="Ingresar dato..." value="${valorEscapado}" autocomplete="off" required>
+                    ${sufijoUnidad}
+                   </div>`
             : '';
 
         // Armamos la estructura HTML dejando una etiqueta vacía con clase .texto-item para inyectar seguro el nombre

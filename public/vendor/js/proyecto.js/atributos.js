@@ -4,6 +4,22 @@ $(document).ready(function() {
     let idARecuperar = null;
     let idActualizar = null;
 
+    // --- Mostrar/ocultar el selector de unidad SIMELA según el tipo de dato ---
+    function toggleUnidad() {
+        if ($('#tipo_dato').val() === 'numerico') {
+            $('#grupoUnidad').show();
+        } else {
+            $('#grupoUnidad').hide();
+            $('#unidad').val(''); // limpiamos la unidad si cambian a otro tipo
+        }
+    }
+
+    $('#tipo_dato').on('change', toggleUnidad);
+
+    // En editar.php el select ya puede venir con "numerico" precargado,
+    // así que ejecutamos la función una vez al cargar la página
+    toggleUnidad();
+
     $('#formularioATB').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
         // en vez de guardar, solo mostramos el modal
@@ -14,6 +30,7 @@ $(document).ready(function() {
         const dato = {//creamos un objeto con todos nuestros datos
             denominacion: $('#denominacion').val(),
             tipo_dato: $('#tipo_dato').val(),
+            unidad: $('#unidad').val(),
         }   
         $.ajax({
             url: BASE + 'atributos/insertar',
@@ -114,6 +131,7 @@ $(document).ready(function() {
         const dato = {//creamos un objeto con todos nuestros datos
             denominacion: $('#denominacion').val(),
             tipo_dato: $('#tipo_dato').val(),
+            unidad: $('#unidad').val(), 
         }
         //controlador actualizar 
         $.ajax({
