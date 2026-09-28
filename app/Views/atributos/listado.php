@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table class='table-primary table-striped' id="tablaclientes">
+        <table class='table-primary table-striped' id="tablaATB">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
@@ -22,32 +22,7 @@
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php foreach ($atributos as $atributo){ ?>
-                            <tr>
-                                <td class='text-center'>
-                                    <?php echo $atributo["id"];?> 
-                                </td>
-                                <td class='text-center'>
-                                    <?php echo $atributo["denominacion"];?> 
-                                </td> 
-                                <td class='text-center'>
-                                    <?php echo $atributo["tipo_dato"];?> 
-                                </td> 
-                                <td class='text-center'>
-                                    <?php echo $atributo["fecha_alta"]?>
-                                </td>
-                                <td class='text-center'>    
-                                    <a class='btn btn-primary' 
-                                        href="<?php echo base_url()?>atributos/editar/<?php echo $atributo["id"];?>">
-                                        <i class='bi bi-pencil-square'></i>
-                                    </a>   
-                                    <button type="submit" class="btn btn-danger btn-borrarATB" id="btnBorrarATB" data-id="<?php echo $atributo["id"];?>">
-                                        <i class='bi bi-trash2-fill'></i>
-                                    </button>
-                                </td>                            
-                            </tr>
-                    <?php }?>
+            <tbody id='bodyTablaATB'>
             </tbody>
         </table>
     </div>

@@ -199,9 +199,20 @@ class Atributos extends BaseController{
             exit;
         }else{
             $this->atributos->update($id, ['fecha_baja' => null]);
-            echo json_encode(['exito' => true   , 'id' => $id, 'mensaje' => 'Se actualizo correctamente']);
+            echo json_encode(['exito' => true   , 'id' => $id, 'mensaje' => 'Atributo recuperado correctamente']);
             exit;
         }
-        return redirect()->to(base_url() . 'atributos');
+    }
+    // API: devuelve en JSON los atributos activos, del más nuevo al más viejo
+    public function api_atributos(){
+        $atributos = $this->atributos->orderBy('id','DESC')->findAll();
+        $datos = ['atributos'=>$atributos];
+        return $this->response->setJSON($datos);
+    }
+    // API: devuelve en JSON los atributos borrados (papelera)
+    public function api_atributos_borrados(){
+        $atributos = $this->atributos->onlyDeleted()->findAll();
+        $datos = ['atributos'=>$atributos];
+        return $this->response->setJSON($datos);
     }
 }

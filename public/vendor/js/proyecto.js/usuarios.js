@@ -5,6 +5,7 @@ $(document).ready(function(){
 
     rellenarTabla();
     //llamo a la funcion que rellena la tabla se uduarios en la papelera
+    rellenarTabla2();
 
 //------------------------------------------------------------------------------------------------//
     //esta funcion rellena la tabla de usuarios
@@ -56,6 +57,57 @@ $(document).ready(function(){
                 });
             },
             error: function() {
+                mensajes('Error en el servidor','error');
+            }
+        });
+    };
+
+//------------------------------------------------------------------------------------------------//  
+    //esta funcion rellena la tabla en la papelera 
+    function rellenarTabla2(){
+        $.ajax({
+            url: BASE + 'usuarios/api2',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let conteUSR = " ";
+                response.usuarios.forEach(usuario => {
+                    conteUSR += `<tr>
+                        <td class='text-center'>${usuario.id}</td>
+                        <td class='text-center'>${usuario.denominacion}</td>
+                        <td class='text-center'>${usuario.email}</td>
+                        <td class='text-center'>${usuario.fecha_baja}</td>
+                        <td class='text-center'>
+                            <button type="submit" class='btn btn-info' id="btnRecuperarUSR" data-id="${usuario.id}">
+                                <i class="bi bi-recycle"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+                });
+                $('#bodyTabla2').html(conteUSR);
+
+                // ACÁ va el bloque de layout
+                $('#tablaUSRPapelera').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
+                    },
+                    layout: {
+                        topStart: null,
+                        topEnd: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging',
+                        bottom1Start: {
+                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                        }
+                    },
+                    order: [[0, 'desc']]
+                });
+
+                $("#buscador").on('keyup', function(){
+                    $('#tablaclientes').DataTable().search(this.value).draw();
+                });
+            },
+            error: function(){
                 mensajes('Error en el servidor','error');
             }
         });
@@ -169,18 +221,19 @@ $(document).ready(function(){
         });
     });
 //------------------------------------------------------------------------------------------------------------//
-    $('.btn-recuperarUSR').click(function(){
+    $(document).on('click', '#btnRecuperarUSR', function(){
+        
         idARecuperar = $(this).data('id');
-
+        
         $.ajax({
             url: BASE + 'usuarios/recuperacion/' + idARecuperar,
             method: 'POST',
             success: function(response) {
                 if(response.exito){
                     mensajes( response.mensaje);
-                    setTimeout(function(){
-                        window.location.href = BASE + 'usuarios';
-                    },  5000);
+                    $('#tablaUSRPapelera').DataTable().destroy();
+                    rellenarTabla2();
+
                 }else{
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     setTimeout(function(){
@@ -194,6 +247,7 @@ $(document).ready(function(){
             complete: function(){} 
         });
     });
+//------------------------------------------------------------------------------------------------//
     function mensajes(mensaje, tipo = 'success'){
         const toast = document.getElementById('toats');
         toast.innerHTML = `${mensaje}`;

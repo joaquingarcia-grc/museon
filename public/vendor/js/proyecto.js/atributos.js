@@ -3,6 +3,116 @@ $(document).ready(function() {
     let idABorrar = null;
     let idARecuperar = null;
     let idActualizar = null;
+    
+    rellenarTabla();
+    rellenarTabla2();
+
+//------------------------------------------------------------------------------------------------//
+    //esta funcion rellena la tabla de atributos
+    function rellenarTabla(){
+        $.ajax({
+            url: BASE + 'atributos/api',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let conteATB = " ";
+                response.atributos.forEach(atributo => {
+                    conteATB += `<tr>
+                        <td class='text-center'>${atributo.id}</td>
+                        <td class='text-center'>${atributo.denominacion}</td>
+                        <td class='text-center'>${atributo.tipo_dato}</td>
+                        <td class='text-center'>${atributo.fecha_alta}</td>
+                        <td class='text-center'>
+                            <button type="submit" class="btn btn-danger" id="btnBorrarATB" data-id="${atributo.id}">
+                                <i class='bi bi-trash2-fill'></i>
+                            </button>
+                            <a class='btn btn-primary' href='${BASE}atributos/editar/${atributo.id}'>
+                                <i class='bi bi-pencil-square'></i>
+                            </a>
+                        </td>
+                    </tr>`;
+                });
+                $('#bodyTablaATB').html(conteATB);
+
+                // ACÁ va el bloque de layout
+                $('#tablaATB').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
+                    },
+                    layout: {
+                        topStart: null,
+                        topEnd: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging',
+                        bottom1Start: {
+                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                        }
+                    },
+                    order: [[0, 'desc']]
+                });
+
+                $("#buscador").on('keyup', function(){
+                    $('#tablaATB').DataTable().search(this.value).draw();
+                });
+            },
+            error: function() {
+                mensajes('Error en el servidor','error');
+            }
+        });
+    };
+
+//------------------------------------------------------------------------------------------------//
+    //esta funcion rellena la tabla de atributos
+    function rellenarTabla2(){
+        $.ajax({
+            url: BASE + 'atributos/api2',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let conteATB = " ";
+                response.atributos.forEach(atributo => {
+                    conteATB += `<tr>
+                        <td class='text-center'>${atributo.id}</td>
+                        <td class='text-center'>${atributo.denominacion}</td>
+                        <td class='text-center'>${atributo.fecha_baja}</td>
+                        <td class='text-center'>
+                            <button type="submit" class='btn btn-info' 
+                                data-id="${atributo.id}" id="btnRecuperarATB">
+                                Resuperar
+                            <i class="bi bi-recycle"></i> </button>
+                        </td>
+                    </tr>`;
+                });
+                $('#bodyBrTablaATB').html(conteATB);
+
+                // ACÁ va el bloque de layout
+                $('#tablaATBBr').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
+                    },
+                    layout: {
+                        topStart: null,
+                        topEnd: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging',
+                        bottom1Start: {
+                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                        }
+                    },
+                    order: [[0, 'desc']]
+                });
+
+                $("#buscador").on('keyup', function(){
+                    $('#tablaATBBr').DataTable().search(this.value).draw();
+                });
+            },
+            error: function() {
+                mensajes('Error en el servidor','error');
+            }
+        });
+    };
+
+//------------------------------------------------------------------------------------------------//  
 
     // --- Mostrar/ocultar el selector de unidad SIMELA según el tipo de dato ---
     function toggleUnidad() {
@@ -71,9 +181,9 @@ $(document).ready(function() {
             } 
         });
     });
-
+//---------------------------------------------------------------------------------------------------//
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
-    $('.btn-borrarATB').click(function(){
+    $(document).on('click', '#btnBorrarATB', function(){
         idABorrar = $(this).data('id');
         $('#modalBorradoATB').modal('show');
     });
@@ -85,9 +195,8 @@ $(document).ready(function() {
             success: function(response){
                 $('#modalBorradoATB').modal('hide');
                 mensajes('Atributo borrado exitosamente');
-                setTimeout(function(){
-                    location.reload();
-                }, 4010);
+                $('#tablaATB').DataTable().destroy();
+                rellenarTabla();
             },
             error: function(){
                 $('#modalBorradoATB').modal('hide');//ocultamos el modal de borrado
@@ -97,8 +206,9 @@ $(document).ready(function() {
             } 
         });
     });
+//---------------------------------------------------------------------------------------------------------------//
     //obtenemos el selector del boton recuperar de vista papelera
-    $('.btn-recuperarATB').click(function(){
+    $(document).on('click',('#btnRecuperarATB'),function(){
     //este id a recuperar nos permiter almacenar el id obtenido desde la base de datos para posteriormente ser enviado al controlador
         idARecuperar = $(this).data('id'); 
         //Controlador de recuperacion
@@ -107,15 +217,14 @@ $(document).ready(function() {
             method: 'POST',
             success: function(response){
                 if (response.exito){
-                    mensajes("Atributo recuperado: " + response.mensaje);                    
-                    setTimeout(function(){
-                        window.location.href = BASE + 'atributos';
-                    },  4010);
+                    mensajes(response.mensaje);
+                    $('#tablaATBBr').DataTable().destroy();
+                    rellenarTabla2();                    
+                    
                 }else{
                     mensajes('Aviso: ' + response.mensaje, 'warning');
-                    setTimeout(function(){
-                        location.reload();
-                    }, 4010);
+                    $('#tablaATBBr').DataTable().destroy();
+                    rellenarTabla2(); 
                 }
             },
             error: function(){

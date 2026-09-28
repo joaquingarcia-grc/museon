@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table class='table table-striped' id="tablaclientes">
+        <table class='table-secondary table-striped' id="tablaATBBr">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
@@ -23,33 +23,7 @@
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php foreach ($atributos as $atributo){ ?>
-                            <tr>
-                                <td class='text-center'>
-                                    <?php echo $atributo["id"];?> 
-                                </td>
-                                
-                                <td class='text-center'>
-                                    <?php echo $atributo["denominacion"];?> 
-                                </td>
-                                
-                                <td class='text-center'>
-                                    <?php echo $atributo["fecha_baja"]?>
-                                </td>
-
-                                <td class='text-center'>
-                                    <button type="submit" class='btn btn-warning btn-recuperarATB' 
-                                    data-id="<?php echo $atributo["id"];?>" id="btnRecuperarATB">
-                                    Resuperar
-                                    <i class="bi bi-recycle"></i> </button>
-                                    <!--a class='btn btn-warning' 
-                                        href="<?php echo base_url(); ?>atributos/recuperacion/<?php echo $atributo["id"];?>">
-                                        Resuperar<i class="bi bi-recycle"></i>
-                                    </a-->  
-                                </td>                            
-                            </tr>
-                    <?php }?>
+            <tbody id='bodyBrTablaATB'>
             </tbody>
         </table>
     </div>
