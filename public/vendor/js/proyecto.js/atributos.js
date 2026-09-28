@@ -42,28 +42,32 @@ $(document).ready(function() {
                     $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
                     mensajes("Atributo guardado con ID: " + response.id + response.mensaje);
                     $('#formularioATB')[0].reset();
+                    toggleUnidad();
                     setTimeout(function(){
                         window.location.href = BASE + 'atributos';
-                    },  5000);
+                    },  4010);
                 }else if (response.papelera){
                     $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     $('#formularioATB')[0].reset();
-                    
+                    toggleUnidad();
                 }else{
                     $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
                     mensajes('Error: ' + response.mensaje, 'error');
                     $('#formularioATB')[0].reset();
-                    
+                    toggleUnidad();
                 }
             },
             error: function() {
                 $('#modalGuardadoATB').modal('hide');//ocultamos el modal de guardar
                 mensajes('Error en el servidor', 'error');
+                $('#formularioATB')[0].reset();
+                toggleUnidad();
             },
             complete: function(){
                 $('#modalGuardadoATB').modal('hide');//ocultamos el modal de guardar
                 $('#formularioATB')[0].reset();
+                toggleUnidad();
             } 
         });
     });
@@ -83,7 +87,7 @@ $(document).ready(function() {
                 mensajes('Atributo borrado exitosamente');
                 setTimeout(function(){
                     location.reload();
-                }, 5000);
+                }, 4010);
             },
             error: function(){
                 $('#modalBorradoATB').modal('hide');//ocultamos el modal de borrado
@@ -106,12 +110,12 @@ $(document).ready(function() {
                     mensajes("Atributo recuperado: " + response.mensaje);                    
                     setTimeout(function(){
                         window.location.href = BASE + 'atributos';
-                    },  5000);
+                    },  4010);
                 }else{
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     setTimeout(function(){
                         location.reload();
-                    }, 5000);
+                    }, 4010);
                 }
             },
             error: function(){
@@ -144,7 +148,7 @@ $(document).ready(function() {
                     mensajes("Atributo: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'atributos';
-                    },  5000);
+                    },  4010);
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{
