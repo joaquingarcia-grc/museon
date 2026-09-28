@@ -29,6 +29,7 @@ CREATE TABLE `atributos` (
   `id` int(11) NOT NULL,
   `denominacion` varchar(100) NOT NULL,
   `tipo_dato` varchar(20) NOT NULL,
+   `unidad` varchar(20) DEFAULT NULL,
   `fecha_alta` datetime DEFAULT current_timestamp(),
   `fecha_baja` datetime DEFAULT NULL,
   `fecha_edicion` datetime DEFAULT NULL
