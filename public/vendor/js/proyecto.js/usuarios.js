@@ -2,6 +2,66 @@ $(document).ready(function(){
     let idActualizar = null;
     let idABorrar = null;
     let idARecuperar = null;
+
+    rellenarTabla();
+    //llamo a la funcion que rellena la tabla se uduarios en la papelera
+
+//------------------------------------------------------------------------------------------------//
+    //esta funcion rellena la tabla de usuarios
+    function rellenarTabla(){
+        $.ajax({
+            url: BASE + 'usuarios/api',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let conteUSR = " ";
+                response.usuarios.forEach(usuario => {
+                    conteUSR += `<tr>
+                        <td class='text-center'>${usuario.id}</td>
+                        <td class='text-center'>${usuario.denominacion}</td>
+                        <td class='text-center'>${usuario.email}</td>
+                        <td class='text-center'>${usuario.telefono}</td>
+                        <td class='text-center'>${usuario.fecha_alta}</td>
+                        <td class='text-center'>
+                            <button type="submit" class="btn btn-danger" id="btnBorrarUSR" data-id="${usuario.id}">
+                                <i class='bi bi-trash2-fill'></i>
+                            </button>
+                            <a class='btn btn-primary' href='${BASE}usuarios/editar/${usuario.id}'>
+                                <i class='bi bi-pencil-square'></i>
+                            </a>
+                        </td>
+                    </tr>`;
+                });
+                $('#bodyTabla').html(conteUSR);
+
+                // ACÁ va el bloque de layout
+                $('#tablaUSR').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
+                    },
+                    layout: {
+                        topStart: null,
+                        topEnd: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging',
+                        bottom1Start: {
+                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                        }
+                    },
+                    order: [[0, 'desc']]
+                });
+
+                $("#buscador").on('keyup', function(){
+                    $('#tablaUSR').DataTable().search(this.value).draw();
+                });
+            },
+            error: function() {
+                mensajes('Error en el servidor','error');
+            }
+        });
+    };
+//----------------------------------------------------------------------------------------------------------//
+
     //funcion que dispara el modal de usuarios
     $('#formularioUSR').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
@@ -31,7 +91,7 @@ $(document).ready(function(){
                     $('#formularioUSR')[0].reset();//limpia formulario
                     setTimeout(function(){//activa funcion que dirije a la vista usuarios
                         window.location.href = BASE + 'usuarios';
-                    },  5000);
+                    },  4010);
                 }else if(response.papelera){//espera condicion desde la papelera e imprime el mensaje obtenido
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{
@@ -69,7 +129,7 @@ $(document).ready(function(){
                     mensajes("Usuario: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'usuarios';
-                    },  5000);
+                    },  4010);
 
                 }else if(response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -84,10 +144,13 @@ $(document).ready(function(){
         });
     });
 
-    $('.btn-borrarUSR').click(function(){
+//------------------------------------------------------------------------------------------------//
+    //funcion que borra los usuarios
+    $(document).on('click', '#btnBorrarUSR', function(){
         idABorrar = $(this).data('id');
         $('#modalBorradoUSR').modal('show');
-    });
+    }); 
+
     $('#btnBorradoUSR').click(function(){
         $.ajax({
             url: BASE + 'usuarios/borrar/' + idABorrar,
@@ -95,9 +158,8 @@ $(document).ready(function(){
             success: function(response){
                 $('#modalBorradoUSR').modal('hide');
                 mensajes('Usuario borrado exitosamente')
-                setTimeout(function(){
-                    location.reload();
-                }, 5000);
+                $('#tablaUSR').DataTable().destroy();
+                rellenarTabla();
             },
             error: function() {
                 $('#modalBorradoUSR').modal('hide');
@@ -106,7 +168,7 @@ $(document).ready(function(){
             complete: function(){} 
         });
     });
-
+//------------------------------------------------------------------------------------------------------------//
     $('.btn-recuperarUSR').click(function(){
         idARecuperar = $(this).data('id');
 
@@ -123,7 +185,7 @@ $(document).ready(function(){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     setTimeout(function(){
                         location.reload();
-                    }, 5000);
+                    }, 4010);
                 }
             },
             error: function() {

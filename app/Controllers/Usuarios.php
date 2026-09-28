@@ -239,5 +239,17 @@ class Usuarios extends BaseController{
         }
         return redirect()->to(base_url() . 'usuarios');
     }
+
+    public function api_usuarios(){
+        $usuarios = $this->usuarios->orderBy('id','DESC')->findAll();
+        $datos = ['usuarios'=>$usuarios];
+        return $this->response->setJSON($datos);
+    }
+
+    public function api_usuarios_borrados(){
+        $usuarios = $this->usuarios->onlyDeleted()->findAll();
+        $datos = ['usuarios'=>$usuarios];
+        return $this->response->setJSON($datos);
+    }
 }
 ?>

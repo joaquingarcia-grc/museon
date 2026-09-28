@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table class='table table-striped' id="tablaclientes">
+        <table class='table-primary table-striped' id="tablaclientes">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
