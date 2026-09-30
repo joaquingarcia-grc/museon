@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table class='table table-striped' id="tablaclientes">
+        <table class='table table-striped' id="tablaclientes" data-papelera-url="<?php echo esc(base_url('usuarios/papelera'), 'attr'); ?>">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
@@ -50,11 +50,6 @@
                     <?php }?>
             </tbody>
         </table>
-    </div>
-    <div class='col text-right  py-3 px-4'>            
-        <a class="btn btn-outline-secondary" href="<?php echo base_url();?>usuarios/papelera">
-            <i class='bi bi-trash2-fill'>Papelera</i>
-        </a>
     </div>
 </div>
 <div class="modal fade" id="modalBorradoUSR" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

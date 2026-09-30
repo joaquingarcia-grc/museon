@@ -1,3 +1,140 @@
+#accordionSidebar.bg-gradient-primary {
+    background-color: #183331 !important;
+    background-image:
+        linear-gradient(rgba(13, 30, 29, 0.36), rgba(13, 30, 29, 0.42)),
+        url('../../../imagenes/fondos/fondo1.jpeg') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#content-wrapper {
+    background-color: #edf1ef;
+    background-image:
+        linear-gradient(rgba(245, 247, 246, 0.72), rgba(245, 247, 246, 0.76)),
+        url('../../../imagenes/fondos/fondo1.jpeg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#content-wrapper h2 {
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 3px solid #b47645;
+    color: #1d433d;
+    font-size: 1.65rem;
+    font-weight: 800;
+}
+
+#content-wrapper .btn-outline-success {
+    border-color: #47796d;
+    color: #28564b;
+    background-color: rgba(255, 255, 255, 0.88);
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(24, 49, 45, 0.1);
+}
+
+#content-wrapper .btn-outline-success:hover {
+    border-color: #28564b;
+    color: #fff;
+    background-color: #28564b;
+}
+
+#accordionSidebar.bg-gradient-primary .sidebar-brand {
+    background-color: rgba(4, 17, 16, 0.32);
+}
+
+#accordionSidebar .sidebar-brand,
+#accordionSidebar .sidebar-brand:hover {
+    color: #fff;
+}
+
+#accordionSidebar .sidebar-brand-icon i {
+    color: #f3d49a;
+}
+
+#accordionSidebar.bg-gradient-primary .sidebar-brand:hover {
+    background-color: rgba(4, 17, 16, 0.46);
+}
+
+#accordionSidebar .sidebar-heading {
+    color: #f3d49a !important;
+    font-size: 0.68rem;
+    letter-spacing: 0.04rem;
+}
+
+#accordionSidebar hr.sidebar-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+#accordionSidebar .nav-item .nav-link {
+    border-radius: 6px;
+    transition: color 150ms ease, background-color 150ms ease;
+}
+
+#accordionSidebar .nav-item .nav-link i {
+    color: #f3d49a;
+}
+
+#accordionSidebar .nav-item .nav-link:hover,
+#accordionSidebar .nav-item .nav-link:focus-visible {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.17);
+}
+
+#accordionSidebar .nav-item .nav-link[aria-expanded="true"] {
+    color: #fff;
+    background-color: rgba(4, 17, 16, 0.34);
+}
+
+#accordionSidebar .collapse-inner.bg-white {
+    background-color: #d6d9dc !important;
+}
+
+@media (max-width: 767.98px) {
+    #accordionSidebar:not(.toggled) .sidebar-brand {
+        flex-direction: column;
+        gap: 0.2rem;
+        height: auto;
+        min-height: 4.375rem;
+        padding: 0.45rem 0.2rem;
+    }
+
+    #accordionSidebar:not(.toggled) .sidebar-brand .sidebar-brand-text {
+        display: inline !important;
+        font-size: 0.58rem;
+        letter-spacing: 0;
+        line-height: 1.1;
+        margin: 0 !important;
+        text-align: center;
+        white-space: normal;
+    }
+}
+
+@media (min-width: 768px) {
+    #accordionSidebar .nav-item .nav-link[data-bs-toggle="collapse"]::after {
+        width: 1rem;
+        text-align: center;
+        float: right;
+        vertical-align: 0;
+        border: 0;
+        font-weight: 900;
+        content: '\f107';
+        font-family: 'Font Awesome 5 Free';
+    }
+
+    #accordionSidebar .nav-item .nav-link[data-bs-toggle="collapse"].collapsed::after {
+        content: '\f105';
+    }
+
+    #accordionSidebar.toggled .nav-item .nav-link[data-bs-toggle="collapse"]::after {
+        display: none;
+    }
+}
+
 .navbar-search-custom .input-group {
     border-radius: 0.35rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);

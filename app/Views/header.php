@@ -26,8 +26,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Libreria de iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="<?php echo base_url();?>vendor/css/cssproyecto/datatable-buttons.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/datatable-buttons.css'); ?>" rel="stylesheet" type="text/css">
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/toatscss.css" rel="stylesheet" type="text/css">
-    <link  href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/barra.css'); ?>" rel="stylesheet" type="text/css">
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -35,7 +36,7 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/ci.03/public/usuarios">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo base_url('usuarios'); ?>">
                 <div class="sidebar-brand-icon ">
                     <i class="bi bi-bank"></i>
                 </div>
@@ -54,12 +55,12 @@
             <!-- Nav Item - Pages Collapse Menu -->
             
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Componentes</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Componentes de usuario</h6>
                         <a class="collapse-item" href="<?php echo base_url();?>usuarios">Usuarios</a>       
@@ -74,12 +75,12 @@
             </div>
             <!-- Nav Item - Museo Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMuseo"
-                    aria-expanded="true" aria-controls="collapseMuseo">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMuseo"
+                    aria-expanded="false" aria-controls="collapseMuseo">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Componentes</span>
                 </a>
-                <div id="collapseMuseo" class="collapse" aria-labelledby="headingMuseo" data-parent="#accordionSidebar">
+                <div id="collapseMuseo" class="collapse" aria-labelledby="headingMuseo" data-bs-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header text-dark">Componentes de Museo</h6>
                         <a class="collapse-item" href="login.html">Salas</a>
@@ -97,12 +98,12 @@
             </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                    aria-expanded="false" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Componentes</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-bs-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         
                         <h6 class="collapse-header text-dark">Componentes de Pieza</h6>

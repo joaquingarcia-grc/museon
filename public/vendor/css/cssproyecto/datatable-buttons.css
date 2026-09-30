@@ -1,0 +1,124 @@
+.dt-buttons .dt-button.dt-export-action {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 4.75rem;
+    min-height: 4.25rem;
+    padding: 0.5rem 0.65rem;
+    line-height: 1;
+    border: 1px solid #a8bbb4 !important;
+    border-radius: 6px !important;
+    color: #24463f !important;
+    background: #fbfdfc !important;
+    box-shadow: 0 2px 5px rgba(25, 53, 47, 0.12);
+    transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.dt-buttons .dt-button.dt-export-action:hover {
+    border-color: #66877d !important;
+    color: #173a33 !important;
+    background: #eaf2ef !important;
+    box-shadow: 0 4px 9px rgba(25, 53, 47, 0.16);
+    transform: translateY(-1px);
+}
+
+.dt-buttons .dt-button.dt-export-action:focus-visible {
+    outline: 3px solid rgba(68, 119, 106, 0.3);
+    outline-offset: 2px;
+}
+
+.dt-buttons .dt-button.dt-export-action .dt-export-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.dt-buttons .dt-button.dt-export-action .dt-export-icon {
+    font-size: 1.2rem;
+    color: #2d6256;
+}
+
+.dt-buttons .dt-button.buttons-excel .dt-export-icon,
+.dt-buttons .dt-button.buttons-csv .dt-export-icon {
+    color: #28734f;
+}
+
+.dt-buttons .dt-button.buttons-pdf .dt-export-icon {
+    color: #b54a40;
+}
+
+.dt-buttons .dt-button.buttons-copy .dt-export-icon {
+    color: #496a83;
+}
+
+.dt-buttons .dt-button.dt-export-action .dt-export-label {
+    font-size: 0.75rem;
+    line-height: 1.1;
+}
+
+#tablaclientes.dataTable {
+    border: 1px solid #b8c9c3;
+    border-collapse: separate !important;
+    border-radius: 6px;
+    border-spacing: 0;
+    color: #293a37;
+    background-color: #fff;
+    box-shadow: 0 8px 22px rgba(24, 49, 45, 0.13);
+    overflow: hidden;
+}
+
+#tablaclientes.dataTable thead th {
+    background-color: #e3ece8;
+    border-bottom: 2px solid #b5c7c0;
+    border-right: 1px solid #cad8d3;
+    color: #263a36;
+    font-weight: 600;
+    padding: 0.8rem 0.75rem;
+}
+
+#tablaclientes.dataTable tbody td {
+    border-bottom: 1px solid #d4dfdb;
+    border-right: 1px solid #dce5e1;
+    padding: 0.7rem 0.75rem;
+    vertical-align: middle;
+}
+
+#tablaclientes.dataTable tbody tr:nth-child(odd) > td {
+    background-color: #fff !important;
+    background-image: none !important;
+}
+
+#tablaclientes.dataTable tbody tr:nth-child(even) > td {
+    background-color: #f0f4f2 !important;
+    background-image: none !important;
+}
+
+#tablaclientes.dataTable thead th:last-child,
+#tablaclientes.dataTable tbody td:last-child {
+    border-right: 0;
+}
+
+#tablaclientes.dataTable tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+#tablaclientes.dataTable tbody tr:hover > * {
+    background-color: #e2eee9 !important;
+    background-image: none !important;
+}
+
+#content-wrapper .dt-paging .dt-paging-button.current {
+    border: 1px solid #315f54 !important;
+    border-radius: 5px;
+    color: #fff !important;
+    background: #315f54 !important;
+}
+
+#content-wrapper .dt-paging .dt-paging-button:not(.disabled):not(.current):hover {
+    border: 1px solid #9fb6ad !important;
+    border-radius: 5px;
+    color: #24463f !important;
+    background: #eaf2ef !important;
+}
