@@ -7,53 +7,25 @@
         </div>
         <div class='col text-right'>
             <a class="btn btn-outline-success" href="<?php echo base_url();?>objetos/nuevo">
-                Nuevo Objeto <i class="bi bi-box"></i>
+                Nueva Pieza <i class="bi bi-box"></i>
             </a>
         </div>
     </div>
     <div class="row justify-content-center">
-        <table class='table-primary table-striped' id="tablaclientes">
+        <table class='table-primary table-striped' id="tablaOBJ">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
                     <th class='text-center'>Código</th>
                     <th class='text-center'>Denominacion</th>
                     <th class='text-center'>Descripcion</th>
+                    <th class='text-center'>Cargado por</th>
                     <th class='text-center'>Fecha alta</th>
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php foreach ($objetos as $objeto){ ?>
-                    <tr>
-                        <td class='text-center'>
-                            <?php echo $objeto["id"];?> 
-                        </td>
-                        <td class='text-center'>
-                            <?php echo $objeto["codigo"];?> 
-                        </td> 
-                        <td class='text-center'>
-                            <?php echo $objeto["denominacion"];?> 
-                        </td>
-                        <td class='text-center'>
-                            <?php echo $objeto["descripcion"];?> 
-                        </td> 
-                        <td class='text-center'>
-                            <?php echo $objeto["fecha_alta"];?>
-                        </td>
-                        <td class='text-center'>    
-                            <a class='btn btn-primary' href="<?php echo base_url();?>objetos/editar/<?php echo $objeto["id"];?>">
-                                <i class='bi bi-pencil-square'></i>
-                            </a>   
-                            <a class='btn btn-danger' href="<?php echo base_url(); ?>objetos/borrar/<?php echo $objeto["id"];?>">
-                                <i class='bi bi-trash2-fill'></i>
-                            </a>
-                            <a href="<?php echo base_url(); ?>objetos/ver/<?php echo $objeto["id"]; ?>" class="btn btn-outline-info">
-                                <i class="bi bi-eye"></i>
-                            </a>
-                        </td>                            
-                    </tr>
-                <?php }?>
+            <tbody id='bodyTablaOBJ'>
+
             </tbody>
         </table>
     </div>
@@ -63,3 +35,25 @@
         </a>
     </div>
 </div>
+<div class="modal fade" id="modalBorradoOBJ" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmacion de borrado</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ¿Segura desa borrar este dato?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-danger" id="botonBorradoOBJ">Borrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+  <div id='toats'>
+  </div>
+</div>
+

@@ -3,6 +3,114 @@ $(document).ready(function() {
     let idABorrar = null;
     let idARecuperar = null;
     let idActualizar = null;
+    rellenarTabla();
+    rellenarTabla2();
+    
+//------------------------------------------------------------------------------------------------//
+    //esta funcion rellena la tabla de atributos
+    function rellenarTabla(){
+        $.ajax({
+            url: BASE + 'etiquetas/api',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let conteETQ = " ";
+                response.etiquetas.forEach(etiqueta => {
+                    conteETQ += `<tr>
+                        <td class='text-center'>${etiqueta.id}</td>
+                        <td class='text-center'>${etiqueta.denominacion}</td>
+                        <td class='text-center'>${etiqueta.fecha_alta}</td>
+                        <td class='text-center'>
+                            <button type="submit" class="btn btn-danger" id="btnETBorrar" data-id="${etiqueta.id}">
+                                <i class='bi bi-trash2-fill'></i>
+                            </button>
+                            <a class='btn btn-primary' href='${BASE}etiquetas/editar/${etiqueta.id}'>
+                                <i class='bi bi-pencil-square'></i>
+                            </a>
+                        </td>
+                    </tr>`;
+                });
+                $('#bodyTablaETQ').html(conteETQ);
+
+                // ACÁ va el bloque de layout
+                $('#tablaETQ').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
+                    },
+                    layout: {
+                        topStart: null,
+                        topEnd: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging',
+                        bottom1Start: {
+                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                        }
+                    },
+                    order: [[0, 'desc']]
+                });
+
+                $("#buscador").on('keyup', function(){
+                    $('#tablaETQ').DataTable().search(this.value).draw();
+                });
+            },
+            error: function() {
+                mensajes('Error en el servidor','error');
+            }
+        });
+    };
+
+//------------------------------------------------------------------------------------------------//
+    //esta funcion rellena la tabla de atributos
+    function rellenarTabla2(){
+        $.ajax({
+            url: BASE + 'etiquetas/api2',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let conteETQ = " ";
+                response.etiquetas.forEach(etiqueta => {
+                    conteETQ += `<tr>
+                        <td class='text-center'>${etiqueta.id}</td>
+                        <td class='text-center'>${etiqueta.denominacion}</td>
+                        <td class='text-center'>${etiqueta.fecha_baja}</td>
+                        <td class='text-center'>
+                            <button type="submit" class='btn btn-info' 
+                                data-id="${etiqueta.id}" id="btnRecuperarETQ">
+                                Resuperar
+                            <i class="bi bi-recycle"></i> </button>
+                        </td>
+                    </tr>`;
+                });
+                $('#bodyBrTablaETQ').html(conteETQ);
+
+                // ACÁ va el bloque de layout
+                $('#tablaETQBr').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
+                    },
+                    layout: {
+                        topStart: null,
+                        topEnd: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging',
+                        bottom1Start: {
+                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                        }
+                    },
+                    order: [[0, 'desc']]
+                });
+
+                $("#buscador").on('keyup', function(){
+                    $('#tablaETQBr').DataTable().search(this.value).draw();
+                });
+            },
+            error: function() {
+                mensajes('Error en el servidor','error');
+            }
+        });
+    };
+
+//------------------------------------------------------------------------------------------------//  
 
     $('#formularioET').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
@@ -51,7 +159,7 @@ $(document).ready(function() {
     });
 
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
-    $('.btn-borrarET').click(function(){
+    $(document).on('click','#btnETBorrar',function(){
         idABorrar = $(this).data('id');
         $('#modalBorradoET').modal('show');
     });
@@ -62,9 +170,8 @@ $(document).ready(function() {
             success: function(response){
                 $('#modalBorradoET').modal('hide');
                 mensajes('Etiqueta borrada exitosamente');
-                setTimeout(function(){
-                    location.reload();
-                }, 3000);
+                $('#tablaETQ').DataTable().destroy();
+                rellenarTabla();
             },
             error: function(){
                 $('#modalBorradoET').modal('hide');//ocultamos el modal de guardar
@@ -76,7 +183,7 @@ $(document).ready(function() {
         });
     });
     //obtenemos el selector del boton recuperar de vista papelera
-    $('.btn-recuperarET').click(function(){
+    $(document).on('click','#btnRecuperarETQ',function(){
 
         idARecuperar = $(this).data('id');
         
@@ -86,14 +193,12 @@ $(document).ready(function() {
             success: function(response){
                 if (response.exito){
                     mensajes("Etiqueta Recuperada: " + response.mensaje);                    
-                    setTimeout(function(){
-                        window.location.href = BASE + 'etiquetas';
-                    },  3000);
+                    $('#tablaETQBr').DataTable().destroy();
+                    rellenarTabla2();
                 }else{
                     mensajes('Aviso: ' + response.mensaje,'warning');
-                    setTimeout(function(){
-                        location.reload();
-                    }, 3000);
+                    $('#tablaETQBr').DataTable().destroy();
+                    rellenarTabla2();
                 }
                     
             },
@@ -125,7 +230,7 @@ $(document).ready(function() {
                     mensajes("Etiqueta: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'etiquetas';
-                    },  3000);
+                    },  4010);
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{

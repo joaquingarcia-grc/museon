@@ -205,12 +205,18 @@ class Atributos extends BaseController{
     }
     // API: devuelve en JSON los atributos activos, del más nuevo al más viejo
     public function api_atributos(){
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $atributos = $this->atributos->orderBy('id','DESC')->findAll();
         $datos = ['atributos'=>$atributos];
         return $this->response->setJSON($datos);
     }
     // API: devuelve en JSON los atributos borrados (papelera)
     public function api_atributos_borrados(){
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $atributos = $this->atributos->onlyDeleted()->findAll();
         $datos = ['atributos'=>$atributos];
         return $this->response->setJSON($datos);

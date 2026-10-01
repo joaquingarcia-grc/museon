@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table class='table table-striped' id="tablaclientes">
+        <table class='table-secondary table-striped' id="tablaETQBr">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
@@ -23,31 +23,8 @@
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php foreach ($etiquetas as $etiqueta){ ?>
-                            <tr>
-                                <td class='text-center'>
-                                    <?php echo $etiqueta["id"];?> 
-                                </td>
-                                <td class='text-center'>
-                                    <?php echo $etiqueta["denominacion"];?> 
-                                </td>
-                                <td class='text-center'>
-                                    <?php echo $etiqueta["fecha_baja"]?>
-                                </td>
-                                <td class='text-center'>
-                                    <button class='btn btn-warning btn-recuperarET' 
-                                        data-id="<?php echo $etiqueta["id"];?>" id="btnRecuperar">
-                                        Resuperar
-                                        <i class="bi bi-recycle"></i>
-                                    </button>
-                                    <!--a class='btn btn-warning' 
-                                        href="<?php echo base_url(); ?>etiquetas/recuperacion/<?php echo $etiqueta["id"];?>">
-                                        Resuperar<i class="bi bi-recycle"></i>
-                                    </a-->  
-                                </td>                            
-                            </tr>
-                    <?php }?>
+            <tbody id='bodyBrTablaETQ'>
+
             </tbody>
         </table>
     </div>

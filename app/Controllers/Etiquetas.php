@@ -188,7 +188,18 @@ class Etiquetas extends BaseController{
             exit;
         }
         
-        return redirect()->to(base_url() . 'etiquetas');
+    }
+    // API: devuelve en JSON los etiquetas activos, del más nuevo al más viejo
+    public function api_etiquetas(){
+        $etiquetas = $this->etiquetas->orderBy('id','DESC')->findAll();
+        $datos = ['etiquetas'=>$etiquetas];
+        return $this->response->setJSON($datos);
+    }
+    // API: devuelve en JSON los etiquetas borrados (papelera)
+    public function api_etiquetas_borrados(){
+        $etiquetas = $this->etiquetas->onlyDeleted()->findAll();
+        $datos = ['etiquetas'=>$etiquetas];
+        return $this->response->setJSON($datos);
     }
 }
 ?>

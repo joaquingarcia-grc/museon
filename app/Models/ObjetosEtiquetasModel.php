@@ -31,25 +31,6 @@
 
     protected $validationRules    = [];
     protected $validationMessages = [];
-    protected $skipValidation     = false;
-
-    public function vincularEtiqueta($objeto_id, $etiqueta_id)
-    {
-        return $this->insert([
-            'objeto_id'   => $objeto_id,
-            'etiqueta_id' => $etiqueta_id,
-        ]);
-    }
- 
-    // Trae las etiquetas vinculadas a un objeto
-    
-    public function obtenerEtiquetasPorObjeto($objeto_id)
-    {
-        return $this->select('etiquetas.id, etiquetas.denominacion')
-                    ->join('etiquetas', 'etiquetas.id = objeto_etiquetas.etiqueta_id')
-                    ->where('objeto_etiquetas.objeto_id', $objeto_id)
-                    ->findAll();
-    }
-    
+    protected $skipValidation     = false;    
   }
  ?>

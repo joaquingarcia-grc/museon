@@ -32,23 +32,5 @@
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
-
-    public function obtenerAtributosPorObjeto($objeto_id)
-    {
-        return $this->select('atributos.id, atributos.denominacion, atributos.tipo_dato,atributos.unidad, objeto_atributos.valor')
-                    ->join('atributos', 'atributos.id = objeto_atributos.atributo_id')
-                    ->where('objeto_atributos.objeto_id', $objeto_id)
-                    ->findAll();
-    }
-    
-     // Vincula un objeto con un atributo y su valor
-    public function vincularAtributo($objeto_id, $atributo_id, $valor)
-    {
-        return $this->insert([
-            'objeto_id'   => $objeto_id,
-            'atributo_id' => $atributo_id,
-            'valor'       => $valor,
-        ]);
-    }
   }
  ?>

@@ -8,7 +8,7 @@
         </div>
         <div class="text-right">
             <a class="btn btn-success" href="<?php echo base_url();?>objetos/">
-                Objetos <i class="bi bi-box"></i>
+                Piezas <i class="bi bi-box"></i>
             </a>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="col-md-10">
             <div class="card shadow-sm">
                 <div class="card-body p-4">
-                    <form action="<?php echo base_url();?>objetos/insertar" method="post">
+                    <form id='formularioOBJ' method="post">
                         <!-- Datos principales del objeto -->
                         <div class="row mb-4">
                             <div class="col-12 mb-3">
@@ -68,7 +68,7 @@
                         </div>
  
                         <div class="d-flex gap-2 mt-4">
-                            <button class="btn btn-outline-success" type="submit">Guardar</button>
+                            <button class="btn btn-outline-success"  type="submit">Guardar</button>
                             <a href="<?php echo base_url();?>objetos/" class="btn btn-outline-danger">Cancelar</a>
                         </div>
                         <!-- MODAL DE ATRIBUTOS -->
@@ -116,15 +116,26 @@
         </div>
     </div>
 </div>
- 
-<script type="application/json" id="datosObjeto">
-<?php echo json_encode([
-    'etiqueta' => $etiquetas ?? [],
-    'atributo' => $atributos ?? []
-]); ?>
-</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker-bs5.min.css">
-<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/locales/es.min.js"></script>
 
-<script src="<?php echo base_url(); ?>vendor/js/jsproyecto/objetos.js"></script>
+<!-- Modal de guardado -->
+<div class="modal fade" id="modalGuardarOBJ" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Guardar Datos</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro que desea guardar los datos?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary btn-modalGuardado" id="btnGuardarOBJ">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div id='toats'>
+  </div>
+</div>

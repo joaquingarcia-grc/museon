@@ -26,6 +26,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="bg-light fw-bold" style="width: 35%;">Responsable</td>
+                    <td><?php echo $objeto['cargado_por']; ?></td>
+                </tr>
+                <tr>
                     <td class="bg-light fw-bold" style="width: 35%;">Número de inventario (ID)</td>
                     <td><?php echo $objeto['id']; ?></td>
                 </tr>

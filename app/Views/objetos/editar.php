@@ -17,7 +17,7 @@
         <div class="col-md-10">
             <div class="card shadow-sm">
                 <div class="card-body p-4">
-                    <form action="<?php echo base_url();?>objetos/actualizar/<?php echo $objetos['id'];?>" method="post">
+                    <form id='OBJactualizar' data-id="<?php echo $objetos['id'];?>"  method="post">
                         
                         <!-- Datos principales del objeto -->
                         <div class="row mb-4">
@@ -128,16 +128,8 @@
         </div>
     </div>
 </div>
+<div>
+  <div id='toats'>
+  </div>
+</div>
 
-<script type="application/json" id="datosObjeto">
-<?php echo json_encode([
-    'etiqueta' => $etiquetas ?? [],
-    'atributo' => $atributos ?? [],
-    'etiquetasSeleccionadas' => $etiquetasSeleccionadas ?? [],
-    'atributosSeleccionados' => $atributosSeleccionados ?? []
-]); ?>
-</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker-bs5.min.css">
-<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/locales/es.min.js"></script>
-<script src="<?php echo base_url(); ?>vendor/js/jsproyecto/objetos.js"></script>

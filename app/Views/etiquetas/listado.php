@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table class='table-primary table-striped' id="tablaclientes">
+        <table class='table-primary table-striped' id="tablaETQ">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
@@ -21,29 +21,7 @@
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php foreach ($etiquetas as $etiqueta){ ?>
-                            <tr>
-                                <td class='text-center'>
-                                    <?php echo $etiqueta["id"];?> 
-                                </td>
-                                <td class='text-center'>
-                                    <?php echo $etiqueta["denominacion"];?> 
-                                </td> 
-                                <td class='text-center'>
-                                    <?php echo $etiqueta["fecha_alta"]?>
-                                </td>
-                                <td class='text-center'>    
-                                    <a class='btn btn-primary' 
-                                        href="<?php echo base_url()?>etiquetas/editar/<?php echo $etiqueta["id"];?>">
-                                        <i class='bi bi-pencil-square'></i>
-                                    </a>   
-                                    <button type="button" class="btn btn-danger btn-borrarET" id="btnModalBorradoET" data-id="<?php echo $etiqueta["id"];?>">
-                                        <i class='bi bi-trash2-fill'></i>
-                                    </button>
-                                </td>                            
-                            </tr>
-                    <?php }?>
+            <tbody id='bodyTablaETQ'>
             </tbody>
         </table>
     </div>
