@@ -62,6 +62,10 @@ $(document).ready(function() {
                                     extend: 'csvHtml5',
                                     text:'csv',
                                     titleAttr:'formato planilla'
+                                },{
+                                    extend: 'print',
+                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'imprimir tabla'
                                 },{   
                                 text: 'Papelera <i class="bi bi-trash2-fill"></i>',
                                 titleAttr: 'Papelera',
