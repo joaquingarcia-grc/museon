@@ -7,7 +7,7 @@
         </div>
         <div class='col text-right'>
             <a class="btn btn-outline-success" href="<?php echo base_url();?>objetos/nuevo">
-                Nueva Pieza <i class="bi bi-box"></i>
+                Nuevo piezas <i class="bi bi-box-seam-fill"></i>
             </a>
         </div>
     </div>
@@ -15,7 +15,7 @@
         <table class='table-primary table-striped' id="tablaOBJ">
             <thead>
                 <tr>
-                    <th class='text-center'>id</th>
+                    <th class='text-center'>ID</th>
                     <th class='text-center'>Código</th>
                     <th class='text-center'>Denominacion</th>
                     <th class='text-center'>Descripcion</th>
@@ -28,11 +28,6 @@
 
             </tbody>
         </table>
-    </div>
-    <div class='col text-right  py-3 px-4'>            
-        <a class="btn btn-outline-secondary" href="<?php echo base_url();?>objetos/papelera">
-            <i class='bi bi-trash2-fill'>Papelera</i>
-        </a>
     </div>
 </div>
 <div class="modal fade" id="modalBorradoOBJ" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
