@@ -45,7 +45,13 @@ $(document).ready(function() {
                         bottomStart: 'info',
                         bottomEnd: 'paging',
                         bottom1Start: {
-                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print',{   
+                                text: '<i class="bi bi-trash2-fill"></i>',
+                                titleAttr: 'Papelera',
+                                className: 'btn btn-outline-secondary',
+                                action: function () {
+                                    window.location.href = BASE + 'atributos/papelera';
+                                }}]
                         }
                     },
                     order: [[0, 'desc']]

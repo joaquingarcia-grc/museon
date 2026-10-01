@@ -26,11 +26,6 @@
             </tbody>
         </table>
     </div>
-    <div class='col text-right  py-3 px-4'>            
-        <a class="btn btn-outline-secondary" href="<?php echo base_url();?>atributos/papelera">
-            <i class='bi bi-trash2-fill'>Papelera</i>
-        </a>
-    </div>
 </div>
 <div class="modal fade" id="modalBorradoATB" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
