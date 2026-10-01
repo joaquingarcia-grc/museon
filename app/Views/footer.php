@@ -63,66 +63,6 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- <script>
-        var table = new DataTable('#tablaclientes',{
-            language :{
-                url:'https://cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json'
-            },
-            layout: {
-                bottomStart{
-                    buttons:['excel', 'pdf', 'copy', 'csv', 'print']
-                }
-            },
-        });
-    </script>
-    -->
-
-    <script>
-        $(document).ready(function() {
-            $('#tablaclientes').DataTable({language:{url:"https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json"},
-            layout:{
-                bottomStart:{
-                    buttons: [
-                        {
-                            extend: 'excelHtml5',
-                            text: '<span class="dt-export-content"><i class="bi bi-file-earmark-excel dt-export-icon" aria-hidden="true"></i><span class="dt-export-label">Excel</span></span>',
-                            className: 'dt-export-action'
-                        },
-                        {
-                            extend: 'pdfHtml5',
-                            text: '<span class="dt-export-content"><i class="bi bi-file-earmark-pdf dt-export-icon" aria-hidden="true"></i><span class="dt-export-label">PDF</span></span>',
-                            className: 'dt-export-action'
-                        },
-                        {
-                            extend: 'copyHtml5',
-                            text: '<span class="dt-export-content"><i class="bi bi-clipboard dt-export-icon" aria-hidden="true"></i><span class="dt-export-label">Copiar</span></span>',
-                            className: 'dt-export-action'
-                        },
-                        {
-                            extend: 'csvHtml5',
-                            text: '<span class="dt-export-content"><i class="bi bi-filetype-csv dt-export-icon" aria-hidden="true"></i><span class="dt-export-label">CSV</span></span>',
-                            className: 'dt-export-action'
-                        },
-                        {
-                            text: '<span class="dt-export-content"><i class="bi bi-trash3 dt-export-icon" aria-hidden="true"></i><span class="dt-export-label">Papelera</span></span>',
-                            className: 'dt-export-action',
-                            action: function (e, dt) {
-                                window.location.href = $(dt.table().node()).data('papelera-url');
-                            },
-                            available: function (dt) {
-                                return Boolean($(dt.table().node()).data('papelera-url'));
-                            }
-                        },
-                        'print'
-                    ],
-                }
-            },
-            order : [[0, 'desc']]
-        });
-        });
-
-    </script>
-
     <script>
         const BASE = "<?php echo base_url();?>"
     </script>
