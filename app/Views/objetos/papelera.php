@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <table class='table table-striped' id="tablaOBJBr">
+        <table class='table-secondary table-striped' id="tablaOBJBr">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
