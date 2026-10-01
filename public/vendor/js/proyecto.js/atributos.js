@@ -45,7 +45,8 @@ $(document).ready(function() {
                         bottomStart: 'info',
                         bottomEnd: 'paging',
                         bottom1Start: {
-                            buttons: [{   
+                            buttons: [ 
+                                {   
                                     extend: 'excelHtml5',
                                     text:'excel',
                                     titleAttr:'formato exel'
@@ -62,7 +63,7 @@ $(document).ready(function() {
                                     text:'csv',
                                     titleAttr:'formato planilla'
                                 },{   
-                                text: '<i class="bi bi-trash2-fill"></i>',
+                                text: 'Papelera <i class="bi bi-trash2-fill"></i>',
                                 titleAttr: 'Papelera',
                                 className: 'btn btn-outline-secondary',
                                 action: function () {
