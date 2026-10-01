@@ -1,5 +1,4 @@
 <div class="container mt-4 mb-5">
-    
     <!-- Botón para volver  -->
     <div class="mb-3 d-print-none" style="max-width: 1500px; margin: 0 auto;">
        
@@ -11,7 +10,6 @@
             </a>
         </div>
     </div>
-
         <h4 class="text-center fw-bold mb-4" style="font-family: 'Times New Roman', serif;">
             FICHA IDENTITARIA OBJETO
         </h4>

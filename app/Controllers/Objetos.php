@@ -266,18 +266,14 @@ class Objetos extends BaseController {
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
-
+        //esto nos indica que esperamos peticiones json
+        header('Content-Type: application/json');
         $objeto = $this->objetos->withDeleted()->find($id);
-        
-        $objetoActivo = $this->objetos->where('denominacion', $objeto['denominacion'])->first();
-
-        if($objetoActivo){
-            echo "ya existe un atributo activo con esa denominacion";
-            return;
+        if ($objeto){
+            $this->objetos->update($id, ['fecha_baja' => null]);
+            echo json_encode(['exito' => true, 'mensaje' => 'recuperado exitosamente']);
+            exit;
         }
-
-        $this->objetos->update($id, ['fecha_baja' => null]);
-        return redirect()->to(base_url('objetos'));
     }
 
     public function ver($id) {
@@ -327,6 +323,16 @@ class Objetos extends BaseController {
         $datos = ['objetos'=>$objetos];
         return $this->response->setJSON($datos);
     }
+    // API: devuelve en JSON los atributos borrados (papelera)
+    public function api_objetos_borrados(){
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        $objetos = $this->objetos->onlyDeleted()->findAll();
+        $datos = ['objetos'=>$objetos];
+        return $this->response->setJSON($datos);
+    }
+
 
     public function obtenerAtributosPorObjeto($objeto_id){
         return $this->objetosatributos->select('atributos.id, atributos.denominacion, atributos.tipo_dato,atributos.unidad, objeto_atributos.valor')

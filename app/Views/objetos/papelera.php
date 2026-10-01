@@ -9,12 +9,12 @@
         </div>
         <div class="col text-right  py-3 px-4">
             <a class="btn btn-success" href="<?php echo base_url();?>objetos/">
-                Objetos <i class="bi bi-box"></i>
+                Piezas <i class="bi bi-box"></i>
             </a>
         </div>
     </div>
     <div class="row justify-content-center">
-        <table class='table table-striped' id="tablaclientes">
+        <table class='table table-striped' id="tablaOBJBr">
             <thead>
                 <tr>
                     <th class='text-center'>id</th>
@@ -23,30 +23,13 @@
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php foreach ($objetos as $objeto){ ?>
-                            <tr>
-                                <td class='text-center'>
-                                    <?php echo $objeto["id"];?> 
-                                </td>
-                                
-                                <td class='text-center'>
-                                    <?php echo $objeto["denominacion"];?> 
-                                </td>
-                                
-                                <td class='text-center'>
-                                    <?php echo $objeto["fecha_baja"]?>
-                                </td>
+            <tbody id= 'bodyBrTablaOBJ'>
 
-                                <td class='text-center'>
-                                    <a class='btn btn-warning' 
-                                        href="<?php echo base_url(); ?>objetos/recuperacion/<?php echo $objeto["id"];?>">
-                                        Resuperar<i class="bi bi-recycle"></i>
-                                    </a>  
-                                </td>                            
-                            </tr>
-                    <?php }?>
             </tbody>
         </table>
     </div>
+</div>
+<div>
+  <div id='toats'>
+  </div>
 </div>

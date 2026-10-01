@@ -2,7 +2,11 @@ $(document).ready(function(){
 
     let idActualizar = null;
     let idABorrar = null;
+    let idARecuperar = null; 
+    
     rellenarTabla();
+    rellenarTabla2();
+
 //------------------------------------------------------------------------------------------------//
     //esta funcion rellena la tabla de atributos
     function rellenarTabla(){
@@ -162,6 +166,79 @@ $(document).ready(function(){
         });
     });
 
+//------------------------------------------------------------------------------------------------//
+    //esta funcion rellena la tabla de atributos
+    function rellenarTabla2(){
+        $.ajax({
+            url: BASE + 'objetos/api2',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let conteOBj = " ";
+                response.objetos.forEach(objeto => {
+                    conteOBj += `<tr>
+                        <td class='text-center'>${objeto.id}</td>
+                        <td class='text-center'>${objeto.denominacion}</td>
+                        <td class='text-center'>${objeto.fecha_baja}</td>
+                        <td class='text-center'>
+                            <button type="submit" class='btn btn-info' 
+                                data-id="${objeto.id}" id="btnRecuperarOBJ">
+                                Resuperar
+                            <i class="bi bi-recycle"></i> </button>
+                        </td>
+                    </tr>`;
+                });
+                $('#bodyBrTablaOBJ').html(conteOBj);
+
+                // ACÁ va el bloque de layout
+                $('#tablaOBJBr').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
+                    },
+                    layout: {
+                        topStart: null,
+                        topEnd: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging',
+                        bottom1Start: {
+                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                        }
+                    },
+                    order: [[0, 'desc']]
+                });
+
+                $("#buscador").on('keyup', function(){
+                    $('#tablaOBJBr').DataTable().search(this.value).draw();
+                });
+            },
+            error: function() {
+                mensajes('Error en el servidor','error');
+            }
+        });
+    };
+
+//------------------------------------------------------------------------------------------------//
+    //obtenemos el selector del boton recuperar de vista papelera
+    $(document).on('click',('#btnRecuperarOBJ'),function(){
+    //este id a recuperar nos permiter almacenar el id obtenido desde la base de datos para posteriormente ser enviado al controlador
+        idARecuperar = $(this).data('id'); 
+        //Controlador de recuperacion
+        $.ajax({
+            url: BASE + 'objetos/recuperacion/' + idARecuperar,
+            method: 'POST',
+            success: function(response){
+                mensajes('Objeto ' + response.mensaje);
+                $('#tablaOBJBr').DataTable().destroy();
+                rellenarTabla2();   
+            },
+            error: function(){
+                mensajes('Error en el servidor','error'); 
+            },
+            complete: function(){
+                
+            } 
+        });
+    });
 //---------------------------------------------------------------------------------------------------------------// 
     function mensajes(mensaje, tipo = 'success'){
         const toast = document.getElementById('toats');
