@@ -29,6 +29,7 @@
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/datatable-buttons.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/datatable-buttons.css'); ?>" rel="stylesheet" type="text/css">
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/toatscss.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/barra.css'); ?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url();?>vendor/css/cssproyecto/objetos.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/objetos.css'); ?>" rel="stylesheet" type="text/css">
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->

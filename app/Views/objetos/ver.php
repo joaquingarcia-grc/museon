@@ -1,7 +1,7 @@
 <div class="container mt-4 mb-5">
     
     <!-- Botón para volver  -->
-    <div class="mb-3 d-print-none" style="max-width: 1500px; margin: 0 auto;">
+    <div class="mb-3 d-print-none object-sheet-actions">
        
        <div class="col text-right">
             <a class="btn btn-success" href="<?php echo base_url();?>objetos/">
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-        <h4 class="text-center fw-bold mb-4" style="font-family: 'Times New Roman', serif;">
+        <h4 class="text-center fw-bold mb-4 object-sheet-title">
             FICHA IDENTITARIA OBJETO
         </h4>
 
