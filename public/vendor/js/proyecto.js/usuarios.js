@@ -312,7 +312,7 @@ $(document).ready(function(){
                         window.location.href = BASE + 'usuarios/editar/' + idEditar;
                     },  4000);
                 }else {
-                    mensajes('Error: ' + response.mensaje, 'error');
+                    mostrarCartel('Usted no tiene permisos para modificar este usuario.', 'danger', 10000);
                 }
             },
             error: function() {
@@ -334,4 +334,20 @@ $(document).ready(function(){
           toast.classList.remove('show');
         }, 4000);}
 
+    function mostrarCartel(mensaje, tipo, tiempo) {
+      const $alerta = $(`
+            <div class="alert alert-${tipo} alert-dismissible" role="alert">
+                ${mensaje}
+                <button type="button" class="btn-close"></button>
+            </div>`
+        );
+        $('#cartel').empty();      
+        $('#cartel').prepend($alerta);
+        setTimeout(() => $alerta.remove(), tiempo);
+        $alerta.find('.btn-close').on('click', () => $alerta.remove());
+    }
+    // Al cargar la página
+    $(document).ready(function () {
+      mostrarCartel('Usted solo podrá modificar usuarios que le pertenecen.', 'primary', 20000);
+    });
 });
