@@ -63,20 +63,6 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- <script>
-        var table = new DataTable('#tablaclientes',{
-            language :{
-                url:'https://cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json'
-            },
-            layout: {
-                bottomStart{
-                    buttons:['excel', 'pdf', 'copy', 'csv', 'print']
-                }
-            },
-        });
-    </script>
-    -->
-
     <script>
         $(document).ready(function() {
             $('#tablaclientes').DataTable({language:{url:"https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json"},

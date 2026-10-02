@@ -14,7 +14,7 @@
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
     <link href='https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap' rel='stylesheet'>
     <!-- CSS propio -->
-    <link rel='stylesheet' href='<?php echo base_url();?>vendor/css/loguincss/login-page.css'>
+    <link rel='stylesheet' href='<?php echo base_url();?>vendor/css/loguincss/login-page.css?v=<?php echo filemtime(FCPATH . 'vendor/css/loguincss/login-page.css'); ?>'>
     <link rel='stylesheet' href='<?php echo base_url();?>vendor/css/loguincss/loguin.nuevo.css'>
      <!-- Icono de la pagina -->
     <link rel="shortcut icon" href="<?php echo base_url();?>imagenes/favicon/favicon.ico/"type="image/x-icon">
