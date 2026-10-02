@@ -2,6 +2,7 @@ $(document).ready(function(){
     let idActualizar = null;
     let idABorrar = null;
     let idARecuperar = null;
+    let idEditar = null;
 
     rellenarTabla();
     //llamo a la funcion que rellena la tabla se uduarios en la papelera
@@ -27,9 +28,9 @@ $(document).ready(function(){
                             <button type="submit" class="btn btn-danger" id="btnBorrarUSR" data-id="${usuario.id}">
                                 <i class='bi bi-trash2-fill'></i>
                             </button>
-                            <a class='btn btn-primary' href='${BASE}usuarios/editar/${usuario.id}'>
+                            <button class='btn btn-primary' id='editUSR' data-id="${usuario.id}"'>
                                 <i class='bi bi-pencil-square'></i>
-                            </a>
+                            </button>
                         </td>
                     </tr>`;
                 });
@@ -46,7 +47,34 @@ $(document).ready(function(){
                         bottomStart: 'info',
                         bottomEnd: 'paging',
                         bottom1Start: {
-                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                            buttons: [ 
+                                {   
+                                    extend: 'excelHtml5',
+                                    text:'excel',
+                                    titleAttr:'formato exel'
+                                },{ 
+                                    extend: 'pdfHtml5',
+                                    text:'pdf',
+                                    titleAttr:'formato pdf'
+                                },{
+                                    extend: 'copyHtml5',
+                                    text:'copiar',
+                                    titleAttr:'formato texto plano'
+                                },{
+                                    extend: 'csvHtml5',
+                                    text:'csv',
+                                    titleAttr:'formato planilla'
+                                },{
+                                    extend: 'print',
+                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'imprimir tabla'
+                                },{   
+                                text: 'Papelera <i class="bi bi-trash2-fill"></i>',
+                                titleAttr: 'Papelera',
+                                className: 'btn btn-outline-secondary',
+                                action: function () {
+                                    window.location.href = BASE + 'usuarios/papelera';
+                                }}]
                         }
                     },
                     order: [[0, 'desc']]
@@ -97,7 +125,28 @@ $(document).ready(function(){
                         bottomStart: 'info',
                         bottomEnd: 'paging',
                         bottom1Start: {
-                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                            buttons: [ 
+                                {   
+                                    extend: 'excelHtml5',
+                                    text:'excel',
+                                    titleAttr:'formato exel'
+                                },{ 
+                                    extend: 'pdfHtml5',
+                                    text:'pdf',
+                                    titleAttr:'formato pdf'
+                                },{
+                                    extend: 'copyHtml5',
+                                    text:'copiar',
+                                    titleAttr:'formato texto plano'
+                                },{
+                                    extend: 'csvHtml5',
+                                    text:'csv',
+                                    titleAttr:'formato planilla'
+                                },{
+                                    extend: 'print',
+                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'imprimir tabla'
+                                }]
                         }
                     },
                     order: [[0, 'desc']]
@@ -243,6 +292,31 @@ $(document).ready(function(){
             },
             error: function() {
                 mensajes('Error en el servidor','error'); 
+            },
+            complete: function(){} 
+        });
+    });
+
+//-----------------------------------------------------------------------------------------------//
+    $(document).on('click','#editUSR',function(e){
+        e.preventDefault();
+        idEditar = $(this).data('id');
+        $.ajax({
+            url: BASE + 'usuarios/puedeeditar/' + idEditar,
+            method: 'GET',
+            dataType: 'json',
+            success: function(response){
+                if (response.exito){
+                    mensajes(response.mensaje);
+                    setTimeout(function(){//activa funcion que dirije a la vista usuarios
+                        window.location.href = BASE + 'usuarios/editar/' + idEditar;
+                    },  4000);
+                }else {
+                    mensajes('Error: ' + response.mensaje, 'error');
+                }
+            },
+            error: function() {
+                mensajes('Error en el servidor' ,'error');
             },
             complete: function(){} 
         });

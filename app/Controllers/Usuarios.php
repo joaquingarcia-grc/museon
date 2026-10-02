@@ -134,16 +134,39 @@ class Usuarios extends BaseController{
             exit;
         }
     }
+
+    public function puedeEditar($id){
+        // Verificación de sesión
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        header('Content-Type: application/json');
+
+        $usuarios = $this->usuarios->find($id);
+        $id_logueado = $this->sesion->get('id');
+
+        if ($usuarios['id'] != $id_logueado){
+            echo json_encode(['exito' => false, 'mensaje' => 'Este usuario no le pertenese']);
+            exit;
+        }
+        echo json_encode(['exito' => true, 'mensaje' => 'Este usuario si le pertenece']);
+        exit;
+    }
+
     // Muestra el formulario de edición con los datos del usuario
     public function editar($id){
         // Verificación de sesión
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        $id_logueado = $this->sesion->get('id');
         // 1. Trae el usuarios de la BD
         $usuarios = $this->usuarios->where('id', $id)->first();
-
         $museos = $this->museos->first();
+
+        if ($usuarios['id'] != $id_logueado) {
+            return redirect()->to(base_url() . 'usuarios');
+        }
 
         $datos = [ 'museos'=>$museos,
             'usuarios'     => $usuarios, // <--- Aquí enviamos los datos
@@ -160,9 +183,18 @@ class Usuarios extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
-        // Indicamos que la respuesta va a ser JSON
+        //esto nos indica que esperamos peticiones json
         header('Content-Type: application/json');
-        // Limpieza de los datos recibidos
+        
+        $id_logueado = $this->sesion->get('id');
+        
+        $usuario = $this->usuarios->find($id);
+
+        if ($usuario['id'] != $id_logueado) {
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no es el dueño de este usuario']);
+            exit;
+        }
+
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $email = trim($this->request->getPost('email'));
         $telefono = trim($this->request->getPost('telefono'));

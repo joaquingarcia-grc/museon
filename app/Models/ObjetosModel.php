@@ -30,9 +30,7 @@
 
     protected $validationRules    = [];
     protected $validationMessages = [];
-    protected $skipValidation     = false;
-
-    
+    protected $skipValidation     = false;    
 }
 
 ?>

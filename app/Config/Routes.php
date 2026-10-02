@@ -11,6 +11,7 @@ $routes->get('/usuarios/nuevo','Usuarios::nuevo');
 $routes->post('/usuarios/insertar','Usuarios::insertar');
 $routes->post('/usuarios/actualizar/(:num)', 'Usuarios::actualizar/$1');
 $routes->get('/usuarios/editar/(:num)', 'Usuarios::editar/$1');
+$routes->get('/usuarios/puedeeditar/(:num)', 'Usuarios::puedeEditar/$1');
 $routes->get('/usuarios/papelera/', 'Usuarios::papelera/');
 $routes->post('/usuarios/recuperacion/(:num)','Usuarios::recuperacion/$1');
 $routes->get('usuarios/api','Usuarios::api_usuarios');

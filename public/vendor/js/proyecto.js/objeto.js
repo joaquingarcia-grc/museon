@@ -50,7 +50,34 @@ $(document).ready(function(){
                         bottomStart: 'info',
                         bottomEnd: 'paging',
                         bottom1Start: {
-                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                            buttons: [ 
+                                {   
+                                    extend: 'excelHtml5',
+                                    text:'excel',
+                                    titleAttr:'formato exel'
+                                },{ 
+                                    extend: 'pdfHtml5',
+                                    text:'pdf',
+                                    titleAttr:'formato pdf'
+                                },{
+                                    extend: 'copyHtml5',
+                                    text:'copiar',
+                                    titleAttr:'formato texto plano'
+                                },{
+                                    extend: 'csvHtml5',
+                                    text:'csv',
+                                    titleAttr:'formato planilla'
+                                },{
+                                    extend: 'print',
+                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'imprimir tabla'
+                                },{   
+                                text: 'Papelera <i class="bi bi-trash2-fill"></i>',
+                                titleAttr: 'Papelera',
+                                className: 'btn btn-outline-secondary',
+                                action: function () {
+                                    window.location.href = BASE + 'objetos/papelera';
+                                }}]
                         }
                     },
                     order: [[0, 'desc']]
@@ -69,11 +96,6 @@ $(document).ready(function(){
         
     $('#formularioOBJ').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
-        // en vez de guardar, solo mostramos el modal
-        $('#modalGuardarOBJ').modal('show');
-    });
-    //los datos seran enviado una ves obtengamos la accion desde el boton del modal
-    $('#btnGuardarOBJ').on('click', function(){
         const dato = $('#formularioOBJ').serialize();  
         $.ajax({
             url: BASE + 'objetos/insertar',
@@ -82,29 +104,24 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(response){
                 if (response.exito){
-                    $('#modalGuardarOBJ').modal('hide');//ocultamos el modal de guardar
                     mensajes("Pieza guardado con ID: " + response.id + response.mensaje);
                     $('#formularioOBJ')[0].reset();
                     setTimeout(function(){
                         window.location.href = BASE + 'objetos';
                     },  4010);
                 }else if (response.papelera){
-                    $('#modalGuardarOBJ').modal('hide');//ocultamos el modal de guardar
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     $('#formularioOBJ')[0].reset();
                 }else{
-                    $('#modalGuardarOBJ').modal('hide');//ocultamos el modal de guardar
                     mensajes('Error: ' + response.mensaje, 'error');
                     $('#formularioOBJ')[0].reset();
                 }
             },
             error: function() {
-                $('#modalGuardarOBJ').modal('hide');//ocultamos el modal de guardar
                 mensajes('Error en el servidor', 'error');
                 $('#formularioOBJ')[0].reset();
             },
             complete: function(){
-                $('#modalGuardarOBJ').modal('hide');//ocultamos el modal de guardar
                 $('#formularioOBJ')[0].reset();
             } 
         });
@@ -201,7 +218,28 @@ $(document).ready(function(){
                         bottomStart: 'info',
                         bottomEnd: 'paging',
                         bottom1Start: {
-                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                            buttons: [ 
+                                {   
+                                    extend: 'excelHtml5',
+                                    text:'excel',
+                                    titleAttr:'formato exel'
+                                },{ 
+                                    extend: 'pdfHtml5',
+                                    text:'pdf',
+                                    titleAttr:'formato pdf'
+                                },{
+                                    extend: 'copyHtml5',
+                                    text:'copiar',
+                                    titleAttr:'formato texto plano'
+                                },{
+                                    extend: 'csvHtml5',
+                                    text:'csv',
+                                    titleAttr:'formato planilla'
+                                },{
+                                    extend: 'print',
+                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'imprimir tabla'
+                                }]
                         }
                     },
                     order: [[0, 'desc']]

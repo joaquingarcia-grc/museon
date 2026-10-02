@@ -123,7 +123,28 @@ $(document).ready(function() {
                         bottomStart: 'info',
                         bottomEnd: 'paging',
                         bottom1Start: {
-                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                            buttons: [ 
+                                {   
+                                    extend: 'excelHtml5',
+                                    text:'excel',
+                                    titleAttr:'formato exel'
+                                },{ 
+                                    extend: 'pdfHtml5',
+                                    text:'pdf',
+                                    titleAttr:'formato pdf'
+                                },{
+                                    extend: 'copyHtml5',
+                                    text:'copiar',
+                                    titleAttr:'formato texto plano'
+                                },{
+                                    extend: 'csvHtml5',
+                                    text:'csv',
+                                    titleAttr:'formato planilla'
+                                },{
+                                    extend: 'print',
+                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'imprimir tabla'
+                                }]
                         }
                     },
                     order: [[0, 'desc']]

@@ -21,7 +21,7 @@
                         <div class="row mb-4">
                             <div class="col-12 mb-3">
                                 <label for="codigo" class="form-label fw-bold">Código del Objeto</label>
-                                <input class="form-control" type="text" id="codigo" name="codigo" placeholder="Ej: A03, B54..." required>
+                                <input class="form-control" type="text" id="codigo" name="codigo" placeholder="Ej: A03, B54..." required autofocus>
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="denominacion" class="form-label fw-bold">Denominación</label>
@@ -68,7 +68,7 @@
                         </div>
  
                         <div class="d-flex gap-2 mt-4">
-                            <button class="btn btn-outline-success"  type="submit">Guardar</button>
+                            <button class="btn btn-outline-success"  type="submit" autofocus>Guardar</button>
                             <a href="<?php echo base_url();?>objetos/" class="btn btn-outline-danger">Cancelar</a>
                         </div>
                         <!-- MODAL DE ATRIBUTOS -->
@@ -115,25 +115,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<!-- Modal de guardado -->
-<div class="modal fade" id="modalGuardarOBJ" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Guardar Datos</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ¿Esta seguro que desea guardar los datos?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary btn-modalGuardado" id="btnGuardarOBJ">Guardar</button>
-      </div>
-    </div>
-  </div>
 </div>
 <div>
   <div id='toats'>

@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/toatscss.css" rel="stylesheet" type="text/css">
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css" rel="stylesheet" type="text/css">
+    <link  href="<?php echo base_url();?>vendor/css/cssproyecto/cartel.css" rel="stylesheet" type="text/css">
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->

@@ -13,6 +13,7 @@
     <!-- CSS propio -->
     <link rel='stylesheet' href='<?php echo base_url();?>vendor/css/loguincss/loguin.css'>
     <link rel='stylesheet' href='<?php echo base_url();?>vendor/css/loguincss/loguin.nuevo.css'>
+    <link rel='stylesheet' href='<?php echo base_url();?>vendor/css/cssproyecto/toatscss.css'>
      <!-- Icono de la pagina -->
     <link rel="shortcut icon" href="<?php echo base_url();?>imagenes/favicon/favicon.ico/"type="image/x-icon">
 </head>
