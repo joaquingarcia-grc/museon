@@ -103,7 +103,6 @@ class Atributos extends BaseController{
             }
             exit;
         }
-        return redirect()->to(base_url() . 'atributos');
     }
 
     public function editar($id){
@@ -162,7 +161,6 @@ class Atributos extends BaseController{
             }
             exit;
         }
-        return redirect()->to(base_url() . 'atributos');
     }
 
     public function papelera(){
