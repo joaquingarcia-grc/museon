@@ -19,7 +19,7 @@ class Login extends BaseController{
 
     }
 
-        public function index(){
+    public function index(){
         $museos = $this->museos->first();
 
 
@@ -33,12 +33,20 @@ class Login extends BaseController{
 
     public function validacion(){
         
+        //esto nos indica que esperamos peticiones json
+        header('Content-Type: application/json');
+        
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $password = $this->request->getPost('password');
+
+        if (empty($denominacion) || empty($password)){
+          echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos']);
+          exit;  
+        }
         
         $datosUsuario = $this->usuarios->where('denominacion',$denominacion)->first();
-
-        if($datosUsuario != null){
+        
+        if(!empty($datosUsuario)){
             if(password_verify($password, $datosUsuario['password'])){
                 $data_sesion = [
                     'id' => $datosUsuario['id'],
@@ -46,14 +54,15 @@ class Login extends BaseController{
                 ];
                 $sesion = session();
                 $sesion->set($data_sesion);
-
-                return redirect()->to(base_url() . 'usuarios/');               
+                
+                echo json_encode(['exito' => true, 'mensaje' => 'Bienvenido']);
+                exit;              
             }else{
-                echo "La credecial no es correcta.";
-            }
+                echo json_encode(['exito' => false, 'mensaje' => 'Credecial incorrecta']);
+            }exit;
         }else{
-
-            return redirect()->to(base_url() . 'registro/');
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no se encuentra registrado']);
+            exit;
         }
     }
 

@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/datatable-buttons.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/datatable-buttons.css'); ?>" rel="stylesheet" type="text/css">
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/toatscss.css" rel="stylesheet" type="text/css">
+    <link  href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css" rel="stylesheet" type="text/css">
+    <link  href="<?php echo base_url();?>vendor/css/cssproyecto/cartel.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/barra.css'); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/objetos.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/objetos.css'); ?>" rel="stylesheet" type="text/css">
 </head>

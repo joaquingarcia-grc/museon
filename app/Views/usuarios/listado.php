@@ -11,6 +11,9 @@
             </a>
         </div>
     </div>
+    <div class='container-fluid' id='cartel'>
+
+    </div>
     <div class="row justify-content-center">
         <table class='table-primary table-striped' id="tablaUSR">
             <thead>

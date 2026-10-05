@@ -45,7 +45,34 @@ $(document).ready(function() {
                         bottomStart: 'info',
                         bottomEnd: 'paging',
                         bottom1Start: {
-                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                            buttons: [ 
+                                {   
+                                    extend: 'excelHtml5',
+                                    text:'excel',
+                                    titleAttr:'formato exel'
+                                },{ 
+                                    extend: 'pdfHtml5',
+                                    text:'pdf',
+                                    titleAttr:'formato pdf'
+                                },{
+                                    extend: 'copyHtml5',
+                                    text:'copiar',
+                                    titleAttr:'formato texto plano'
+                                },{
+                                    extend: 'csvHtml5',
+                                    text:'csv',
+                                    titleAttr:'formato planilla'
+                                },{
+                                    extend: 'print',
+                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'imprimir tabla'
+                                },{   
+                                text: 'Papelera <i class="bi bi-trash2-fill"></i>',
+                                titleAttr: 'Papelera',
+                                className: 'btn btn-outline-secondary',
+                                action: function () {
+                                    window.location.href = BASE + 'atributos/papelera';
+                                }}]
                         }
                     },
                     order: [[0, 'desc']]
@@ -96,7 +123,28 @@ $(document).ready(function() {
                         bottomStart: 'info',
                         bottomEnd: 'paging',
                         bottom1Start: {
-                            buttons: ['excel', 'pdf', 'copy', 'csv', 'print']
+                            buttons: [ 
+                                {   
+                                    extend: 'excelHtml5',
+                                    text:'excel',
+                                    titleAttr:'formato exel'
+                                },{ 
+                                    extend: 'pdfHtml5',
+                                    text:'pdf',
+                                    titleAttr:'formato pdf'
+                                },{
+                                    extend: 'copyHtml5',
+                                    text:'copiar',
+                                    titleAttr:'formato texto plano'
+                                },{
+                                    extend: 'csvHtml5',
+                                    text:'csv',
+                                    titleAttr:'formato planilla'
+                                },{
+                                    extend: 'print',
+                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'imprimir tabla'
+                                }]
                         }
                     },
                     order: [[0, 'desc']]
@@ -155,7 +203,7 @@ $(document).ready(function() {
                     toggleUnidad();
                     setTimeout(function(){
                         window.location.href = BASE + 'atributos';
-                    },  4010);
+                    },  3010);
                 }else if (response.papelera){
                     $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -257,7 +305,7 @@ $(document).ready(function() {
                     mensajes("Atributo: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'atributos';
-                    },  4010);
+                    },  3010);
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{
@@ -283,5 +331,5 @@ $(document).ready(function() {
         toast.classList.add('show');
         setTimeout(() => {
           toast.classList.remove('show');
-        }, 4000);}
+        }, 3000);}
 });
