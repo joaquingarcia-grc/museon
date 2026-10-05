@@ -55,7 +55,7 @@
                                             <i class="bi bi-search"></i>
                                         </button>
                                     </div>
-                                    <ul id="listaSugerenciasEtiquetas" class="list-group position-absolute w-100 shadow" style="z-index: 1000; display: none; max-height: 200px; overflow-y: auto; margin-top: 2px;"></ul>
+                                    <ul id="listaSugerenciasEtiquetas" class="list-group position-absolute w-100 shadow object-autocomplete-suggestions"></ul>
                                 </div>
                                 <div id="contenedorEtiquetas" class="row g-2 mt-3"></div>
                             </div>
@@ -70,7 +70,7 @@
                                             <i class="bi bi-search"></i>
                                         </button>
                                     </div>
-                                    <ul id="listaSugerenciasAtributos" class="list-group position-absolute w-100 shadow" style="z-index: 1000; display: none; max-height: 200px; overflow-y: auto;"></ul>
+                                    <ul id="listaSugerenciasAtributos" class="list-group position-absolute w-100 shadow object-autocomplete-suggestions"></ul>
                                 </div>
                                 <div id="contenedorAtributos" class="row g-2 mt-3"></div>
                             </div>

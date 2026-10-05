@@ -1,0 +1,23 @@
+.object-autocomplete-suggestions {
+    z-index: 1000;
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#listaSugerenciasEtiquetas {
+    margin-top: 2px;
+}
+
+.object-autocomplete-suggestions.is-visible {
+    display: block;
+}
+
+.object-sheet-actions {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.object-sheet-title {
+    font-family: "Times New Roman", serif;
+}

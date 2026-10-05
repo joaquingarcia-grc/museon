@@ -40,7 +40,7 @@ class Usuarios extends BaseController{
         // Mostramos header, listado y footer
         echo view('header',$datos);
         echo view('usuarios/listado');
-        echo  view('footer');
+        echo view('footer');
     }
 
     // Borrado lógico de un usuario (se llama por AJAX)
@@ -65,12 +65,14 @@ class Usuarios extends BaseController{
         // Datos del museo para el header
         $museos = $this->museos->first();
 
-        $datos = [ 'museos'=>$museos,
-                'titulo' => 'Formulario de Usuarios'];
+        $datos = [ 
+            'museos' => $museos,
+            'titulo' => 'Formulario de Usuarios'
+        ];
 
-        echo view('header',$datos);
+        echo view('header', $datos);
         echo view('usuarios/nuevo');
-        echo  view('footer');
+        echo view('footer');
 
     }
 
@@ -89,7 +91,7 @@ class Usuarios extends BaseController{
         $password = trim($this->request->getPost('password'));
         // Denominación y email son obligatorios
         if (empty($denominacion) || empty($email)){
-            echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios (Usuario o Email)']);
             exit;
         }
         // La contraseña es obligatoria al crear
@@ -115,18 +117,18 @@ class Usuarios extends BaseController{
             $hash = password_hash($password ,PASSWORD_DEFAULT);
             $this->usuarios->save([
                 'denominacion' => $denominacion,
-                'email'  => $email,
-                'telefono'  => $telefono,
-                'password' => $hash
+                'email'        => $email,
+                'telefono'     => $telefono,
+                'password'     => $hash
             ]);
             // Obtenemos el id del registro recién insertado y respondemos éxito
             $id = $this->usuarios->getInsertID();
-            echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
+            echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => 'Guardado con éxito']);
             exit;
         }else{
             // Ya existe: si fecha_baja está vacía está activo, si no, está en la papelera
             if(empty($datoUsuario['fecha_baja'])){
-                echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Usuario existente']);                
+                echo json_encode(['exito' => false, 'papelera' => false, 'mensaje' => 'Usuario existente']);                
             }else{
                 //Está en la papelera
                 echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Usuario existente en la papelera, recuperelo']);
@@ -142,14 +144,14 @@ class Usuarios extends BaseController{
         }
         // 1. Trae el usuarios de la BD
         $usuarios = $this->usuarios->where('id', $id)->first();
+        $museos   = $this->museos->first();
 
-        $museos = $this->museos->first();
-
-        $datos = [ 'museos'=>$museos,
-            'usuarios'     => $usuarios, // <--- Aquí enviamos los datos
-            'titulo'      => 'Editar usuario'
+        $datos = [ 
+            'museos'   => $museos,
+            'usuarios' => $usuarios,
+            'titulo'   => 'Editar usuario'
         ];
-        // 3. Muestra la vista (la misma que usas para "Nuevo")
+
         echo view('header', $datos);
         echo view('usuarios/editar');
         echo view('footer');
@@ -189,21 +191,21 @@ class Usuarios extends BaseController{
             // Nadie más la usa: armamos los datos a actualizar
             $datoActualizar = [
                 'denominacion' => $denominacion,
-                'email' => $email,
-                'telefono' => $telefono
+                'email'        => $email,
+                'telefono'     => $telefono
             ];
             // Solo cambiamos la contraseña si se escribió una nueva
             if (!empty($password)){
-                $datoActualizar['password']= password_hash($password, PASSWORD_DEFAULT);  
+                $datoActualizar['password'] = password_hash($password, PASSWORD_DEFAULT);  
             }
             //Aca se genera el update
             $this->usuarios->update($id, $datoActualizar);
-            echo json_encode(['exito' => true, 'mensaje' => ' Actualizado con éxito']);
+            echo json_encode(['exito' => true, 'mensaje' => 'Actualizado con éxito']);
             exit;
         }else{
             // Otro usuario la tiene: avisamos si está activo o en la papelera
             if(empty($datoUsuario['fecha_baja'])){
-                echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Usuario existente']);                
+                echo json_encode(['exito' => false, 'papelera' => false, 'mensaje' => 'Usuario existente']);                
             }else{
                 //Papelera
                 echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Usuario existente en la papelera, recuperelo']);
@@ -222,10 +224,12 @@ class Usuarios extends BaseController{
         //Datos del museo
         $museos = $this->museos->first();
 
-        $datos = [ 'museos'=>$museos,
-            'usuarios'     => $usuarios, // <--- Aquí enviamos los datos
-            'titulo'      => 'Usuarios borrados'
+        $datos = [ 
+            'museos'   => $museos,
+            'usuarios' => $usuarios,
+            'titulo'   => 'Usuarios borrados'
         ];
+
         echo view('header', $datos);
         echo view('usuarios/papelera');
         echo view('footer');
@@ -266,4 +270,3 @@ class Usuarios extends BaseController{
         return $this->response->setJSON($datos);
     }
 }
-?>

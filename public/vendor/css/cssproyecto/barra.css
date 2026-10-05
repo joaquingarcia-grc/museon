@@ -1,22 +1,11 @@
 #accordionSidebar.bg-gradient-primary {
     background-color: #183331 !important;
-    background-image:
-        linear-gradient(rgba(13, 30, 29, 0.36), rgba(13, 30, 29, 0.42)),
-        url('../../../imagenes/fondos/fondo1.jpeg') !important;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: none !important;
 }
 
 #content-wrapper {
     background-color: #edf1ef;
-    background-image:
-        linear-gradient(rgba(245, 247, 246, 0.72), rgba(245, 247, 246, 0.76)),
-        url('../../../imagenes/fondos/fondo1.jpeg');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: none;
 }
 
 #content-wrapper h2 {
@@ -44,7 +33,7 @@
 }
 
 #accordionSidebar.bg-gradient-primary .sidebar-brand {
-    background-color: rgba(4, 17, 16, 0.32);
+    background-color: #102421;
 }
 
 #accordionSidebar .sidebar-brand,
@@ -57,7 +46,7 @@
 }
 
 #accordionSidebar.bg-gradient-primary .sidebar-brand:hover {
-    background-color: rgba(4, 17, 16, 0.46);
+    background-color: #0a1a18;
 }
 
 #accordionSidebar .sidebar-heading {

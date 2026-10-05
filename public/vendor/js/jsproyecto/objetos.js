@@ -29,7 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Vaciamos la lista de sugerencias anterior antes de calcular las nuevas
             lista.innerHTML = '';
             // Si el campo quedó vacío, ocultamos la lista y no seguimos calculando nada
-            if (!query) return (lista.style.display = 'none');
+            if (!query) {
+                lista.classList.remove('is-visible');
+                return;
+            }
 
             // Prevenimos error si la propiedad no viene definida en el JSON usando un fallback de array vacío
             const coleccion = datos[tipo.toLowerCase()] || [];
@@ -51,8 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return a.denominacion.localeCompare(b.denominacion);
             });
 
-            // Si encontramos coincidencias mostramos la lista ('block'), si no la ocultamos ('none')
-            lista.style.display = coincidencias.length ? 'block' : 'none';
+            lista.classList.toggle('is-visible', coincidencias.length > 0);
 
             // Recorremos cada coincidencia encontrada para crear su fila en la lista de sugerencias
             coincidencias.forEach(item => {
@@ -78,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Limpiamos el input de búsqueda para que quede listo para la próxima búsqueda
                     input.value = '';
                     // Ocultamos la lista de sugerencias porque ya se eligió una opción
-                    lista.style.display = 'none';
+                    lista.classList.remove('is-visible');
                 };
                 // Insertamos el <li> recién armado dentro del <ul> de sugerencias
                 lista.appendChild(li);
@@ -88,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ocultamos la lista de sugerencias si el usuario hace clic fuera de la lista y del input
         document.addEventListener('click', (e) => {
             if (!input.contains(e.target) && !lista.contains(e.target)) {
-                lista.style.display = 'none';
+                lista.classList.remove('is-visible');
             }
         });
     }
