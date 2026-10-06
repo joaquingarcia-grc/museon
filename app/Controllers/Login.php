@@ -50,7 +50,8 @@ class Login extends BaseController{
             if(password_verify($password, $datosUsuario['password'])){
                 $data_sesion = [
                     'id' => $datosUsuario['id'],
-                    'denominacion' => $datosUsuario['denominacion']
+                    'denominacion' => $datosUsuario['denominacion'],
+                    'id_rol' => $datosUsuario['id_rol']
                 ];
                 $sesion = session();
                 $sesion->set($data_sesion);
