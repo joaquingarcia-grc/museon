@@ -5,11 +5,14 @@
                 <?php echo $titulo; ?>
             </h2>
         </div>
+        <?php $permisos = session()->get('permisos') ?? []; ?>
+        <?php if (in_array('a', $permisos['objeto'] ?? [])): ?> 
         <div class='col text-right'>
             <a class="btn btn-outline-success" href="<?php echo base_url();?>objetos/nuevo">
                 Nueva Pieza <i class="bi bi-box"></i>
             </a>
         </div>
+        <?php endif; ?>
     </div>
     <div class="row justify-content-center">
         <table class='table-primary table-striped' id="tablaOBJ">

@@ -328,7 +328,11 @@ class Objetos extends BaseController {
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
-        $objetos = $this->objetos->onlyDeleted()->findAll();
+        $objetos = $this->objetos->select('objetos.*, usuarios.denominacion AS cargado_por')
+                    ->join('usuarios', 'usuarios.id = objetos.id_usuario')
+                    ->orderBy('objetos.id','DESC')
+                    ->onlyDeleted()
+                    ->findAll();
         $datos = ['objetos'=>$objetos];
         return $this->response->setJSON($datos);
     }

@@ -17,19 +17,25 @@ $(document).ready(function() {
             success: function(response) {
                 let conteATB = " ";
                 response.atributos.forEach(atributo => {
+                    let botones = '';
+
+                    if (permiso_ATB.includes('b')) {
+                        botones += `<button type="submit" class="btn btn-danger" id="btnBorrarATB" data-id="${atributo.id}">
+                                        <i class='bi bi-trash2-fill'></i>
+                                    </button>`;
+                    }
+
+                    if (permiso_ATB.includes('m')) {
+                                botones += `<a class='btn btn-primary' href='${BASE}atributos/editar/${atributo.id}'>
+                                                <i class='bi bi-pencil-square'></i>
+                                            </a>`;
+                    }
                     conteATB += `<tr>
                         <td class='text-center'>${atributo.id}</td>
                         <td class='text-center'>${atributo.denominacion}</td>
                         <td class='text-center'>${atributo.tipo_dato}</td>
                         <td class='text-center'>${atributo.fecha_alta}</td>
-                        <td class='text-center'>
-                            <button type="submit" class="btn btn-danger" id="btnBorrarATB" data-id="${atributo.id}">
-                                <i class='bi bi-trash2-fill'></i>
-                            </button>
-                            <a class='btn btn-primary' href='${BASE}atributos/editar/${atributo.id}'>
-                                <i class='bi bi-pencil-square'></i>
-                            </a>
-                        </td>
+                        <td class='text-center'>${botones}</td>
                     </tr>`;
                 });
                 $('#bodyTablaATB').html(conteATB);

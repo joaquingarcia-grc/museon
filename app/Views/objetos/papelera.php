@@ -19,6 +19,7 @@
                 <tr>
                     <th class='text-center'>id</th>
                     <th class='text-center'>Denominacion</th>
+                    <th class='text-center'>Cargado por</th>
                     <th class='text-center'>fecha de borrado</th>
                     <th class='text-center'>Acciones</th>
                 </tr>

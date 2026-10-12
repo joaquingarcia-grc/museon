@@ -17,6 +17,25 @@ $(document).ready(function(){
             success: function(response) {
                 let conteATB = " ";
                 response.objetos.forEach(objeto => {
+                    let botones = '';
+
+                    if (permiso_OBJ.includes('b')) {
+                        botones += `<button type="button" class="btn btn-danger btn-sm me-1" id='btnBorrarOBJ' data-id="${objeto.id}">
+                                        <i class='bi bi-trash2-fill'></i>
+                                    </button>`;
+                    }
+
+                    if (permiso_OBJ.includes('m')) {
+                                botones += `<a class='btn btn-primary btn-sm me-1' href='${BASE}objetos/editar/${objeto.id}'>
+                                                <i class='bi bi-pencil-square'></i>
+                                            </a>`;
+                    }
+
+                    if (permiso_OBJ.includes('l')) {
+                                botones += `<a class='btn btn-info btn-sm' href='${BASE}objetos/ver/${objeto.id}'>
+                                                <i class="bi bi-eye"></i>
+                                            </a>`;
+                    }
                     conteATB += `<tr>
                         <td class='text-center'>${objeto.id}</td>
                         <td class='text-center'>${objeto.codigo}</td>
@@ -24,18 +43,7 @@ $(document).ready(function(){
                         <td class='text-center'>${objeto.descripcion}</td>
                         <td class='text-center'>${objeto.cargado_por}</td>
                         <td class='text-center'>${objeto.fecha_alta}</td>
-                        <td class='text-center'>
-                            <button type="submit" class="btn btn-danger" id="btnBorrarOBJ" data-id="${objeto.id}">
-                                <i class='bi bi-trash2-fill'></i>
-                            </button>
-                            <a class='btn btn-primary' href='${BASE}objetos/editar/${objeto.id}'>
-                                <i class='bi bi-pencil-square'></i>
-                            </a>
-                            <a class='btn btn-info' href='${BASE}objetos/ver/${objeto.id}'>
-                                <i class="bi bi-eye"></i>
-                            </a>
-                        </td>
-                    </tr>`;//objetos/ver/<?php echo $objeto["id"];
+                        <td class='text-center text-nowrap'>${botones}</td>`;//objetos/ver/<?php echo $objeto["id"];
                 });
                 $('#bodyTablaOBJ').html(conteATB);
 
@@ -193,16 +201,20 @@ $(document).ready(function(){
             success: function(response) {
                 let conteOBj = " ";
                 response.objetos.forEach(objeto => {
+                    let boton = '';
+                    if (permiso_OBJ.includes('b')) {
+                        boton +=    `<button type="submit" class='btn btn-info' 
+                                        data-id="${objeto.id}" id="btnRecuperarOBJ">
+                                        Resuperar
+                                        <i class="bi bi-recycle"></i> 
+                                    </button>`;
+                    }
                     conteOBj += `<tr>
                         <td class='text-center'>${objeto.id}</td>
                         <td class='text-center'>${objeto.denominacion}</td>
+                        <td class='text-center'>${objeto.cargado_por}</td>
                         <td class='text-center'>${objeto.fecha_baja}</td>
-                        <td class='text-center'>
-                            <button type="submit" class='btn btn-info' 
-                                data-id="${objeto.id}" id="btnRecuperarOBJ">
-                                Resuperar
-                            <i class="bi bi-recycle"></i> </button>
-                        </td>
+                        <td class='text-center'>${boton}</td>
                     </tr>`;
                 });
                 $('#bodyBrTablaOBJ').html(conteOBj);

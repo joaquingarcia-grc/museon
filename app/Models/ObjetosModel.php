@@ -32,5 +32,4 @@
     protected $validationMessages = [];
     protected $skipValidation     = false;    
 }
-
 ?>

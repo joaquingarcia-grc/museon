@@ -17,7 +17,7 @@ $(document).ready(function(){
                     mensajes2(response.mensaje);//responde mensaje desde el servidor
                     $('#formularioIngreso')[0].reset();//limpia formulario
                     setTimeout(function(){
-                        window.location.href = BASE + 'usuarios';
+                        window.location.href = (response.redirigir);
                     },  2005);
                 }else{
                     mensajes('Error: ' + response.mensaje, 'error');
