@@ -16,18 +16,23 @@ $(document).ready(function() {
             success: function(response) {
                 let conteETQ = " ";
                 response.etiquetas.forEach(etiqueta => {
+                    let botones = '';
+
+                    if (permiso_ETQ.includes('b')) {
+                        botones += `<button type="submit" class="btn btn-danger" id="btnETBorrar" data-id="${etiqueta.id}">
+                                        <i class='bi bi-trash2-fill'></i>
+                                    </button>`;
+                    }
+                    if (permiso_ETQ.includes('m')) {
+                                botones += `<a class='btn btn-primary' href='${BASE}etiquetas/editar/${etiqueta.id}'>
+                                                <i class='bi bi-pencil-square'></i>
+                                            </a>`;
+                    }
                     conteETQ += `<tr>
                         <td class='text-center'>${etiqueta.id}</td>
                         <td class='text-center'>${etiqueta.denominacion}</td>
                         <td class='text-center'>${etiqueta.fecha_alta}</td>
-                        <td class='text-center'>
-                            <button type="submit" class="btn btn-danger" id="btnETBorrar" data-id="${etiqueta.id}">
-                                <i class='bi bi-trash2-fill'></i>
-                            </button>
-                            <a class='btn btn-primary' href='${BASE}etiquetas/editar/${etiqueta.id}'>
-                                <i class='bi bi-pencil-square'></i>
-                            </a>
-                        </td>
+                        <td class='text-center'>${botones}</td>
                     </tr>`;
                 });
                 $('#bodyTablaETQ').html(conteETQ);
@@ -96,16 +101,19 @@ $(document).ready(function() {
             success: function(response) {
                 let conteETQ = " ";
                 response.etiquetas.forEach(etiqueta => {
+                    let boton = '';
+                    if (permiso_ETQ.includes('b')) {
+                        boton +=`<button type="submit" class='btn btn-info' 
+                                    data-id="${etiqueta.id}" id="btnRecuperarETQ">
+                                    Resuperar
+                                    <i class="bi bi-recycle"></i>
+                                </button>`;
+                    }
                     conteETQ += `<tr>
                         <td class='text-center'>${etiqueta.id}</td>
                         <td class='text-center'>${etiqueta.denominacion}</td>
                         <td class='text-center'>${etiqueta.fecha_baja}</td>
-                        <td class='text-center'>
-                            <button type="submit" class='btn btn-info' 
-                                data-id="${etiqueta.id}" id="btnRecuperarETQ">
-                                Resuperar
-                            <i class="bi bi-recycle"></i> </button>
-                        </td>
+                        <td class='text-center'>${boton}</td>
                     </tr>`;
                 });
                 $('#bodyBrTablaETQ').html(conteETQ);
@@ -216,10 +224,17 @@ $(document).ready(function() {
             url: BASE + 'etiquetas/borrar/' + idABorrar,
             method: 'POST',
             success: function(response){
-                $('#modalBorradoET').modal('hide');
-                mensajes('Etiqueta borrada exitosamente');
-                $('#tablaETQ').DataTable().destroy();
-                rellenarTabla();
+                if(response.exito){
+                    $('#modalBorradoET').modal('hide');
+                    mensajes(response.mensaje);
+                    $('#tablaETQ').DataTable().destroy();
+                    rellenarTabla();
+                }else{
+                    $('#modalBorradoET').modal('hide');
+                    mensajes(response.mensaje, 'warning');
+                    $('#tablaETQ').DataTable().destroy();
+                    rellenarTabla();
+                }
             },
             error: function(){
                 $('#modalBorradoET').modal('hide');//ocultamos el modal de guardar

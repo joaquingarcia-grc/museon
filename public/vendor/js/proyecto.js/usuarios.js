@@ -25,7 +25,6 @@ $(document).ready(function(){
                                         <i class='bi bi-trash2-fill'></i>
                                     </button>`;
                     }
-
                     if (permiso_USR.includes('m')) {
                                 botones += `<a class='btn btn-primary' href='${BASE}usuarios/editar/${usuario.id}'>
                                                 <i class='bi bi-pencil-square'></i>
@@ -184,7 +183,8 @@ $(document).ready(function(){
             denominacion : $('#denominacion').val(),
             password : $('#password').val(),
             telefono : $('#telefono').val(),
-            email : $('#email').val()
+            email : $('#email').val(),
+            rol : $('#rol').val()
         }
         //este ajax espera la respuesta desde el servidor dependiendo el paquete que sea armado antes de enviar
         //por tanto pienso que el usuario no podra infiltrar datos no deseados
@@ -225,7 +225,8 @@ $(document).ready(function(){
             denominacion : $('#denominacion').val(),
             password : $('#password').val(),
             telefono : $('#telefono').val(),
-            email : $('#email').val()
+            email : $('#email').val(),
+            rol : $('#rol').val()
         }
         //ajax de actualizar espera los datos y el id para poder actualizar el usuario con el id correspondiente
         //para esto trajimos el id desde la base de datos y lo almasenamos en la variable IDACTUALIZAR
@@ -239,7 +240,7 @@ $(document).ready(function(){
                     mensajes("Usuario: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'usuarios';
-                    },  4010);
+                    },  3010);
 
                 }else if(response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -301,9 +302,8 @@ $(document).ready(function(){
 
                 }else{
                     mensajes('Aviso: ' + response.mensaje, 'warning');
-                    setTimeout(function(){
-                        location.reload();
-                    }, 4010);
+                    $('#tablaUSRPapelera').DataTable().destroy();
+                    rellenarTabla2();
                 }
             },
             error: function() {
@@ -324,6 +324,6 @@ $(document).ready(function(){
         toast.classList.add('show');
         setTimeout(() => {
           toast.classList.remove('show');
-        }, 4000);}
+        }, 3000);}
 
 });

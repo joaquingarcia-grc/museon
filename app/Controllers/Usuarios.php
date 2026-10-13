@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Models\UsuariosModel;
 use App\Models\MuseosModel;
 use App\Models\PermisosModel;
+use App\Models\RolesModel;
 
 class Usuarios extends BaseController{
     
@@ -14,11 +15,13 @@ class Usuarios extends BaseController{
     protected $usuarios;
     protected $museos;
     protected $permisos;
+    protected $roles;
 
     public function __construct() {
         // Iniciamos la sesión y creamos las instancias de los modelos
         $this->sesion = session();
         $this->usuarios = new UsuariosModel();
+        $this->roles = new RolesModel();
         $this->museos = new MuseosModel();
         $this->permisos = new PermisosModel();
     }
@@ -83,12 +86,14 @@ class Usuarios extends BaseController{
         if (!in_array('a', $permisos['usuario'])){
             return redirect()->to(base_url() . 'objetos');    
         }
+        $roles = $this->roles->findAll();
 
         // Datos del museo para el header
         $museos = $this->museos->first();
 
         $datos = [ 'museos'=>$museos,
-                'titulo' => 'Formulario de Usuarios'];
+                'titulo' => 'Formulario de Usuarios',
+                'roles' => $roles];
 
         echo view('header',$datos);
         echo view('usuarios/nuevo');
@@ -116,6 +121,7 @@ class Usuarios extends BaseController{
         $email = trim($this->request->getPost('email'));
         $telefono = trim($this->request->getPost('telefono'));
         $password = trim($this->request->getPost('password'));
+        $rol = $this->request->getPost('rol');
         // Denominación y email son obligatorios
         if (empty($denominacion) || empty($email)){
             echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios']);
@@ -136,6 +142,9 @@ class Usuarios extends BaseController{
             echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos un carácter especial']);
             exit;
         }
+        if (empty($rol)) {
+            $rol = 3;
+        }
         // Buscamos si ya existe esa denominación, incluyendo los que están en la papelera
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->withDeleted()->first();
         
@@ -146,6 +155,7 @@ class Usuarios extends BaseController{
                 'denominacion' => $denominacion,
                 'email'  => $email,
                 'telefono'  => $telefono,
+                'id_rol' => $rol,
                 'password' => $hash
             ]);
             // Obtenemos el id del registro recién insertado y respondemos éxito
@@ -176,14 +186,17 @@ class Usuarios extends BaseController{
         if (!in_array('m', $permisos['usuario'])){
             return redirect()->to(base_url() . 'objetos');    
         }
+        
+        $roles = $this->roles->findAll();
         // 1. Trae el usuarios de la BD
         $usuarios = $this->usuarios->where('id', $id)->first();
         $museos = $this->museos->first();
 
 
-        $datos = [ 'museos'=>$museos,
-            'usuarios'     => $usuarios, // <--- Aquí enviamos los datos
-            'titulo'      => 'Editar usuario'
+        $datos = [  'museos'=>$museos,
+                    'usuarios'=> $usuarios, // <--- Aquí enviamos los datos
+                    'titulo'=> 'Editar usuario',
+                    'roles'=> $roles
         ];
         // 3. Muestra la vista (la misma que usas para "Nuevo")
         echo view('header', $datos);
@@ -210,6 +223,8 @@ class Usuarios extends BaseController{
         $email = trim($this->request->getPost('email'));
         $telefono = trim($this->request->getPost('telefono'));
         $password = trim($this->request->getPost('password'));
+        $rol = $this->request->getPost('rol');
+
         // Denominación y email son obligatorios
         if (empty($denominacion) || empty($email)){
             echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios']);
@@ -225,6 +240,10 @@ class Usuarios extends BaseController{
             echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos un carácter especial']);
             exit;
         }}
+        
+        if (empty($rol)) {
+            $rol = 3;
+        }
         // Buscamos si OTRO usuario (id distinto) ya usa esa denominación, incluso en la papelera   
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
         
@@ -233,7 +252,8 @@ class Usuarios extends BaseController{
             $datoActualizar = [
                 'denominacion' => $denominacion,
                 'email' => $email,
-                'telefono' => $telefono
+                'telefono' => $telefono,
+                'id_rol' => $rol
             ];
             // Solo cambiamos la contraseña si se escribió una nueva
             if (!empty($password)){

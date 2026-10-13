@@ -116,7 +116,7 @@ $(document).ready(function(){
                     $('#formularioOBJ')[0].reset();
                     setTimeout(function(){
                         window.location.href = BASE + 'objetos';
-                    },  4010);
+                    },  3010);
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     $('#formularioOBJ')[0].reset();
@@ -146,10 +146,17 @@ $(document).ready(function(){
             url: BASE + 'objetos/borrar/' + idABorrar,
             method: 'POST',
             success: function(response){
-                $('#modalBorradoOBJ').modal('hide');
-                mensajes('Objeto borrado exitosamente');
-                $('#tablaOBJ').DataTable().destroy();
-                rellenarTabla();
+                if(response.exito){
+                    $('#modalBorradoOBJ').modal('hide');
+                    mensajes(response.mensaje);
+                    $('#tablaOBJ').DataTable().destroy();
+                    rellenarTabla();
+                }else{
+                    $('#modalBorradoOBJ').modal('hide');
+                    mensajes(response.mensaje, 'warning');
+                    $('#tablaOBJ').DataTable().destroy();
+                    rellenarTabla();
+                }
             },
             error: function(){
                 $('#modalBorradoOBJ').modal('hide');//ocultamos el modal de borrado
@@ -177,8 +184,8 @@ $(document).ready(function(){
                     mensajes("Objeto: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'objetos';
-                    },  4010);
-                }else if (response.papelera){
+                    },  3010);
+                }else{
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }
             },
@@ -277,9 +284,15 @@ $(document).ready(function(){
             url: BASE + 'objetos/recuperacion/' + idARecuperar,
             method: 'POST',
             success: function(response){
-                mensajes('Objeto ' + response.mensaje);
-                $('#tablaOBJBr').DataTable().destroy();
-                rellenarTabla2();   
+                if(response.exito){
+                    mensajes('Objeto ' + response.mensaje);
+                    $('#tablaOBJBr').DataTable().destroy();
+                    rellenarTabla2();
+                }else{
+                    mensajes(response.mensaje);
+                    $('#tablaOBJBr').DataTable().destroy();
+                    rellenarTabla2(); 
+                }   
             },
             error: function(){
                 mensajes('Error en el servidor','error'); 
@@ -300,6 +313,6 @@ $(document).ready(function(){
         toast.classList.add('show');
         setTimeout(() => {
           toast.classList.remove('show');
-        }, 4000);}
+        }, 3000);}
 //---------------------------------------------------------------------------------------------------------------//
 });

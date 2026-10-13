@@ -4,11 +4,12 @@ namespace App\Controllers;
 
 use App\Models\EtiquetasModel;
 use App\Models\MuseosModel;
+use App\Models\PermisosModel;
 
 class Etiquetas extends BaseController{ 
     
     protected $sesion;
-
+    protected $permisos;
     protected $etiquetas;
     protected $museos;
 
@@ -17,7 +18,7 @@ class Etiquetas extends BaseController{
         $this->sesion = session();
         $this->etiquetas = new EtiquetasModel();
         $this->museos = new MuseosModel();
-
+        $this->permisos = new PermisosModel();
     }
 
     public function index(){
@@ -25,7 +26,11 @@ class Etiquetas extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        $permisos = $this->sesion->get('permisos');
         
+        if (!in_array('l', $permisos['etiqueta'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
         $etiquetas = $this->etiquetas->findAll();
         $museos = $this->museos->first();
 
@@ -43,11 +48,22 @@ class Etiquetas extends BaseController{
         
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
-        }    
+        }
+        //esto nos indica que esperamos peticiones json
+        header('Content-Type: application/json');
 
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('b', $permisos['etiqueta'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }    
         $this->etiquetas->delete($id);
         $etiquetas = $this->etiquetas->withDeleted()->find($id); 
-        return $this->response->setStatusCode(200);
+        return $this->response->setStatusCode(200)->setJSON([
+            'exito' => true,
+            'mensaje' => 'Etiqueta eliminada correctamente'
+        ]);
     } 
 
     public function nuevo(){
@@ -56,6 +72,12 @@ class Etiquetas extends BaseController{
             return redirect()->to(base_url() . "registro/");
         }
         
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('a', $permisos['etiqueta'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
+
         $museos = $this->museos->first();
 
         $datos = [ 'museos'=>$museos,
@@ -75,6 +97,12 @@ class Etiquetas extends BaseController{
         //esto nos indica que esperamos peticiones json
         header('Content-Type: application/json');
         
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('a', $permisos['etiqueta'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
 
         if (empty($denominacion)) {
@@ -105,6 +133,12 @@ class Etiquetas extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }    
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('m', $permisos['etiqueta'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
         // 1. Trae el cliente de la BD
         $etiquetas = $this->etiquetas->where('id', $id)->first();
 
@@ -127,6 +161,13 @@ class Etiquetas extends BaseController{
         }
         
         header('Content-Type: application/json');
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('m', $permisos['etiqueta'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
 
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
 
@@ -156,6 +197,13 @@ class Etiquetas extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('l', $permisos['etiqueta'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
+
         $etiquetas = $this->etiquetas->onlyDeleted()->findAll();
         
         $museos = $this->museos->first();
@@ -175,6 +223,13 @@ class Etiquetas extends BaseController{
             return redirect()->to(base_url() . "registro/");
         }
         header('Content-Type: application/json');
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('b', $permisos['etiqueta'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
 
         $etiquetas = $this->etiquetas->withDeleted()->find($id); 
         $etiquetaActiva = $this->etiquetas->where('denominacion', $etiquetas['denominacion'])->first();
