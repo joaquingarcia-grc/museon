@@ -11,4 +11,4 @@ writable/uploads/*
 writable/debugbar/*
 writable/logs/*
 
-app/Config/App.php
+app/Config/App.phpwritable/debugbar/*.json
