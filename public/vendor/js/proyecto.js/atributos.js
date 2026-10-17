@@ -17,19 +17,24 @@ $(document).ready(function() {
             success: function(response) {
                 let conteATB = " ";
                 response.atributos.forEach(atributo => {
+                    let botones = '';
+                    
+                    if (permiso_ATB.includes('b')) {
+                        botones += `<button type="submit" class="btn btn-danger" id="btnBorrarATB" data-id="${atributo.id}">
+                                        <i class='bi bi-trash2-fill'></i>
+                                    </button>`;
+                    }
+                    if (permiso_ATB.includes('m')) {
+                                botones += `<a class='btn btn-primary' href='${BASE}atributos/editar/${atributo.id}'>
+                                                <i class='bi bi-pencil-square'></i>
+                                            </a>`;
+                    }
                     conteATB += `<tr>
                         <td class='text-center'>${atributo.id}</td>
                         <td class='text-center'>${atributo.denominacion}</td>
                         <td class='text-center'>${atributo.tipo_dato}</td>
                         <td class='text-center'>${atributo.fecha_alta}</td>
-                        <td class='text-center'>
-                            <button type="submit" class="btn btn-danger" id="btnBorrarATB" data-id="${atributo.id}">
-                                <i class='bi bi-trash2-fill'></i>
-                            </button>
-                            <a class='btn btn-primary' href='${BASE}atributos/editar/${atributo.id}'>
-                                <i class='bi bi-pencil-square'></i>
-                            </a>
-                        </td>
+                        <td class='text-center'>${botones}</td>
                     </tr>`;
                 });
                 $('#bodyTablaATB').html(conteATB);
@@ -98,16 +103,20 @@ $(document).ready(function() {
             success: function(response) {
                 let conteATB = " ";
                 response.atributos.forEach(atributo => {
+                    let boton = '';
+                    
+                    if (permiso_ATB.includes('b')) {
+                        boton +=`<button type="submit" class='btn btn-info' 
+                                    data-id="${atributo.id}" id="btnRecuperarATB">
+                                    Resuperar
+                                    <i class="bi bi-recycle"></i>
+                                </button>`;
+                    }
                     conteATB += `<tr>
                         <td class='text-center'>${atributo.id}</td>
                         <td class='text-center'>${atributo.denominacion}</td>
                         <td class='text-center'>${atributo.fecha_baja}</td>
-                        <td class='text-center'>
-                            <button type="submit" class='btn btn-info' 
-                                data-id="${atributo.id}" id="btnRecuperarATB">
-                                Resuperar
-                            <i class="bi bi-recycle"></i> </button>
-                        </td>
+                        <td class='text-center'>${boton}</td>
                     </tr>`;
                 });
                 $('#bodyBrTablaATB').html(conteATB);
@@ -241,10 +250,17 @@ $(document).ready(function() {
             url: BASE + 'atributos/borrar/' + idABorrar,
             method: 'POST',
             success: function(response){
-                $('#modalBorradoATB').modal('hide');
-                mensajes('Atributo borrado exitosamente');
-                $('#tablaATB').DataTable().destroy();
-                rellenarTabla();
+                if(response.exito){
+                    $('#modalBorradoATB').modal('hide');
+                    mensajes(response.mensaje);
+                    $('#tablaATB').DataTable().destroy();
+                    rellenarTabla();
+                }else{
+                    $('#modalBorradoATB').modal('hide');
+                    mensajes(response.mensaje, 'warning');
+                    $('#tablaATB').DataTable().destroy();
+                    rellenarTabla();
+                }
             },
             error: function(){
                 $('#modalBorradoATB').modal('hide');//ocultamos el modal de borrado

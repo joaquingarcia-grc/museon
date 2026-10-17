@@ -6,9 +6,12 @@
             </h2>
         </div>
         <div class='col text-right'>
+            <?php $permisos = session()->get('permisos') ?? []; ?>
+            <?php if (in_array('a', $permisos['atributo'] ?? [])): ?>
             <a class="btn btn-outline-success" href="<?php echo base_url();?>atributos/nuevo">
                 Nuevo Atributo <i class="bi bi-tag"></i>
             </a>
+            <?php endif; ?>
         </div>
     </div>
     <div class="row justify-content-center">

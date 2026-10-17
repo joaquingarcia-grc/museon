@@ -4,11 +4,13 @@ namespace App\Controllers;
 
 use App\Models\AtributosModel;
 use App\Models\MuseosModel;
+use App\Models\PermisosModel;
+
 
 class Atributos extends BaseController{   
     
     protected $sesion;
-
+    protected $permisos;
     protected $atributos;
     protected $museos;
 
@@ -17,13 +19,19 @@ class Atributos extends BaseController{
         $this->sesion = session();
         $this->atributos = new AtributosModel();
         $this->museos = new MuseosModel();
-
+        $this->permisos = new PermisosModel();
     }
 
     public function index(){
         
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+        
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('l', $permisos['atributo'])){
+            return redirect()->to(base_url() . 'objetos');    
         }
 
         $atributos = $this->atributos->findAll();
@@ -44,16 +52,33 @@ class Atributos extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        //esto nos indica que esperamos peticiones json
+        header('Content-Type: application/json');
+
+        $permisos = $this->sesion->get('permisos');
         
+        if (!in_array('b', $permisos['atributo'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
         $this->atributos->delete($id);
         $atributo = $this->atributos->withDeleted()->find($id); 
-        return $this->response->setStatusCode(200);
+        return $this->response->setStatusCode(200)->setJSON([
+            'exito' => true,
+            'mensaje' => 'Atributo eliminado correctamente'
+        ]);
     } 
 
     public function nuevo(){
 
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+        
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('a', $permisos['atributo'])){
+            return redirect()->to(base_url() . 'objetos');    
         }
         $museos = $this->museos->first();
 
@@ -73,6 +98,13 @@ class Atributos extends BaseController{
         }
         //esto nos indica que esperamos peticiones json
         header('Content-Type: application/json');
+        
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('a', $permisos['atributo'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
         //convertimos los datos que resivimos por post en las variables locales para poder trabajar
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipo_dato = strtolower(trim($this->request->getPost('tipo_dato')));
@@ -110,6 +142,12 @@ class Atributos extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('m', $permisos['atributo'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
         // 1. Trae el cliente de la BD
         $atributos = $this->atributos->where('id', $id)->first();
 
@@ -132,7 +170,13 @@ class Atributos extends BaseController{
         }
 
         header('Content-Type: application/json');
+
+        $permisos = $this->sesion->get('permisos');
         
+        if (!in_array('m', $permisos['atributo'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
 
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $tipoDato     = strtolower(trim($this->request->getPost('tipo_dato')));
@@ -168,6 +212,12 @@ class Atributos extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('l', $permisos['atributo'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
         
         $atributos = $this->atributos->onlyDeleted()->findAll();
         
@@ -189,6 +239,13 @@ class Atributos extends BaseController{
         }
 
         header('Content-Type: application/json');
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('b', $permisos['atributo'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
 
         $atributo = $this->atributos->withDeleted()->find($id);
         $atributoActivo = $this->atributos->where('denominacion', $atributo['denominacion'])->first();

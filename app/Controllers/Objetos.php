@@ -9,6 +9,7 @@ use App\Models\EtiquetasModel;
 use App\Models\ObjetosAtributosModel;
 use App\Models\ObjetosEtiquetasModel;
 use App\Models\UsuariosModel;
+use App\Models\PermisosModel;
 
 class Objetos extends BaseController {   
     
@@ -16,6 +17,7 @@ class Objetos extends BaseController {
     protected $objetos;
     protected $museos;
     protected $etiquetas;
+    protected $permisos;
     protected $atributos;
     protected $objetosatributos;
     protected $objetosetiquetas;
@@ -30,6 +32,7 @@ class Objetos extends BaseController {
         $this->atributos = new AtributosModel();
         $this->objetosatributos = new ObjetosAtributosModel();
         $this->objetosetiquetas = new ObjetosEtiquetasModel();
+        $this->permisos = new PermisosModel();
     }
 
     public function index(){
@@ -56,15 +59,33 @@ class Objetos extends BaseController {
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        //esto nos indica que esperamos peticiones json
+        header('Content-Type: application/json');
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('b', $permisos['objeto'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
         $this->objetos->delete($id);
         $objetos = $this->objetos->withDeleted()->find($id); 
-        return $this->response->setStatusCode(200);
-    } 
+        return $this->response->setStatusCode(200)->setJSON([
+            'exito' => true,
+            'mensaje' => 'Objeto eliminado correctamente'
+        ]);
+    }
 
     public function nuevo(){
 
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('a', $permisos['objeto'])){
+            return redirect()->to(base_url() . 'objetos');    
         }
 
         $museos = $this->museos->first();
@@ -92,6 +113,13 @@ class Objetos extends BaseController {
         
         //esto nos indica que esperamos peticiones json
         header('Content-Type: application/json');
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('a', $permisos['objeto'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
 
         $id_usuario = $this->sesion->get('id');
         $codigo = trim($this->request->getPost('codigo'));
@@ -165,6 +193,12 @@ class Objetos extends BaseController {
             return redirect()->to(base_url() . "registro/");
         }
         
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('m', $permisos['objeto'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
+        
         $objetos = $this->objetos->where('id', $id)->first();
         $museos = $this->museos->first();
         $etiquetas = $this->etiquetas->findAll();
@@ -192,6 +226,13 @@ class Objetos extends BaseController {
         }
         //esto nos indica que esperamos peticiones json
         header('Content-Type: application/json');
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('m', $permisos['objeto'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
 
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $codigo = trim($this->request->getPost('codigo'));
@@ -268,6 +309,12 @@ class Objetos extends BaseController {
         }
         //esto nos indica que esperamos peticiones json
         header('Content-Type: application/json');
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('b', $permisos['objeto'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
         $objeto = $this->objetos->withDeleted()->find($id);
         if ($objeto){
             $this->objetos->update($id, ['fecha_baja' => null]);
@@ -328,7 +375,11 @@ class Objetos extends BaseController {
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
-        $objetos = $this->objetos->onlyDeleted()->findAll();
+        $objetos = $this->objetos->select('objetos.*, usuarios.denominacion AS cargado_por')
+                    ->join('usuarios', 'usuarios.id = objetos.id_usuario')
+                    ->orderBy('objetos.id','DESC')
+                    ->onlyDeleted()
+                    ->findAll();
         $datos = ['objetos'=>$objetos];
         return $this->response->setJSON($datos);
     }

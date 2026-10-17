@@ -18,20 +18,26 @@ $(document).ready(function(){
             success: function(response) {
                 let conteUSR = " ";
                 response.usuarios.forEach(usuario => {
+                    let botones = '';
+
+                    if (permiso_USR.includes('b')) {
+                        botones += `<button type="submit" class="btn btn-danger" id="btnBorrarUSR" data-id="${usuario.id}">
+                                        <i class='bi bi-trash2-fill'></i>
+                                    </button>`;
+                    }
+                    if (permiso_USR.includes('m')) {
+                                botones += `<a class='btn btn-primary' href='${BASE}usuarios/editar/${usuario.id}'>
+                                                <i class='bi bi-pencil-square'></i>
+                                            </a>`;
+                    }
+
                     conteUSR += `<tr>
                         <td class='text-center'>${usuario.id}</td>
                         <td class='text-center'>${usuario.denominacion}</td>
                         <td class='text-center'>${usuario.email}</td>
                         <td class='text-center'>${usuario.telefono}</td>
                         <td class='text-center'>${usuario.fecha_alta}</td>
-                        <td class='text-center'>
-                            <button type="submit" class="btn btn-danger" id="btnBorrarUSR" data-id="${usuario.id}">
-                                <i class='bi bi-trash2-fill'></i>
-                            </button>
-                            <button class='btn btn-primary' id='editUSR' data-id="${usuario.id}"'>
-                                <i class='bi bi-pencil-square'></i>
-                            </button>
-                        </td>
+                        <td class='text-center'>${botones}</td>
                     </tr>`;
                 });
                 $('#bodyTabla').html(conteUSR);
@@ -100,16 +106,18 @@ $(document).ready(function(){
             success: function(response) {
                 let conteUSR = " ";
                 response.usuarios.forEach(usuario => {
+                    let boton = '';
+                    if (permiso_USR.includes('b')) {
+                        boton +=`<button type="submit" class='btn btn-info' id="btnRecuperarUSR" data-id="${usuario.id}">
+                                    <i class="bi bi-recycle"></i>
+                                </button>`;
+                    }
                     conteUSR += `<tr>
                         <td class='text-center'>${usuario.id}</td>
                         <td class='text-center'>${usuario.denominacion}</td>
                         <td class='text-center'>${usuario.email}</td>
                         <td class='text-center'>${usuario.fecha_baja}</td>
-                        <td class='text-center'>
-                            <button type="submit" class='btn btn-info' id="btnRecuperarUSR" data-id="${usuario.id}">
-                                <i class="bi bi-recycle"></i>
-                            </button>
-                        </td>
+                        <td class='text-center'>${boton}</td>
                     </tr>`;
                 });
                 $('#bodyTabla2').html(conteUSR);
@@ -175,7 +183,8 @@ $(document).ready(function(){
             denominacion : $('#denominacion').val(),
             password : $('#password').val(),
             telefono : $('#telefono').val(),
-            email : $('#email').val()
+            email : $('#email').val(),
+            rol : $('#rol').val()
         }
         //este ajax espera la respuesta desde el servidor dependiendo el paquete que sea armado antes de enviar
         //por tanto pienso que el usuario no podra infiltrar datos no deseados
@@ -216,7 +225,8 @@ $(document).ready(function(){
             denominacion : $('#denominacion').val(),
             password : $('#password').val(),
             telefono : $('#telefono').val(),
-            email : $('#email').val()
+            email : $('#email').val(),
+            rol : $('#rol').val()
         }
         //ajax de actualizar espera los datos y el id para poder actualizar el usuario con el id correspondiente
         //para esto trajimos el id desde la base de datos y lo almasenamos en la variable IDACTUALIZAR
@@ -230,7 +240,7 @@ $(document).ready(function(){
                     mensajes("Usuario: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'usuarios';
-                    },  4010);
+                    },  3010);
 
                 }else if(response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -257,10 +267,17 @@ $(document).ready(function(){
             url: BASE + 'usuarios/borrar/' + idABorrar,
             method: 'POST',
             success: function(response){
-                $('#modalBorradoUSR').modal('hide');
-                mensajes('Usuario borrado exitosamente')
-                $('#tablaUSR').DataTable().destroy();
-                rellenarTabla();
+                if(response.exito){
+                    $('#modalBorradoUSR').modal('hide');
+                    mensajes(response.mensaje)
+                    $('#tablaUSR').DataTable().destroy();
+                    rellenarTabla();
+                }else{
+                    $('#modalBorradoUSR').modal('hide');
+                    mensajes(response.mensaje, 'error')
+                    $('#tablaUSR').DataTable().destroy();
+                    rellenarTabla();
+                }
             },
             error: function() {
                 $('#modalBorradoUSR').modal('hide');
@@ -285,9 +302,8 @@ $(document).ready(function(){
 
                 }else{
                     mensajes('Aviso: ' + response.mensaje, 'warning');
-                    setTimeout(function(){
-                        location.reload();
-                    }, 3010);
+                    $('#tablaUSRPapelera').DataTable().destroy();
+                    rellenarTabla2();
                 }
             },
             error: function() {
@@ -297,31 +313,6 @@ $(document).ready(function(){
         });
     });
 
-//-----------------------------------------------------------------------------------------------//
-    $(document).on('click','#editUSR',function(e){
-        e.preventDefault();
-        idEditar = $(this).data('id');
-        $.ajax({
-            url: BASE + 'usuarios/puedeeditar/' + idEditar,
-            method: 'GET',
-            dataType: 'json',
-            success: function(response){
-                if (response.exito){
-                    mensajes(response.mensaje);
-                    setTimeout(function(){//activa funcion que dirije a la vista usuarios
-                        window.location.href = BASE + 'usuarios/editar/' + idEditar;
-                    },  3010);
-                }else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' }); // metodo que le pregunte a la ia https://claude.ai/chat/64a3bb31-7424-4e04-9a79-2b3449056898
-                    mostrarCartel('Usted no tiene permisos para modificar este usuario.', 'danger', 50000);
-                }
-            },
-            error: function() {
-                mensajes('Error en el servidor' ,'error');
-            },
-            complete: function(){} 
-        });
-    });
 //------------------------------------------------------------------------------------------------//
     function mensajes(mensaje, tipo = 'success'){
         const toast = document.getElementById('toats');
@@ -335,20 +326,4 @@ $(document).ready(function(){
           toast.classList.remove('show');
         }, 3000);}
 
-    function mostrarCartel(mensaje, tipo, tiempo) {
-      const $alerta = $(`
-            <div class="alert alert-${tipo} alert-dismissible" role="alert">
-                ${mensaje}
-                <button type="button" class="btn-close"></button>
-            </div>`
-        );
-        $('#cartel').empty();      
-        $('#cartel').prepend($alerta);
-        setTimeout(() => $alerta.remove(), tiempo);
-        $alerta.find('.btn-close').on('click', () => $alerta.remove());
-    }
-    // Al cargar la página
-    $(document).ready(function () {
-      mostrarCartel('Usted solo podrá modificar usuarios que le pertenecen.', 'primary', 20000);
-    });
 });

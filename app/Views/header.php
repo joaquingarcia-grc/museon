@@ -51,25 +51,27 @@
             </a>
             <hr class="sidebar-divider my-0">
             <!-- Divider -->
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Heading nuevo de la pagina-->
-            <div class="sidebar-heading text-dark">Interfaz de usuario</div>
-            <!-- Nav Item - Pages Collapse Menu -->
-            
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Componentes</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Componentes de usuario</h6>
-                        <a class="collapse-item" href="<?php echo base_url();?>usuarios">Usuarios</a>       
+            <?php $permisos = session()->get('permisos') ?? []; ?>
+            <?php if (in_array('l', $permisos['usuario'] ?? [])): ?> 
+                <hr class="sidebar-divider">
+                <!-- Heading nuevo de la pagina-->
+                <div class="sidebar-heading text-dark">Interfaz de usuario</div>
+                <!-- Nav Item - Pages Collapse Menu -->
+                
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Componentes</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Componentes de usuario</h6>
+                            <a class="collapse-item" href="<?php echo base_url();?>usuarios">Usuarios</a>       
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            <?php endif; ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Encabezado -->
@@ -108,11 +110,17 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-bs-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        
-                        <h6 class="collapse-header text-dark">Componentes de Pieza</h6>
+                        <h6 class="collapse-header text-dark">Componentes de Piezas</h6>
+                        <?php $permisos = session()->get('permisos') ?? []; ?>
+                        <?php if (in_array('l', $permisos['atributo'] ?? [])): ?> 
                         <a class="collapse-item" href='<?php echo base_url();?>atributos'>Atributos</a>
+                        <?php endif; ?>
+                        <?php if (in_array('l', $permisos['etiqueta'] ?? [])): ?> 
                         <a class="collapse-item" href='<?php echo base_url();?>etiquetas'>Etiquetas</a>
+                        <?php endif; ?>
+                        <?php if (in_array('l', $permisos['objeto'] ?? [])): ?>
                         <a class="collapse-item" href='<?php echo base_url();?>objetos'>Piezas</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </li>

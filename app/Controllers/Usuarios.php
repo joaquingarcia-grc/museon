@@ -5,6 +5,8 @@ namespace App\Controllers;
 // Importamos los modelos que usa este controlador
 use App\Models\UsuariosModel;
 use App\Models\MuseosModel;
+use App\Models\PermisosModel;
+use App\Models\RolesModel;
 
 class Usuarios extends BaseController{
     
@@ -12,13 +14,16 @@ class Usuarios extends BaseController{
     protected $sesion;
     protected $usuarios;
     protected $museos;
+    protected $permisos;
+    protected $roles;
 
     public function __construct() {
         // Iniciamos la sesión y creamos las instancias de los modelos
         $this->sesion = session();
         $this->usuarios = new UsuariosModel();
+        $this->roles = new RolesModel();
         $this->museos = new MuseosModel();
-
+        $this->permisos = new PermisosModel();
     }
 
     // Lista los usuarios activos
@@ -26,6 +31,12 @@ class Usuarios extends BaseController{
         // Si no hay un usuario logueado, lo mandamos a la pantalla de registro/login
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+        
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('l', $permisos['usuario'])){
+            return redirect()->to(base_url() . 'objetos');    
         }
 
         // Dos consultas: todos los usuarios activos y el primer registro del museo (para el header)
@@ -50,25 +61,39 @@ class Usuarios extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
-        // delete() marca el registro como borrado (soft delete, completa fecha_baja)
-        $this->usuarios->delete($id);
-        // Respondemos 200 (todo ok) al JavaScript que hizo la petición
-        return $this->response->setStatusCode(200);
-    } 
+        header('Content-Type: application/json');
 
+        $permisos = $this->sesion->get('permisos');
+
+        if (in_array('b', $permisos['usuario'])) {
+            $this->usuarios->delete($id);
+            echo json_encode(['exito' => true, 'mensaje' => 'Usuario borrado exitosamente']);
+            exit;
+        }else{
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;
+        }  
+    } 
     // Muestra un formulario vacío para crear un usuario
     public function nuevo(){
         // Verificación de sesión
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('a', $permisos['usuario'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
+        $roles = $this->roles->findAll();
+
         // Datos del museo para el header
         $museos = $this->museos->first();
 
-        $datos = [ 
-            'museos' => $museos,
-            'titulo' => 'Formulario de Usuarios'
-        ];
+        $datos = [ 'museos'=>$museos,
+                'titulo' => 'Formulario de Usuarios',
+                'roles' => $roles];
 
         echo view('header', $datos);
         echo view('usuarios/nuevo');
@@ -84,11 +109,19 @@ class Usuarios extends BaseController{
         }
         // Indicamos que la respuesta va a ser JSON
         header('Content-Type: application/json');
+        
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('a', $permisos['usuario'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
+        }
         // Tomamos los datos del POST y les quitamos espacios; denominación en minúsculas
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $email = trim($this->request->getPost('email'));
         $telefono = trim($this->request->getPost('telefono'));
         $password = trim($this->request->getPost('password'));
+        $rol = $this->request->getPost('rol');
         // Denominación y email son obligatorios
         if (empty($denominacion) || empty($email)){
             echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios (Usuario o Email)']);
@@ -109,6 +142,9 @@ class Usuarios extends BaseController{
             echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos un carácter especial']);
             exit;
         }
+        if (empty($rol)) {
+            $rol = 3;
+        }
         // Buscamos si ya existe esa denominación, incluyendo los que están en la papelera
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->withDeleted()->first();
         
@@ -117,9 +153,10 @@ class Usuarios extends BaseController{
             $hash = password_hash($password ,PASSWORD_DEFAULT);
             $this->usuarios->save([
                 'denominacion' => $denominacion,
-                'email'        => $email,
-                'telefono'     => $telefono,
-                'password'     => $hash
+                'email'  => $email,
+                'telefono'  => $telefono,
+                'id_rol' => $rol,
+                'password' => $hash
             ]);
             // Obtenemos el id del registro recién insertado y respondemos éxito
             $id = $this->usuarios->getInsertID();
@@ -137,43 +174,29 @@ class Usuarios extends BaseController{
         }
     }
 
-    public function puedeEditar($id){
-        // Verificación de sesión
-        if(!isset($this->sesion->id)){
-            return redirect()->to(base_url() . "registro/");
-        }
-        header('Content-Type: application/json');
-
-        $usuarios = $this->usuarios->find($id);
-        $id_logueado = $this->sesion->get('id');
-
-        if ($usuarios['id'] != $id_logueado){
-            echo json_encode(['exito' => false, 'mensaje' => 'Este usuario no le pertenese']);
-            exit;
-        }
-        echo json_encode(['exito' => true, 'mensaje' => 'Este usuario si le pertenece']);
-        exit;
-    }
-
     // Muestra el formulario de edición con los datos del usuario
     public function editar($id){
         // Verificación de sesión
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
-        $id_logueado = $this->sesion->get('id');
+        
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('m', $permisos['usuario'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
+        
+        $roles = $this->roles->findAll();
         // 1. Trae el usuarios de la BD
         $usuarios = $this->usuarios->where('id', $id)->first();
         $museos = $this->museos->first();
 
-        if ($usuarios['id'] != $id_logueado) {
-            return redirect()->to(base_url() . 'usuarios');
-        }
 
-        $datos = [ 
-            'museos'   => $museos,
-            'usuarios' => $usuarios,
-            'titulo'   => 'Editar usuario'
+        $datos = [  'museos'=>$museos,
+                    'usuarios'=> $usuarios, // <--- Aquí enviamos los datos
+                    'titulo'=> 'Editar usuario',
+                    'roles'=> $roles
         ];
 
         echo view('header', $datos);
@@ -188,20 +211,20 @@ class Usuarios extends BaseController{
         }
         //esto nos indica que esperamos peticiones json
         header('Content-Type: application/json');
+                
+        $permisos = $this->sesion->get('permisos');
         
-        $id_logueado = $this->sesion->get('id');
-        
-        $usuario = $this->usuarios->find($id);
-
-        if ($usuario['id'] != $id_logueado) {
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no es el dueño de este usuario']);
-            exit;
+        if (!in_array('m', $permisos['usuario'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;    
         }
 
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         $email = trim($this->request->getPost('email'));
         $telefono = trim($this->request->getPost('telefono'));
         $password = trim($this->request->getPost('password'));
+        $rol = $this->request->getPost('rol');
+
         // Denominación y email son obligatorios
         if (empty($denominacion) || empty($email)){
             echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios']);
@@ -217,6 +240,10 @@ class Usuarios extends BaseController{
             echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos un carácter especial']);
             exit;
         }}
+        
+        if (empty($rol)) {
+            $rol = 3;
+        }
         // Buscamos si OTRO usuario (id distinto) ya usa esa denominación, incluso en la papelera   
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
         
@@ -224,8 +251,9 @@ class Usuarios extends BaseController{
             // Nadie más la usa: armamos los datos a actualizar
             $datoActualizar = [
                 'denominacion' => $denominacion,
-                'email'        => $email,
-                'telefono'     => $telefono
+                'email' => $email,
+                'telefono' => $telefono,
+                'id_rol' => $rol
             ];
             // Solo cambiamos la contraseña si se escribió una nueva
             if (!empty($password)){
@@ -252,6 +280,11 @@ class Usuarios extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('l', $permisos['usuario'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
         // onlyDeleted() trae solo los registros con borrado lógico
         $usuarios = $this->usuarios->onlyDeleted()->findAll();
         //Datos del museo
@@ -275,6 +308,13 @@ class Usuarios extends BaseController{
         }
         // Indicamos que la respuesta va a ser JSON
         header('Content-Type: application/json');
+        
+        $permisos = $this->sesion->get('permisos');
+        
+        if (!in_array('a', $permisos['usuario'])){
+            return redirect()->to(base_url() . 'objetos');    
+        }
+
         // Traemos el usuario borrado (withDeleted incluye los borrados)
         $usuarios = $this->usuarios->withDeleted()->find($id);
         $usuarioActivo = $this->usuarios->where('denominacion', $usuarios['denominacion'])->first();

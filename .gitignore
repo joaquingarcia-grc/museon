@@ -10,4 +10,5 @@ writable/uploads/*
 !writable/uploads/index.html
 writable/debugbar/*
 writable/logs/*
+
 app/Config/App.php

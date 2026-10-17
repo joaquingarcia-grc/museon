@@ -46,6 +46,20 @@
                                 <input type="password" class="form-control" id='password' name="password">
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="id_rol" class="form-label">Rol</label>
+                                <select class="form-select" name="rol" id="rol" required>
+                                <?php foreach ($roles as $rol){?>
+                                    <option value="<?php echo $rol["id"];?>"
+                                    <?php if ($rol['id']==$usuarios['id_rol']){
+                                        echo  'selected';
+                                    } ?>
+                                    > <?php echo $rol["denominacion"];?></option>
+                                <?php };?>
+                                </select>
+                            </div>
+                        </div>
                         <div>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-outline-success" type="submit"  >Actualizar</button>

@@ -74,6 +74,12 @@
     <script>
         const BASE = "<?php echo base_url();?>"
     </script>
+    <script>
+        const permiso_OBJ = <?= json_encode(session()->get('permisos')['objeto']) ?>;
+        const permiso_ATB = <?= json_encode(session()->get('permisos')['atributo']) ?>;
+        const permiso_ETQ = <?= json_encode(session()->get('permisos')['etiqueta']) ?>;
+        const permiso_USR = <?= json_encode(session()->get('permisos')['usuario']) ?>;
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker-bs5.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/locales/es.min.js"></script>

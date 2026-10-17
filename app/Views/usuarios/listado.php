@@ -6,13 +6,13 @@
             </h2>
         </div>
         <div class='col text-right'>
+            <?php $permisos = session()->get('permisos') ?? []; ?>
+            <?php if (in_array('a', $permisos['usuario'] ?? [])): ?>
             <a class="btn btn-outline-success" href="<?php echo base_url();?>usuarios/nuevo">
                 Nuevo Usuario <i class="bi bi-person-circle"></i>
             </a>
+            <?php endif; ?>
         </div>
-    </div>
-    <div class='container-fluid' id='cartel'>
-
     </div>
     <div class="row justify-content-center">
         <table class='table-primary table-striped' id="tablaUSR">
