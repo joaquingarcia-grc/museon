@@ -1,0 +1,8 @@
+#cartel {
+  width: 100%;
+}
+
+#cartel .alert {
+  margin-bottom: 0.5rem;  /* separación entre un cartel y otro */
+  border-radius: 0;       /* borde a borde */
+}

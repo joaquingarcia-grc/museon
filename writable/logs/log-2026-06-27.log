@@ -1,0 +1,278 @@
+CRITICAL - 2026-06-27 02:56:07 --> ErrorException: Undefined array key "denominacion"
+[Method: GET, Route: usuarios]
+in APPPATH/Views/header.php on line 13.
+ 1 APPPATH/Views/header.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "denominacion"', '/opt/lampp/htdocs/ci.03/app/Views/header.php', 13)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/header.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('header', [], true)
+ 5 APPPATH/Controllers/Usuarios.php(30): view('header', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 02:56:40 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "usuarios/listado.php"
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('usuarios/listado.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/listado', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(31): view('usuarios/listado')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 03:08:03 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "usuarios/listado.php"
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('usuarios/listado.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/listado', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(31): view('usuarios/listado')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 03:17:44 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "usuarios/listado.php"
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('usuarios/listado.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/listado', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(31): view('usuarios/listado')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 03:17:52 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "usuarios/listado.php"
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('usuarios/listado.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/listado', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(31): view('usuarios/listado')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 03:25:44 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: usuarios]
+in APPPATH/Views/usuarios/listado.php on line 42.
+ 1 APPPATH/Views/usuarios/listado.php(42): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/listado.php', 42)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/listado.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/listado', [], true)
+ 5 APPPATH/Controllers/Usuarios.php(31): view('usuarios/listado')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 03:35:50 --> ErrorException: Undefined variable $museos
+[Method: GET, Route: usuarios/editar/1]
+in APPPATH/Views/header.php on line 13.
+ 1 APPPATH/Views/header.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $museos', '/opt/lampp/htdocs/ci.03/app/Views/header.php', 13)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/header.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('header', [], true)
+ 5 APPPATH/Controllers/Usuarios.php(79): view('header', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->editar('1')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 03:38:42 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "usuario/editar.php"
+[Method: GET, Route: usuarios/editar/1]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('usuario/editar.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuario/editar', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(82): view('usuario/editar')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->editar('1')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 03:39:50 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "usuario/editar.php"
+[Method: GET, Route: usuarios/editar/1]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('usuario/editar.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuario/editar', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(83): view('usuario/editar')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->editar('1')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 03:41:46 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "usuario/editar.php"
+[Method: GET, Route: usuarios/editar/1]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('usuario/editar.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuario/editar', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(84): view('usuario/editar')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->editar('1')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:52:36 --> ErrorException: Undefined property: App\Controllers\Usuarios::$clientes
+[Method: GET, Route: usuarios/papelera]
+in APPPATH/Controllers/Usuarios.php on line 100.
+ 1 APPPATH/Controllers/Usuarios.php(100): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Usuarios::$clientes', '/opt/lampp/htdocs/ci.03/app/Controllers/Usuarios.php', 100)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:52:53 --> ErrorException: Undefined property: App\Controllers\Usuarios::$clientes
+[Method: GET, Route: usuarios/papelera]
+in APPPATH/Controllers/Usuarios.php on line 100.
+ 1 APPPATH/Controllers/Usuarios.php(100): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Usuarios::$clientes', '/opt/lampp/htdocs/ci.03/app/Controllers/Usuarios.php', 100)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:53:09 --> ErrorException: Undefined property: App\Controllers\Usuarios::$clientes
+[Method: GET, Route: usuarios/papelera]
+in APPPATH/Controllers/Usuarios.php on line 100.
+ 1 APPPATH/Controllers/Usuarios.php(100): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Usuarios::$clientes', '/opt/lampp/htdocs/ci.03/app/Controllers/Usuarios.php', 100)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:53:40 --> ErrorException: Undefined variable $museos
+[Method: GET, Route: usuarios/papelera]
+in APPPATH/Views/header.php on line 13.
+ 1 APPPATH/Views/header.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $museos', '/opt/lampp/htdocs/ci.03/app/Views/header.php', 13)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/header.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('header', [], true)
+ 5 APPPATH/Controllers/Usuarios.php(105): view('header', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:54:30 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "clientes/papelera.php"
+[Method: GET, Route: usuarios/papelera]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('clientes/papelera.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/papelera', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(109): view('clientes/papelera')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:55:01 --> ErrorException: Undefined variable $datos
+[Method: GET, Route: usuarios/borrar/1]
+in APPPATH/Controllers/Usuarios.php on line 43.
+ 1 APPPATH/Controllers/Usuarios.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $datos', '/opt/lampp/htdocs/ci.03/app/Controllers/Usuarios.php', 43)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->borrar('1')
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:55:14 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "clientes/papelera.php"
+[Method: GET, Route: usuarios/papelera]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('clientes/papelera.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/papelera', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(110): view('clientes/papelera')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:56:09 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "clientes/papelera.php"
+[Method: GET, Route: usuarios/papelera]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('clientes/papelera.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/papelera', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(110): view('clientes/papelera')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:56:14 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "clientes/papelera.php"
+[Method: GET, Route: usuarios/papelera]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('clientes/papelera.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/papelera', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(110): view('clientes/papelera')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:56:46 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "clientes/papelera.php"
+[Method: GET, Route: usuarios/papelera]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('clientes/papelera.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/papelera', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(110): view('clientes/papelera')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:56:54 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "clientes/papelera.php"
+[Method: GET, Route: usuarios/papelera]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('clientes/papelera.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/papelera', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(110): view('clientes/papelera')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 18:58:04 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "clientes/papelera.php"
+[Method: GET, Route: usuarios/papelera]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('clientes/papelera.php')
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('clientes/papelera', [], true)
+ 3 APPPATH/Controllers/Usuarios.php(110): view('clientes/papelera')
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-27 19:01:16 --> ErrorException: Undefined array key "fecha_borrado"
+[Method: GET, Route: usuarios/papelera]
+in APPPATH/Views/usuarios/papelera.php on line 40.
+ 1 APPPATH/Views/usuarios/papelera.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "fecha_borrado"', '/opt/lampp/htdocs/ci.03/app/Views/usuarios/papelera.php', 40)
+ 2 SYSTEMPATH/View/View.php(224): include('/opt/lampp/htdocs/ci.03/app/Views/usuarios/papelera.php')
+ 3 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render('usuarios/papelera', [], true)
+ 5 APPPATH/Controllers/Usuarios.php(110): view('usuarios/papelera')
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->papelera('')
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

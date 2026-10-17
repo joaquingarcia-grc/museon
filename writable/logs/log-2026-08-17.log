@@ -1,0 +1,26 @@
+CRITICAL - 2026-08-17 23:33:19 --> ParseError: syntax error, unexpected token "public", expecting end of file
+[Method: GET, Route: objetos/nuevo]
+in APPPATH\Models\ObjetosModel.php on line 54.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\ci.03\\app\\Models\\ObjetosModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ObjetosModel')
+ 3 APPPATH\Controllers\Objetos.php(14): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ObjetosModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Objetos->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-08-17 23:38:03 --> ErrorException: Undefined variable $objeto
+[Method: GET, Route: objetos]
+in APPPATH\Views\objetos\listado.php on line 9.
+ 1 APPPATH\Views\objetos\listado.php(9): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $objeto', 'C:\\xampp\\htdocs\\ci.03\\app\\Views\\objetos\\listado.php', 9)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\ci.03\\app\\Views\\objetos\\listado.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('objetos/listado', [], true)
+ 5 APPPATH\Controllers\Objetos.php(29): view('objetos/listado')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Objetos->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Objetos))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

@@ -25,15 +25,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">¿Salir del sistema?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Tu sesión se cerrará y vas a tener que volver a iniciar sesión para acceder.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href='<?php echo base_url();?>login/sesion'>Salir</a>
                 </div>
             </div>
         </div>
@@ -41,8 +41,8 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?php echo base_url();?>vendor/js/jquery.min.js"></script>
+    
     <script src="vendor/js/bootstrap.bundle.min.js"></script>
-
     <!-- Core plugin JavaScript-->
     <script src="<?php echo base_url();?>vendor/js/jquery.easing.min.js"></script>
 
@@ -59,6 +59,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" integrity="sha384-VFQrHzqBh5qiJIU0uGU5CIW3+OWpdGGJM9LBnGbuIH2mkICcFZ7lPd/AAtI7SNf7" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js" integrity="sha384-/RlQG9uf0M2vcTw3CX7fbqgbj/h8wKxw7C3zu9/GxcBPRKOEcESxaxufwRXqzq6n" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-2.3.8/b-3.2.6/b-html5-3.2.6/datatables.min.js" integrity="sha384-EeU0n4QZjxAoReXoJNbWIsbYCFLxs2/K2hduD34zPKu6IIhf91rgg8v/AR12rnk0" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-2.3.8/b-3.2.6/b-html5-3.2.6/datatables.min.js" integrity="sha384-EeU0n4QZjxAoReXoJNbWIsbYCFLxs2/K2hduD34zPKu6IIhf91rgg8v/AR12rnk0" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.6/js/buttons.print.min.js"></script>
 
 
     <!-- Bootstrap JS -->
@@ -68,33 +70,35 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- <script>
-        var table = new DataTable('#tablaclientes',{
-            language :{
-                url:'https://cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json'
-            },
-            layout: {
-                bottomStart{
-                    buttons:['excel', 'pdf', 'copy', 'csv', 'print']
-                }
-            },
-        });
-    </script>
-    -->
 
     <script>
-        $(document).ready(function() {
-            $('#tablaclientes').DataTable({language:{url:"https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json"},
-            layout:{
-                bottomStart:{
-                    buttons: ['excel', 'pdf', 'copy', 'csv', 'print'],
-                }
-            }
-
-        });
-        });
-
+        const BASE = "<?php echo base_url();?>"
     </script>
-</body>
+    <script>
+        const permiso_OBJ = <?= json_encode(session()->get('permisos')['objeto']) ?>;
+        const permiso_ATB = <?= json_encode(session()->get('permisos')['atributo']) ?>;
+        const permiso_ETQ = <?= json_encode(session()->get('permisos')['etiqueta']) ?>;
+        const permiso_USR = <?= json_encode(session()->get('permisos')['usuario']) ?>;
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker-bs5.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/locales/es.min.js"></script>
+    
+    <script type="application/json" id="datosObjeto">
+        <?php echo json_encode([
+            'etiqueta' => $etiquetas ?? [],
+            'atributo' => $atributos ?? [],
+            'etiquetasSeleccionadas' => $etiquetasSeleccionadas ?? [],
+            'atributosSeleccionados' => $atributosSeleccionados ?? []
+        ]); ?>
+    </script>
 
+    <script src="<?php echo base_url(); ?>vendor/js/jsproyecto/objetos.js"></script>
+
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/usuarios.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/buscador.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/objeto.js"></script>
+</body>
 </html>
