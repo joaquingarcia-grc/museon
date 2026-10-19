@@ -1,0 +1,27 @@
+/* el boton queda dentro de la barra, centrado abajo */
+.sidebar #barraLateral {
+    display: block;
+    margin: 0 auto 1rem auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    text-align: center;
+}
+
+.sidebar #barraLateral:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* la flechita adentro del boton */
+.sidebar #barraLateral::after {
+    content: '\f104';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* flecha para el otro lado cuando esta cerrada */
+.sidebar.toggled #barraLateral::after {
+    content: '\f105';
+}

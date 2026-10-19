@@ -21,7 +21,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="denominacion">Denominacion</label>
-                                <input class="form-control" type="text" placeholder="" id="denominacion" name="denominacion" aria-label="default input example">
+                                <input class="form-control" type="text" placeholder="" id="denominacion" name="denominacion" aria-label="default input example" autofocus>
                             </div>
                             <div class="col-md-6">
                                 <label for="tipo_dato">Tipo de dato</label>

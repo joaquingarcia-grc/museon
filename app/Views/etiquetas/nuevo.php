@@ -21,7 +21,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="denominacion">Denominacion</label>
-                                <input class="form-control" type="text" placeholder="" id="denominacion" name="denominacion" aria-label="default input example">
+                                <input class="form-control" type="text" placeholder="" id="denominacion" name="denominacion" aria-label="default input example" autofocus>
                             </div>
                         </div>
                         <div class="d-flex gap-2">
@@ -47,7 +47,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary btn-modalGuardado" id="modalGuardadoET">Guardar</button>
+        <button type="button" class="btn btn-primary btn-modalGuardado" id="GuardadoET">Guardar</button>
       </div>
     </div>
   </div>

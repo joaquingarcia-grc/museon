@@ -175,6 +175,9 @@ $(document).ready(function(){
     $('#formularioUSR').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
         // en vez de guardar, solo mostramos el modal
+        $('#modalGuardadoUSR').on('shown.bs.modal', function(){
+            $('#btnGuardarUSR').focus();
+        });
         $('#modalGuardadoUSR').modal('show');
     });
     //dispara la accion que se eespera cuando el usuario quiere guardar un nuevo usuario
@@ -259,6 +262,9 @@ $(document).ready(function(){
     //funcion que borra los usuarios
     $(document).on('click', '#btnBorrarUSR', function(){
         idABorrar = $(this).data('id');
+        $('#modalBorradoUSR').on('shown.bs.modal', function(){
+            $('#btnBorradoUSR').focus();
+        });
         $('#modalBorradoUSR').modal('show');
     }); 
 

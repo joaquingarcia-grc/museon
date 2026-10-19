@@ -171,10 +171,13 @@ $(document).ready(function() {
     $('#formularioET').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
         // en vez de guardar, solo mostramos el modal
+        $('#modalGuardarET').on('shown.bs.modal', function(){
+            $('#GuardadoET').focus();
+        });
         $('#modalGuardarET').modal('show');
     });
     //los datos seran enviado una ves obtengamos la accion desde el boton del modal
-    $('#modalGuardadoET').on('click', function(){
+    $('#GuardadoET').on('click', function(){
         const dato = {//creamos un objeto con todos nuestros datos
             denominacion: $('#denominacion').val(),
         }   
@@ -190,7 +193,7 @@ $(document).ready(function() {
                     $('#formularioET')[0].reset();
                     setTimeout(function(){
                         window.location.href = BASE + 'etiquetas';
-                    },  3000);
+                    },  3010);
                 }else if (response.papelera){
                     $('#modalGuardarET').modal('hide');//ocultamos el modal de guardar
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -217,6 +220,9 @@ $(document).ready(function() {
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
     $(document).on('click','#btnETBorrar',function(){
         idABorrar = $(this).data('id');
+        $('#modalBorradoET').on('shown.bs.modal', function(){
+            $('#btnBorrarET').focus();
+        });
         $('#modalBorradoET').modal('show');
     });
     $('#btnBorrarET').click(function(){
@@ -293,7 +299,7 @@ $(document).ready(function() {
                     mensajes("Etiqueta: " + response.mensaje);
                     setTimeout(function(){
                         window.location.href = BASE + 'etiquetas';
-                    },  4010);
+                    },  3010);
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{
@@ -322,5 +328,5 @@ $(document).ready(function() {
         toast.classList.add('show');
         setTimeout(() => {
           toast.classList.remove('show');
-        }, 4000);}
+        }, 3000);}
 });

@@ -190,6 +190,9 @@ $(document).ready(function() {
     $('#formularioATB').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
         // en vez de guardar, solo mostramos el modal
+        $('#modalGuardarATB').on('shown.bs.modal', function(){
+            $('#btnGuardarATB').focus();
+        });
         $('#modalGuardarATB').modal('show');
     });
     //los datos seran enviado una ves obtengamos la accion desde el boton del modal
@@ -242,6 +245,9 @@ $(document).ready(function() {
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
     $(document).on('click', '#btnBorrarATB', function(){
         idABorrar = $(this).data('id');
+        $('#modalBorradoATB').on('shown.bs.modal', function(){
+            $('#botonBorradoATB').focus();
+        });
         $('#modalBorradoATB').modal('show');
     });
     $('#botonBorradoATB').click(function(){

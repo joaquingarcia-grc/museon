@@ -138,6 +138,9 @@ $(document).ready(function(){
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
     $(document).on('click', '#btnBorrarOBJ', function(){
         idABorrar = $(this).data('id');
+        $('#modalBorradoOBJ').on('shown.bs.modal', function(){
+            $('#botonBorradoOBJ').focus();
+        });
         $('#modalBorradoOBJ').modal('show');
     });
     $('#botonBorradoOBJ').click(function(){

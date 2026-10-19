@@ -100,5 +100,6 @@
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/usuarios.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/buscador.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/objeto.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/barraLateral.js"></script>
 </body>
 </html>

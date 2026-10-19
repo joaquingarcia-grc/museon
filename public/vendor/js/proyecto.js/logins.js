@@ -57,5 +57,5 @@ $(document).ready(function(){
         toast.classList.add('show');
         setTimeout(() => {
           toast.classList.remove('show');
-        }, 4000);}
+        }, 3000);}
 });
