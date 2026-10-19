@@ -102,7 +102,7 @@
     </div>
 </div>
 <div class="text-center d-print-none">
-     <button onclick="window.print()" class=" btn btn-primary btn-sm">
-            Imprimir Ficha
-        </button>
+    <button id="btn-imprimir" class="btn btn-primary btn-sm">
+        Imprimir Ficha
+    </button>
 </div>
