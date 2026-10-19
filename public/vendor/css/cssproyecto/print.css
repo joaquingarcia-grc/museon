@@ -1,0 +1,30 @@
+/* Ocultar todo lo que es interfaz */
+#accordionSidebar,
+.sidebar,
+.topbar,
+.sticky-footer,
+.scroll-to-top,
+#logoutModal,
+.d-print-none {
+    display: none !important;
+}
+
+/* Que el contenido ocupe toda la hoja */
+body,
+#wrapper,
+#content-wrapper,
+#content {
+    margin: 0 !important;
+    width: 100% !important;
+    background: #fff !important;
+}
+
+/* Margen propio, porque el de la página lo ponemos en 0 */
+#content {
+    padding: 1.5cm !important;
+}
+
+/* Con margen 0 Chrome no imprime la fecha ni el título arriba */
+@page {
+    margin: 0;
+}

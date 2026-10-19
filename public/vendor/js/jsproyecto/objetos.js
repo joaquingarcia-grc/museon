@@ -293,3 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+//---------------------------------------------------------------------------------------------------------------//
+    // Botón imprimir de la ficha (objetos/ver)
+    $('#btn-imprimir').on('click', function(){
+        window.print();
+    });
