@@ -32,8 +32,6 @@
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/cartel.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/barra.css'); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/objetos.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/objetos.css'); ?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo base_url();?>vendor/css/cssproyecto/print.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/print.css'); ?>" rel="stylesheet" type="text/css" media="print">
-    <link rel="stylesheet" href="<?php echo base_url();?>vendor/css/cssproyecto/barraLateral.css">
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -130,7 +128,7 @@
             <hr class="sidebar-divider d-none d-md-block">
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="barraLateral"></button>
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
         </ul>
         <!-- End of Sidebar -->
