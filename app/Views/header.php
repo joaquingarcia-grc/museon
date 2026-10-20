@@ -30,6 +30,7 @@
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/toatscss.css" rel="stylesheet" type="text/css">
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css" rel="stylesheet" type="text/css">
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/cartel.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url();?>vendor/css/cssproyecto/barraLateral.css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/barra.css'); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/objetos.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/objetos.css'); ?>" rel="stylesheet" type="text/css">
 </head>
@@ -128,7 +129,7 @@
             <hr class="sidebar-divider d-none d-md-block">
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                <button class="rounded-circle border-0" id="barraLateral"></button>
             </div>
         </ul>
         <!-- End of Sidebar -->
