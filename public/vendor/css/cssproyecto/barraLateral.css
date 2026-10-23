@@ -1,16 +1,24 @@
-/* el boton queda dentro de la barra, centrado abajo */
+/* el boton redondo, centrado abajo en la barra */
 .sidebar #barraLateral {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0 auto 1rem auto;
     width: 2.5rem;
     height: 2.5rem;
+    padding: 0;
     background-color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    text-align: center;
 }
 
 .sidebar #barraLateral:hover {
     background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* saca el borde azul feo al hacer click */
+.sidebar #barraLateral:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 /* la flechita adentro del boton */
@@ -18,6 +26,8 @@
     content: '\f104';
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
+    font-size: 1rem;
+    line-height: 1;
     color: rgba(255, 255, 255, 0.5);
 }
 

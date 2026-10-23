@@ -30,7 +30,7 @@
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/toatscss.css" rel="stylesheet" type="text/css">
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css" rel="stylesheet" type="text/css">
     <link  href="<?php echo base_url();?>vendor/css/cssproyecto/cartel.css" rel="stylesheet" type="text/css">
-    <link  href="<?php echo base_url();?>vendor/css/cssproyecto/barraLateral.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url();?>vendor/css/cssproyecto/barraLateral.css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/barra.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/barra.css'); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/objetos.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/objetos.css'); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url();?>vendor/css/cssproyecto/print.css?v=<?php echo filemtime(FCPATH . 'vendor/css/cssproyecto/print.css'); ?>" rel="stylesheet" type="text/css" media="print">
