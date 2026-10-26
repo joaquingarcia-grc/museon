@@ -389,6 +389,7 @@ class Objetos extends BaseController {
         return $this->objetosatributos->select('atributos.id, atributos.denominacion, atributos.tipo_dato,atributos.unidad, objeto_atributos.valor')
                     ->join('atributos', 'atributos.id = objeto_atributos.atributo_id')
                     ->where('objeto_atributos.objeto_id', $objeto_id)
+                    ->where('atributos.fecha_baja', null)
                     ->findAll();
     }
     
@@ -412,6 +413,7 @@ class Objetos extends BaseController {
         return $this->objetosetiquetas->select('etiquetas.id, etiquetas.denominacion')
                     ->join('etiquetas', 'etiquetas.id = objeto_etiquetas.etiqueta_id')
                     ->where('objeto_etiquetas.objeto_id', $objeto_id)
+                    ->where('etiquetas.fecha_baja', null)
                     ->findAll();
     }
     
