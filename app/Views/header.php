@@ -75,41 +75,31 @@
             <?php endif; ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
-            <!-- Encabezado -->
-            <div class="sidebar-heading text-dark">
-                Museo
-            </div>
             <!-- Nav Item - Museo Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMuseo"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMuseo"
                     aria-expanded="false" aria-controls="collapseMuseo">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Componentes</span>
+                    <span>Museo</span>
                 </a>
-                <div id="collapseMuseo" class="collapse" aria-labelledby="headingMuseo" data-bs-parent="#accordionSidebar">
+                <div id="collapseMuseo" class="collapse" aria-labelledby="headingMuseo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header text-dark">Componentes de Museo</h6>
-                        <a class="collapse-item" href="login.html">Salas</a>
-                        <a class="collapse-item" href="register.html">Piezas</a>
-                        <a class="collapse-item" href="forgot-password.html">Exhibición</a>
+                        <a class="collapse-item" href='<?php echo base_url();?>salas'>Salas</a>
                     </div>
                 </div>
-            </li>           
+            </li>          
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Encabezado -->
-            <div class="sidebar-heading text-dark">
-                Pieza
-            </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="false" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Componentes</span>
+                    <span>Pieza</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-bs-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header text-dark">Componentes de Piezas</h6>
                         <?php $permisos = session()->get('permisos') ?? []; ?>

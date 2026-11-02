@@ -4,8 +4,7 @@
   //manera de la  cual vamos a llamar estos modelos 
   use CodeIgniter\Model;
   //esto es para indicar que vamos a usar los modelos de codeigniter
-  class UsuariosModel extends Model
-  {
+  class UsuariosModel extends Model{
     //vamos a llamar a la tabla usando la bariable $table
     protected $table      = 'usuarios';
     //id seria el atributo primero de nuestra tabla

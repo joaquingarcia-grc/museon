@@ -4,8 +4,7 @@
   //manera de la  cual vamos a llamar estos modelos 
   use CodeIgniter\Model;
   //esto es para indicar que vamos a usar los modelos de codeigniter
-  class RolesModel extends Model
-  {
+  class RolesModel extends Model{
     //vamos a llamar a la tabla usando la bariable $table
     protected $table      = 'roles';
     //id seria el atributo primero de nuestra tabla

@@ -33,7 +33,7 @@
                 <div class="modal-body">Tu sesión se cerrará y vas a tener que volver a iniciar sesión para acceder.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href='<?php echo base_url();?>login/sesion'>Salir</a>
+                    <a class="btn btn-primary" id='btnSalir' href='<?php echo base_url();?>login/sesion'>Salir</a>
                 </div>
             </div>
         </div>
@@ -101,5 +101,6 @@
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/buscador.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/objeto.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/barraLateral.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/btnSalida.js"></script>
 </body>
 </html>

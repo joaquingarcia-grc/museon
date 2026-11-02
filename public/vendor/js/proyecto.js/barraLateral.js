@@ -1,19 +1,22 @@
 $(document).ready(function(){
 
+    // guardo si la barra esta fijada (abierta) o no
     var fijada = false;
 
+    // abre la barra sacandole las clases de cerrada
     function abrirBarra() {
         $("body").removeClass("sidebar-toggled");
         $(".sidebar").removeClass("toggled");
     }
 
+    // cierra la barra y de paso cierra todos los desplegables de Componentes
     function cerrarBarra() {
         $("body").addClass("sidebar-toggled");
         $(".sidebar").addClass("toggled");
         $('.sidebar .collapse').collapse('hide');
     }
 
-    // si estaba fijada la dejo abierta, si no arranca cerrada
+    // al cargar la pagina: si estaba fijada la dejo abierta, si no arranca cerrada
     if (localStorage.getItem('sb|sidebar-fijada') === 'true') {
         fijada = true;
         abrirBarra();
@@ -21,7 +24,7 @@ $(document).ready(function(){
         cerrarBarra();
     }
 
-    // click en el boton fija o suelta la barra
+    // click en el boton redondo: fija o suelta la barra y guarda el estado
     $('#barraLateral').on('click', function (e) {
         e.preventDefault();
         if (fijada) {
@@ -34,7 +37,7 @@ $(document).ready(function(){
         localStorage.setItem('sb|sidebar-fijada', fijada);
     });
 
-    // boton de arriba (celu), abre y cierra normal
+    // boton de arriba (celu): abre y cierra la barra normal
     $('#sidebarToggleTop').on('click', function (e) {
         e.preventDefault();
         if ($(".sidebar").hasClass("toggled")) {
@@ -44,7 +47,7 @@ $(document).ready(function(){
         }
     });
 
-    // hover en la barra (el boton ya esta adentro)
+    // hover: si no esta fijada se abre al pasar el mouse y se cierra al salir
     $('.sidebar').hover(
         function () {
             if (fijada === false) {
@@ -58,19 +61,19 @@ $(document).ready(function(){
         }
     );
 
-    // cierro los acordeones si la ventana baja de 768px
+    // si la ventana baja de 768px cierro los desplegables
     $(window).resize(function() {
         if ($(window).width() < 768) {
             $('.sidebar .collapse').collapse('hide');
         }
 
-        // por debajo de 480px la cierro
+        // por debajo de 480px cierro la barra entera
         if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
             cerrarBarra();
         }
     });
 
-    // evito que scrollee el contenido cuando paso el mouse por la barra fija
+    // si el body tiene fixed-nav, el scroll con el mouse sobre la barra mueve la barra y no el contenido
     $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
         if ($(window).width() > 768) {
             var e0 = e.originalEvent;
@@ -84,7 +87,7 @@ $(document).ready(function(){
         }
     });
 
-    // boton de volver arriba
+    // muestra u oculta el boton de volver arriba segun cuanto scrolleaste
     $(document).on('scroll', function() {
         var scrollDistance = $(this).scrollTop();
         if (scrollDistance > 100) {
@@ -94,7 +97,7 @@ $(document).ready(function(){
         }
     });
 
-    // scroll suave
+    // click en el boton de volver arriba: sube con scroll suave
     $(document).on('click', 'a.scroll-to-top', function(e) {
         var $anchor = $(this);
         $('html, body').stop().animate({
