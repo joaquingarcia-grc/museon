@@ -54,6 +54,7 @@ $routes->get('/objetos/editar/(:num)', 'Objetos::editar/$1');
 $routes->get('/objetos/papelera/', 'Objetos::papelera/');
 $routes->post('/objetos/recuperacion/(:num)','Objetos::recuperacion/$1');
 $routes->get('objetos/ver/(:num)', 'Objetos::ver/$1');
+$routes->post('/objetos/imagen/(:num)', 'Objetos::actualizarImagen/$1');
 
 $routes->get('objetos/api','Objetos::api_objetos');
 $routes->get('objetos/api2','Objetos::api_objetos_borrados');

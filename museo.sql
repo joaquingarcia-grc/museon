@@ -172,6 +172,7 @@ CREATE TABLE `objetos` (
   `codigo` varchar(50) DEFAULT NULL,
   `denominacion` varchar(100) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   `fecha_alta` datetime DEFAULT current_timestamp(),
   `fecha_baja` datetime DEFAULT NULL,

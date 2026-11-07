@@ -356,6 +356,77 @@ class Objetos extends BaseController {
         
     }
 
+    public function actualizarImagen($id) {
+        if (!isset($this->sesion->id)) {
+            return redirect()->to(base_url('registro'));
+        }
+
+        $permisos = $this->sesion->get('permisos');
+        if (!in_array('m', $permisos['objeto'] ?? [], true)) {
+            return $this->response->setStatusCode(403);
+        }
+
+        $objeto = $this->objetos->find($id);
+        if (!$objeto) {
+            return redirect()->to(base_url('objetos'));
+        }
+
+        $archivo = $this->request->getFile('imagen');
+        if (!$archivo || $archivo->getError() === UPLOAD_ERR_NO_FILE) {
+            session()->setFlashdata('errorImagen', 'Selecciona una imagen para cargar.');
+            return redirect()->to(base_url('objetos/ver/' . $id));
+        }
+
+        if (!$archivo->isValid() || $archivo->getSize() > 5 * 1024 * 1024) {
+            session()->setFlashdata('errorImagen', 'La imagen debe ser válida y no superar los 5 MB.');
+            return redirect()->to(base_url('objetos/ver/' . $id));
+        }
+
+        $tiposPermitidos = [
+            'image/jpeg' => 'jpg',
+            'image/png'  => 'png',
+            'image/gif'  => 'gif',
+            'image/webp' => 'webp',
+        ];
+        $tipoImagen = $archivo->getMimeType();
+        if (!isset($tiposPermitidos[$tipoImagen]) || @getimagesize($archivo->getTempName()) === false) {
+            session()->setFlashdata('errorImagen', 'El archivo debe ser una imagen JPG, PNG, GIF o WEBP.');
+            return redirect()->to(base_url('objetos/ver/' . $id));
+        }
+
+        $directorio = FCPATH . 'imagenes' . DIRECTORY_SEPARATOR . 'objetos';
+        if (!is_dir($directorio) && !mkdir($directorio, 0755, true) && !is_dir($directorio)) {
+            session()->setFlashdata('errorImagen', 'No se pudo preparar la carpeta para guardar la imagen.');
+            return redirect()->to(base_url('objetos/ver/' . $id));
+        }
+
+        $nombreArchivo = bin2hex(random_bytes(16)) . '.' . $tiposPermitidos[$tipoImagen];
+        $archivo->move($directorio, $nombreArchivo);
+
+        if (!$this->objetos->update($id, ['imagen' => $nombreArchivo])) {
+            $this->eliminarImagenObjeto($nombreArchivo);
+            session()->setFlashdata('errorImagen', 'No se pudo guardar la imagen del objeto.');
+            return redirect()->to(base_url('objetos/ver/' . $id));
+        }
+
+        if (!empty($objeto['imagen'])) {
+            $this->eliminarImagenObjeto($objeto['imagen']);
+        }
+
+        return redirect()->to(base_url('objetos/ver/' . $id));
+    }
+
+    private function eliminarImagenObjeto($nombreArchivo) {
+        if ($nombreArchivo !== basename($nombreArchivo)) {
+            return;
+        }
+
+        $rutaImagen = FCPATH . 'imagenes' . DIRECTORY_SEPARATOR . 'objetos' . DIRECTORY_SEPARATOR . $nombreArchivo;
+        if (is_file($rutaImagen)) {
+            unlink($rutaImagen);
+        }
+    }
+
     // API: devuelve en JSON los atributos activos, del más nuevo al más viejo
     public function api_objetos(){
 
