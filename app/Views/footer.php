@@ -102,5 +102,6 @@
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/objeto.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/barraLateral.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/btnSalida.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/salas.js"></script>
 </body>
 </html>

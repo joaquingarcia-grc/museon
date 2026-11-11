@@ -59,3 +59,7 @@ $routes->get('objetos/api','Objetos::api_objetos');
 $routes->get('objetos/api2','Objetos::api_objetos_borrados');
 
 $routes->get('/salas', 'Salas::index');
+$routes->post('/salas/insertar', 'Salas::insertar');
+$routes->post('salas/hijas', 'Salas::hijas');
+$routes->post('salas/actualizar/(:num)', 'Salas::actualizar/$1');
+$routes->post('salas/borrar/(:num)', 'Salas::borrar/$1');

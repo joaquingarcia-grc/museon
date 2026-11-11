@@ -1,0 +1,403 @@
+$(document).ready(function(){
+    // el museo es la sala con id 1, la raiz de todo
+    const ID_MUSEO = 1;
+    // guardo cual sala esta seleccionada
+    let salaActual = null;
+    let nombreSalaActual = '';
+    // guardo lo ultimo que trajo el controlador, lo uso para el modal de editar y para la hoja de ruta
+    let datosSalaActual = null;
+    let hijasActuales = [];
+    // la sala que estoy editando y la que estoy por borrar
+    let idActualizar = null;
+    let idABorrar = null;
+    // muestra un mensaje en pantalla, tipo: success, danger, warning, info
+    function mostrarMensaje(texto, tipo){
+        // si no existe el contenedor lo creo
+        if($('#contenedorMensaje').length == 0){
+            $('body').append('<div id="contenedorMensaje" style="position:fixed; top:20px; right:20px; z-index:2000; min-width:250px;"></div>');
+        }
+        const alerta = $('<div class="alert alert-' + tipo + ' alert-dismissible shadow" role="alert">' + texto + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+        $('#contenedorMensaje').append(alerta);
+        // se saca solo a los 3 segundos
+        setTimeout(function(){
+            alerta.alert('close');
+        }, 3000);
+    }
+    // pasa un texto a html seguro para meterlo en la hoja de ruta
+    function escaparHtml(texto){
+        if(texto == null){
+            return '';
+        }
+        return $('<div></div>').text(texto).html();
+    }
+    // abre o cierra una sala, recibe el div de la sala y true para abrir o false para cerrar
+    function abrirCerrarSala(divSala, abrir){
+        // el ul con las hijas es el que viene justo despues del div de la sala
+        const hijas = divSala.next();
+        const caret = divSala.find('i').first();
+        const puerta = divSala.find('i').last();
+        if(abrir == true){
+            hijas.slideDown(150);
+            caret.removeClass('bi-caret-right-fill').addClass('bi-caret-down-fill');
+            puerta.removeClass('bi-door-closed').addClass('bi-door-open');
+        } else {
+            hijas.slideUp(150);
+            caret.removeClass('bi-caret-down-fill').addClass('bi-caret-right-fill');
+            puerta.removeClass('bi-door-open').addClass('bi-door-closed');
+        }
+    }
+    // agrega la sala nueva al arbol de la izquierda sin recargar la pagina
+    function agregarSalaAlArbol(idNueva, denominacion, idPadre){
+        const divPadre = $('#sala_' + idPadre);
+        // si el padre no esta en el arbol no hago nada
+        if(divPadre.length == 0){
+            return;
+        }
+        const li = $('<li></li>');
+        const divNueva = $('<div class="d-flex align-items-center py-1" style="cursor:pointer;"></div>');
+        divNueva.attr('id', 'sala_' + idNueva);
+        divNueva.append('<i class="bi bi-door-closed me-2"></i>');
+        // uso .text() para que no se interprete como html
+        divNueva.append($('<span></span>').text(denominacion));
+        li.append(divNueva);
+        if(divPadre.next().is('ul')){
+            // el padre ya tenia hijas, la sumo a su lista
+            divPadre.next().append(li);
+        } else {
+            // el padre no tenia hijas: le pongo el triangulito y le creo su lista
+            divPadre.prepend('<i class="bi bi-caret-right-fill me-2"></i>');
+            const ulNuevo = $('<ul class="list-unstyled ms-4"></ul>');
+            ulNuevo.hide();
+            ulNuevo.append(li);
+            divPadre.after(ulNuevo);
+        }
+        // dejo el padre abierto para que se vea la nueva
+        abrirCerrarSala(divPadre, true);
+    }
+    // le cambia el nombre a una sala que ya esta en el arbol
+    function cambiarNombreEnArbol(idSala, denominacion){
+        $('#sala_' + idSala).find('span').text(denominacion);
+    }
+    // saca una sala del arbol, si el padre se queda sin hijas le saco el triangulito y la lista
+    function sacarSalaDelArbol(idSala){
+        const divSala = $('#sala_' + idSala);
+        if(divSala.length == 0){
+            return;
+        }
+        const li = divSala.parent();
+        const ul = li.parent();
+        li.remove();
+        // si la lista es la de arriba de todo no toco nada mas
+        if(ul.attr('id') == 'arbolSalas'){
+            return;
+        }
+        if(ul.children().length == 0){
+            const divPadre = ul.prev();
+            ul.remove();
+            // el primer icono es el triangulito, lo saco y la puerta queda cerrada
+            divPadre.find('i').first().remove();
+            divPadre.find('i').first().removeClass('bi-door-open').addClass('bi-door-closed');
+        }
+    }
+    // arma la lista de lo que hay adentro de la sala en la columna derecha, con las descripciones
+    function armarDetalle(sala, hijas){
+        const detalle = $('#detalleSala');
+        detalle.empty();
+        // en el museo el boton dice nueva sala, en las demas nueva ubicacion
+        let textoBoton = '';
+        if(salaActual == ID_MUSEO){
+            textoBoton = 'Nueva sala';
+        } else {
+            textoBoton = 'Nueva ubicacion';
+        }
+        const tarjeta = $('<div class="card shadow"></div>');
+        const encabezado = $('<div class="card-header d-flex justify-content-between align-items-center"></div>');
+        // uso .text() para que lo que venga de la base no se interprete como html
+        encabezado.append($('<span class="fw-bold"></span>').text(nombreSalaActual));
+        const botones = $('<div class="d-flex gap-2"></div>');
+        botones.append('<button type="button" class="btn btn-sm btn-outline-dark" id="btnImprimirRuta"><i class="bi bi-printer"></i> Hoja de ruta</button>');
+        botones.append('<button type="button" class="btn btn-sm btn-outline-success" id="btnAgregarUbicacion">' + textoBoton + ' <i class="bi bi-plus-lg"></i></button>');
+        encabezado.append(botones);
+        tarjeta.append(encabezado);
+        // descripcion de la sala seleccionada, arriba de la lista
+        const cuerpo = $('<div class="card-body border-bottom"></div>');
+        if(sala != null && sala.descripcion){
+            cuerpo.append($('<p class="mb-0"></p>').text(sala.descripcion));
+        } else {
+            cuerpo.append('<p class="mb-0 text-muted">Esta sala no tiene descripcion</p>');
+        }
+        tarjeta.append(cuerpo);
+        const lista = $('<ul class="list-group list-group-flush"></ul>');
+        if(hijas.length == 0){
+            lista.append('<li class="list-group-item text-muted">Esta sala no tiene nada adentro todavia</li>');
+        } else {
+            for(let i = 0; i < hijas.length; i++){
+                const item = $('<li class="list-group-item d-flex justify-content-between align-items-center"></li>');
+                const textos = $('<div></div>');
+                textos.append($('<div class="fw-semibold"></div>').text(hijas[i].denominacion));
+                // la descripcion de cada hija va abajo del nombre
+                if(hijas[i].descripcion){
+                    textos.append($('<small class="text-muted"></small>').text(hijas[i].descripcion));
+                } else {
+                    textos.append('<small class="text-muted">Sin descripcion</small>');
+                }
+                item.append(textos);
+                // lapiz para editar y tachito para borrar
+                const accion = $('<div class="d-flex gap-1"></div>');
+                accion.append('<button type="button" class="btn btn-sm btn-outline-primary" id="editar_' + hijas[i].id + '"><i class="bi bi-pencil"></i></button>');
+                accion.append('<button type="button" class="btn btn-sm btn-outline-danger" id="borrar_' + hijas[i].id + '"><i class="bi bi-trash"></i></button>');
+                item.append(accion);
+                lista.append(item);
+            }
+        }
+        tarjeta.append(lista);
+        detalle.append(tarjeta);
+    }
+    // le pide al controlador la sala y sus hijas
+    function traerHijas(idSala, denominacion){
+        salaActual = idSala;
+        nombreSalaActual = denominacion;
+        $.ajax({
+            url: BASE + 'salas/hijas',
+            method: 'POST',
+            data: { id: idSala },
+            dataType: 'json',
+            success: function(respuesta) {
+                // me guardo lo que vino para el modal de editar y la hoja de ruta
+                datosSalaActual = respuesta.sala;
+                hijasActuales = respuesta.hijas;
+                armarDetalle(respuesta.sala, respuesta.hijas);
+            },
+            error: function(error) {
+                mostrarMensaje('No se pudo traer el contenido de la sala', 'danger');
+            }
+        });
+    }
+    // arma la hoja de ruta de la sala seleccionada en otra ventana y abre la impresion
+    function imprimirHojaDeRuta(){
+        const ventana = window.open('', '_blank');
+        if(ventana == null){
+            mostrarMensaje('El navegador bloqueo la ventana de impresion', 'warning');
+            return;
+        }
+        const fecha = new Date().toLocaleDateString('es-AR');
+        let descripcionSala = '';
+        if(datosSalaActual != null && datosSalaActual.descripcion){
+            descripcionSala = escaparHtml(datosSalaActual.descripcion);
+        } else {
+            descripcionSala = 'Sin descripcion';
+        }
+        let html = '';
+        html += '<html><head><meta charset="utf-8"><title>Hoja de ruta</title>';
+        html += '<style>';
+        html += 'body{font-family:Arial,sans-serif; margin:30px; color:#222;}';
+        html += 'h1{margin-bottom:0;}';
+        html += 'h3{margin-top:5px; color:#555; font-weight:normal;}';
+        html += 'ol{padding-left:20px;}';
+        html += 'li{margin-bottom:14px;}';
+        html += '.desc{color:#555; margin-top:3px;}';
+        html += '</style></head><body>';
+        html += '<h1>Hoja de ruta</h1>';
+        html += '<h3>' + escaparHtml(nombreSalaActual) + ' - ' + fecha + '</h3>';
+        html += '<p>' + descripcionSala + '</p>';
+        html += '<hr>';
+        if(hijasActuales.length == 0){
+            html += '<p>Esta sala no tiene nada adentro todavia</p>';
+        } else {
+            html += '<ol>';
+            for(let i = 0; i < hijasActuales.length; i++){
+                let descripcionHija = '';
+                if(hijasActuales[i].descripcion){
+                    descripcionHija = escaparHtml(hijasActuales[i].descripcion);
+                } else {
+                    descripcionHija = 'Sin descripcion';
+                }
+                html += '<li><strong>' + escaparHtml(hijasActuales[i].denominacion) + '</strong>';
+                html += '<div class="desc">' + descripcionHija + '</div></li>';
+            }
+            html += '</ol>';
+        }
+        html += '</body></html>';
+        ventana.document.open();
+        ventana.document.write(html);
+        ventana.document.close();
+        ventana.focus();
+        // le doy un toque de tiempo para que cargue antes de imprimir
+        setTimeout(function(){
+            ventana.print();
+        }, 300);
+    }
+    // al cargar la pagina dejo todo cerrado
+    $('#arbolSalas ul').each(function(){
+        $(this).hide();
+        abrirCerrarSala($(this).prev(), false);
+    });
+    // despues abro solo la sala de arriba de todo (el museo) para que se vean sus hijas
+    $('#arbolSalas > li > div').each(function(){
+        const divRaiz = $(this);
+        // si tiene hijas, el que viene despues del div es un ul
+        if(divRaiz.next().is('ul')){
+            abrirCerrarSala(divRaiz, true);
+        }
+    });
+    // dejo el museo seleccionado para que ya aparezca el boton de nueva sala
+    const divMuseo = $('#arbolSalas > li > div').first();
+    if(divMuseo.length > 0){
+        traerHijas(divMuseo.attr('id').replace('sala_', ''), divMuseo.find('span').text());
+    }
+    // click en el triangulito, si esta a la derecha abre y si esta abajo cierra
+    $('#arbolSalas').on('click', 'i', function(){
+        const caret = $(this);
+        const divSala = caret.parent();
+        if(caret.hasClass('bi-caret-right-fill')){
+            abrirCerrarSala(divSala, true);
+        } else if(caret.hasClass('bi-caret-down-fill')){
+            abrirCerrarSala(divSala, false);
+        }
+    });
+    // click en la fila de una sala, trae lo que hay adentro
+    $('#arbolSalas').on('click', 'div', function(e){
+        // si toco el triangulito no hago nada aca, eso lo maneja el click de arriba
+        if($(e.target).hasClass('bi-caret-right-fill') || $(e.target).hasClass('bi-caret-down-fill')){
+            return;
+        }
+        const idSala = $(this).attr('id').replace('sala_', '');
+        const denominacion = $(this).find('span').text();
+        traerHijas(idSala, denominacion);
+    });
+    // boton nueva sala / nueva ubicacion: abre el modal, el titulo dice en cual sala va a quedar
+    $('#detalleSala').on('click', '#btnAgregarUbicacion', function(){
+        if(salaActual == ID_MUSEO){
+            $('#tituloModalSala').text('Nueva sala en ' + nombreSalaActual);
+        } else {
+            $('#tituloModalSala').text('Nueva ubicacion en ' + nombreSalaActual);
+        }
+        $('#modalSala').modal('show');
+    });
+    // lapiz y tachito de la lista (el id de la sala viene en el id del boton)
+    $('#detalleSala').on('click', 'button', function(){
+        const idBoton = $(this).attr('id');
+        if(!idBoton){
+            return;
+        }
+        if(idBoton.indexOf('editar_') == 0){
+            const idSala = idBoton.replace('editar_', '');
+            // busco la sala en lo que ya traje, asi no hace falta otro ajax
+            for(let i = 0; i < hijasActuales.length; i++){
+                if(hijasActuales[i].id == idSala){
+                    idEditando = idSala;
+                    $('#denominacionEditar').val(hijasActuales[i].denominacion);
+                    $('#descripcionEditar').val(hijasActuales[i].descripcion);
+                    $('#modalEditarSala').modal('show');
+                }
+            }
+        } else if(idBoton.indexOf('borrar_') == 0){
+            const idSala = idBoton.replace('borrar_', '');
+            for(let i = 0; i < hijasActuales.length; i++){
+                if(hijasActuales[i].id == idSala){
+                    idABorrar = idSala;
+                    $('#textoBorrarSala').text('Seguro que queres borrar "' + hijasActuales[i].denominacion + '"?');
+                    $('#modalBorrarSala').modal('show');
+                }
+            }
+        }
+    });
+    // hoja de ruta
+    $('#detalleSala').on('click', '#btnImprimirRuta', function(){
+        imprimirHojaDeRuta();
+    });
+    // guardar sala nueva
+    $('#btnGuardarSala').on('click', function(){
+        // el id_pertenece es la sala en la que estoy parado
+        const dato = {
+            denominacion: $('#denominacion').val(),
+            descripcion: $('#descripcion').val(),
+            id_pertenece: salaActual
+        };
+        $.ajax({
+            url: BASE + 'salas/insertar',
+            method: 'POST',
+            data: dato,
+            dataType: 'json',
+            success: function(response) {
+                mostrarMensaje(response.mensaje, 'success');
+                // pongo la sala nueva en el arbol, en el padre que devolvio el controlador
+                agregarSalaAlArbol(response.id, dato.denominacion, response.id_pertenece);
+                // limpio el modal y lo cierro
+                $('#denominacion').val('');
+                $('#descripcion').val('');
+                $('#modalSala').modal('hide');
+                // si hay una sala seleccionada vuelvo a traer su lista para que aparezca la nueva
+                if(salaActual != null){
+                    traerHijas(salaActual, nombreSalaActual);
+                }
+            },
+            error: function(error) {
+                let texto = 'No se pudo guardar la sala';
+                if(error.responseJSON && error.responseJSON.mensaje){
+                    texto = error.responseJSON.mensaje;
+                }
+                mostrarMensaje(texto, 'danger');
+            }
+        });
+    });
+    // guardar los cambios de la sala que se edito con el lapiz
+    $('#btnActualizarSala').on('click', function(){
+        idActualizar = $(this).data('id');
+        const dato = {
+            denominacion: $('#denominacionEditar').val(),
+            descripcion: $('#descripcionEditar').val()
+        };
+        $.ajax({
+            url: BASE + 'salas/actualizar'+idEditando,
+            method: 'POST',
+            data: dato,
+            dataType: 'json',
+            success: function(response) {
+                mostrarMensaje(response.mensaje, 'success');
+                // le cambio el nombre en el arbol
+                cambiarNombreEnArbol(dato.id, dato.denominacion);
+                $('#modalEditarSala').modal('hide');
+                // vuelvo a traer la lista para que aparezca el cambio
+                if(salaActual != null){
+                    traerHijas(salaActual, nombreSalaActual);
+                }
+            },
+            error: function(error) {
+                let texto = 'No se pudo actualizar la sala';
+                if(error.responseJSON && error.responseJSON.mensaje){
+                    texto = error.responseJSON.mensaje;
+                }
+                mostrarMensaje(texto, 'danger');
+            }
+        });
+    });
+    // confirmar el borrado
+    $('#btnConfirmarBorrar').on('click', function(){
+        const idSala = idABorrar;
+        $.ajax({
+            url: BASE + 'salas/borrar/'+idABorrar,
+            method: 'POST',
+            data: { id: idSala },
+            dataType: 'json',
+            success: function(response) {
+                mostrarMensaje(response.mensaje, 'success');
+                // la saco del arbol y cierro el modal
+                sacarSalaDelArbol(idSala);
+                $('#modalBorrarSala').modal('hide');
+                // vuelvo a traer la lista de la sala en la que estoy
+                if(salaActual != null){
+                    traerHijas(salaActual, nombreSalaActual);
+                }
+            },
+            error: function(error) {
+                let texto = 'No se pudo borrar la sala';
+                if(error.responseJSON && error.responseJSON.mensaje){
+                    texto = error.responseJSON.mensaje;
+                }
+                $('#modalBorrarSala').modal('hide');
+                mostrarMensaje(texto, 'danger');
+            }
+        });
+    });
+});

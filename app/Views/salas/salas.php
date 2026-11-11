@@ -5,11 +5,6 @@
                 <?php echo $titulo; ?>
             </h2>
         </div>
-        <div class="col text-right">
-            <button type="button" class="btn btn-outline-success" id="btnNuevaSala" data-bs-toggle="modal" data-bs-target="#modalSala">
-                Nueva Sala <i class="bi bi-door-open"></i>
-            </button>
-        </div>
     </div>
     <div class="row">
         <!-- Columna izquierda: marco del arbol de salas -->
@@ -23,34 +18,51 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled mb-0" id="arbolSalas">
-                        <?php foreach ($salas as $sala){?>
+                        <?php
+                        // dibuja una sala y busca en la lista suelta cuales son sus hijas, se llama a si misma
+                        $dibujarSala = function ($sala) use (&$dibujarSala, $salas) {
+                            // junto las salas que tienen como id_pertenece el id de esta
+                            $hijas = array();
+                            foreach ($salas as $posible) {
+                                if ($posible['id_pertenece'] == $sala['id']) {
+                                    $hijas[] = $posible;
+                                }
+                            }
+                        ?>
                             <li>
-                                <div class="d-flex align-items-center py-1" id="<?php echo $sala["id"];?>" style="cursor:pointer;">
-                                    <?php if (!empty($sala['hijas'])): ?>
+                                <div class="d-flex align-items-center py-1" id="sala_<?php echo $sala['id']; ?>" style="cursor:pointer;">
+                                    <?php if (!empty($hijas)) { ?>
                                         <i class="bi bi-caret-down-fill me-2"></i>
                                         <i class="bi bi-door-open me-2"></i>
-                                    <?php else: ?>
-                                        <i class="bi bi-caret-right-fill me-2"></i>
+                                    <?php } else { ?>
                                         <i class="bi bi-door-closed me-2"></i>
-                                    <?php endif; ?>
+                                    <?php } ?>
                                     <span><?php echo esc($sala['denominacion']); ?></span>
                                 </div>
-                                <?php if (!empty($sala['hijas'])): ?>
+                                <?php if (!empty($hijas)) { ?>
                                     <ul class="list-unstyled ms-4">
-                                        <?php foreach ($sala['hijas'] as $hija): ?>
-                                            <li>
-                                                <div class="d-flex align-items-center py-1" id="sala_<?php echo $hija['id']; ?>" style="cursor:pointer;">
-                                                    <i class="bi bi-caret-right-fill me-2"></i>
-                                                    <i class="bi bi-door-closed me-2"></i>
-                                                    <span><?php echo esc($hija['denominacion']); ?></span>
-                                                </div>
-                                            </li>
-                                        <?php endforeach; ?>
+                                        <?php foreach ($hijas as $hija) { ?>
+                                            <?php $dibujarSala($hija); ?>
+                                        <?php } ?>
                                     </ul>
-                                <?php endif; ?>
+                                <?php } ?>
                             </li>
-                        <?php };?>
+                        <?php
+                        };
+                        // arranco por las que no pertenecen a nadie (el museo)
+                        foreach ($salas as $sala) {
+                            if (empty($sala['id_pertenece'])) {
+                                $dibujarSala($sala);
+                            }
+                        }
+                        ?>
                     </ul>
+                </div>
+                <!-- Papelera, abajo a la izquierda del marco del arbol -->
+                <div class="card-footer text-start">
+                    <button type="button" class="btn btn-dark px-4 shadow-sm" id="btnPapelera">
+                        <i class="bi bi-trash3-fill me-2"></i>Papelera
+                    </button>
                 </div>
             </div>
         </div>
@@ -59,7 +71,7 @@
         </div>
     </div>
 </div>
-<!-- Modal para crear sala y elegir donde queda -->
+<!-- Modal para crear sala, queda dentro de la sala seleccionada -->
 <div class="modal fade" id="modalSala" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tituloModalSala" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -69,26 +81,63 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="denominacionSala" class="form-label">Denominacion</label>
-                    <input type="text" class="form-control" id="denominacionSala">
+                    <label for="denominacion" class="form-label">Denominacion</label>
+                    <input type="text" class="form-control" id="denominacion" name='denominacion'>
                 </div>
                 <div class="mb-3">
-                    <label for="descripcionSala" class="form-label">Descripcion</label>
-                    <textarea class="form-control" id="descripcionSala" rows="3"></textarea>
-                </div>
-
-                <hr>
-                <h6 class="mb-3"><i class="bi bi-geo-alt"></i> Ubicacion</h6>
-                <div class="mb-3">
-                    <label for="salaPadre" class="form-label">Dentro de la sala</label>
-                    <select class="form-select" id="salaPadre">
-                        <option value="">Ninguna (queda dentro del museo)</option>
-                    </select>
+                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <textarea class="form-control" id="descripcion" name='descripcion' rows="3"></textarea>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <!-- Botones del lado izquierdo -->
+            <div class="modal-footer justify-content-start">
                 <button type="button" class="btn btn-success" id="btnGuardarSala">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para editar sala, se abre con el lapiz -->
+<div class="modal fade" id="modalEditarSala" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tituloModalEditarSala" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Editar sala</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="denominacionEditar" class="form-label">Denominacion</label>
+                    <input type="text" class="form-control" id="denominacionEditar" name='denominacionEditar'>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcionEditar" class="form-label">Descripcion</label>
+                    <textarea class="form-control" id="descripcionEditar" name='descripcionEditar' rows="3"></textarea>
+                </div>
+            </div>
+            <!-- Botones del lado izquierdo -->
+            <div class="modal-footer justify-content-start">
+                <button type="button" class="btn btn-success"  id="btnActualizarSala">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para confirmar el borrado de una sala -->
+<div class="modal fade" id="modalBorrarSala" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tituloModalBorrarSala" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="tituloModalBorrarSala">Borrar sala</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="textoBorrarSala"></p>
+            </div>
+            <!-- Botones del lado derecho (el de borrar es el unico modal asi) -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmarBorrar">Borrar</button>
             </div>
         </div>
     </div>
