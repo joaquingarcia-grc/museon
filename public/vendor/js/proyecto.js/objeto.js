@@ -305,6 +305,11 @@ $(document).ready(function(){
             } 
         });
     });
+//---------------------------------------------------------------------------------------------------------------//
+    // Botón imprimir de la ficha (objetos/ver)
+    $('#btn-imprimir').on('click', function(){
+        window.print();
+    });
 //---------------------------------------------------------------------------------------------------------------// 
     function mensajes(mensaje, tipo = 'success'){
         const toast = document.getElementById('toats');

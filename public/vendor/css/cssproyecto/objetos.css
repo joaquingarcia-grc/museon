@@ -21,3 +21,144 @@
 .object-sheet-title {
     font-family: "Times New Roman", serif;
 }
+
+.object-sheet-table {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+.object-sheet-table.table-bordered > :not(caption) > * > * {
+    padding: 0.8rem 1rem;
+    border: 2px solid #6c757d;
+}
+
+.object-sheet-image-cell {
+    width: 28%;
+    min-width: 220px;
+    text-align: center;
+    vertical-align: top !important;
+}
+
+.object-sheet-image-dropzone {
+    position: relative;
+    display: flex;
+    min-height: 220px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px dashed #6c757d;
+    background: #f8f9fa;
+    cursor: pointer;
+}
+
+.object-sheet-image-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.object-sheet-image-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    color: #495057;
+    pointer-events: none;
+}
+
+.object-sheet-image-placeholder .bi {
+    font-size: 2rem;
+}
+
+.object-sheet-image-preview {
+    display: block;
+    max-width: 100%;
+    max-height: 260px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.object-sheet-image-preview[hidden],
+.object-sheet-image-placeholder[hidden] {
+    display: none;
+}
+
+.object-sheet-image-dropzone.is-dragging {
+    background: #e9ecef;
+    border-color: #495057;
+}
+
+@media (max-width: 767.98px) {
+    .object-sheet-image-cell {
+        min-width: 0;
+    }
+
+    .object-sheet-image-dropzone {
+        min-height: 160px;
+    }
+}
+
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 12mm;
+    }
+
+    body * {
+        visibility: hidden !important;
+    }
+
+    .object-sheet-page,
+    .object-sheet-page * {
+        visibility: visible !important;
+    }
+
+    .object-sheet-page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff;
+    }
+
+    .object-sheet-table {
+        width: 100%;
+        max-width: none;
+        font-size: 12pt;
+    }
+
+    .object-sheet-table.table-bordered > :not(caption) > * > * {
+        padding: 0.45rem 0.6rem;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .object-sheet-actions,
+    .object-sheet-page .d-print-none,
+    .object-sheet-image-input,
+    .object-sheet-image-placeholder {
+        display: none !important;
+    }
+
+    .object-sheet-image-cell {
+        min-width: 0;
+    }
+
+    .object-sheet-image-dropzone {
+        min-height: 0;
+        border: 0;
+        background: #fff;
+    }
+
+    .object-sheet-image-preview {
+        max-height: 5.5cm;
+    }
+}
