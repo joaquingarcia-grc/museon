@@ -7,9 +7,11 @@ $(document).ready(function(){
     // guardo lo ultimo que trajo el controlador, lo uso para el modal de editar y para la hoja de ruta
     let datosSalaActual = null;
     let hijasActuales = [];
-    // la sala que estoy editando y la que estoy por borrar
+    // la sala que estoy editando, la que estoy por borrar y la que recupero
     let idActualizar = null;
     let idABorrar = null;
+    let idARecuperar = null;
+    rellenarTablaPapelera();
     // muestra un mensaje en pantalla, tipo: success, danger, warning, info
     function mostrarMensaje(texto, tipo){
         // si no existe el contenedor lo creo
@@ -227,6 +229,83 @@ $(document).ready(function(){
             ventana.print();
         }, 300);
     }
+    // esta funcion rellena la tabla de la papelera
+    function rellenarTablaPapelera(){
+        $.ajax({
+            url: BASE + 'salas/api2',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let conteSalas = " ";
+                response.salas.forEach(sala => {
+                    let descripcion = '';
+                    if(sala.descripcion){
+                        descripcion = escaparHtml(sala.descripcion);
+                    } else {
+                        descripcion = 'Sin descripcion';
+                    }
+                    let boton = `<button type="submit" class='btn btn-info'
+                                    data-id="${sala.id}" id="btnRecuperarSala">
+                                    Recuperar
+                                    <i class="bi bi-recycle"></i>
+                                </button>`;
+                    conteSalas += `<tr>
+                        <td class='text-center'>${sala.id}</td>
+                        <td class='text-center'>${escaparHtml(sala.denominacion)}</td>
+                        <td class='text-center'>${descripcion}</td>
+                        <td class='text-center'>${sala.fecha_baja}</td>
+                        <td class='text-center'>${boton}</td>
+                    </tr>`;
+                });
+                $('#bodyBrTablaSalas').html(conteSalas);
+
+                // ACÁ va el bloque de layout
+                $('#tablaSalasBr').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
+                    },
+                    layout: {
+                        topStart: null,
+                        topEnd: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging',
+                        bottom1Start: {
+                            buttons: [ 
+                                {   
+                                    extend: 'excelHtml5',
+                                    text:'excel',
+                                    titleAttr:'formato exel'
+                                },{ 
+                                    extend: 'pdfHtml5',
+                                    text:'pdf',
+                                    titleAttr:'formato pdf'
+                                },{
+                                    extend: 'copyHtml5',
+                                    text:'copiar',
+                                    titleAttr:'formato texto plano'
+                                },{
+                                    extend: 'csvHtml5',
+                                    text:'csv',
+                                    titleAttr:'formato planilla'
+                                },{
+                                    extend: 'print',
+                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'imprimir tabla'
+                                }]
+                        }
+                    },
+                    order: [[0, 'desc']]
+                });
+
+                $("#buscador").on('keyup', function(){
+                    $('#tablaSalasBr').DataTable().search(this.value).draw();
+                });
+            },
+            error: function() {
+                mostrarMensaje('Error en el servidor', 'danger');
+            }
+        });
+    };
     // al cargar la pagina dejo todo cerrado
     $('#arbolSalas ul').each(function(){
         $(this).hide();
@@ -306,6 +385,33 @@ $(document).ready(function(){
     $('#detalleSala').on('click', '#btnImprimirRuta', function(){
         imprimirHojaDeRuta();
     });
+    // boton papelera, lleva a la vista de la papelera
+    $('#btnPapelera').on('click', function(){
+        window.location.href = BASE + 'salas/papelera';
+    });
+    //obtenemos el selector del boton recuperar de vista papelera
+    $(document).on('click', '#btnRecuperarSala', function(){
+        idARecuperar = $(this).data('id');
+        $.ajax({
+            url: BASE + 'salas/recuperacion/' + idARecuperar,
+            method: 'POST',
+            dataType: 'json',
+            success: function(response){
+                if (response.exito){
+                    mostrarMensaje(response.mensaje, 'success');
+                    $('#tablaSalasBr').DataTable().destroy();
+                    rellenarTablaPapelera();
+                }else{
+                    mostrarMensaje('Aviso: ' + response.mensaje, 'warning');
+                    $('#tablaSalasBr').DataTable().destroy();
+                    rellenarTablaPapelera();
+                }
+            },
+            error: function(){
+                mostrarMensaje('Error en el servidor', 'danger');
+            }
+        });
+    });
     // guardar sala nueva
     $('#btnGuardarSala').on('click', function(){
         // el id_pertenece es la sala en la que estoy parado
@@ -349,7 +455,7 @@ $(document).ready(function(){
             descripcion: $('#descripcionEditar').val()
         };
         $.ajax({
-            url: BASE + 'salas/actualizar'+idEditando,
+            url: BASE + 'salas/actualizar/'+idEditando,
             method: 'POST',
             data: dato,
             dataType: 'json',

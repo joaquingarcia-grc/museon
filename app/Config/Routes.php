@@ -63,3 +63,7 @@ $routes->post('/salas/insertar', 'Salas::insertar');
 $routes->post('salas/hijas', 'Salas::hijas');
 $routes->post('salas/actualizar/(:num)', 'Salas::actualizar/$1');
 $routes->post('salas/borrar/(:num)', 'Salas::borrar/$1');
+$routes->get('/salas/papelera', 'Salas::papelera');
+$routes->post('/salas/recuperacion/(:num)','Salas::recuperacion/$1');
+$routes->get('salas/api2','Salas::api_salas_borrados');
+

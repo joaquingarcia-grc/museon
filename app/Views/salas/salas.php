@@ -60,9 +60,11 @@
                 </div>
                 <!-- Papelera, abajo a la izquierda del marco del arbol -->
                 <div class="card-footer text-start">
-                    <button type="button" class="btn btn-dark px-4 shadow-sm" id="btnPapelera">
-                        <i class="bi bi-trash3-fill me-2"></i>Papelera
-                    </button>
+                    <div class="dt-buttons btn-group">
+                        <button type="button" class="dt-button btn btn-outline-secondary" id="btnPapelera" title="Papelera">
+                            <span>Papelera <i class="bi bi-trash2-fill"></i></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,7 +119,7 @@
             </div>
             <!-- Botones del lado izquierdo -->
             <div class="modal-footer justify-content-start">
-                <button type="button" class="btn btn-success"  id="btnActualizarSala">Guardar</button>
+                <button type="button" class="btn btn-success" id="btnActualizarSala">Guardar</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
