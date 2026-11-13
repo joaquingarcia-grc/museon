@@ -17,7 +17,7 @@
     //esto depende si queremos hacer un hard delet(false) o un soft delet(true)
     protected $useSoftDeletes = false;
     //aca defino las columnas que quiero que sean visibles
-    protected $allowedFields = ['id_rol', 'objeto','etiqueta', 'atributo', 'usuario'];
+    protected $allowedFields = ['id_rol', 'objeto','etiqueta', 'atributo', 'usuario','sala'];
 
     protected $dateFormat = 'datetime';
 

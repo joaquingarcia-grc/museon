@@ -118,7 +118,10 @@ $(document).ready(function(){
         encabezado.append($('<span class="fw-bold"></span>').text(nombreSalaActual));
         const botones = $('<div class="d-flex gap-2"></div>');
         botones.append('<button type="button" class="btn btn-sm btn-outline-dark" id="btnImprimirRuta"><i class="bi bi-printer"></i> Hoja de ruta</button>');
-        botones.append('<button type="button" class="btn btn-sm btn-outline-success" id="btnAgregarUbicacion">' + textoBoton + ' <i class="bi bi-plus-lg"></i></button>');
+        // el boton de nueva sala / ubicacion solo aparece si tiene permiso de alta
+        if(permiso_SAL.includes('a')){
+            botones.append('<button type="button" class="btn btn-sm btn-outline-success" id="btnAgregarUbicacion">' + textoBoton + ' <i class="bi bi-plus-lg"></i></button>');
+        }
         encabezado.append(botones);
         tarjeta.append(encabezado);
         // descripcion de la sala seleccionada, arriba de la lista
@@ -144,10 +147,15 @@ $(document).ready(function(){
                     textos.append('<small class="text-muted">Sin descripcion</small>');
                 }
                 item.append(textos);
-                // lapiz para editar y tachito para borrar
+                // lapiz para editar y tachito para borrar, cada uno solo si tiene el permiso
+                // el id de la sala va en el data-id del boton
                 const accion = $('<div class="d-flex gap-1"></div>');
-                accion.append('<button type="button" class="btn btn-sm btn-outline-primary" id="editar_' + hijas[i].id + '"><i class="bi bi-pencil"></i></button>');
-                accion.append('<button type="button" class="btn btn-sm btn-outline-danger" id="borrar_' + hijas[i].id + '"><i class="bi bi-trash"></i></button>');
+                if(permiso_SAL.includes('m')){
+                    accion.append('<button type="button" class="btn btn-sm btn-outline-primary" id="btnEditarSala" data-id="' + hijas[i].id + '"><i class="bi bi-pencil"></i></button>');
+                }
+                if(permiso_SAL.includes('b')){
+                    accion.append('<button type="button" class="btn btn-sm btn-outline-danger" id="btnBorrarSala" data-id="' + hijas[i].id + '"><i class="bi bi-trash"></i></button>');
+                }
                 item.append(accion);
                 lista.append(item);
             }
@@ -171,7 +179,11 @@ $(document).ready(function(){
                 armarDetalle(respuesta.sala, respuesta.hijas);
             },
             error: function(error) {
-                mostrarMensaje('No se pudo traer el contenido de la sala', 'danger');
+                let texto = 'No se pudo traer el contenido de la sala';
+                if(error.responseJSON && error.responseJSON.mensaje){
+                    texto = error.responseJSON.mensaje;
+                }
+                mostrarMensaje(texto, 'danger');
             }
         });
     }
@@ -244,11 +256,15 @@ $(document).ready(function(){
                     } else {
                         descripcion = 'Sin descripcion';
                     }
-                    let boton = `<button type="submit" class='btn btn-info'
-                                    data-id="${sala.id}" id="btnRecuperarSala">
-                                    Recuperar
-                                    <i class="bi bi-recycle"></i>
-                                </button>`;
+                    // el boton de recuperar solo aparece si tiene permiso de borrar
+                    let boton = '';
+                    if(permiso_SAL.includes('b')){
+                        boton = `<button type="submit" class='btn btn-info'
+                                        data-id="${sala.id}" id="btnRecuperarSala">
+                                        Recuperar
+                                        <i class="bi bi-recycle"></i>
+                                    </button>`;
+                    }
                     conteSalas += `<tr>
                         <td class='text-center'>${sala.id}</td>
                         <td class='text-center'>${escaparHtml(sala.denominacion)}</td>
@@ -353,31 +369,27 @@ $(document).ready(function(){
         }
         $('#modalSala').modal('show');
     });
-    // lapiz y tachito de la lista (el id de la sala viene en el id del boton)
-    $('#detalleSala').on('click', 'button', function(){
-        const idBoton = $(this).attr('id');
-        if(!idBoton){
-            return;
-        }
-        if(idBoton.indexOf('editar_') == 0){
-            const idSala = idBoton.replace('editar_', '');
-            // busco la sala en lo que ya traje, asi no hace falta otro ajax
-            for(let i = 0; i < hijasActuales.length; i++){
-                if(hijasActuales[i].id == idSala){
-                    idEditando = idSala;
-                    $('#denominacionEditar').val(hijasActuales[i].denominacion);
-                    $('#descripcionEditar').val(hijasActuales[i].descripcion);
-                    $('#modalEditarSala').modal('show');
-                }
+    // lapiz de la lista (el id de la sala viene en el data-id del boton)
+    $('#detalleSala').on('click', '#btnEditarSala', function(){
+        const idSala = $(this).data('id');
+        // busco la sala en lo que ya traje, asi no hace falta otro ajax
+        for(let i = 0; i < hijasActuales.length; i++){
+            if(hijasActuales[i].id == idSala){
+                idEditando = idSala;
+                $('#denominacionEditar').val(hijasActuales[i].denominacion);
+                $('#descripcionEditar').val(hijasActuales[i].descripcion);
+                $('#modalEditarSala').modal('show');
             }
-        } else if(idBoton.indexOf('borrar_') == 0){
-            const idSala = idBoton.replace('borrar_', '');
-            for(let i = 0; i < hijasActuales.length; i++){
-                if(hijasActuales[i].id == idSala){
-                    idABorrar = idSala;
-                    $('#textoBorrarSala').text('Seguro que queres borrar "' + hijasActuales[i].denominacion + '"?');
-                    $('#modalBorrarSala').modal('show');
-                }
+        }
+    });
+    // tachito de la lista (el id de la sala viene en el data-id del boton)
+    $('#detalleSala').on('click', '#btnBorrarSala', function(){
+        const idSala = $(this).data('id');
+        for(let i = 0; i < hijasActuales.length; i++){
+            if(hijasActuales[i].id == idSala){
+                idABorrar = idSala;
+                $('#textoBorrarSala').text('Seguro que queres borrar "' + hijasActuales[i].denominacion + '"?');
+                $('#modalBorrarSala').modal('show');
             }
         }
     });
@@ -443,7 +455,12 @@ $(document).ready(function(){
                 if(error.responseJSON && error.responseJSON.mensaje){
                     texto = error.responseJSON.mensaje;
                 }
-                mostrarMensaje(texto, 'danger');
+                // si ya existe en la papelera lo aviso como warning, sino es un error
+                if(error.responseJSON && error.responseJSON.papelera){
+                    mostrarMensaje('Aviso: ' + texto, 'warning');
+                } else {
+                    mostrarMensaje(texto, 'danger');
+                }
             }
         });
     });
@@ -460,13 +477,20 @@ $(document).ready(function(){
             data: dato,
             dataType: 'json',
             success: function(response) {
-                mostrarMensaje(response.mensaje, 'success');
-                // le cambio el nombre en el arbol
-                cambiarNombreEnArbol(dato.id, dato.denominacion);
-                $('#modalEditarSala').modal('hide');
-                // vuelvo a traer la lista para que aparezca el cambio
-                if(salaActual != null){
-                    traerHijas(salaActual, nombreSalaActual);
+                // el controlador contesta con exito true o false
+                if (response.exito){
+                    mostrarMensaje(response.mensaje, 'success');
+                    // le cambio el nombre en el arbol
+                    cambiarNombreEnArbol(dato.id, dato.denominacion);
+                    $('#modalEditarSala').modal('hide');
+                    // vuelvo a traer la lista para que aparezca el cambio
+                    if(salaActual != null){
+                        traerHijas(salaActual, nombreSalaActual);
+                    }
+                }else if (response.papelera){
+                    mostrarMensaje('Aviso: ' + response.mensaje, 'warning');
+                }else{
+                    mostrarMensaje('Error: ' + response.mensaje, 'danger');
                 }
             },
             error: function(error) {

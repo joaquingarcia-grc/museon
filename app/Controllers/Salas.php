@@ -18,6 +18,15 @@ class Salas extends BaseController{
         $this->salas = new SalasModel();
     }
     public function index(){
+        // si no esta logueado lo mando al registro
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        $permisos = $this->sesion->get('permisos');
+        // si no puede listar salas lo mando a objetos
+        if (!in_array('l', $permisos['sala'])){
+            return redirect()->to(base_url() . 'objetos');
+        }
         $salas = $this->salas->findAll();
         $museos = $this->museos->first();
         $datos = [ 'museos'=>$museos,
@@ -28,12 +37,30 @@ class Salas extends BaseController{
         echo  view('footer');
     }
     public function insertar(){
-        $denominacion = $this->request->getPost('denominacion');
-        $descripcion = $this->request->getPost('descripcion');
+        // si no esta logueado no entra a la funcion
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        $permisos = $this->sesion->get('permisos');
+        // si no tiene permiso de alta no guardo nada
+        if (!in_array('a', $permisos['sala'])){
+            return $this->response->setStatusCode(400)->setJSON(['mensaje'=>'Usted no tiene la autorizaciòn']);
+        }
+        $denominacion = trim($this->request->getPost('denominacion'));
+        $descripcion = trim($this->request->getPost('descripcion'));
         $id_pertenece = $this->request->getPost('id_pertenece');
         // si no escriben denominacion no guardo nada
         if(empty($denominacion)){
             return $this->response->setStatusCode(400)->setJSON(['mensaje'=>'Falta la denominacion']);
+        }
+        // busco si ya existe una con ese nombre (tambien en la papelera)
+        $datoSala = $this->salas->where('denominacion', $denominacion)->withDeleted()->first();
+        if(!empty($datoSala)){
+            if(empty($datoSala['fecha_baja'])){
+                return $this->response->setStatusCode(400)->setJSON(['papelera'=>false, 'mensaje'=>'Dato existente']);
+            }else{
+                return $this->response->setStatusCode(400)->setJSON(['papelera'=>true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+            }
         }
         // si no eligen ubicacion queda colgada del museo (id 1)
         if(empty($id_pertenece)){
@@ -56,10 +83,26 @@ class Salas extends BaseController{
             return redirect()->to(base_url() . "registro/");
         }
         header('Content-Type: application/json');
+        $permisos = $this->sesion->get('permisos');
+        // si no tiene permiso de modificar corto aca
+        if (!in_array('m', $permisos['sala'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;
+        }
         $denominacion = trim($this->request->getPost('denominacion'));
         $descripcion = trim($this->request->getPost('descripcion'));
         if (empty($denominacion)) {
             echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            exit;
+        }
+        // busco si existe OTRA sala (id distinto) con el mismo nombre
+        $datoSala = $this->salas->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
+        if (!empty($datoSala)) {
+            if(empty($datoSala['fecha_baja'])){
+                echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
+            }else{
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+            }
             exit;
         }
         $this->salas->update($id, [
@@ -75,6 +118,14 @@ class Salas extends BaseController{
         }
         //esto nos indica que esperamos peticiones json
         header('Content-Type: application/json');
+        $permisos = $this->sesion->get('permisos');
+        // si no tiene permiso de borrar no sigo
+        if (!in_array('b', $permisos['sala'])){
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'Usted no tiene la autorizaciòn'
+            ]);
+        }
         // cuento lo que tiene adentro esta sala
         $cantidad = $this->salas->where('id_pertenece', $id)->countAllResults();
         // si tiene algo adentro no la dejo borrar y aviso que primero hay que vaciarla
@@ -91,6 +142,14 @@ class Salas extends BaseController{
         ]);
     }
     public function papelera(){
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        $permisos = $this->sesion->get('permisos');
+        // para ver la papelera tiene que poder listar
+        if (!in_array('l', $permisos['sala'])){
+            return redirect()->to(base_url() . 'objetos');
+        }
         $salas = $this->salas->findAll();
         $museos = $this->museos->first();
         $datos = [ 'museos'=>$museos,
@@ -105,7 +164,24 @@ class Salas extends BaseController{
             return redirect()->to(base_url() . "registro/");
         }
         header('Content-Type: application/json');
+        $permisos = $this->sesion->get('permisos');
+        // recuperar usa el mismo permiso que borrar
+        if (!in_array('b', $permisos['sala'])){
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            exit;
+        }
         $sala = $this->salas->withDeleted()->find($id);
+        // si no existe la sala corto
+        if (empty($sala)){
+            echo json_encode(['exito' => false, 'mensaje' => 'La ubicación no existe']);
+            exit;
+        }
+        // si ya hay una activa con el mismo nombre no la dejo recuperar
+        $salaActiva = $this->salas->where('denominacion', $sala['denominacion'])->first();
+        if ($salaActiva){
+            echo json_encode(['exito' => false, 'mensaje' => 'Dato activo, No se puede recuperar']);
+            exit;
+        }
         if (!empty($sala['id_pertenece'])){
             $padre = $this->salas->find($sala['id_pertenece']);
             if (!$padre){
@@ -118,6 +194,9 @@ class Salas extends BaseController{
         exit;
     }
     public function hijas(){
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
         $id = $this->request->getPost('id');
         // la sala seleccionada (para mostrar su descripcion) y lo que tiene adentro
         $sala = $this->salas->find($id);

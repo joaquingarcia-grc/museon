@@ -14,7 +14,7 @@
     //como devuelve los modelos
     protected $returnType     = 'array';
     //esto depende si queremos hacer un hard delet(false) o un soft delet(true)
-    protected $useSoftDeletes = true;
+    protected $useSoftDeletes = false;
     //aca defino las columnas que quiero que sean visibles
     protected $allowedFields = ['denominacion'];
 

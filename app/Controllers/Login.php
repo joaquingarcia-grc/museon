@@ -44,12 +44,12 @@ class Login extends BaseController{
         $datosUsuario = $this->usuarios->where('denominacion',$denominacion)->first();
         
         if(!empty($datosUsuario)){
-            $permisos = $this->permisos->select('objeto, etiqueta, atributo, usuario')
+            $permisos = $this->permisos->select('objeto, etiqueta, atributo, usuario,sala')
                                         ->where('id_rol', $datosUsuario['id_rol'])
                                         ->first();
 
             $permisosSesionTabla = [];
-            foreach ( ['usuario', 'objeto', 'atributo', 'etiqueta'] as $tabla) {
+            foreach ( ['usuario', 'objeto', 'atributo', 'etiqueta','sala'] as $tabla) {
                 if (!empty($permisos[$tabla])){
                     $permisosSesionTabla[$tabla] = explode(',',$permisos[$tabla]);
                 }else{
