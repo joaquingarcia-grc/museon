@@ -202,10 +202,12 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Configuraciones
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <?php if (session()->get('rol') == 1): ?>
+                                <a class="dropdown-item" href="<?php echo base_url('actividad'); ?>">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Actividad
                                 </a>
+                                <?php endif; ?>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href='<?php echo base_url();?>login/sesion' data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

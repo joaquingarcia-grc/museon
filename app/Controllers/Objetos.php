@@ -10,6 +10,7 @@ use App\Models\ObjetosAtributosModel;
 use App\Models\ObjetosEtiquetasModel;
 use App\Models\UsuariosModel;
 use App\Models\PermisosModel;
+use App\Models\ActividadesModel;   // <-- NUEVA
 
 class Objetos extends BaseController {   
     
@@ -21,6 +22,7 @@ class Objetos extends BaseController {
     protected $atributos;
     protected $objetosatributos;
     protected $objetosetiquetas;
+    protected $actividades;   // <-- NUEVA
 
     public function __construct() {
     
@@ -33,6 +35,7 @@ class Objetos extends BaseController {
         $this->objetosatributos = new ObjetosAtributosModel();
         $this->objetosetiquetas = new ObjetosEtiquetasModel();
         $this->permisos = new PermisosModel();
+        $this->actividades = new ActividadesModel();   // <-- NUEVA
     }
 
     public function index(){
@@ -69,6 +72,13 @@ class Objetos extends BaseController {
             exit;    
         }
         $this->objetos->delete($id);
+        // <-- NUEVA
+        $this->actividades->save([
+            'id_usuario' => $this->sesion->get('id'),
+            'tabla'      => 'objetos',
+            'id_dato'    => $id,
+            'accion'     => 'b'
+        ]);
         $objetos = $this->objetos->withDeleted()->find($id); 
         return $this->response->setStatusCode(200)->setJSON([
             'exito' => true,
@@ -167,6 +177,13 @@ class Objetos extends BaseController {
                 foreach ($etiqueta_ids as $id_etiqueta) {
                     $this->vincularEtiqueta($objeto_id, $id_etiqueta);
                 }
+                // <-- NUEVA
+                $this->actividades->save([
+                    'id_usuario' => $id_usuario,
+                    'tabla'      => 'objeto_etiquetas',
+                    'id_dato'    => $objeto_id,
+                    'accion'     => 'a'
+                ]);
             }
 
             // --- ATRIBUTOS DINÁMICOS
@@ -180,10 +197,24 @@ class Objetos extends BaseController {
                         $this->vincularAtributo($objeto_id, $id_atributo, $valor);
                     }
                 }
+                // <-- NUEVA
+                $this->actividades->save([
+                    'id_usuario' => $id_usuario,
+                    'tabla'      => 'objeto_atributos',
+                    'id_dato'    => $objeto_id,
+                    'accion'     => 'a'
+                ]);
             }
         }
         
         $id = $this->objetos->getInsertID();
+        // <-- NUEVA
+        $this->actividades->save([
+            'id_usuario' => $id_usuario,
+            'tabla'      => 'objetos',
+            'id_dato'    => $id,
+            'accion'     => 'a'
+        ]);
         echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
     }
 
@@ -254,11 +285,35 @@ class Objetos extends BaseController {
             'denominacion' => $denominacion,
             'descripcion' => $descripcion     
         ]);
+       
+
+        $id_logueado = $this->sesion->get('id');
+        $this->actividades->save([
+            'id_usuario' => $id_logueado,
+            'tabla'      => 'objetos',
+            'id_dato'    => $id,
+            'accion'     => 'm'
+        ]);
 
         // 2. Damos de baja las asociaciones anteriores para volver a armarlas
         //    con lo que llegó del formulario (misma lógica que insertar())
         $this->objetosetiquetas->where('objeto_id', $id)->delete();
         $this->objetosatributos->where('objeto_id', $id)->delete();
+       
+
+        $this->actividades->save([
+            'id_usuario' => $id_logueado,
+            'tabla'      => 'objeto_etiquetas',
+            'id_dato'    => $id,
+            'accion'     => 'm'
+        ]);
+       
+        $this->actividades->save([
+            'id_usuario' => $id_logueado,
+            'tabla'      => 'objeto_atributos',
+            'id_dato'    => $id,
+            'accion'     => 'm'
+        ]);
 
         // --- ETIQUETAS DINÁMICAS (Múltiples seleccionadas) ---
         $etiqueta_ids = $this->request->getPost('etiqueta_ids');
@@ -318,6 +373,13 @@ class Objetos extends BaseController {
         $objeto = $this->objetos->withDeleted()->find($id);
         if ($objeto){
             $this->objetos->update($id, ['fecha_baja' => null]);
+            // <-- NUEVA
+            $this->actividades->save([
+                'id_usuario' => $this->sesion->get('id'),
+                'tabla'      => 'objetos',
+                'id_dato'    => $id,
+                'accion'     => 'r'
+            ]);
             echo json_encode(['exito' => true, 'mensaje' => 'recuperado exitosamente']);
             exit;
         }

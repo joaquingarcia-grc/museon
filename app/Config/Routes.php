@@ -58,3 +58,5 @@ $routes->post('/objetos/imagen/(:num)', 'Objetos::actualizarImagen/$1');
 
 $routes->get('objetos/api','Objetos::api_objetos');
 $routes->get('objetos/api2','Objetos::api_objetos_borrados');
+
+$routes->get('/actividad', 'Actividad::index');
