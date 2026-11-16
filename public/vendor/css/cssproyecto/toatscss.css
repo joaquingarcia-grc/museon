@@ -1,31 +1,36 @@
 #toats {
   position: fixed;
-  bottom: 500px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background-color: #333;
-  color: #131212;
-  padding: 14px 22px;
-  border-radius: 10px;
-  font-size: 15px;
+  top: 20px;
+  right: 20px;
+  max-width: 320px;
+  background-color: #ffffff;
+  color: #333333;
+  padding: 12px 18px;
+  border-radius: 8px;
+  border-left: 4px solid #999999;
+  font-size: 14px;
   font-weight: 500;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   opacity: 0;
+  transform: translateX(20px);
   pointer-events: none;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   z-index: 9999;
 }
 
 #toats.show {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(0);
 }
+
 #toats.success {
-  background-color: #449147;
+  border-left-color: #449147;
 }
+
 #toats.error {
-  background-color: #c62828;
+  border-left-color: #c62828;
 }
+
 #toats.warning {
-  background-color: #f78222;
+  border-left-color: #f78222;
 }

@@ -8,6 +8,13 @@ $(document).ready(function(){
     //llamo a la funcion que rellena la tabla se uduarios en la papelera
     rellenarTabla2();
 
+    // si veníamos de guardar/actualizar un usuario, muestro el mensaje que quedó guardado
+    let mensajeGuardado = sessionStorage.getItem('mensajeUSR');
+    if (mensajeGuardado !== null) {
+        sessionStorage.removeItem('mensajeUSR');//lo borro para que no se muestre de nuevo al recargar
+        mensajes(mensajeGuardado);
+    }
+
 //------------------------------------------------------------------------------------------------//
     //esta funcion rellena la tabla de usuarios
     function rellenarTabla(){
@@ -200,11 +207,10 @@ $(document).ready(function(){
             success: function(response) {
                 if (response.exito){
                     $('#modalGuardadoUSR').modal('hide');//ocultamos el modal de guardar
-                    mensajes("Usuario guardado con ID: " + response.id + response.mensaje);//responde mensaje desde el servidor
+                    //guardo el mensaje del servidor para mostrarlo ya estando en la ruta usuarios
+                    sessionStorage.setItem('mensajeUSR', "Usuario guardado con ID: " + response.id + response.mensaje);
                     $('#formularioUSR')[0].reset();//limpia formulario
-                    setTimeout(function(){//activa funcion que dirije a la vista usuarios
-                        window.location.href = BASE + 'usuarios';
-                    },  3010);
+                    window.location.href = BASE + 'usuarios';//dirije a la vista usuarios al toque, sin esperar
                 }else if(response.papelera){//espera condicion desde la papelera e imprime el mensaje obtenido
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{
@@ -240,10 +246,9 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(response) {
                 if (response.exito){
-                    mensajes("Usuario: " + response.mensaje);
-                    setTimeout(function(){
-                        window.location.href = BASE + 'usuarios';
-                    },  3010);
+                    //guardo el mensaje para mostrarlo ya estando en la ruta usuarios
+                    sessionStorage.setItem('mensajeUSR', "Usuario: " + response.mensaje);
+                    window.location.href = BASE + 'usuarios';//dirije a la vista usuarios al toque, sin esperar
 
                 }else if(response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -331,5 +336,37 @@ $(document).ready(function(){
         setTimeout(() => {
           toast.classList.remove('show');
         }, 3000);}
+
+    $('#btnCopiaSeguridad').on('click', function (e) {
+
+    // evito que el link con # te suba al inicio de la página
+    e.preventDefault();
+
+    $.ajax({
+        url: BASE + 'copia_seguridad',
+        type: 'POST',
+        dataType: 'text',
+        success: function (respuesta) {
+
+            // armo el archivo con el texto que devolvió el controlador
+            var archivo = new Blob([respuesta], { type: 'application/sql' });
+            var url = window.URL.createObjectURL(archivo);
+
+            // creo un link temporal y le hago click para que se descargue
+            var enlace = document.createElement('a');
+            enlace.href = url;
+            enlace.download = 'copia_seguridad.sql';
+            document.body.appendChild(enlace);
+            enlace.click();
+
+            // saco el link temporal y libero el archivo
+            document.body.removeChild(enlace);
+            window.URL.revokeObjectURL(url);
+        },
+        error: function () {
+            alert('No se pudo generar la copia de seguridad');
+        }
+    });
+    });
 
 });

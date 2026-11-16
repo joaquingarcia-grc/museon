@@ -342,4 +342,34 @@ class Usuarios extends BaseController{
         $datos = ['usuarios'=>$usuarios];
         return $this->response->setJSON($datos);
     }
+    public function copia_seguridad(){
+        // Verificación de sesión
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        // la conexión a la base
+        $db = db_connect();
+        // acá voy juntando el texto del .sql
+        $sql = "";
+        // todas las tablas de la base
+        $tablas = $db->listTables();
+        foreach ($tablas as $tabla) {
+            // cómo se crea la tabla
+            $sql .= "drop table if exists `" . $tabla . "`;\n";
+            $crear = $db->query("show create table `" . $tabla . "`")->getRowArray();
+            $sql .= $crear['Create Table'] . ";\n\n";
+            // todos los registros de la tabla
+            $filas = $db->table($tabla)->get()->getResultArray();
+            foreach ($filas as $fila) {
+                $valores = [];
+                foreach ($fila as $valor) {
+                    $valores[] = $db->escape($valor);
+                }
+                $sql .= "insert into `" . $tabla . "` values (" . implode(", ", $valores) . ");\n";
+            }
+            $sql .= "\n";
+        }
+        // lo descarga como archivo
+        return $this->response->download('copia_seguridad.sql', $sql);
+    }
 }

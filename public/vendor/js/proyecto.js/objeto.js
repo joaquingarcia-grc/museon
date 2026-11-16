@@ -7,6 +7,13 @@ $(document).ready(function(){
     rellenarTabla();
     rellenarTabla2();
 
+    // si veníamos de guardar/actualizar un objeto, muestro el mensaje que quedó guardado
+    let mensajeGuardado = sessionStorage.getItem('mensajeOBJ');
+    if (mensajeGuardado !== null) {
+        sessionStorage.removeItem('mensajeOBJ');//lo borro para que no se muestre de nuevo al recargar
+        mensajes(mensajeGuardado);
+    }
+
 //------------------------------------------------------------------------------------------------//
     //esta funcion rellena la tabla de atributos
     function rellenarTabla(){
@@ -112,11 +119,10 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(response){
                 if (response.exito){
-                    mensajes("Pieza guardado con ID: " + response.id + response.mensaje);
+                    //guardo el mensaje del servidor para mostrarlo ya estando en la ruta objetos
+                    sessionStorage.setItem('mensajeOBJ', "Pieza guardado con ID: " + response.id + response.mensaje);
                     $('#formularioOBJ')[0].reset();
-                    setTimeout(function(){
-                        window.location.href = BASE + 'objetos';
-                    },  3010);
+                    window.location.href = BASE + 'objetos';//dirije a la vista objetos al toque, sin esperar
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                     $('#formularioOBJ')[0].reset();
@@ -184,10 +190,9 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(response) {
                 if (response.exito){
-                    mensajes("Objeto: " + response.mensaje);
-                    setTimeout(function(){
-                        window.location.href = BASE + 'objetos';
-                    },  3010);
+                    //guardo el mensaje para mostrarlo ya estando en la ruta objetos
+                    sessionStorage.setItem('mensajeOBJ', "Objeto: " + response.mensaje);
+                    window.location.href = BASE + 'objetos';//dirije a la vista objetos al toque, sin esperar
                 }else{
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }

@@ -144,3 +144,8 @@
         </div>
     </div>
 </div>
+<!-- Toast de mensajes, lo usa la funcion mensajes del js -->
+<div>
+  <div id='toats'>
+  </div>
+</div>

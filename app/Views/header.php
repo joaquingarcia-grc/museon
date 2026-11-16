@@ -118,6 +118,18 @@
                     </div>
                 </div>
             </li>
+
+            <!-- Boton para generar la copia de seguridad (solo con lectura en usuario) -->
+            <?php if (in_array('l', $permisos['usuario'] ?? [])): ?>
+                <hr class="sidebar-divider">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="btnCopiaSeguridad">
+                        <i class="fas fa-fw fa-database"></i>
+                        <span>Copia de seguridad</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
             <!-- Sidebar Toggler (Sidebar) -->

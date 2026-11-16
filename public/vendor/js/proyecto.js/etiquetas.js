@@ -5,6 +5,13 @@ $(document).ready(function() {
     let idActualizar = null;
     rellenarTabla();
     rellenarTabla2();
+
+    // si veníamos de guardar/actualizar una etiqueta, muestro el mensaje que quedó guardado
+    let mensajeGuardado = sessionStorage.getItem('mensajeETQ');
+    if (mensajeGuardado !== null) {
+        sessionStorage.removeItem('mensajeETQ');//lo borro para que no se muestre de nuevo al recargar
+        mensajes(mensajeGuardado);
+    }
     
 //------------------------------------------------------------------------------------------------//
     //esta funcion rellena la tabla de atributos
@@ -189,11 +196,10 @@ $(document).ready(function() {
             success: function(response){
                 if (response.exito){
                     $('#modalGuardarET').modal('hide');//ocultamos el modal de guardar
-                    mensajes("Etiqueta guardada con ID: " + response.id + response.mensaje,'success');
+                    //guardo el mensaje del servidor para mostrarlo ya estando en la ruta etiquetas
+                    sessionStorage.setItem('mensajeETQ', "Etiqueta guardada con ID: " + response.id + response.mensaje);
                     $('#formularioET')[0].reset();
-                    setTimeout(function(){
-                        window.location.href = BASE + 'etiquetas';
-                    },  3010);
+                    window.location.href = BASE + 'etiquetas';//dirije a la vista etiquetas al toque, sin esperar
                 }else if (response.papelera){
                     $('#modalGuardarET').modal('hide');//ocultamos el modal de guardar
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -296,10 +302,9 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.exito){
-                    mensajes("Etiqueta: " + response.mensaje);
-                    setTimeout(function(){
-                        window.location.href = BASE + 'etiquetas';
-                    },  3010);
+                    //guardo el mensaje para mostrarlo ya estando en la ruta etiquetas
+                    sessionStorage.setItem('mensajeETQ', "Etiqueta: " + response.mensaje);
+                    window.location.href = BASE + 'etiquetas';//dirije a la vista etiquetas al toque, sin esperar
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{

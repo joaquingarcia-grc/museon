@@ -7,6 +7,13 @@ $(document).ready(function() {
     rellenarTabla();
     rellenarTabla2();
 
+    // si veníamos de guardar/actualizar un atributo, muestro el mensaje que quedó guardado
+    let mensajeGuardado = sessionStorage.getItem('mensajeATB');
+    if (mensajeGuardado !== null) {
+        sessionStorage.removeItem('mensajeATB');//lo borro para que no se muestre de nuevo al recargar
+        mensajes(mensajeGuardado);
+    }
+
 //------------------------------------------------------------------------------------------------//
     //esta funcion rellena la tabla de atributos
     function rellenarTabla(){
@@ -210,12 +217,11 @@ $(document).ready(function() {
             success: function(response){
                 if (response.exito){
                     $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
-                    mensajes("Atributo guardado con ID: " + response.id + response.mensaje);
+                    //guardo el mensaje del servidor para mostrarlo ya estando en la ruta atributos
+                    sessionStorage.setItem('mensajeATB', "Atributo guardado con ID: " + response.id + response.mensaje);
                     $('#formularioATB')[0].reset();
                     toggleUnidad();
-                    setTimeout(function(){
-                        window.location.href = BASE + 'atributos';
-                    },  3010);
+                    window.location.href = BASE + 'atributos';//dirije a la vista atributos al toque, sin esperar
                 }else if (response.papelera){
                     $('#modalGuardarATB').modal('hide');//ocultamos el modal de guardar
                     mensajes('Aviso: ' + response.mensaje, 'warning');
@@ -324,10 +330,9 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.exito){
-                    mensajes("Atributo: " + response.mensaje);
-                    setTimeout(function(){
-                        window.location.href = BASE + 'atributos';
-                    },  3010);
+                    //guardo el mensaje para mostrarlo ya estando en la ruta atributos
+                    sessionStorage.setItem('mensajeATB', "Atributo: " + response.mensaje);
+                    window.location.href = BASE + 'atributos';//dirije a la vista atributos al toque, sin esperar
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{

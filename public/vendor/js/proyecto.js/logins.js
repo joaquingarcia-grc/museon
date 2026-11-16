@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 //------------------------------------------------------------------------------------------------//
     //funcion para poder ingresar en la pagina de logueo
     $('#formularioIngreso').on('submit',function(e){
@@ -14,11 +15,10 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(response) {
                 if (response.exito){
-                    mensajes2(response.mensaje);//responde mensaje desde el servidor
+                    //guardo el mensaje del servidor para mostrarlo ya estando en la ruta siguiente
+                    sessionStorage.setItem('mensajeLogin', response.mensaje);
                     $('#formularioIngreso')[0].reset();//limpia formulario
-                    setTimeout(function(){
-                        window.location.href = (response.redirigir);
-                    },  2005);
+                    window.location.href = (response.redirigir);//redirige al toque, sin esperar
                 }else{
                     mensajes('Error: ' + response.mensaje, 'error');
                 }

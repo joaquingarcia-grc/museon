@@ -12,19 +12,18 @@ $(document).ready(function(){
     let idABorrar = null;
     let idARecuperar = null;
     rellenarTablaPapelera();
-    // muestra un mensaje en pantalla, tipo: success, danger, warning, info
-    function mostrarMensaje(texto, tipo){
-        // si no existe el contenedor lo creo
-        if($('#contenedorMensaje').length == 0){
-            $('body').append('<div id="contenedorMensaje" style="position:fixed; top:20px; right:20px; z-index:2000; min-width:250px;"></div>');
-        }
-        const alerta = $('<div class="alert alert-' + tipo + ' alert-dismissible shadow" role="alert">' + texto + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
-        $('#contenedorMensaje').append(alerta);
-        // se saca solo a los 3 segundos
-        setTimeout(function(){
-            alerta.alert('close');
-        }, 3000);
-    }
+    // muestra un mensaje en pantalla, tipo: success, error, warning
+    function mensajes(mensaje, tipo = 'success'){
+        const toast = document.getElementById('toats');
+        toast.innerHTML = `${mensaje}`;
+        // limpiamos clases de tipo anteriores
+        toast.classList.remove('success', 'error', 'warning');
+        // agregamos la clase según el tipo
+        toast.classList.add(tipo);
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);}
     // pasa un texto a html seguro para meterlo en la hoja de ruta
     function escaparHtml(texto){
         if(texto == null){
@@ -183,7 +182,7 @@ $(document).ready(function(){
                 if(error.responseJSON && error.responseJSON.mensaje){
                     texto = error.responseJSON.mensaje;
                 }
-                mostrarMensaje(texto, 'danger');
+                mensajes(texto, 'error');
             }
         });
     }
@@ -191,7 +190,7 @@ $(document).ready(function(){
     function imprimirHojaDeRuta(){
         const ventana = window.open('', '_blank');
         if(ventana == null){
-            mostrarMensaje('El navegador bloqueo la ventana de impresion', 'warning');
+            mensajes('El navegador bloqueo la ventana de impresion', 'warning');
             return;
         }
         const fecha = new Date().toLocaleDateString('es-AR');
@@ -318,7 +317,7 @@ $(document).ready(function(){
                 });
             },
             error: function() {
-                mostrarMensaje('Error en el servidor', 'danger');
+                mensajes('Error en el servidor', 'error');
             }
         });
     };
@@ -410,17 +409,17 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(response){
                 if (response.exito){
-                    mostrarMensaje(response.mensaje, 'success');
+                    mensajes(response.mensaje, 'success');
                     $('#tablaSalasBr').DataTable().destroy();
                     rellenarTablaPapelera();
                 }else{
-                    mostrarMensaje('Aviso: ' + response.mensaje, 'warning');
+                    mensajes('Aviso: ' + response.mensaje, 'warning');
                     $('#tablaSalasBr').DataTable().destroy();
                     rellenarTablaPapelera();
                 }
             },
             error: function(){
-                mostrarMensaje('Error en el servidor', 'danger');
+                mensajes('Error en el servidor', 'error');
             }
         });
     });
@@ -438,7 +437,7 @@ $(document).ready(function(){
             data: dato,
             dataType: 'json',
             success: function(response) {
-                mostrarMensaje(response.mensaje, 'success');
+                mensajes(response.mensaje, 'success');
                 // pongo la sala nueva en el arbol, en el padre que devolvio el controlador
                 agregarSalaAlArbol(response.id, dato.denominacion, response.id_pertenece);
                 // limpio el modal y lo cierro
@@ -457,9 +456,9 @@ $(document).ready(function(){
                 }
                 // si ya existe en la papelera lo aviso como warning, sino es un error
                 if(error.responseJSON && error.responseJSON.papelera){
-                    mostrarMensaje('Aviso: ' + texto, 'warning');
+                    mensajes('Aviso: ' + texto, 'warning');
                 } else {
-                    mostrarMensaje(texto, 'danger');
+                    mensajes(texto, 'error');
                 }
             }
         });
@@ -479,7 +478,7 @@ $(document).ready(function(){
             success: function(response) {
                 // el controlador contesta con exito true o false
                 if (response.exito){
-                    mostrarMensaje(response.mensaje, 'success');
+                    mensajes(response.mensaje, 'success');
                     // le cambio el nombre en el arbol
                     cambiarNombreEnArbol(dato.id, dato.denominacion);
                     $('#modalEditarSala').modal('hide');
@@ -488,9 +487,9 @@ $(document).ready(function(){
                         traerHijas(salaActual, nombreSalaActual);
                     }
                 }else if (response.papelera){
-                    mostrarMensaje('Aviso: ' + response.mensaje, 'warning');
+                    mensajes('Aviso: ' + response.mensaje, 'warning');
                 }else{
-                    mostrarMensaje('Error: ' + response.mensaje, 'danger');
+                    mensajes('Error: ' + response.mensaje, 'error');
                 }
             },
             error: function(error) {
@@ -498,7 +497,7 @@ $(document).ready(function(){
                 if(error.responseJSON && error.responseJSON.mensaje){
                     texto = error.responseJSON.mensaje;
                 }
-                mostrarMensaje(texto, 'danger');
+                mensajes(texto, 'error');
             }
         });
     });
@@ -511,7 +510,7 @@ $(document).ready(function(){
             data: { id: idSala },
             dataType: 'json',
             success: function(response) {
-                mostrarMensaje(response.mensaje, 'success');
+                mensajes(response.mensaje, 'success');
                 // la saco del arbol y cierro el modal
                 sacarSalaDelArbol(idSala);
                 $('#modalBorrarSala').modal('hide');
@@ -526,7 +525,7 @@ $(document).ready(function(){
                     texto = error.responseJSON.mensaje;
                 }
                 $('#modalBorrarSala').modal('hide');
-                mostrarMensaje(texto, 'danger');
+                mensajes(texto, 'error');
             }
         });
     });
