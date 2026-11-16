@@ -45,10 +45,18 @@ class Objetos extends BaseController {
         }
         $objetos = $this->objetos->findAll();
         $museos = $this->museos->first();
+        $etiquetas = $this->etiquetas->findAll();
+        $usuariosFiltro = $this->usuarios
+            ->select('id, denominacion')
+            ->withDeleted()
+            ->orderBy('denominacion', 'ASC')
+            ->findAll();
 
         $datos = [ 
             'museos'  => $museos,
             'objetos' => $objetos,
+            'etiquetas' => $etiquetas,
+            'usuariosFiltro' => $usuariosFiltro,
             'titulo'  => 'Listado de objetos'
         ];
 
@@ -503,6 +511,127 @@ class Objetos extends BaseController {
         $datos = ['objetos'=>$objetos];
         return $this->response->setJSON($datos);
     }
+
+    public function filtrarPorEtiquetas(){
+        if (!isset($this->sesion->id)) {
+            return $this->response->setStatusCode(401)->setJSON([
+                'exito' => false,
+                'mensaje' => 'La sesión expiró. Vuelve a iniciar sesión.'
+            ]);
+        }
+
+        $etiquetaIds = $this->request->getPost('etiqueta_ids') ?? [];
+        if (!is_array($etiquetaIds)) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'El filtro de etiquetas no es válido.'
+            ]);
+        }
+
+        $descripcion = $this->request->getPost('descripcion_filtro') ?? '';
+        $tipoFecha = $this->request->getPost('tipo_fecha') ?? 'alta';
+        $fechaDesde = $this->request->getPost('fecha_desde') ?? '';
+        $fechaHasta = $this->request->getPost('fecha_hasta') ?? '';
+        $creadoPor = $this->request->getPost('creado_por') ?? '';
+
+        if (
+            !is_string($descripcion)
+            || !is_string($tipoFecha)
+            || !is_string($fechaDesde)
+            || !is_string($fechaHasta)
+            || !is_string($creadoPor)
+            || !in_array($tipoFecha, ['alta', 'edicion'], true)
+        ) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'Uno de los filtros enviados no es válido.'
+            ]);
+        }
+
+        $descripcion = trim($descripcion);
+        $validarFecha = static function (string $fecha): bool {
+            if ($fecha === '') {
+                return true;
+            }
+
+            $fechaFormateada = \DateTime::createFromFormat('!Y-m-d', $fecha);
+            return $fechaFormateada !== false && $fechaFormateada->format('Y-m-d') === $fecha;
+        };
+
+        if (!$validarFecha($fechaDesde) || !$validarFecha($fechaHasta)) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'Ingresa fechas válidas para el filtro.'
+            ]);
+        }
+
+        if ($fechaDesde !== '' && $fechaHasta !== '' && $fechaDesde > $fechaHasta) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'La fecha desde no puede ser posterior a la fecha hasta.'
+            ]);
+        }
+
+        $creadorId = null;
+        if ($creadoPor !== '') {
+            $creadorId = filter_var($creadoPor, FILTER_VALIDATE_INT);
+            if ($creadorId === false || $creadorId < 1) {
+                return $this->response->setStatusCode(400)->setJSON([
+                    'exito' => false,
+                    'mensaje' => 'Selecciona un usuario válido.'
+                ]);
+            }
+        }
+
+        $etiquetaIdsValidados = [];
+        foreach ($etiquetaIds as $etiquetaId) {
+            $idValidado = filter_var($etiquetaId, FILTER_VALIDATE_INT);
+            if ($idValidado === false || $idValidado < 1) {
+                return $this->response->setStatusCode(400)->setJSON([
+                    'exito' => false,
+                    'mensaje' => 'El filtro contiene una etiqueta no válida.'
+                ]);
+            }
+            $etiquetaIdsValidados[] = $idValidado;
+        }
+
+        $consulta = $this->objetos
+            ->select('objetos.*, usuarios.denominacion AS cargado_por')
+            ->join('usuarios', 'usuarios.id = objetos.id_usuario', 'left')
+            ->orderBy('objetos.id', 'DESC');
+
+        if ($descripcion !== '') {
+            $consulta->like('objetos.descripcion', $descripcion);
+        }
+
+        if ($creadorId !== null) {
+            $consulta->where('objetos.id_usuario', $creadorId);
+        }
+
+        $campoFecha = $tipoFecha === 'alta' ? 'fecha_alta' : 'fecha_edicion';
+        if ($fechaDesde !== '') {
+            $consulta->where('objetos.' . $campoFecha . ' >=', $fechaDesde . ' 00:00:00');
+        }
+        if ($fechaHasta !== '') {
+            $consulta->where('objetos.' . $campoFecha . ' <=', $fechaHasta . ' 23:59:59');
+        }
+
+        if ($etiquetaIdsValidados !== []) {
+            $consulta
+                ->join('objeto_etiquetas', 'objeto_etiquetas.objeto_id = objetos.id')
+                ->join('etiquetas', 'etiquetas.id = objeto_etiquetas.etiqueta_id')
+                ->whereIn('etiquetas.id', array_values(array_unique($etiquetaIdsValidados)))
+                ->where('objeto_etiquetas.fecha_baja', null)
+                ->where('etiquetas.fecha_baja', null)
+                ->distinct();
+        }
+
+        return $this->response->setJSON([
+            'exito' => true,
+            'objetos' => $consulta->findAll()
+        ]);
+    }
+
     // API: devuelve en JSON los atributos borrados (papelera)
     public function api_objetos_borrados(){
         if(!isset($this->sesion->id)){

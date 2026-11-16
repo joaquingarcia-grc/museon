@@ -7,6 +7,89 @@ $(document).ready(function(){
     rellenarTabla();
     rellenarTabla2();
 
+    $("#buscador").on('keyup.objetos', function(){
+        if ($.fn.DataTable.isDataTable('#tablaOBJ')) {
+            $('#tablaOBJ').DataTable().search(this.value).draw();
+        }
+    });
+
+    $('#formularioFiltroEtiquetas').on('submit', function(e){
+        e.preventDefault();
+        const formulario = $(this);
+        const botonAplicar = $('#aplicarFiltroEtiquetas');
+        botonAplicar.prop('disabled', true);
+
+        $.ajax({
+            url: BASE + 'objetos/filtrar-etiquetas',
+            method: 'POST',
+            data: formulario.serialize(),
+            dataType: 'json',
+            success: function(response){
+                if (!response.exito || !Array.isArray(response.objetos)) {
+                    mensajes(response.mensaje || 'No se pudo aplicar el filtro.', 'error');
+                    return;
+                }
+
+                renderizarTabla(response.objetos);
+                const etiquetasSeleccionadas = formulario.find('.filtro-etiqueta:checked').map(function(){
+                    return $(this).siblings('span').text();
+                }).get();
+                const filtrosAplicados = etiquetasSeleccionadas;
+                const descripcion = $('#descripcionFiltro').val().trim();
+                const usuarioSeleccionado = $('#creadoPorFiltro').val();
+                const fechaDesde = $('#fechaDesdeFiltro').val();
+                const fechaHasta = $('#fechaHastaFiltro').val();
+
+                if (descripcion) {
+                    filtrosAplicados.push('descripción: ' + descripcion);
+                }
+                if (usuarioSeleccionado) {
+                    filtrosAplicados.push('dado de alta por: ' + $('#creadoPorFiltro option:selected').text());
+                }
+                if (fechaDesde || fechaHasta) {
+                    const tipoFecha = $('#tipoFechaFiltro option:selected').text().toLowerCase();
+                    filtrosAplicados.push(
+                        'fecha de ' + tipoFecha + ': ' + (fechaDesde || '...') + ' a ' + (fechaHasta || '...')
+                    );
+                }
+
+                $('#resumenFiltroEtiquetas').text(
+                    filtrosAplicados.length
+                        ? 'Filtrado por: ' + filtrosAplicados.join(', ')
+                        : 'Sin filtros aplicados'
+                );
+
+                const modal = document.getElementById('modalFiltroEtiquetas');
+                if (window.bootstrap && window.bootstrap.Modal) {
+                    window.bootstrap.Modal.getOrCreateInstance(modal).hide();
+                }
+            },
+            error: function(xhr){
+                const mensaje = xhr.responseJSON && xhr.responseJSON.mensaje
+                    ? xhr.responseJSON.mensaje
+                    : 'No se pudo aplicar el filtro. Inténtalo nuevamente.';
+                mensajes(mensaje, 'error');
+            },
+            complete: function(){
+                botonAplicar.prop('disabled', false);
+            }
+        });
+    });
+
+    $('#limpiarFiltroEtiquetas').on('click', function(){
+        const formulario = $('#formularioFiltroEtiquetas')[0];
+        formulario.reset();
+        $('#buscarEtiquetaFiltro').trigger('input');
+        $('#formularioFiltroEtiquetas').trigger('submit');
+    });
+
+    $('#buscarEtiquetaFiltro').on('input', function(){
+        const busqueda = this.value.toLocaleLowerCase().trim();
+        $('#listaEtiquetasFiltro label').each(function(){
+            $(this).toggle($(this).text().toLocaleLowerCase().includes(busqueda));
+        });
+    });
+
 //------------------------------------------------------------------------------------------------//
     //esta funcion rellena la tabla de atributos
     function rellenarTabla(){
@@ -15,91 +98,117 @@ $(document).ready(function(){
             method: 'GET',
             dataType: 'json',
             success: function(response) {
-                let conteATB = " ";
-                response.objetos.forEach(objeto => {
-                    let botones = '';
-
-                    if (permiso_OBJ.includes('b')) {
-                        botones += `<button type="button" class="btn btn-danger btn-sm me-1" id='btnBorrarOBJ' data-id="${objeto.id}">
-                                        <i class='bi bi-trash2-fill'></i>
-                                    </button>`;
-                    }
-
-                    if (permiso_OBJ.includes('m')) {
-                                botones += `<a class='btn btn-primary btn-sm me-1' href='${BASE}objetos/editar/${objeto.id}'>
-                                                <i class='bi bi-pencil-square'></i>
-                                            </a>`;
-                    }
-
-                    if (permiso_OBJ.includes('l')) {
-                                botones += `<a class='btn btn-info btn-sm' href='${BASE}objetos/ver/${objeto.id}'>
-                                                <i class="bi bi-eye"></i>
-                                            </a>`;
-                    }
-                    conteATB += `<tr>
-                        <td class='text-center'>${objeto.id}</td>
-                        <td class='text-center'>${objeto.codigo}</td>
-                        <td class='text-center'>${objeto.denominacion}</td>
-                        <td class='text-center'>${objeto.descripcion}</td>
-                        <td class='text-center'>${objeto.cargado_por}</td>
-                        <td class='text-center'>${objeto.fecha_alta}</td>
-                        <td class='text-center text-nowrap'>${botones}</td>`;//objetos/ver/<?php echo $objeto["id"];
-                });
-                $('#bodyTablaOBJ').html(conteATB);
-
-                // ACÁ va el bloque de layout
-                $('#tablaOBJ').DataTable({
-                    language: {
-                        url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
-                    },
-                    layout: {
-                        topStart: null,
-                        topEnd: null,
-                        bottomStart: 'info',
-                        bottomEnd: 'paging',
-                        bottom1Start: {
-                            buttons: [ 
-                                {   
-                                    extend: 'excelHtml5',
-                                    text:'excel',
-                                    titleAttr:'formato exel'
-                                },{ 
-                                    extend: 'pdfHtml5',
-                                    text:'pdf',
-                                    titleAttr:'formato pdf'
-                                },{
-                                    extend: 'copyHtml5',
-                                    text:'copiar',
-                                    titleAttr:'formato texto plano'
-                                },{
-                                    extend: 'csvHtml5',
-                                    text:'csv',
-                                    titleAttr:'formato planilla'
-                                },{
-                                    extend: 'print',
-                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
-                                    titleAttr: 'imprimir tabla'
-                                },{   
-                                text: 'Papelera <i class="bi bi-trash2-fill"></i>',
-                                titleAttr: 'Papelera',
-                                className: 'btn btn-outline-secondary',
-                                action: function () {
-                                    window.location.href = BASE + 'objetos/papelera';
-                                }}]
-                        }
-                    },
-                    order: [[0, 'desc']]
-                });
-
-                $("#buscador").on('keyup', function(){
-                    $('#tablaOBJ').DataTable().search(this.value).draw();
-                });
+                renderizarTabla(response.objetos);
             },
             error: function() {
                 mensajes('Error en el servidor','error');
             }
         });
     };
+
+    function renderizarTabla(objetos){
+        const tablaInicializada = $.fn.DataTable.isDataTable('#tablaOBJ');
+        if (tablaInicializada) {
+            $('#tablaOBJ').DataTable().destroy();
+        }
+
+        let filas = '';
+        objetos.forEach(objeto => {
+            const id = encodeURIComponent(objeto.id);
+            let botones = '';
+
+            if (permiso_OBJ.includes('b')) {
+                botones += `<button type="button" class="btn btn-danger btn-sm me-1" id="btnBorrarOBJ" data-id="${escaparHtml(objeto.id)}">
+                                <i class="bi bi-trash2-fill"></i>
+                            </button>`;
+            }
+
+            if (permiso_OBJ.includes('m')) {
+                botones += `<a class="btn btn-primary btn-sm me-1" href="${BASE}objetos/editar/${id}">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>`;
+            }
+
+            if (permiso_OBJ.includes('l')) {
+                botones += `<a class="btn btn-info btn-sm" href="${BASE}objetos/ver/${id}">
+                                <i class="bi bi-eye"></i>
+                            </a>`;
+            }
+
+            filas += `<tr>
+                <td class="text-center">${escaparHtml(objeto.id)}</td>
+                <td class="text-center">${escaparHtml(objeto.codigo)}</td>
+                <td class="text-center">${escaparHtml(objeto.denominacion)}</td>
+                <td class="text-center">${escaparHtml(objeto.descripcion)}</td>
+                <td class="text-center">${escaparHtml(objeto.cargado_por)}</td>
+                <td class="text-center">${escaparHtml(objeto.fecha_alta)}</td>
+                <td class="text-center text-nowrap">${botones}</td>
+            </tr>`;
+        });
+        $('#bodyTablaOBJ').html(filas);
+
+        $('#tablaOBJ').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-ES.json'
+            },
+            layout: {
+                topStart: null,
+                topEnd: null,
+                bottomStart: 'info',
+                bottomEnd: 'paging',
+                bottom1Start: {
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            text: 'excel',
+                            titleAttr: 'formato exel'
+                        }, {
+                            extend: 'pdfHtml5',
+                            text: 'pdf',
+                            titleAttr: 'formato pdf'
+                        }, {
+                            extend: 'copyHtml5',
+                            text: 'copiar',
+                            titleAttr: 'formato texto plano'
+                        }, {
+                            extend: 'csvHtml5',
+                            text: 'csv',
+                            titleAttr: 'formato planilla'
+                        }, {
+                            extend: 'print',
+                            text: 'imprimir <i class="bi bi-printer-fill"></i>',
+                            titleAttr: 'imprimir tabla'
+                        }, {
+                            text: 'Papelera <i class="bi bi-trash2-fill"></i>',
+                            titleAttr: 'Papelera',
+                            className: 'btn btn-outline-secondary',
+                            action: function(){
+                                window.location.href = BASE + 'objetos/papelera';
+                            }
+                        }
+                    ]
+                }
+            },
+            order: [[0, 'desc']]
+        });
+
+        const busquedaActual = $('#buscador').val();
+        if (busquedaActual) {
+            $('#tablaOBJ').DataTable().search(busquedaActual).draw();
+        }
+    }
+
+    function escaparHtml(valor){
+        const caracteres = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return String(valor === null || typeof valor === 'undefined' ? '' : valor)
+            .replace(/[&<>"']/g, caracter => caracteres[caracter]);
+    }
 //------------------------------------------------------------------------------------------------------------------------------//
         
     $('#formularioOBJ').on('submit',function(e){
