@@ -45,7 +45,9 @@ class Objetos extends BaseController {
         }
         $objetos = $this->objetos->findAll();
         $museos = $this->museos->first();
-        $etiquetas = $this->etiquetas->findAll();
+        $etiquetas = $this->etiquetas
+            ->orderBy('denominacion', 'ASC')
+            ->findAll();
         $usuariosFiltro = $this->usuarios
             ->select('id, denominacion')
             ->withDeleted()
