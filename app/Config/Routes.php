@@ -60,6 +60,7 @@ $routes->get('objetos/api','Objetos::api_objetos');
 $routes->get('objetos/api2','Objetos::api_objetos_borrados');
 $routes->get('/actividad', 'Actividad::index');
 $routes->post('objetos/filtrar-etiquetas', 'Objetos::filtrarPorEtiquetas');
+$routes->get('actividad/api', 'Actividad::api_actividad');
 
 
 $routes->get('/salas', 'Salas::index');

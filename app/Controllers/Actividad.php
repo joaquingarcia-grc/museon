@@ -27,20 +27,37 @@ class Actividad extends BaseController {
             return redirect()->to(base_url() . 'objetos');
         }
 
+        $datos = [
+            'museos' => $this->museos->first(),
+            'titulo' => 'Actividad del sistema'
+        ];
+
+        echo view('header', $datos);
+        echo view('actividad/listado');
+        echo view('footer');
+    }
+
+    public function api_actividad(){
+
+        if(!isset($this->sesion->id)){
+            return $this->response->setStatusCode(401);
+        }
+        // Solo administradores (rol 1)
+        if ($this->sesion->get('rol') != 1){
+            return $this->response->setStatusCode(403);
+        }
+
         $actividad = $this->actividades
             ->select('auditoria.*, usuarios.denominacion AS usuario')
             ->join('usuarios', 'usuarios.id = auditoria.id_usuario')
             ->orderBy('auditoria.id', 'DESC')
             ->findAll(300);
 
-        $datos = [
-            'museos'    => $this->museos->first(),
-            'actividad' => $actividad,
-            'titulo'    => 'Actividad del sistema'
-        ];
+        foreach ($actividad as $indice => $f) {
+            $actividad[$indice]['fecha'] = date('d/m/Y H:i', strtotime($f['fecha']));
+            $actividad[$indice]['usuario'] = esc($f['usuario']);
+        }
 
-        echo view('header', $datos);
-        echo view('actividad/listado');
-        echo view('footer');
+        return $this->response->setJSON(['actividad' => $actividad]);
     }
 }
