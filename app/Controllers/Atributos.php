@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\AtributosModel;
 use App\Models\MuseosModel;
 use App\Models\PermisosModel;
+use App\Models\ActividadesModel;   // <-- NUEVA
 
 
 class Atributos extends BaseController{   
@@ -13,6 +14,7 @@ class Atributos extends BaseController{
     protected $permisos;
     protected $atributos;
     protected $museos;
+    protected $actividades;   // <-- NUEVA
 
     public function __construct(){
 
@@ -20,6 +22,7 @@ class Atributos extends BaseController{
         $this->atributos = new AtributosModel();
         $this->museos = new MuseosModel();
         $this->permisos = new PermisosModel();
+        $this->actividades = new ActividadesModel();   // <-- NUEVA
     }
 
     public function index(){
@@ -62,6 +65,14 @@ class Atributos extends BaseController{
             exit;    
         }
         $this->atributos->delete($id);
+       
+        
+        $this->actividades->save([
+            'id_usuario' => $this->sesion->get('id'),
+            'tabla'      => 'atributos',
+            'id_dato'    => $id,
+            'accion'     => 'b'
+        ]);
         $atributo = $this->atributos->withDeleted()->find($id); 
         return $this->response->setStatusCode(200)->setJSON([
             'exito' => true,
@@ -125,6 +136,14 @@ class Atributos extends BaseController{
                 'unidad'       => $tipo_dato === 'numerico' ? ($unidad ?: null) : null,
             ]);
             $id = $this->atributos->getInsertID();
+       
+
+            $this->actividades->save([
+                'id_usuario' => $this->sesion->get('id'),
+                'tabla'      => 'atributos',
+                'id_dato'    => $id,
+                'accion'     => 'a'
+            ]);
             echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
             exit;
         }else{
@@ -195,6 +214,14 @@ class Atributos extends BaseController{
                 'tipo_dato'    => $tipoDato,
                 'unidad'       => $tipoDato === 'numerico' ? ($unidad ?: null) : null,
             ]);
+          
+            
+            $this->actividades->save([
+                'id_usuario' => $this->sesion->get('id'),
+                'tabla'      => 'atributos',
+                'id_dato'    => $id,
+                'accion'     => 'm'
+            ]);
             echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' actualizado con éxito']);
             exit;
         }else{
@@ -254,6 +281,13 @@ class Atributos extends BaseController{
             exit;
         }else{
             $this->atributos->update($id, ['fecha_baja' => null]);
+            // <-- NUEVA
+            $this->actividades->save([
+                'id_usuario' => $this->sesion->get('id'),
+                'tabla'      => 'atributos',
+                'id_dato'    => $id,
+                'accion'     => 'r'
+            ]);
             echo json_encode(['exito' => true   , 'id' => $id, 'mensaje' => 'Atributo recuperado correctamente']);
             exit;
         }

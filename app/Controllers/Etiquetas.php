@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\EtiquetasModel;
 use App\Models\MuseosModel;
 use App\Models\PermisosModel;
+use App\Models\ActividadesModel;   // <-- NUEVA
 
 class Etiquetas extends BaseController{ 
     
@@ -12,6 +13,7 @@ class Etiquetas extends BaseController{
     protected $permisos;
     protected $etiquetas;
     protected $museos;
+    protected $actividades;   
 
     public function __construct() {
         
@@ -19,6 +21,7 @@ class Etiquetas extends BaseController{
         $this->etiquetas = new EtiquetasModel();
         $this->museos = new MuseosModel();
         $this->permisos = new PermisosModel();
+        $this->actividades = new ActividadesModel();   
     }
 
     public function index(){
@@ -59,6 +62,15 @@ class Etiquetas extends BaseController{
             exit;    
         }    
         $this->etiquetas->delete($id);
+
+        // <-- NUEVA
+        $this->actividades->save([
+            'id_usuario' => $this->sesion->get('id'),
+            'tabla'      => 'etiquetas',
+            'id_dato'    => $id,
+            'accion'     => 'b'
+        ]);
+
         $etiquetas = $this->etiquetas->withDeleted()->find($id); 
         return $this->response->setStatusCode(200)->setJSON([
             'exito' => true,
@@ -117,6 +129,14 @@ class Etiquetas extends BaseController{
                 'denominacion' => $denominacion,
             ]);
             $id = $this->etiquetas->getInsertID();
+            
+            
+            $this->actividades->save([
+                'id_usuario' => $this->sesion->get('id'),
+                'tabla'      => 'etiquetas',
+                'id_dato'    => $id,
+                'accion'     => 'a'
+            ]);
             echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
             exit;
         }else{
@@ -181,6 +201,13 @@ class Etiquetas extends BaseController{
             $this->etiquetas->update($id, [
                 'denominacion' => $denominacion,
             ]);
+            // <-- NUEVA
+            $this->actividades->save([
+                'id_usuario' => $this->sesion->get('id'),
+                'tabla'      => 'etiquetas',
+                'id_dato'    => $id,
+                'accion'     => 'm'
+            ]);
             echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' actualizada con éxito']);
             exit;
         }else{
@@ -239,6 +266,13 @@ class Etiquetas extends BaseController{
             exit;
         }else{
             $this->etiquetas->update($id, ['fecha_baja' => null]);
+            // <-- NUEVA
+            $this->actividades->save([
+                'id_usuario' => $this->sesion->get('id'),
+                'tabla'      => 'etiquetas',
+                'id_dato'    => $id,
+                'accion'     => 'r'
+            ]);
             echo json_encode(['exito' => true   , 'id' => $id, 'mensaje' => 'Se actualizo correctamente']);
             exit;
         }
