@@ -437,4 +437,19 @@ $(document).ready(function(){
           toast.classList.remove('show');
         }, 3000);}
 //---------------------------------------------------------------------------------------------------------------//
+    //muestro el mensaje que quedó guardado del login
+    const mensajeLogin = sessionStorage.getItem('mensajeLogin');
+    if (mensajeLogin){
+        const toast = document.getElementById('toats');
+        toast.innerHTML = mensajeLogin;
+        // limpiamos clases de tipo anteriores
+        toast.classList.remove('success', 'error', 'warning');
+        toast.classList.add('success');
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+        //lo borro para que no salga de nuevo al recargar
+        sessionStorage.removeItem('mensajeLogin');
+    }
 });
