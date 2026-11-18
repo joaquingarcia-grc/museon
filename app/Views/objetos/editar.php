@@ -40,6 +40,28 @@
                                 placeholder="Descripción breve" 
                                 value="<?php echo($objetos['descripcion']); ?>">
                             </div>
+                                <div class="col-12 mt-3">
+                                <label for="imagenes" class="form-label fw-bold">Imágenes</label>
+
+                                <div class="row g-3 mb-2" id="imagenesActuales">
+                                    <?php foreach ($galeria as $imagen): ?>
+                                        <div class="col-6 col-md-3 text-center imagen-actual">
+                                            <div class="imagen-pieza">
+                                                <img class="img-thumbnail" src="<?php echo base_url('images/' . rawurlencode($imagen['nombrearchivo'])); ?>" alt="Imagen de la pieza">
+                                                <button type="button" class="imagen-pieza-quitar" data-id="<?php echo $imagen['id']; ?>" title="Quitar imagen" aria-label="Quitar imagen">&times;</button>
+                                            </div>
+                                            <label class="d-block mt-1">
+                                                <input type="radio" name="portada" value="actual-<?php echo $imagen['id']; ?>" <?php echo $imagen['portada'] == 1 ? 'checked' : ''; ?>> Portada
+                                            </label>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <input class="form-control" type="file" id="imagenes" name="imagenes[]" accept="image/jpeg,image/png" multiple>
+                                <small class="text-muted">JPG o PNG (máx. 5 MB cada una). Podés elegir varias a la vez o ir sumando de a una. Marcá cuál es la portada.</small>
+                                <div id="avisoImagenes" class="text-danger small mt-1"></div>
+                                <div id="vistaPreviaImagenes" class="row g-3 mt-1"></div>
+                            </div>
                         </div>
 
                         <hr>

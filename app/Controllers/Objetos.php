@@ -11,6 +11,7 @@ use App\Models\ObjetosEtiquetasModel;
 use App\Models\UsuariosModel;
 use App\Models\PermisosModel;
 use App\Models\ActividadesModel;   // <-- NUEVA
+use App\Models\PiezasImagenesModel;
 
 class Objetos extends BaseController {   
     
@@ -23,6 +24,8 @@ class Objetos extends BaseController {
     protected $objetosatributos;
     protected $objetosetiquetas;
     protected $actividades;   // <-- NUEVA
+    protected $piezasimagenes;
+    protected $usuarios;
 
     public function __construct() {
     
@@ -36,6 +39,7 @@ class Objetos extends BaseController {
         $this->objetosetiquetas = new ObjetosEtiquetasModel();
         $this->permisos = new PermisosModel();
         $this->actividades = new ActividadesModel();   // <-- NUEVA
+        $this->piezasimagenes = new PiezasImagenesModel();
     }
 
     public function index(){
@@ -216,6 +220,9 @@ class Objetos extends BaseController {
                 ]);
             }
         }
+
+        $resultado = $this->guardarImagenesPieza($objeto_id);
+        $this->definirPortadaPieza($objeto_id, $this->request->getPost('portada'), $resultado['ids']);
         
         $id = $this->objetos->getInsertID();
         // <-- NUEVA
@@ -225,7 +232,11 @@ class Objetos extends BaseController {
             'id_dato'    => $id,
             'accion'     => 'a'
         ]);
-        echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => ' Guardado con éxito']);
+        $mensaje = ' Guardado con éxito';
+        if ($resultado['fallidas'] > 0) {
+            $mensaje .= ' (pero ' . $resultado['fallidas'] . ' imagen(es) no se pudieron guardar)';
+        }
+        echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => $mensaje]);
     }
 
     public function editar($id){
@@ -244,12 +255,18 @@ class Objetos extends BaseController {
         $museos = $this->museos->first();
         $etiquetas = $this->etiquetas->findAll();
         $atributos = $this->atributos->findAll();
+        $galeria = $this->piezasimagenes
+            ->where('objeto_id', $id)
+            ->orderBy('portada', 'DESC')
+            ->orderBy('id', 'ASC')
+            ->findAll();
 
         $datos = [ 
             'museos'                 => $museos,
             'objetos'                => $objetos,
             'etiquetas'              => $etiquetas,
             'atributos'              => $atributos,
+            'galeria'                => $galeria,
             'etiquetasSeleccionadas' => $this->obtenerEtiquetasPorObjeto($id),
             'atributosSeleccionados' => $this->obtenerAtributosPorObjeto($id),
             'titulo'                 => 'Editar pieza'
@@ -345,7 +362,22 @@ class Objetos extends BaseController {
                 }
             }
         }
-        echo json_encode(['exito' => true, 'mensaje' => 'Actualizado exitosamente']);
+
+        // --- IMAGENES: quitamos las tildadas, guardamos las nuevas y definimos la portada ---
+        $imagenes_quitar = $this->request->getPost('imagenes_quitar');
+        if (!empty($imagenes_quitar) && is_array($imagenes_quitar)) {
+            foreach ($imagenes_quitar as $id_imagen) {
+                $this->piezasimagenes->where('objeto_id', $id)->delete($id_imagen);
+            }
+        }
+        $resultado = $this->guardarImagenesPieza($id);
+        $this->definirPortadaPieza($id, $this->request->getPost('portada'), $resultado['ids']);
+
+        $mensaje = 'Actualizado exitosamente';
+        if ($resultado['fallidas'] > 0) {
+            $mensaje .= ' (pero ' . $resultado['fallidas'] . ' imagen(es) no se pudieron guardar)';
+        }
+        echo json_encode(['exito' => true, 'mensaje' => $mensaje]);
     }
 
     public function papelera(){
@@ -412,6 +444,7 @@ class Objetos extends BaseController {
 
         $objetosatributos = $this->obtenerAtributosPorObjeto($id);
         $objetosetiquetas = $this->obtenerEtiquetasPorObjeto($id);
+        $galeria = $this->piezasimagenes->where('objeto_id', $id)->orderBy('portada', 'DESC')->orderBy('id', 'ASC')->findAll();
 
         $datos = [ 
             'museos'    => $museos,
@@ -419,6 +452,7 @@ class Objetos extends BaseController {
             'objeto'    => $objeto,
             'etiquetas' => $objetosetiquetas,
             'atributos' => $objetosatributos,
+            'galeria'   => $galeria,
             'titulo'    => 'Detalle del Objeto'
         ];
         
@@ -428,74 +462,79 @@ class Objetos extends BaseController {
         
     }
 
-    public function actualizarImagen($id) {
-        if (!isset($this->sesion->id)) {
-            return redirect()->to(base_url('registro'));
-        }
-
-        $permisos = $this->sesion->get('permisos');
-        if (!in_array('m', $permisos['objeto'] ?? [], true)) {
-            return $this->response->setStatusCode(403);
-        }
-
-        $objeto = $this->objetos->find($id);
-        if (!$objeto) {
-            return redirect()->to(base_url('objetos'));
-        }
-
-        $archivo = $this->request->getFile('imagen');
-        if (!$archivo || $archivo->getError() === UPLOAD_ERR_NO_FILE) {
-            session()->setFlashdata('errorImagen', 'Selecciona una imagen para cargar.');
-            return redirect()->to(base_url('objetos/ver/' . $id));
-        }
-
-        if (!$archivo->isValid() || $archivo->getSize() > 5 * 1024 * 1024) {
-            session()->setFlashdata('errorImagen', 'La imagen debe ser válida y no superar los 5 MB.');
-            return redirect()->to(base_url('objetos/ver/' . $id));
-        }
+    // Guarda las imagenes que llegan en imagenes[] y devuelve cuantas fallaron y el id de cada una guardada
+    private function guardarImagenesPieza($objeto_id) {
+        $archivos = $this->request->getFileMultiple('imagenes') ?? [];
 
         $tiposPermitidos = [
             'image/jpeg' => 'jpg',
             'image/png'  => 'png',
-            'image/gif'  => 'gif',
-            'image/webp' => 'webp',
         ];
-        $tipoImagen = $archivo->getMimeType();
-        if (!isset($tiposPermitidos[$tipoImagen]) || @getimagesize($archivo->getTempName()) === false) {
-            session()->setFlashdata('errorImagen', 'El archivo debe ser una imagen JPG, PNG, GIF o WEBP.');
-            return redirect()->to(base_url('objetos/ver/' . $id));
+
+        $directorio = FCPATH . 'images';
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0755, true);
         }
 
-        $directorio = FCPATH . 'imagenes' . DIRECTORY_SEPARATOR . 'objetos';
-        if (!is_dir($directorio) && !mkdir($directorio, 0755, true) && !is_dir($directorio)) {
-            session()->setFlashdata('errorImagen', 'No se pudo preparar la carpeta para guardar la imagen.');
-            return redirect()->to(base_url('objetos/ver/' . $id));
+        $fallidas = 0;
+        $ids = [];
+        foreach ($archivos as $indice => $archivo) {
+            if ($archivo->getError() === UPLOAD_ERR_NO_FILE) {
+                continue;
+            }
+
+            if (!$archivo->isValid() || $archivo->getSize() > 5 * 1024 * 1024) {
+                $fallidas++;
+                continue;
+            }
+
+            $tipo = $archivo->getMimeType();
+            if (!isset($tiposPermitidos[$tipo]) || @getimagesize($archivo->getTempName()) === false) {
+                $fallidas++;
+                continue;
+            }
+
+            // id de la pieza + fecha y hora + nombre original, por ejemplo 145_20261114131111_image.jpg
+            $nombreOriginal = pathinfo($archivo->getClientName(), PATHINFO_FILENAME);
+            $nombreOriginal = substr(preg_replace('/[^A-Za-z0-9_-]/', '_', $nombreOriginal), 0, 100);
+            $nombreArchivo = $objeto_id . '_' . date('YmdHis') . '_' . $nombreOriginal . '.' . $tiposPermitidos[$tipo];
+
+            $archivo->move($directorio, $nombreArchivo);
+
+            // getName() da el nombre final: si ya existia uno igual, CodeIgniter le agrega _1
+            $ids[$indice] = $this->piezasimagenes->insert([
+                'objeto_id'     => $objeto_id,
+                'nombrearchivo' => $archivo->getName()
+            ], true);
         }
 
-        $nombreArchivo = bin2hex(random_bytes(16)) . '.' . $tiposPermitidos[$tipoImagen];
-        $archivo->move($directorio, $nombreArchivo);
-
-        if (!$this->objetos->update($id, ['imagen' => $nombreArchivo])) {
-            $this->eliminarImagenObjeto($nombreArchivo);
-            session()->setFlashdata('errorImagen', 'No se pudo guardar la imagen del objeto.');
-            return redirect()->to(base_url('objetos/ver/' . $id));
-        }
-
-        if (!empty($objeto['imagen'])) {
-            $this->eliminarImagenObjeto($objeto['imagen']);
-        }
-
-        return redirect()->to(base_url('objetos/ver/' . $id));
+        return ['fallidas' => $fallidas, 'ids' => $ids];
     }
 
-    private function eliminarImagenObjeto($nombreArchivo) {
-        if ($nombreArchivo !== basename($nombreArchivo)) {
+    // Marca una sola imagen de la pieza como portada
+    private function definirPortadaPieza($objeto_id, $elegida, $ids_nuevas) {
+        $imagenes = $this->piezasimagenes->where('objeto_id', $objeto_id)->orderBy('id', 'ASC')->findAll();
+        if (empty($imagenes)) {
             return;
         }
 
-        $rutaImagen = FCPATH . 'imagenes' . DIRECTORY_SEPARATOR . 'objetos' . DIRECTORY_SEPARATOR . $nombreArchivo;
-        if (is_file($rutaImagen)) {
-            unlink($rutaImagen);
+        // la elegida llega como actual-15 (ya estaba cargada) o nueva-0 (recien subida)
+        $portada_id = 0;
+        $partes = explode('-', (string) $elegida);
+        if (count($partes) == 2 && $partes[0] == 'actual') {
+            $portada_id = (int) $partes[1];
+        }
+        if (count($partes) == 2 && $partes[0] == 'nueva' && isset($ids_nuevas[$partes[1]])) {
+            $portada_id = $ids_nuevas[$partes[1]];
+        }
+
+        // si no es una imagen de esta pieza, queda la primera
+        if (!in_array($portada_id, array_column($imagenes, 'id'))) {
+            $portada_id = $imagenes[0]['id'];
+        }
+
+        foreach ($imagenes as $imagen) {
+            $this->piezasimagenes->update($imagen['id'], ['portada' => $imagen['id'] == $portada_id ? 1 : 0]);
         }
     }
 

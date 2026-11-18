@@ -1,0 +1,141 @@
+/* ===== Formularios nuevo / editar: miniatura con cruz ===== */
+.imagen-pieza {
+    position: relative;
+}
+.imagen-pieza img {
+    display: block;
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+.imagen-pieza-quitar {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(220, 53, 69, .92);
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.imagen-pieza-quitar:hover {
+    background: #bb2d3b;
+}
+
+/* ===== ver.php: galería ===== */
+.ficha-galeria {
+    margin-bottom: 1.5rem;
+}
+.ficha-galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: .75rem;
+}
+.ficha-galeria-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    padding: 0;
+    border: 1px solid #dee2e6;
+    border-radius: .375rem;
+    background: #f8f9fa;
+    overflow: hidden;
+    cursor: zoom-in;
+}
+.ficha-galeria-item img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .2s;
+}
+.ficha-galeria-item:hover img,
+.ficha-galeria-item:focus-visible img {
+    transform: scale(1.05);
+}
+.ficha-galeria-badge {
+    position: absolute;
+    left: 6px;
+    bottom: 6px;
+    padding: .1rem .5rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .65);
+    color: #fff;
+    font-size: .7rem;
+}
+.object-sheet-image-preview[data-visor-abrir] {
+    cursor: zoom-in;
+}
+
+/* ===== Visor a pantalla completa ===== */
+.visor-imagenes {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .88);
+}
+.visor-imagenes[hidden] {
+    display: none;
+}
+.visor-figura {
+    margin: 0;
+    text-align: center;
+}
+.visor-figura img {
+    max-width: 85vw;
+    max-height: 80vh;
+    object-fit: contain;
+}
+.visor-figura figcaption {
+    margin-top: .5rem;
+    color: #fff;
+    font-size: .9rem;
+}
+.visor-cerrar,
+.visor-flecha {
+    position: absolute;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .15);
+    color: #fff;
+    cursor: pointer;
+}
+.visor-cerrar:hover,
+.visor-flecha:hover {
+    background: rgba(255, 255, 255, .3);
+}
+.visor-cerrar {
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+}
+.visor-flecha {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
+}
+.visor-anterior { left: 1rem; }
+.visor-siguiente { right: 1rem; }
+.visor-una .visor-flecha { display: none; }
+
+/* Bloque que solo aparece al imprimir (lo activa el botón de ver.php) */
+.ficha-impresion {
+    display: none;
+}

@@ -1,8 +1,3 @@
-<?php
-$permisosVista = session()->get('permisos') ?? [];
-$puedeEditarImagen = in_array('m', $permisosVista['objeto'] ?? [], true);
-?>
-
 <div class="container-fluid mt-4 mb-5 object-sheet-page">
     <!-- Botón para volver  -->
     <div class="mb-3 d-print-none object-sheet-actions">
@@ -30,43 +25,20 @@ $puedeEditarImagen = in_array('m', $permisosVista['objeto'] ?? [], true);
                 <td class="bg-light fw-bold" style="width: 35%;">Responsable</td>
                 <td><?php echo $objeto['cargado_por']; ?></td>
                 <td class="object-sheet-image-cell" rowspan="6">
-                    <?php $errorImagen = session()->getFlashdata('errorImagen'); ?>
-                    <?php if ($errorImagen): ?>
-                        <div class="alert alert-danger d-print-none" role="alert">
-                            <?php echo esc($errorImagen); ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if ($puedeEditarImagen): ?>
-                        <form action="<?php echo base_url('objetos/imagen/' . $objeto['id']); ?>" method="post" enctype="multipart/form-data">
-                            <?php echo csrf_field(); ?>
-                    <?php endif; ?>
-                        <label class="object-sheet-image-dropzone" for="imagenObjeto">
-                            <?php if ($puedeEditarImagen): ?>
-                                <input type="file" id="imagenObjeto" name="imagen" accept="image/jpeg,image/png,image/gif,image/webp" class="object-sheet-image-input">
-                            <?php endif; ?>
+                    <div class="object-sheet-image-dropzone">
+                        <?php if (!empty($galeria)): ?>
                             <img
-                                id="vistaPreviaImagen"
                                 class="object-sheet-image-preview"
-                                src="<?php echo !empty($objeto['imagen']) ? base_url('imagenes/objetos/' . rawurlencode($objeto['imagen'])) : ''; ?>"
+                                data-visor-abrir="0"
+                                src="<?php echo base_url('images/' . rawurlencode($galeria[0]['nombrearchivo'])); ?>"
                                 alt="Imagen de <?php echo esc($objeto['denominacion']); ?>"
-                                <?php echo empty($objeto['imagen']) ? 'hidden' : ''; ?>
                             >
-                            <?php if ($puedeEditarImagen): ?>
-                                <span id="indicacionImagen" class="object-sheet-image-placeholder" <?php echo !empty($objeto['imagen']) ? 'hidden' : ''; ?>>
-                                    <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
-                                    <span>Haz clic o arrastra una imagen</span>
-                                    <small>JPG, PNG, GIF o WEBP (máx. 5 MB)</small>
-                                </span>
-                            <?php elseif (empty($objeto['imagen'])): ?>
-                                <span class="object-sheet-image-placeholder">
-                                    <span>Sin imagen</span>
-                                </span>
-                            <?php endif; ?>
-                        </label>
-                        <?php if ($puedeEditarImagen): ?>
-                            <button type="submit" class="btn btn-secondary btn-sm mt-2 d-print-none">Guardar imagen</button>
-                        </form>
-                    <?php endif; ?>
+                        <?php else: ?>
+                            <span class="object-sheet-image-placeholder">
+                                <span>Sin imagen</span>
+                            </span>
+                        <?php endif; ?>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -137,14 +109,64 @@ $puedeEditarImagen = in_array('m', $permisosVista['objeto'] ?? [], true);
         </tbody>
     </table>
 
-    <script src="<?php echo base_url(); ?>vendor/js/jsproyecto/object-sheet-image.js"></script>
+    <?php if (!empty($galeria)): ?>
+        <section class="ficha-galeria d-print-none" id="fichaGaleria" aria-label="Imágenes de la pieza">
+            <h5 class="fw-bold text-center mb-3">
+                Imágenes de la pieza <span class="text-muted">(<?php echo count($galeria); ?>)</span>
+            </h5>
+            <div class="ficha-galeria-grid">
+                <?php foreach ($galeria as $indice => $imagen): ?>
+                    <?php $url = base_url('images/' . rawurlencode($imagen['nombrearchivo'])); ?>
+                    <button type="button" class="ficha-galeria-item" data-src="<?php echo $url; ?>"
+                            aria-label="Ver imagen <?php echo $indice + 1; ?> de <?php echo count($galeria); ?>">
+                        <img src="<?php echo $url; ?>" loading="lazy"
+                             alt="Imagen <?php echo $indice + 1; ?> de <?php echo esc($objeto['denominacion']); ?>">
+                        <?php if ($imagen['portada'] == 1): ?>
+                            <span class="ficha-galeria-badge">Portada</span>
+                        <?php endif; ?>
+                    </button>
+                <?php endforeach; ?>
+            </div>
+        </section>
+
+        <div class="visor-imagenes d-print-none" id="visorImagenes" hidden role="dialog" aria-modal="true" aria-label="Visor de imágenes">
+            <button type="button" class="visor-cerrar" data-visor="cerrar" aria-label="Cerrar">&times;</button>
+            <button type="button" class="visor-flecha visor-anterior" data-visor="anterior" aria-label="Imagen anterior">&#10094;</button>
+            <figure class="visor-figura">
+                <img id="visorImagen" alt="">
+                <figcaption id="visorContador"></figcaption>
+            </figure>
+            <button type="button" class="visor-flecha visor-siguiente" data-visor="siguiente" aria-label="Imagen siguiente">&#10095;</button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Bloque que solo se imprime (sin loading="lazy" a propósito) -->
+    <?php if (!empty($galeria)): ?>
+        <section class="ficha-impresion" aria-hidden="true">
+            <h5 class="ficha-impresion-titulo">
+                Imágenes de la pieza: <?php echo esc($objeto['denominacion']); ?>
+            </h5>
+            <?php foreach ($galeria as $indice => $imagen): ?>
+                <figure class="ficha-impresion-item">
+                    <img src="<?php echo base_url('images/' . rawurlencode($imagen['nombrearchivo'])); ?>" alt="">
+                    <figcaption>
+                        Imagen <?php echo $indice + 1; ?> de <?php echo count($galeria); ?><?php echo $imagen['portada'] == 1 ? ' (portada)' : ''; ?>
+                    </figcaption>
+                </figure>
+            <?php endforeach; ?>
+        </section>
+    <?php endif; ?>
 
     <!-- Botón imprimir -->
     <div class="text-center d-print-none">
+        <?php if (!empty($galeria)): ?>
+            <button id="btn-imagenes-impresion" type="button" class="btn btn-outline-secondary btn-sm" aria-pressed="false">
+                Imágenes al imprimir: No
+            </button>
+        <?php endif; ?>
         <button id="btn-imprimir" class="btn btn-primary btn-sm">
             Imprimir Ficha
         </button>
     </div>
 
-</div>
 </div>

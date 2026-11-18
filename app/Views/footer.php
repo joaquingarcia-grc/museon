@@ -82,6 +82,8 @@
     </script>
 
     <script src="<?php echo base_url(); ?>vendor/js/jsproyecto/objetos.js"></script>
+    <script src="<?php echo base_url(); ?>vendor/js/jsproyecto/object-images-form.js"></script>
+    <script src="<?php echo base_url(); ?>vendor/js/jsproyecto/object-images-gallery.js"></script>
 
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js"></script>

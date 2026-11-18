@@ -220,11 +220,13 @@ $(document).ready(function(){
         
     $('#formularioOBJ').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
-        const dato = $('#formularioOBJ').serialize();  
+        const dato = new FormData(this);  
         $.ajax({
             url: BASE + 'objetos/insertar',
             method: 'POST',
             data: dato,
+            processData: false,
+            contentType: false,
             dataType: 'json',
             success: function(response){
                 if (response.exito){
@@ -290,12 +292,14 @@ $(document).ready(function(){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
         // en vez de guardar, solo mostramos el modal
         idActualizar = $(this).data('id');
-        const dato = $(this).serialize();
+        const dato = new FormData(this);
         //controlador actualizar 
         $.ajax({
             url: BASE + 'objetos/actualizar/' + idActualizar,
             method: 'POST',
             data: dato,
+            processData: false,
+            contentType: false,
             dataType: 'json',
             success: function(response) {
                 if (response.exito){
