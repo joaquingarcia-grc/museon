@@ -71,4 +71,7 @@ $routes->post('salas/borrar/(:num)', 'Salas::borrar/$1');
 $routes->get('/salas/papelera', 'Salas::papelera');
 $routes->post('/salas/recuperacion/(:num)','Salas::recuperacion/$1');
 $routes->get('salas/api2','Salas::api_salas_borrados');
+$routes->get('salas/objetosLibres', 'Salas::objetosLibres');
+$routes->post('salas/asignarObjeto', 'Salas::asignarObjeto');
+$routes->post('salas/quitarObjeto/(:num)', 'Salas::quitarObjeto/$1');
 

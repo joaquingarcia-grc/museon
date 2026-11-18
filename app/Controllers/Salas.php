@@ -4,7 +4,11 @@ use App\Models\MuseosModel;
 use App\Models\UsuariosModel;
 use App\Models\PermisosModel;
 use App\Models\SalasModel;
+use App\Models\ObjetosModel;
+
 class Salas extends BaseController{ 
+
+    protected $objetos;
     protected $sesion;
     protected $museos;
     protected $usuarios;
@@ -12,6 +16,7 @@ class Salas extends BaseController{
     protected $salas;
     public function __construct(){
         $this->sesion = session();
+        $this->objetos = new ObjetosModel();
         $this->museos = new MuseosModel();
         $this->usuarios = new UsuariosModel();
         $this->permisos = new PermisosModel();
@@ -27,11 +32,13 @@ class Salas extends BaseController{
         if (!in_array('l', $permisos['sala'])){
             return redirect()->to(base_url() . 'objetos');
         }
+        $objetos = $this->objetos->findAll();
         $salas = $this->salas->findAll();
         $museos = $this->museos->first();
         $datos = [ 'museos'=>$museos,
                   'titulo' => 'Salas',
-                  'salas' => $salas];
+                  'salas' => $salas,
+                  'objetos' => $objetos];
         echo view('header',$datos);
         echo view('salas/salas');
         echo  view('footer');
@@ -201,7 +208,80 @@ class Salas extends BaseController{
         // la sala seleccionada (para mostrar su descripcion) y lo que tiene adentro
         $sala = $this->salas->find($id);
         $hijas = $this->salas->where('id_pertenece', $id)->orderBy('denominacion', 'asc')->findAll();
-        return $this->response->setJSON(['sala'=>$sala, 'hijas'=>$hijas]);
+        // los objetos que estan en esta sala
+        $objetos = $this->objetos->where('id_ubicacion', $id)->orderBy('denominacion', 'asc')->findAll();
+        return $this->response->setJSON(['sala'=>$sala, 'hijas'=>$hijas, 'objetos'=>$objetos]);
+    }
+    // trae los objetos que todavia no estan en ninguna sala (id_ubicacion en null)
+    public function objetosLibres(){
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        $objetos = $this->objetos->where('id_ubicacion IS NULL')->orderBy('denominacion', 'asc')->findAll();
+        return $this->response->setJSON(['objetos'=>$objetos]);
+    }
+    // le asigna a un objeto la sala en la que estoy parado
+    public function asignarObjeto(){
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        $permisos = $this->sesion->get('permisos');
+        // agregar un objeto a una sala usa el permiso de alta de salas
+        if (!in_array('a', $permisos['sala'])){
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'Usted no tiene la autorizaciòn'
+            ]);
+        }
+        $id_objeto = $this->request->getPost('id_objeto');
+        $id_ubicacion = $this->request->getPost('id_ubicacion');
+        // si falta alguno de los dos no hago nada
+        if(empty($id_objeto) || empty($id_ubicacion)){
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'Faltan datos'
+            ]);
+        }
+        // me fijo que el objeto exista
+        $objeto = $this->objetos->find($id_objeto);
+        if(empty($objeto)){
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'El objeto no existe'
+            ]);
+        }
+        $this->objetos->update($id_objeto, ['id_ubicacion' => $id_ubicacion]);
+        return $this->response->setJSON([
+            'exito' => true,
+            'mensaje' => 'Objeto agregado correctamente'
+        ]);
+    }
+    // saca un objeto de la sala, queda con id_ubicacion en null
+    public function quitarObjeto($id){
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        $permisos = $this->sesion->get('permisos');
+        // sacar un objeto usa el permiso de borrar de salas
+        if (!in_array('b', $permisos['sala'])){
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'Usted no tiene la autorizaciòn'
+            ]);
+        }
+        // me fijo que el objeto exista
+        $objeto = $this->objetos->find($id);
+        if(empty($objeto)){
+            return $this->response->setStatusCode(400)->setJSON([
+                'exito' => false,
+                'mensaje' => 'El objeto no existe'
+            ]);
+        }
+        $this->objetos->update($id, ['id_ubicacion' => null]);
+        return $this->response->setJSON([
+            'exito' => true,
+            'mensaje' => 'Objeto sacado de la sala correctamente'
+        ]);
     }
     public function api_salas_borrados(){
         if(!isset($this->sesion->id)){

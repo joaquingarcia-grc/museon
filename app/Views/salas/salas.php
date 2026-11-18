@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <!-- Columna derecha: lo arma el js -->
+        <!-- Columna derecha: lo arma el js (ubicaciones hijas y objetos de la sala seleccionada) -->
         <div class="col-md-8" id="detalleSala">
         </div>
     </div>
@@ -121,6 +121,31 @@
             <div class="modal-footer justify-content-start">
                 <button type="button" class="btn btn-success" id="btnActualizarSala">Guardar</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para agregar un objeto a la sala seleccionada: lista los objetos que todavia no tienen ubicacion -->
+<div class="modal fade" id="modalAgregarObjeto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tituloModalAgregarObjeto" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="tituloModalAgregarObjeto">Agregar objeto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Buscador para filtrar la lista por denominacion o codigo -->
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="buscadorObjetos" placeholder="Buscar objeto...">
+                </div>
+                <!-- La lista la arma el js -->
+                <div class="list-group" id="listaObjetosLibres">
+                </div>
+            </div>
+            <!-- Botones del lado izquierdo, guardar primero -->
+            <div class="modal-footer justify-content-start">
+                <button type="button" class="btn btn-success" id="btnGuardarAsignacion">Guardar</button>
+                <button type="button" class="btn btn-secondary" id="btnCancelarAsignacion">Cancelar</button>
             </div>
         </div>
     </div>
