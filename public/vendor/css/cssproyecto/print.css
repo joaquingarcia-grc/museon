@@ -80,3 +80,13 @@ body.imprimir-imagenes .ficha-impresion {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
 }
+/* en la ficha impresa los archivos adjuntos se leen como texto, no como enlaces */
+.object-sheet-table a {
+    color: #000 !important;
+    text-decoration: none !important;
+}
+/* encabezados de sección: texto negro sobre gris claro, así se leen aunque no se impriman fondos */
+.object-sheet-table .bg-secondary.text-white {
+    background-color: #e9ecef !important;
+    color: #000 !important;
+}

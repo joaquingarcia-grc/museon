@@ -106,6 +106,36 @@
                     ?>
                 </td>
             </tr>
+            <tr>
+                <td colspan="3" class="bg-secondary text-white text-center fw-bold">
+                    Archivos adjuntos
+                </td>
+            </tr>
+            <tr>
+                <td class="bg-light fw-bold">Documentos</td>
+                <td colspan="2">
+                    <?php if (!empty($archivos)): ?>
+                        <ul class="list-unstyled mb-0">
+                            <?php foreach ($archivos as $archivo): ?>
+                                <?php
+                                    $urlArchivo = base_url('file/' . rawurlencode($archivo['nombrearchivo']));
+                                    $extension = strtolower(pathinfo($archivo['nombrearchivo'], PATHINFO_EXTENSION));
+                                ?>
+                                <li>
+                                    <?php if ($extension === 'pdf'): ?>
+                                        <a href="<?php echo $urlArchivo; ?>" target="_blank" rel="noopener"><?php echo esc($archivo['nombreoriginal']); ?></a>
+                                    <?php else: ?>
+                                        <a href="<?php echo $urlArchivo; ?>" download="<?php echo esc($archivo['nombreoriginal'], 'attr'); ?>"><?php echo esc($archivo['nombreoriginal']); ?></a>
+                                    <?php endif; ?>
+                                    <span class="text-muted">(<?php echo strtoupper($extension); ?>)</span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        -
+                    <?php endif; ?>
+                </td>
+            </tr>
         </tbody>
     </table>
 

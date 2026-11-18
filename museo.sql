@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-11-2026 a las 02:13:35
+-- Tiempo de generación: 18-11-2026 a las 14:25:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -100,7 +100,22 @@ INSERT INTO `auditoria` (`id`, `tabla`, `accion`, `id_dato`, `id_usuario`, `fech
 (23, 'objetos', 'a', 19, 3, '2026-11-17 20:55:33'),
 (24, 'objetos', 'm', 19, 3, '2026-11-17 21:53:34'),
 (25, 'objeto_etiquetas', 'm', 19, 3, '2026-11-17 21:53:34'),
-(26, 'objeto_atributos', 'm', 19, 3, '2026-11-17 21:53:34');
+(26, 'objeto_atributos', 'm', 19, 3, '2026-11-17 21:53:34'),
+(27, 'objeto_etiquetas', 'a', 20, 3, '2026-11-18 09:13:27'),
+(28, 'objeto_atributos', 'a', 20, 3, '2026-11-18 09:13:27'),
+(29, 'objetos', 'a', 20, 3, '2026-11-18 09:13:27'),
+(30, 'objetos', 'm', 20, 3, '2026-11-18 10:00:58'),
+(31, 'objeto_etiquetas', 'm', 20, 3, '2026-11-18 10:00:58'),
+(32, 'objeto_atributos', 'm', 20, 3, '2026-11-18 10:00:58'),
+(33, 'objetos', 'm', 20, 3, '2026-11-18 10:10:17'),
+(34, 'objeto_etiquetas', 'm', 20, 3, '2026-11-18 10:10:17'),
+(35, 'objeto_atributos', 'm', 20, 3, '2026-11-18 10:10:17'),
+(36, 'objetos', 'm', 20, 3, '2026-11-18 10:11:17'),
+(37, 'objeto_etiquetas', 'm', 20, 3, '2026-11-18 10:11:17'),
+(38, 'objeto_atributos', 'm', 20, 3, '2026-11-18 10:11:17'),
+(39, 'objetos', 'm', 20, 3, '2026-11-18 10:14:04'),
+(40, 'objeto_etiquetas', 'm', 20, 3, '2026-11-18 10:14:04'),
+(41, 'objeto_atributos', 'm', 20, 3, '2026-11-18 10:14:04');
 
 -- --------------------------------------------------------
 
@@ -207,7 +222,8 @@ INSERT INTO `objetos` (`id`, `codigo`, `denominacion`, `descripcion`, `id_usuari
 (16, 'MHV-0016', 'Radio a válvulas', 'Radio de mueble de madera con dial iluminado.', 22, '2026-11-17 16:23:02', NULL, '2026-11-17 16:23:02', 4),
 (17, 'MHV-0017', 'Colección de monedas argentinas', 'Conjunto de monedas de distintas épocas en estuche de madera.', 28, '2026-11-17 16:23:02', NULL, '2026-11-17 16:23:02', 10),
 (18, 'MHV-0018', 'Estandarte de club social', 'Estandarte de tela bordada con flecos dorados.', 22, '2026-11-17 16:23:02', '2026-11-17 19:24:49', '2026-11-17 19:24:49', 12),
-(19, '123MJ', 'atencio90', 'kevin atencio', 3, '2026-11-17 23:55:33', NULL, '2026-11-18 00:53:34', NULL);
+(19, '123MJ', 'atencio90', 'kevin atencio', 3, '2026-11-17 23:55:33', NULL, '2026-11-18 00:53:34', NULL),
+(20, 'MG678', 'benicio', 'Benicio Atencio', 3, '2026-11-18 12:13:27', NULL, '2026-11-18 13:14:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -314,7 +330,27 @@ INSERT INTO `objeto_atributos` (`id`, `objeto_id`, `atributo_id`, `valor`, `fech
 (82, 18, 3, '120', '2026-11-17 16:23:03', NULL, '2026-11-17 16:23:03'),
 (83, 18, 7, 'Frágil', '2026-11-17 16:23:03', NULL, '2026-11-17 16:23:03'),
 (84, 19, 11, '123', '2026-11-17 23:55:33', '2026-11-18 00:53:34', '2026-11-18 00:53:34'),
-(85, 19, 11, '123', '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34');
+(85, 19, 11, '123', '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34'),
+(86, 20, 12, 'kevin', '2026-11-18 12:13:27', '2026-11-18 13:00:58', '2026-11-18 13:00:58'),
+(87, 20, 11, '6', '2026-11-18 12:13:27', '2026-11-18 13:00:58', '2026-11-18 13:00:58'),
+(88, 20, 9, 'benicio', '2026-11-18 12:13:27', '2026-11-18 13:00:58', '2026-11-18 13:00:58'),
+(89, 20, 2, '1290', '2026-11-18 12:13:27', '2026-11-18 13:00:58', '2026-11-18 13:00:58'),
+(90, 20, 12, 'kevin', '2026-11-18 13:00:58', '2026-11-18 13:10:17', '2026-11-18 13:10:17'),
+(91, 20, 11, '6', '2026-11-18 13:00:58', '2026-11-18 13:10:17', '2026-11-18 13:10:17'),
+(92, 20, 9, 'benicio', '2026-11-18 13:00:58', '2026-11-18 13:10:17', '2026-11-18 13:10:17'),
+(93, 20, 2, '1290', '2026-11-18 13:00:58', '2026-11-18 13:10:17', '2026-11-18 13:10:17'),
+(94, 20, 12, 'kevin', '2026-11-18 13:10:17', '2026-11-18 13:11:17', '2026-11-18 13:11:17'),
+(95, 20, 11, '6', '2026-11-18 13:10:17', '2026-11-18 13:11:17', '2026-11-18 13:11:17'),
+(96, 20, 9, 'benicio', '2026-11-18 13:10:17', '2026-11-18 13:11:17', '2026-11-18 13:11:17'),
+(97, 20, 2, '1290', '2026-11-18 13:10:17', '2026-11-18 13:11:17', '2026-11-18 13:11:17'),
+(98, 20, 12, 'kevin', '2026-11-18 13:11:17', '2026-11-18 13:14:04', '2026-11-18 13:14:04'),
+(99, 20, 11, '6', '2026-11-18 13:11:17', '2026-11-18 13:14:04', '2026-11-18 13:14:04'),
+(100, 20, 9, 'benicio', '2026-11-18 13:11:17', '2026-11-18 13:14:04', '2026-11-18 13:14:04'),
+(101, 20, 2, '1290', '2026-11-18 13:11:17', '2026-11-18 13:14:04', '2026-11-18 13:14:04'),
+(102, 20, 12, 'kevin', '2026-11-18 13:14:04', NULL, '2026-11-18 13:14:04'),
+(103, 20, 11, '6', '2026-11-18 13:14:04', NULL, '2026-11-18 13:14:04'),
+(104, 20, 9, 'benicio', '2026-11-18 13:14:04', NULL, '2026-11-18 13:14:04'),
+(105, 20, 2, '1290', '2026-11-18 13:14:04', NULL, '2026-11-18 13:14:04');
 
 -- --------------------------------------------------------
 
@@ -392,7 +428,51 @@ INSERT INTO `objeto_etiquetas` (`id`, `objeto_id`, `etiqueta_id`, `fecha_alta`, 
 (54, 19, 9, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34'),
 (55, 19, 6, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34'),
 (56, 19, 14, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34'),
-(57, 19, 5, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34');
+(57, 19, 5, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34'),
+(58, 20, 9, '2026-11-18 12:13:27', '2026-11-18 13:00:58', '2026-11-18 13:00:58'),
+(59, 20, 6, '2026-11-18 12:13:27', '2026-11-18 13:00:58', '2026-11-18 13:00:58'),
+(60, 20, 14, '2026-11-18 12:13:27', '2026-11-18 13:00:58', '2026-11-18 13:00:58'),
+(61, 20, 5, '2026-11-18 12:13:27', '2026-11-18 13:00:58', '2026-11-18 13:00:58'),
+(62, 20, 9, '2026-11-18 13:00:58', '2026-11-18 13:10:17', '2026-11-18 13:10:17'),
+(63, 20, 6, '2026-11-18 13:00:58', '2026-11-18 13:10:17', '2026-11-18 13:10:17'),
+(64, 20, 14, '2026-11-18 13:00:58', '2026-11-18 13:10:17', '2026-11-18 13:10:17'),
+(65, 20, 5, '2026-11-18 13:00:58', '2026-11-18 13:10:17', '2026-11-18 13:10:17'),
+(66, 20, 9, '2026-11-18 13:10:17', '2026-11-18 13:11:17', '2026-11-18 13:11:17'),
+(67, 20, 6, '2026-11-18 13:10:17', '2026-11-18 13:11:17', '2026-11-18 13:11:17'),
+(68, 20, 14, '2026-11-18 13:10:17', '2026-11-18 13:11:17', '2026-11-18 13:11:17'),
+(69, 20, 5, '2026-11-18 13:10:17', '2026-11-18 13:11:17', '2026-11-18 13:11:17'),
+(70, 20, 9, '2026-11-18 13:11:17', '2026-11-18 13:14:04', '2026-11-18 13:14:04'),
+(71, 20, 6, '2026-11-18 13:11:17', '2026-11-18 13:14:04', '2026-11-18 13:14:04'),
+(72, 20, 14, '2026-11-18 13:11:17', '2026-11-18 13:14:04', '2026-11-18 13:14:04'),
+(73, 20, 5, '2026-11-18 13:11:17', '2026-11-18 13:14:04', '2026-11-18 13:14:04'),
+(74, 20, 9, '2026-11-18 13:14:04', NULL, '2026-11-18 13:14:04'),
+(75, 20, 6, '2026-11-18 13:14:04', NULL, '2026-11-18 13:14:04'),
+(76, 20, 14, '2026-11-18 13:14:04', NULL, '2026-11-18 13:14:04'),
+(77, 20, 5, '2026-11-18 13:14:04', NULL, '2026-11-18 13:14:04');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `piezas_archivos`
+--
+
+CREATE TABLE `piezas_archivos` (
+  `id` int(11) NOT NULL,
+  `objeto_id` int(11) NOT NULL,
+  `nombrearchivo` varchar(255) NOT NULL,
+  `nombreoriginal` varchar(255) NOT NULL,
+  `fecha_alta` datetime DEFAULT current_timestamp(),
+  `fecha_baja` datetime DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `piezas_archivos`
+--
+
+INSERT INTO `piezas_archivos` (`id`, `objeto_id`, `nombrearchivo`, `nombreoriginal`, `fecha_alta`, `fecha_baja`, `fecha_edicion`) VALUES
+(1, 20, '20_20261118121327_parcial_2.pdf', 'parcial 2.pdf', '2026-11-18 12:13:27', NULL, '2026-11-18 12:13:27'),
+(2, 20, '20_20261118131404_parcial2.doc', 'parcial2.doc', '2026-11-18 13:14:04', NULL, '2026-11-18 13:14:04');
 
 -- --------------------------------------------------------
 
@@ -429,7 +509,8 @@ INSERT INTO `piezas_imagenes` (`id`, `objeto_id`, `nombrearchivo`, `portada`, `f
 (12, 19, '19_20261118005334_Captura_de_pantalla__11_.png', 0, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34'),
 (13, 19, '19_20261118005334_Captura_de_pantalla__12_.png', 0, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34'),
 (14, 19, '19_20261118005334_Captura_de_pantalla__13_.png', 0, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34'),
-(15, 19, '19_20261118005334_Captura_de_pantalla__14_.png', 0, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34');
+(15, 19, '19_20261118005334_Captura_de_pantalla__14_.png', 0, '2026-11-18 00:53:34', NULL, '2026-11-18 00:53:34'),
+(16, 20, '20_20261118121327_Diagrama_ER.png', 1, '2026-11-18 12:13:27', NULL, '2026-11-18 13:14:04');
 
 -- --------------------------------------------------------
 
@@ -615,10 +696,17 @@ ALTER TABLE `objeto_atributos`
 --
 -- Indices de la tabla `objeto_etiquetas`
 --
-lALTER TABLE `objeto_etiquetas`
+ALTER TABLE `objeto_etiquetas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_objetq_objeto` (`objeto_id`),
   ADD KEY `fk_objetq_etiqueta` (`etiqueta_id`);
+
+--
+-- Indices de la tabla `piezas_archivos`
+--
+ALTER TABLE `piezas_archivos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_parch_objeto` (`objeto_id`);
 
 --
 -- Indices de la tabla `piezas_imagenes`
@@ -669,7 +757,7 @@ ALTER TABLE `atributos`
 -- AUTO_INCREMENT de la tabla `auditoria`
 --
 ALTER TABLE `auditoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `etiquetas`
@@ -687,25 +775,31 @@ ALTER TABLE `museos`
 -- AUTO_INCREMENT de la tabla `objetos`
 --
 ALTER TABLE `objetos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `objeto_atributos`
 --
 ALTER TABLE `objeto_atributos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT de la tabla `objeto_etiquetas`
 --
 ALTER TABLE `objeto_etiquetas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+
+--
+-- AUTO_INCREMENT de la tabla `piezas_archivos`
+--
+ALTER TABLE `piezas_archivos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `piezas_imagenes`
 --
 ALTER TABLE `piezas_imagenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -761,6 +855,12 @@ ALTER TABLE `objeto_atributos`
 ALTER TABLE `objeto_etiquetas`
   ADD CONSTRAINT `fk_objetq_etiqueta` FOREIGN KEY (`etiqueta_id`) REFERENCES `etiquetas` (`id`),
   ADD CONSTRAINT `fk_objetq_objeto` FOREIGN KEY (`objeto_id`) REFERENCES `objetos` (`id`);
+
+--
+-- Filtros para la tabla `piezas_archivos`
+--
+ALTER TABLE `piezas_archivos`
+  ADD CONSTRAINT `fk_parch_objeto` FOREIGN KEY (`objeto_id`) REFERENCES `objetos` (`id`);
 
 --
 -- Filtros para la tabla `piezas_imagenes`

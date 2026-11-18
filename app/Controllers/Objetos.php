@@ -12,6 +12,7 @@ use App\Models\UsuariosModel;
 use App\Models\PermisosModel;
 use App\Models\ActividadesModel;   // <-- NUEVA
 use App\Models\PiezasImagenesModel;
+use App\Models\PiezasArchivosModel;
 
 class Objetos extends BaseController {   
     
@@ -25,6 +26,7 @@ class Objetos extends BaseController {
     protected $objetosetiquetas;
     protected $actividades;   // <-- NUEVA
     protected $piezasimagenes;
+    protected $piezasarchivos;
     protected $usuarios;
 
     public function __construct() {
@@ -40,6 +42,7 @@ class Objetos extends BaseController {
         $this->permisos = new PermisosModel();
         $this->actividades = new ActividadesModel();   // <-- NUEVA
         $this->piezasimagenes = new PiezasImagenesModel();
+        $this->piezasarchivos = new PiezasArchivosModel();
     }
 
     public function index(){
@@ -223,6 +226,7 @@ class Objetos extends BaseController {
 
         $resultado = $this->guardarImagenesPieza($objeto_id);
         $this->definirPortadaPieza($objeto_id, $this->request->getPost('portada'), $resultado['ids']);
+        $resultadoArchivos = $this->guardarArchivosPieza($objeto_id);
         
         $id = $this->objetos->getInsertID();
         // <-- NUEVA
@@ -233,8 +237,9 @@ class Objetos extends BaseController {
             'accion'     => 'a'
         ]);
         $mensaje = ' Guardado con éxito';
-        if ($resultado['fallidas'] > 0) {
-            $mensaje .= ' (pero ' . $resultado['fallidas'] . ' imagen(es) no se pudieron guardar)';
+        $fallidas = $resultado['fallidas'] + $resultadoArchivos['fallidas'];
+        if ($fallidas > 0) {
+            $mensaje .= ' (pero ' . $fallidas . ' archivo(s) o imagen(es) no se pudieron guardar)';
         }
         echo json_encode(['exito' => true, 'id' => $id, 'mensaje' => $mensaje]);
     }
@@ -260,6 +265,7 @@ class Objetos extends BaseController {
             ->orderBy('portada', 'DESC')
             ->orderBy('id', 'ASC')
             ->findAll();
+        $archivos = $this->piezasarchivos->where('objeto_id', $id)->orderBy('id', 'ASC')->findAll();
 
         $datos = [ 
             'museos'                 => $museos,
@@ -267,6 +273,7 @@ class Objetos extends BaseController {
             'etiquetas'              => $etiquetas,
             'atributos'              => $atributos,
             'galeria'                => $galeria,
+            'archivos'               => $archivos,
             'etiquetasSeleccionadas' => $this->obtenerEtiquetasPorObjeto($id),
             'atributosSeleccionados' => $this->obtenerAtributosPorObjeto($id),
             'titulo'                 => 'Editar pieza'
@@ -373,9 +380,22 @@ class Objetos extends BaseController {
         $resultado = $this->guardarImagenesPieza($id);
         $this->definirPortadaPieza($id, $this->request->getPost('portada'), $resultado['ids']);
 
+        // --- ARCHIVOS: quitamos los marcados y guardamos los nuevos ---
+        $archivos_quitar = $this->request->getPost('archivos_quitar');
+        if (!empty($archivos_quitar) && is_array($archivos_quitar)) {
+            foreach ($archivos_quitar as $id_archivo) {
+                $id_archivo = (int) $id_archivo;
+                if ($id_archivo > 0) {
+                    $this->piezasarchivos->where('objeto_id', $id)->delete($id_archivo);
+                }
+            }
+        }
+        $resultadoArchivos = $this->guardarArchivosPieza($id);
+
         $mensaje = 'Actualizado exitosamente';
-        if ($resultado['fallidas'] > 0) {
-            $mensaje .= ' (pero ' . $resultado['fallidas'] . ' imagen(es) no se pudieron guardar)';
+        $fallidas = $resultado['fallidas'] + $resultadoArchivos['fallidas'];
+        if ($fallidas > 0) {
+            $mensaje .= ' (pero ' . $fallidas . ' archivo(s) o imagen(es) no se pudieron guardar)';
         }
         echo json_encode(['exito' => true, 'mensaje' => $mensaje]);
     }
@@ -445,6 +465,7 @@ class Objetos extends BaseController {
         $objetosatributos = $this->obtenerAtributosPorObjeto($id);
         $objetosetiquetas = $this->obtenerEtiquetasPorObjeto($id);
         $galeria = $this->piezasimagenes->where('objeto_id', $id)->orderBy('portada', 'DESC')->orderBy('id', 'ASC')->findAll();
+        $archivos = $this->piezasarchivos->where('objeto_id', $id)->orderBy('id', 'ASC')->findAll();
 
         $datos = [ 
             'museos'    => $museos,
@@ -453,6 +474,7 @@ class Objetos extends BaseController {
             'etiquetas' => $objetosetiquetas,
             'atributos' => $objetosatributos,
             'galeria'   => $galeria,
+            'archivos'  => $archivos,
             'titulo'    => 'Detalle del Objeto'
         ];
         
@@ -505,6 +527,83 @@ class Objetos extends BaseController {
             $ids[$indice] = $this->piezasimagenes->insert([
                 'objeto_id'     => $objeto_id,
                 'nombrearchivo' => $archivo->getName()
+            ], true);
+        }
+
+        return ['fallidas' => $fallidas, 'ids' => $ids];
+    }
+
+    // Guarda los archivos (PDF, DOC, DOCX) que llegan en archivos[] y devuelve cuantos fallaron y el id de cada uno guardado
+    private function guardarArchivosPieza($objeto_id) {
+        $archivos = $this->request->getFileMultiple('archivos') ?? [];
+
+        // extension permitida => con que bytes puede empezar el contenido real del archivo
+        $firmas = [
+            'pdf'  => ['%PDF'],
+            'docx' => ["PK\x03\x04"],
+            // un .doc puede ser un Word clasico (OLE), un docx renombrado (zip) o un RTF
+            'doc'  => ["\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1", "PK\x03\x04", '{\rtf'],
+        ];
+
+        $directorio = FCPATH . 'file';
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0755, true);
+        }
+
+        $fallidas = 0;
+        $ids = [];
+        foreach ($archivos as $indice => $archivo) {
+            if ($archivo->getError() === UPLOAD_ERR_NO_FILE) {
+                continue;
+            }
+
+            $nombreCliente = $archivo->getClientName();
+
+            if (!$archivo->isValid()) {
+                log_message('error', 'Archivo rechazado (' . $nombreCliente . '): error de subida ' . $archivo->getError() . ' - ' . $archivo->getErrorString());
+                $fallidas++;
+                continue;
+            }
+
+            if ($archivo->getSize() > 10 * 1024 * 1024) {
+                log_message('error', 'Archivo rechazado (' . $nombreCliente . '): supera 10 MB (' . $archivo->getSize() . ' bytes)');
+                $fallidas++;
+                continue;
+            }
+
+            $extension = strtolower($archivo->getClientExtension());
+            if (!isset($firmas[$extension])) {
+                log_message('error', 'Archivo rechazado (' . $nombreCliente . '): extension no permitida (' . $extension . ')');
+                $fallidas++;
+                continue;
+            }
+
+            // el contenido real tiene que coincidir con la extension
+            $cabecera = (string) file_get_contents($archivo->getTempName(), false, null, 0, 8);
+            $valido = false;
+            foreach ($firmas[$extension] as $firma) {
+                if (strncmp($cabecera, $firma, strlen($firma)) === 0) {
+                    $valido = true;
+                    break;
+                }
+            }
+            if (!$valido) {
+                log_message('error', 'Archivo rechazado (' . $nombreCliente . '): el contenido no coincide con .' . $extension . ', empieza con ' . bin2hex($cabecera));
+                $fallidas++;
+                continue;
+            }
+
+            // id de la pieza + fecha y hora + nombre original, por ejemplo 145_20261114131111_informe.pdf
+            $nombreOriginal = pathinfo($nombreCliente, PATHINFO_FILENAME);
+            $nombreOriginal = substr(preg_replace('/[^A-Za-z0-9_-]/', '_', $nombreOriginal), 0, 100);
+            $nombreArchivo = $objeto_id . '_' . date('YmdHis') . '_' . $nombreOriginal . '.' . $extension;
+
+            $archivo->move($directorio, $nombreArchivo);
+
+            $ids[$indice] = $this->piezasarchivos->insert([
+                'objeto_id'      => $objeto_id,
+                'nombrearchivo'  => $archivo->getName(),
+                'nombreoriginal' => mb_substr($nombreCliente, 0, 255)
             ], true);
         }
 
