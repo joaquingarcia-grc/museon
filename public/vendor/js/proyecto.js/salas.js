@@ -7,6 +7,11 @@ $(document).ready(function(){
     // guardo lo ultimo que trajo el controlador, lo uso para el modal de editar y para la hoja de ruta
     let datosSalaActual = null;
     let hijasActuales = [];
+    // los objetos que ya estan en la sala seleccionada
+    let objetosActuales = [];
+    // los objetos sin ubicacion que se muestran en el modal de agregar, y el que se eligio
+    let objetosLibres = [];
+    let objetoElegido = null;
     // la sala que estoy editando, la que estoy por borrar y la que recupero
     let idActualizar = null;
     let idABorrar = null;
@@ -30,6 +35,29 @@ $(document).ready(function(){
             return '';
         }
         return $('<div></div>').text(texto).html();
+    }
+    // arma la ruta completa de una sala subiendo por el arbol hasta el museo, ej: Museo > Sala 2 > Vitrina 3
+    function armarRutaCompleta(idSala){
+        const partes = [];
+        let divSala = $('#sala_' + idSala);
+        // si la sala no esta en el arbol devuelvo vacio
+        if(divSala.length == 0){
+            return '';
+        }
+        // voy subiendo de sala en sala, guardando el nombre de cada una
+        while(divSala.length > 0){
+            partes.push(divSala.find('span').text());
+            const ul = divSala.parent().parent();
+            // si la lista es la de arriba de todo ya llegue al museo
+            if(ul.attr('id') == 'arbolSalas'){
+                break;
+            }
+            // el div del padre es el que viene justo antes de la lista
+            divSala = ul.prev();
+        }
+        // las junte de abajo para arriba, las doy vuelta para que quede desde el museo
+        partes.reverse();
+        return partes.join(' > ');
     }
     // abre o cierra una sala, recibe el div de la sala y true para abrir o false para cerrar
     function abrirCerrarSala(divSala, abrir){
@@ -100,8 +128,8 @@ $(document).ready(function(){
             divPadre.find('i').first().removeClass('bi-door-open').addClass('bi-door-closed');
         }
     }
-    // arma la lista de lo que hay adentro de la sala en la columna derecha, con las descripciones
-    function armarDetalle(sala, hijas){
+    // arma la lista de lo que hay adentro de la sala en la columna derecha, con las descripciones y los objetos
+    function armarDetalle(sala, hijas, objetos){
         const detalle = $('#detalleSala');
         detalle.empty();
         // en el museo el boton dice nueva sala, en las demas nueva ubicacion
@@ -120,6 +148,12 @@ $(document).ready(function(){
         // el boton de nueva sala / ubicacion solo aparece si tiene permiso de alta
         if(permiso_SAL.includes('a')){
             botones.append('<button type="button" class="btn btn-sm btn-outline-success" id="btnAgregarUbicacion">' + textoBoton + ' <i class="bi bi-plus-lg"></i></button>');
+        }
+        // el boton de agregar objeto no aparece en el museo, porque un objeto tiene que estar en una sala o ubicacion
+        if(salaActual != ID_MUSEO){
+            if(permiso_SAL.includes('a')){
+                botones.append('<button type="button" class="btn btn-sm btn-outline-success" id="btnAgregarObjeto">Agregar objeto <i class="bi bi-box"></i></button>');
+            }
         }
         encabezado.append(botones);
         tarjeta.append(encabezado);
@@ -160,9 +194,33 @@ $(document).ready(function(){
             }
         }
         tarjeta.append(lista);
+        // lista de objetos de la sala, abajo de las ubicaciones (en el museo no se muestra)
+        if(salaActual != ID_MUSEO){
+            tarjeta.append('<div class="card-header border-top fw-bold">Objetos</div>');
+            const listaObjetos = $('<ul class="list-group list-group-flush"></ul>');
+            if(objetos.length == 0){
+                listaObjetos.append('<li class="list-group-item text-muted">Esta sala no tiene objetos todavia</li>');
+            } else {
+                for(let i = 0; i < objetos.length; i++){
+                    const itemObjeto = $('<li class="list-group-item d-flex justify-content-between align-items-center"></li>');
+                    const textosObjeto = $('<div></div>');
+                    // icono de caja para distinguirlos de las ubicaciones
+                    textosObjeto.append('<i class="bi bi-box me-2"></i>');
+                    // uso .text() para que lo que venga de la base no se interprete como html
+                    textosObjeto.append($('<span></span>').text(objetos[i].denominacion));
+                    itemObjeto.append(textosObjeto);
+                    // botoncito para sacar el objeto de la sala (queda sin ubicacion), el id va en el data-id
+                    if(permiso_SAL.includes('b')){
+                        itemObjeto.append('<button type="button" class="btn btn-sm btn-outline-danger" id="btnQuitarObjeto" data-id="' + objetos[i].id + '" title="Sacar de esta sala"><i class="bi bi-x-lg"></i></button>');
+                    }
+                    listaObjetos.append(itemObjeto);
+                }
+            }
+            tarjeta.append(listaObjetos);
+        }
         detalle.append(tarjeta);
     }
-    // le pide al controlador la sala y sus hijas
+    // le pide al controlador la sala, sus hijas y sus objetos
     function traerHijas(idSala, denominacion){
         salaActual = idSala;
         nombreSalaActual = denominacion;
@@ -175,7 +233,13 @@ $(document).ready(function(){
                 // me guardo lo que vino para el modal de editar y la hoja de ruta
                 datosSalaActual = respuesta.sala;
                 hijasActuales = respuesta.hijas;
-                armarDetalle(respuesta.sala, respuesta.hijas);
+                // los objetos de la sala, si no vinieron dejo la lista vacia
+                if(respuesta.objetos != null){
+                    objetosActuales = respuesta.objetos;
+                } else {
+                    objetosActuales = [];
+                }
+                armarDetalle(respuesta.sala, respuesta.hijas, objetosActuales);
             },
             error: function(error) {
                 let texto = 'No se pudo traer el contenido de la sala';
@@ -185,6 +249,43 @@ $(document).ready(function(){
                 mensajes(texto, 'error');
             }
         });
+    }
+    // dibuja en el modal la lista de objetos sin ubicacion, filtrando por lo que se escribio en el buscador
+    function dibujarObjetosLibres(filtro){
+        const lista = $('#listaObjetosLibres');
+        lista.empty();
+        const texto = filtro.toLowerCase();
+        let cantidad = 0;
+        for(let i = 0; i < objetosLibres.length; i++){
+            // junto denominacion y codigo para buscar en los dos
+            let denominacion = '';
+            if(objetosLibres[i].denominacion){
+                denominacion = objetosLibres[i].denominacion;
+            }
+            let codigo = '';
+            if(objetosLibres[i].codigo){
+                codigo = objetosLibres[i].codigo;
+            }
+            const buscable = (denominacion + ' ' + codigo).toLowerCase();
+            if(buscable.includes(texto)){
+                cantidad++;
+                const item = $('<button type="button" class="list-group-item list-group-item-action" id="itemObjetoLibre"></button>');
+                item.attr('data-id', objetosLibres[i].id);
+                item.append($('<div class="fw-semibold"></div>').text(denominacion));
+                // el codigo va abajo del nombre si tiene
+                if(codigo != ''){
+                    item.append($('<small class="text-muted"></small>').text(codigo));
+                }
+                // si es el que estaba elegido lo dejo marcado
+                if(objetoElegido == objetosLibres[i].id){
+                    item.addClass('active');
+                }
+                lista.append(item);
+            }
+        }
+        if(cantidad == 0){
+            lista.append('<div class="list-group-item text-muted">No hay objetos sin ubicacion</div>');
+        }
     }
     // arma la hoja de ruta de la sala seleccionada en otra ventana y abre la impresion
     function imprimirHojaDeRuta(){
@@ -200,18 +301,24 @@ $(document).ready(function(){
         } else {
             descripcionSala = 'Sin descripcion';
         }
+        // la ruta completa de la sala, desde el museo hasta la sala seleccionada
+        const rutaCompleta = armarRutaCompleta(salaActual);
         let html = '';
         html += '<html><head><meta charset="utf-8"><title>Hoja de ruta</title>';
         html += '<style>';
         html += 'body{font-family:Arial,sans-serif; margin:30px; color:#222;}';
         html += 'h1{margin-bottom:0;}';
         html += 'h3{margin-top:5px; color:#555; font-weight:normal;}';
+        html += 'h4{margin-bottom:5px;}';
         html += 'ol{padding-left:20px;}';
         html += 'li{margin-bottom:14px;}';
         html += '.desc{color:#555; margin-top:3px;}';
+        html += '.ruta{font-weight:bold;}';
         html += '</style></head><body>';
         html += '<h1>Hoja de ruta</h1>';
         html += '<h3>' + escaparHtml(nombreSalaActual) + ' - ' + fecha + '</h3>';
+        // la ruta para llegar a la sala
+        html += '<p class="ruta">Ubicacion: ' + escaparHtml(rutaCompleta) + '</p>';
         html += '<p>' + descripcionSala + '</p>';
         html += '<hr>';
         if(hijasActuales.length == 0){
@@ -229,6 +336,19 @@ $(document).ready(function(){
                 html += '<div class="desc">' + descripcionHija + '</div></li>';
             }
             html += '</ol>';
+        }
+        // los objetos de la sala (en el museo no se muestran), todos comparten la ruta de arriba
+        if(salaActual != ID_MUSEO){
+            html += '<h4>Objetos</h4>';
+            if(objetosActuales.length == 0){
+                html += '<p>Esta sala no tiene objetos todavia</p>';
+            } else {
+                html += '<ol>';
+                for(let i = 0; i < objetosActuales.length; i++){
+                    html += '<li><strong>' + escaparHtml(objetosActuales[i].denominacion) + '</strong></li>';
+                }
+                html += '</ol>';
+            }
         }
         html += '</body></html>';
         ventana.document.open();
@@ -367,6 +487,114 @@ $(document).ready(function(){
             $('#tituloModalSala').text('Nueva ubicacion en ' + nombreSalaActual);
         }
         $('#modalSala').modal('show');
+    });
+    // boton agregar objeto: trae los objetos sin ubicacion y abre el modal para elegir uno
+    $('#detalleSala').on('click', '#btnAgregarObjeto', function(){
+        $('#tituloModalAgregarObjeto').text('Agregar objeto a ' + nombreSalaActual);
+        objetoElegido = null;
+        $('#buscadorObjetos').val('');
+        $.ajax({
+            url: BASE + 'salas/objetosLibres',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                objetosLibres = response.objetos;
+                dibujarObjetosLibres('');
+                $('#modalAgregarObjeto').modal('show');
+            },
+            error: function(error) {
+                let texto = 'No se pudieron traer los objetos';
+                if(error.responseJSON && error.responseJSON.mensaje){
+                    texto = error.responseJSON.mensaje;
+                }
+                mensajes(texto, 'error');
+            }
+        });
+    });
+    // el buscador del modal filtra la lista mientras se escribe
+    $('#buscadorObjetos').on('keyup', function(){
+        dibujarObjetosLibres($(this).val());
+    });
+    // click en un objeto de la lista del modal: queda elegido (el id viene en el data-id)
+    $('#listaObjetosLibres').on('click', '#itemObjetoLibre', function(){
+        objetoElegido = $(this).data('id');
+        // saco la marca a todos y se la pongo solo al que toque
+        $('#listaObjetosLibres button').removeClass('active');
+        $(this).addClass('active');
+    });
+    // guardar: le asigno a ese objeto la sala en la que estoy parado
+    $('#btnGuardarAsignacion').on('click', function(){
+        if(objetoElegido == null){
+            mensajes('Elegi un objeto de la lista', 'warning');
+            return;
+        }
+        const dato = {
+            id_objeto: objetoElegido,
+            id_ubicacion: salaActual
+        };
+        $.ajax({
+            url: BASE + 'salas/asignarObjeto',
+            method: 'POST',
+            data: dato,
+            dataType: 'json',
+            success: function(response) {
+                if (response.exito){
+                    mensajes(response.mensaje, 'success');
+                    // limpio el modal y lo cierro
+                    objetoElegido = null;
+                    $('#buscadorObjetos').val('');
+                    $('#listaObjetosLibres').empty();
+                    $('#modalAgregarObjeto').modal('hide');
+                    // vuelvo a traer la sala para que aparezca el objeto
+                    if(salaActual != null){
+                        traerHijas(salaActual, nombreSalaActual);
+                    }
+                } else {
+                    mensajes('Error: ' + response.mensaje, 'error');
+                }
+            },
+            error: function(error) {
+                let texto = 'No se pudo agregar el objeto';
+                if(error.responseJSON && error.responseJSON.mensaje){
+                    texto = error.responseJSON.mensaje;
+                }
+                mensajes(texto, 'error');
+            }
+        });
+    });
+    // cancelar del modal de agregar objeto: limpia el formulario y cierra el modal
+    $('#btnCancelarAsignacion').on('click', function(){
+        objetoElegido = null;
+        $('#buscadorObjetos').val('');
+        $('#listaObjetosLibres').empty();
+        $('#modalAgregarObjeto').modal('hide');
+    });
+    // boton de sacar un objeto de la sala (el id del objeto viene en el data-id del boton)
+    $('#detalleSala').on('click', '#btnQuitarObjeto', function(){
+        const idObjeto = $(this).data('id');
+        $.ajax({
+            url: BASE + 'salas/quitarObjeto/' + idObjeto,
+            method: 'POST',
+            dataType: 'json',
+            success: function(response) {
+                if (response.exito){
+                    mensajes(response.mensaje, 'success');
+                    // vuelvo a traer la sala para que desaparezca de la lista
+                    if(salaActual != null){
+                        traerHijas(salaActual, nombreSalaActual);
+                    }
+                } else {
+                    mensajes('Error: ' + response.mensaje, 'error');
+                }
+            },
+            error: function(error) {
+                let texto = 'No se pudo sacar el objeto';
+                if(error.responseJSON && error.responseJSON.mensaje){
+                    texto = error.responseJSON.mensaje;
+                }
+                mensajes(texto, 'error');
+            }
+        });
     });
     // lapiz de la lista (el id de la sala viene en el data-id del boton)
     $('#detalleSala').on('click', '#btnEditarSala', function(){
