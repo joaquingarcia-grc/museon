@@ -31,6 +31,20 @@
                                 <label for="descripcion" class="form-label fw-bold">Descripción</label>
                                 <input class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Descripción breve">
                             </div>
+                            <div class="col-12 mt-3">
+                                <label for="imagenes" class="form-label fw-bold">Imágenes</label>
+                                <input class="form-control" type="file" id="imagenes" name="imagenes[]" accept="image/jpeg,image/png" multiple>
+                                <small class="text-muted">JPG o PNG (máx. 5 MB cada una). Podés elegir varias a la vez o ir sumando de a una. Marcá cuál es la portada.</small>
+                                <div id="avisoImagenes" class="text-danger small mt-1"></div>
+                                <div id="vistaPreviaImagenes" class="row g-3 mt-1"></div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <label for="archivos" class="form-label fw-bold">Archivos adjuntos</label>
+                                <input class="form-control" type="file" id="archivos" name="archivos[]" accept=".pdf,.doc,.docx" multiple>
+                                <small class="text-muted">PDF, DOC o DOCX (máx. 10 MB cada uno). Podés elegir varios a la vez o ir sumando de a uno.</small>
+                                <div id="avisoArchivos" class="text-danger small mt-1"></div>
+                                <ul id="vistaPreviaArchivos" class="list-group mt-2"></ul>
+                            </div>                        
                         </div>
  
                         <hr>

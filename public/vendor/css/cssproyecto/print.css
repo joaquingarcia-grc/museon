@@ -28,3 +28,65 @@ body,
 @page {
     margin: 0;
 }
+/* ===== Imágenes de la pieza al imprimir (botón de ver.php) ===== */
+.ficha-impresion {
+    --alto-imagen-impresion: 10.5cm; /* alto máximo de cada imagen */
+}
+
+/* solo se muestra si el botón dejó activado "Imágenes al imprimir" */
+body.imprimir-imagenes .ficha-impresion {
+    display: block !important;
+    break-before: page;
+    page-break-before: always;
+}
+
+.ficha-impresion-titulo {
+    margin: 0;
+    padding-top: 1cm;
+    text-align: center;
+    break-after: avoid;
+}
+
+.ficha-impresion-item {
+    margin: 0;
+    padding: 1cm 0; /* la hoja tiene margen 0, así que el aire lo damos acá */
+    text-align: center;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.ficha-impresion-item img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: var(--alto-imagen-impresion);
+}
+
+.ficha-impresion-item figcaption {
+    margin-top: .25cm;
+    font-size: 9pt;
+    color: #000;
+}
+
+/* Chrome a veces corta en la primera hoja el contenido que está dentro de contenedores flex de SB Admin */
+#wrapper,
+#content-wrapper {
+    display: block !important;
+    overflow: visible !important;
+}
+/* imprime los fondos de la tabla (encabezados grises) sin tildar "Gráficos en segundo plano" */
+.object-sheet-table,
+.object-sheet-table * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+/* en la ficha impresa los archivos adjuntos se leen como texto, no como enlaces */
+.object-sheet-table a {
+    color: #000 !important;
+    text-decoration: none !important;
+}
+/* encabezados de sección: texto negro sobre gris claro, así se leen aunque no se impriman fondos */
+.object-sheet-table .bg-secondary.text-white {
+    background-color: #e9ecef !important;
+    color: #000 !important;
+}
