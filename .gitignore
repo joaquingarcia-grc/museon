@@ -12,3 +12,9 @@ writable/debugbar/*
 writable/logs/*
 
 app/Config/App.phpwritable/debugbar/*.json
+
+# archivos adjuntos subidos desde el sistema
+public/file/
+
+# imagenes adjuntas subidos desde el sistema
+public/images/
