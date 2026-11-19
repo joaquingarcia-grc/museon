@@ -19,6 +19,7 @@ $routes->post('/usuarios/recuperacion/(:num)','Usuarios::recuperacion/$1');
 $routes->get('usuarios/api','Usuarios::api_usuarios');
 $routes->get('usuarios/api2','Usuarios::api_usuarios_borrados');
 $routes->post('copia_seguridad', 'Usuarios::copia_seguridad');
+
 $routes->get('/registro', 'Login::index');
 $routes->post('/login/validacion', 'Login::validacion');
 $routes->get('/login/sesion', 'Login::salir');

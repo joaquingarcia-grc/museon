@@ -369,8 +369,6 @@ $(document).ready(function(){
         setTimeout(() => {
           toast.classList.remove('show');
         }, 3000);}
-
-    
     $('#btnCopiaSeguridad').on('click', function (e) {
         e.preventDefault();
         $.ajax({

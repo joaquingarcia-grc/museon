@@ -439,4 +439,90 @@ class Usuarios extends BaseController{
             ->setFileName('copia_seguridad_' . date('Y-m-d') . '.zip');
     }
 
+    // Muestra un formulario vacío para crear un usuario
+    public function configuracion(){
+        // Verificación de sesión
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+
+        // Trae solo el usuario logueado
+        $usuarios = $this->usuarios->find($this->sesion->id);
+
+        // Datos del museo para el header
+        $museos = $this->museos->first();
+
+        $datos = [ 'museos'=>$museos,
+                'usuarios'=>$usuarios,
+                'titulo' => 'Formulario de Usuarios',];
+
+        echo view('header', $datos);
+        echo view('usuarios/configuracion');
+        echo view('footer');
+
+    }
+    // Actualiza los datos del usuario logueado (AJAX, responde JSON)
+    public function actualizar_configuracion(){
+        // Verificación de sesión
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        //esto nos indica que esperamos peticiones json
+        header('Content-Type: application/json');
+
+        // El id sale de la sesión, no viene por la url
+        $id = $this->sesion->id;
+
+        $denominacion = strtolower(trim($this->request->getPost('denominacion')));
+        $email = trim($this->request->getPost('email'));
+        $telefono = trim($this->request->getPost('telefono'));
+        $password = trim($this->request->getPost('password'));
+
+        // Denominación y email son obligatorios
+        if (empty($denominacion) || empty($email)){
+            echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios']);
+            exit;
+        }
+        // La contraseña es opcional: solo se valida si el usuario escribió una nueva
+        if (!empty($password)){
+            if (strlen($password) < 8) {
+                echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos 8 caracteres']);
+                exit;
+            }
+            if (empty(strpbrk($password, '#!*@$%&?¿'))) {
+                echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos un carácter especial']);
+                exit;
+            }
+        }
+
+        // Buscamos si OTRO usuario (id distinto) ya usa esa denominación, incluso en la papelera
+        $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
+
+        if (empty($datoUsuario)){
+            // Nadie más la usa: armamos los datos a actualizar
+            $datoActualizar = [
+                'denominacion' => $denominacion,
+                'email' => $email,
+                'telefono' => $telefono
+            ];
+            // Solo cambiamos la contraseña si se escribió una nueva
+            if (!empty($password)){
+                $datoActualizar['password'] = password_hash($password, PASSWORD_DEFAULT);
+            }
+            //Aca se genera el update
+            $this->usuarios->update($id, $datoActualizar);
+            echo json_encode(['exito' => true, 'mensaje' => 'Actualizado con éxito']);
+            exit;
+        }else{
+            // Otro usuario la tiene: avisamos si está activo o en la papelera
+            if(empty($datoUsuario['fecha_baja'])){
+                echo json_encode(['exito' => false, 'papelera' => false, 'mensaje' => 'Usuario existente']);
+            }else{
+                //Papelera
+                echo json_encode(['exito' => false, 'papelera' => true, 'mensaje' => 'Usuario existente en la papelera']);
+            }
+            exit;
+        }
+    }
+
 }
