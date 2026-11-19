@@ -47,7 +47,7 @@
             </tr>
             <tr>
                 <td class="bg-light fw-bold">Nombre del objeto</td>
-                <td><?php echo $objeto['denominacion']; ?></td>
+                <td><?php echo esc(mb_strtoupper(mb_substr($objeto['denominacion'], 0, 1)) . mb_substr($objeto['denominacion'], 1)); ?></td>
             </tr>
             <tr>
                 <td class="bg-light fw-bold">código del objeto</td>

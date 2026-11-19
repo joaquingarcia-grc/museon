@@ -1,23 +1,24 @@
+
 -- ============================================
 --  base de datos: museo
 -- ============================================
-
-create database `museo` default character set utf8mb4 collate utf8mb4_general_ci;
-
+ 
+create database if not exists `museo` default character set utf8mb4 collate utf8mb4_general_ci;
+ 
 use `museo`;
-
+ 
 set names utf8mb4;
-
-
+ 
+ 
 -- roles
 create table `roles` (
   `id` int(10) unsigned not null auto_increment,
   `denominacion` varchar(50) not null,
   primary key (`id`),
   unique key `uq_roles_denominacion` (`denominacion`)
-) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
-
-
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
+ 
+ 
 -- usuarios
 create table `usuarios` (
   `id` int(11) not null auto_increment,
@@ -33,8 +34,8 @@ create table `usuarios` (
   key `idx_usuarios_id_rol` (`id_rol`),
   constraint `fk_usuarios_rol` foreign key (`id_rol`) references `roles` (`id`) on update cascade
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- rol_permiso (a = alta, b = baja, m = modificación, l = listar)
 create table `rol_permiso` (
   `id` int(10) unsigned not null auto_increment,
@@ -48,8 +49,8 @@ create table `rol_permiso` (
   unique key `id_rol` (`id_rol`),
   constraint `rol_permiso_ibfk_1` foreign key (`id_rol`) references `roles` (`id`) on delete cascade on update cascade
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- salas (id_pertenece = sala padre)
 create table `salas` (
   `id` int(10) unsigned not null auto_increment,
@@ -63,8 +64,8 @@ create table `salas` (
   key `fk_salas_pertenece` (`id_pertenece`),
   constraint `fk_salas_pertenece` foreign key (`id_pertenece`) references `salas` (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- atributos
 create table `atributos` (
   `id` int(11) not null auto_increment,
@@ -76,8 +77,8 @@ create table `atributos` (
   `fecha_edicion` datetime default null,
   primary key (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- etiquetas
 create table `etiquetas` (
   `id` int(11) not null auto_increment,
@@ -87,8 +88,8 @@ create table `etiquetas` (
   `fecha_edicion` datetime default null,
   primary key (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- museos
 create table `museos` (
   `id` int(11) not null auto_increment,
@@ -104,12 +105,8 @@ create table `museos` (
   `fecha_edicion` datetime default null,
   primary key (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
---Insert de referencia--Obligatorio para que el sistema ande-- 
-
-insert into `museos` (`denominacion`, `direccion`, `telefono`, `email`, `whatsapp`, `facebook`, `instagram`) values
-('Museo Regional', 'Calle Falsa 123', '3456123456', 'contacto@museo.com', '3456123456', 'museoregional', 'museoregional');
-
+ 
+ 
 -- objetos
 create table `objetos` (
   `id` int(11) not null auto_increment,
@@ -127,8 +124,8 @@ create table `objetos` (
   constraint `fk_objetos_ubicacion` foreign key (`id_ubicacion`) references `salas` (`id`),
   constraint `fk_objetos_usuarios` foreign key (`id_usuario`) references `usuarios` (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- objeto_atributos
 create table `objeto_atributos` (
   `id` int(11) not null auto_increment,
@@ -144,8 +141,8 @@ create table `objeto_atributos` (
   constraint `fk_objatr_atributo` foreign key (`atributo_id`) references `atributos` (`id`),
   constraint `fk_objatr_objeto` foreign key (`objeto_id`) references `objetos` (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- objeto_etiquetas
 create table `objeto_etiquetas` (
   `id` int(11) not null auto_increment,
@@ -160,8 +157,8 @@ create table `objeto_etiquetas` (
   constraint `fk_objetq_etiqueta` foreign key (`etiqueta_id`) references `etiquetas` (`id`),
   constraint `fk_objetq_objeto` foreign key (`objeto_id`) references `objetos` (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- piezas_archivos
 create table `piezas_archivos` (
   `id` int(11) not null auto_increment,
@@ -175,8 +172,8 @@ create table `piezas_archivos` (
   key `fk_parch_objeto` (`objeto_id`),
   constraint `fk_parch_objeto` foreign key (`objeto_id`) references `objetos` (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- piezas_imagenes (portada: 1 = imagen de portada, 0 = imagen común)
 create table `piezas_imagenes` (
   `id` int(11) not null auto_increment,
@@ -190,8 +187,8 @@ create table `piezas_imagenes` (
   key `fk_pimg_objeto` (`objeto_id`),
   constraint `fk_pimg_objeto` foreign key (`objeto_id`) references `objetos` (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
-
-
+ 
+ 
 -- auditoria (accion: a = alta, b = baja, m = modificación, r = recuperación)
 create table `auditoria` (
   `id` int(11) not null auto_increment,
@@ -205,3 +202,4 @@ create table `auditoria` (
   key `id_usuario` (`id_usuario`),
   constraint `auditoria_ibfk_1` foreign key (`id_usuario`) references `usuarios` (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
+ 
