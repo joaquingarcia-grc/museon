@@ -315,7 +315,7 @@ El historial también registra tareas de integración y fusiones entre ramas rea
 
 Este proyecto se distribuye bajo la licencia **MIT**.
 
-Esto permite utilizar, copiar, modificar, distribuir y sublicenciar el software, siempre que se conserve el aviso de copyright y el texto de la licencia original.
+Esto permite utilizar, copiar, modificar, distribuir y sublicenciar el software, siempre y cuando se conserve el aviso de copyright y el texto de la licencia original.
 
 Para consultar los términos completos, revisar el archivo [`LICENSE`](LICENSE) incluido en la raíz del repositorio.
 
