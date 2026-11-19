@@ -105,6 +105,10 @@ create table `museos` (
   primary key (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
 
+--Insert de referencia--Obligatorio para que el sistema ande-- 
+
+insert into `museos` (`denominacion`, `direccion`, `telefono`, `email`, `whatsapp`, `facebook`, `instagram`) values
+('Museo Regional', 'Calle Falsa 123', '3456123456', 'contacto@museo.com', '3456123456', 'museoregional', 'museoregional');
 
 -- objetos
 create table `objetos` (
