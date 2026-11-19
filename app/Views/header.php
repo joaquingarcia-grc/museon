@@ -203,7 +203,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="<?php echo base_url();?>usuarios/configuracion/">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Configuraciones
                                 </a>

@@ -330,46 +330,113 @@ class Usuarios extends BaseController{
             exit;
         }
     }
-    // API: devuelve en JSON los usuarios activos, del más nuevo al más viejo
+    // API: devuelve en JSON los usuarios activos menos el que esta logueado, del más nuevo al más viejo
     public function api_usuarios(){
-        $usuarios = $this->usuarios->orderBy('id','DESC')->findAll();
+        $usuarios = $this->usuarios->where('id !=', $this->sesion->id)->orderBy('id','DESC')->findAll();
         $datos = ['usuarios'=>$usuarios];
         return $this->response->setJSON($datos);
     }
-    // API: devuelve en JSON los usuarios borrados (papelera)
+    // API: devuelve en JSON los usuarios borrados (papelera) menos el que esta logueado
     public function api_usuarios_borrados(){
-        $usuarios = $this->usuarios->onlyDeleted()->findAll();
+        $usuarios = $this->usuarios->where('id !=', $this->sesion->id)->onlyDeleted()->findAll();
         $datos = ['usuarios'=>$usuarios];
         return $this->response->setJSON($datos);
     }
+
     public function copia_seguridad(){
-        // Verificación de sesión
-        if(!isset($this->sesion->id)){
-            return redirect()->to(base_url() . "registro/");
+        // Verificar sesión
+        if (!isset($this->sesion->id)) {
+            return $this->response
+                ->setStatusCode(401)
+                ->setBody('Sesión no válida');
         }
-        // la conexión a la base
+
+        // Carpetas reales dentro de public/
+        $carpetas = [
+            'file' => FCPATH . 'file/',
+            'imagenes/objetos' => FCPATH . 'imagenes/objetos/'
+        ];
+
+        // Crear ZIP
+        $rutaZip = WRITEPATH . 'copia_seguridad.zip';
+
+        $zip = new \ZipArchive();
+
+        if ($zip->open($rutaZip, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {
+            return $this->response
+                ->setStatusCode(500)
+                ->setBody('No se pudo crear el archivo ZIP');
+        }
+
+        // 1. Exportar base de datos
         $db = db_connect();
-        // acá voy juntando el texto del .sql
-        $sql = "";
-        // todas las tablas de la base
-        $tablas = $db->listTables();
-        foreach ($tablas as $tabla) {
-            // cómo se crea la tabla
-            $sql .= "drop table if exists `" . $tabla . "`;\n";
-            $crear = $db->query("show create table `" . $tabla . "`")->getRowArray();
+        $sql = '';
+
+        foreach ($db->listTables() as $tabla) {
+
+            $crear = $db->query("SHOW CREATE TABLE `$tabla`")->getRowArray();
+
+            $sql .= "DROP TABLE IF EXISTS `$tabla`;\n";
             $sql .= $crear['Create Table'] . ";\n\n";
-            // todos los registros de la tabla
+
             $filas = $db->table($tabla)->get()->getResultArray();
+
             foreach ($filas as $fila) {
+
                 $valores = [];
+
                 foreach ($fila as $valor) {
                     $valores[] = $db->escape($valor);
                 }
-                $sql .= "insert into `" . $tabla . "` values (" . implode(", ", $valores) . ");\n";
+
+                $sql .= "INSERT INTO `$tabla` VALUES (" . implode(', ', $valores) . ");\n";
             }
+
             $sql .= "\n";
         }
-        // lo descarga como archivo
-        return $this->response->download('copia_seguridad.sql', $sql);
+
+        $zip->addFromString('base_de_datos.sql', $sql);
+
+        // 2. Incorporar archivos e imágenes
+        foreach ($carpetas as $nombre => $ruta) {
+
+            if (!is_dir($ruta)) {
+                continue;
+            }
+
+            $archivos = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator(
+                    $ruta,
+                    \FilesystemIterator::SKIP_DOTS
+                )
+            );
+
+            foreach ($archivos as $archivo) {
+
+                if ($archivo->isFile()) {
+
+                    $rutaRelativa = $nombre . '/' .
+                        substr($archivo->getPathname(), strlen($ruta));
+
+                    $zip->addFile(
+                        $archivo->getPathname(),
+                        $rutaRelativa
+                    );
+                }
+            }
+        }
+
+        // Cerrar ZIP
+        if (!$zip->close()) {
+            return $this->response
+                ->setStatusCode(500)
+                ->setBody('No se pudo finalizar el archivo ZIP');
+        }
+
+        // 3. Descargar copia de seguridad
+        return $this->response
+            ->download($rutaZip, null)
+            ->setFileName('copia_seguridad_' . date('Y-m-d') . '.zip');
     }
+
 }

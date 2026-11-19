@@ -43,7 +43,9 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="password" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id='password' name="password">
+                                <input type="password" class="form-control" id='password' name="password" placeholder="••••••••">
+                                <div class="form-text">Dejar vacío para mantener la actual.</div>
+                                <div class="form-text">Si la cambiás: mínimo 8 caracteres y un caracter especial (# ! * @ $ % & ? ¿).</div>
                             </div>
                         </div>
                         <div class="row mb-3">

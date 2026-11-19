@@ -264,6 +264,39 @@ $(document).ready(function(){
     });
 
 //------------------------------------------------------------------------------------------------//
+    //actualiza los datos del usuario logueado desde configuracion
+    //aca no viaja el id ni el rol, el servidor toma el id de la sesion
+    $('#formConfiguracion').on('submit',function(e){
+        e.preventDefault();//frenamos el envio normal del formulario
+        const dato = {
+            denominacion : $('#denominacion').val(),
+            password : $('#password').val(),
+            telefono : $('#telefono').val(),
+            email : $('#email').val()
+        }
+        $.ajax({
+            url: BASE + 'usuarios/actualizar_configuracion',
+            method: 'POST',
+            data: dato,
+            dataType: 'json',
+            success: function(response) {
+                if (response.exito){
+                    mensajes(response.mensaje);
+                    $('#password').val('');//limpio la contraseña para que no quede escrita
+                }else if(response.papelera){
+                    mensajes('Aviso: ' + response.mensaje, 'warning');
+                }else{
+                    mensajes('Error: ' + response.mensaje, 'error');
+                }
+            },
+            error: function() {
+                mensajes('Error en el servidor', 'error');
+            },
+            complete: function(){} 
+        });
+    });
+
+//------------------------------------------------------------------------------------------------//
     //funcion que borra los usuarios
     $(document).on('click', '#btnBorrarUSR', function(){
         idABorrar = $(this).data('id');
@@ -337,37 +370,38 @@ $(document).ready(function(){
           toast.classList.remove('show');
         }, 3000);}
 
+    
     $('#btnCopiaSeguridad').on('click', function (e) {
-
-    // evito que el link con # te suba al inicio de la página
-    e.preventDefault();
-
-    $.ajax({
-        url: BASE + 'copia_seguridad',
-        type: 'POST',
-        dataType: 'text',
-        success: function (respuesta) {
-
-            // armo el archivo con el texto que devolvió el controlador
-            var archivo = new Blob([respuesta], { type: 'application/sql' });
-            var url = window.URL.createObjectURL(archivo);
-
-            // creo un link temporal y le hago click para que se descargue
-            var enlace = document.createElement('a');
-            enlace.href = url;
-            enlace.download = 'copia_seguridad.sql';
-            document.body.appendChild(enlace);
-            enlace.click();
-
-            // saco el link temporal y libero el archivo
-            document.body.removeChild(enlace);
-            window.URL.revokeObjectURL(url);
-        },
-        error: function () {
-            alert('No se pudo generar la copia de seguridad');
-        }
+        e.preventDefault();
+        $.ajax({
+            url: BASE + 'copia_seguridad',
+            type: 'POST',
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (respuesta) {
+                const url = window.URL.createObjectURL(respuesta);
+                const enlace = document.createElement('a');
+                enlace.href = url;
+                enlace.download = 'copia_seguridad.zip';
+                document.body.appendChild(enlace);
+                enlace.click();
+                document.body.removeChild(enlace);
+                window.URL.revokeObjectURL(url);
+            },
+            error: function (xhr) {
+                console.error(xhr);
+                if (xhr.response instanceof Blob) {
+                    xhr.response.text().then(function (mensaje) {
+                        console.error(mensaje);
+                    });
+                } else {
+                    console.error('Error al generar la copia de seguridad');
+                }
+            }
+        });
     });
-    });
+
     //muestro el mensaje que quedó guardado del login
     const mensajeLogin = sessionStorage.getItem('mensajeLogin');
     if (mensajeLogin){
