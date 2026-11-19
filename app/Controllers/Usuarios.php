@@ -339,11 +339,15 @@ class Usuarios extends BaseController{
     }
     // Genera y descarga un zip con la base de datos y los archivos/imágenes
     public function copia_seguridad(){
-        // Verificar sesión
-        if (!isset($this->sesion->id)) {
+        // Verificación de sesión
+        if(!isset($this->sesion->id)){
+            return redirect()->to(base_url() . "registro/");
+        }
+        // Si la extensión zip no está activa (en windows a veces viene comentada en el php.ini)
+        if (!class_exists('ZipArchive')) {
             return $this->response
-                ->setStatusCode(401)
-                ->setBody('Sesión no válida');
+                ->setStatusCode(500)
+                ->setBody('La extensión zip de PHP no está activada');
         }
         // Carpetas reales dentro de public/ que se van a meter en el zip
         $carpetas = [
@@ -365,9 +369,9 @@ class Usuarios extends BaseController{
         // Recorremos todas las tablas de la base
         foreach ($db->listTables() as $tabla) {
             // Traemos el create table de la tabla actual
-            $crear = $db->query("SHOW CREATE TABLE `$tabla`")->getRowArray();
+            $crear = $db->query("show create table `$tabla`")->getRowArray();
             // Armamos el drop y el create de la tabla
-            $sql .= "DROP TABLE IF EXISTS `$tabla`;\n";
+            $sql .= "drop table if exists `$tabla`;\n";
             $sql .= $crear['Create Table'] . ";\n\n";
             // Traemos todas las filas de la tabla
             $filas = $db->table($tabla)->get()->getResultArray();
@@ -378,7 +382,7 @@ class Usuarios extends BaseController{
                 foreach ($fila as $valor) {
                     $valores[] = $db->escape($valor);
                 }
-                $sql .= "INSERT INTO `$tabla` VALUES (" . implode(', ', $valores) . ");\n";
+                $sql .= "insert into `$tabla` values (" . implode(', ', $valores) . ");\n";
             }
             $sql .= "\n";
         }
@@ -390,22 +394,26 @@ class Usuarios extends BaseController{
             if (!is_dir($ruta)) {
                 continue;
             }
+            // Normalizo la ruta base con / (en windows viene con \ y se mezclaba con el /)
+            $rutaBase = str_replace('\\', '/', realpath($ruta));
+            $rutaBase = rtrim($rutaBase, '/') . '/';
             // Recorremos la carpeta y sus subcarpetas
             $archivos = new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator(
-                    $ruta,
+                    $rutaBase,
                     \FilesystemIterator::SKIP_DOTS
                 )
             );
             foreach ($archivos as $archivo) {
                 // Solo agregamos archivos, no carpetas
                 if ($archivo->isFile()) {
+                    // Ruta real del archivo, también con /
+                    $rutaArchivo = str_replace('\\', '/', $archivo->getPathname());
                     // Ruta que va a tener el archivo dentro del zip
-                    $rutaRelativa = $nombre . '/' .
-                        substr($archivo->getPathname(), strlen($ruta));
+                    $rutaRelativa = $nombre . '/' . substr($rutaArchivo, strlen($rutaBase));
                     // Agregamos el archivo al zip
                     $zip->addFile(
-                        $archivo->getPathname(),
+                        $rutaArchivo,
                         $rutaRelativa
                     );
                 }
