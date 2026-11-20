@@ -29,7 +29,6 @@
                                     <option value="" selected disabled>Seleccione una opción</option>
                                     <option value="numerico">Numérico</option>
                                     <option value="texto">Texto</option>
-                                    <option value="archivo">Archivo</option>
                                     <option value="fecha">Fecha</option>
                                 </select>
                              </div>
