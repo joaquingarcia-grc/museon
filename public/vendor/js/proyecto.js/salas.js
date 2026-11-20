@@ -309,11 +309,12 @@ $(document).ready(function(){
         html += 'body{font-family:Arial,sans-serif; margin:30px; color:#222;}';
         html += 'h1{margin-bottom:0;}';
         html += 'h3{margin-top:5px; color:#555; font-weight:normal;}';
-        html += 'h4{margin-bottom:5px;}';
+        html += 'h4{margin-top:25px; margin-bottom:5px;}';
         html += 'ol{padding-left:20px;}';
         html += 'li{margin-bottom:14px;}';
         html += '.desc{color:#555; margin-top:3px;}';
         html += '.ruta{font-weight:bold;}';
+        html += '.camino{color:#555; margin-top:3px;}';
         html += '</style></head><body>';
         html += '<h1>Hoja de ruta</h1>';
         html += '<h3>' + escaparHtml(nombreSalaActual) + ' - ' + fecha + '</h3>';
@@ -321,8 +322,10 @@ $(document).ready(function(){
         html += '<p class="ruta">Ubicacion: ' + escaparHtml(rutaCompleta) + '</p>';
         html += '<p>' + descripcionSala + '</p>';
         html += '<hr>';
+        // las salas que hay adentro, van con su propio titulo para que no se mezclen con los objetos
+        html += '<h4>Ubicaciones</h4>';
         if(hijasActuales.length == 0){
-            html += '<p>Esta sala no tiene nada adentro todavia</p>';
+            html += '<p>Esta sala no tiene ubicaciones adentro todavia</p>';
         } else {
             html += '<ol>';
             for(let i = 0; i < hijasActuales.length; i++){
@@ -337,7 +340,8 @@ $(document).ready(function(){
             }
             html += '</ol>';
         }
-        // los objetos de la sala (en el museo no se muestran), todos comparten la ruta de arriba
+        // los objetos de la sala (en el museo no se muestran), cada uno con su ruta completa
+        // la ruta es la de la sala seleccionada + el objeto, no pasa por las salas de arriba
         if(salaActual != ID_MUSEO){
             html += '<h4>Objetos</h4>';
             if(objetosActuales.length == 0){
@@ -345,7 +349,8 @@ $(document).ready(function(){
             } else {
                 html += '<ol>';
                 for(let i = 0; i < objetosActuales.length; i++){
-                    html += '<li><strong>' + escaparHtml(objetosActuales[i].denominacion) + '</strong></li>';
+                    html += '<li><strong>' + escaparHtml(objetosActuales[i].denominacion) + '</strong>';
+                    html += '<div class="camino">' + escaparHtml(rutaCompleta + ' > ' + objetosActuales[i].denominacion) + '</div></li>';
                 }
                 html += '</ol>';
             }
