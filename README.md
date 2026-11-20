@@ -3,6 +3,17 @@
 
 Museon es una aplicación web desarrollada para administrar la información de un museo y organizar sus piezas u objetos. Permite registrar objetos, clasificarlos mediante atributos y etiquetas, ubicarlos en salas y administrar los usuarios que trabajan con el sistema.
 
+## Autores
+
+- Kevin Atencio
+- Gabriel Benítez
+- Joaquín García
+- Sebastián Zalazar
+
+## Contexto académico
+
+Museon fue desarrollado con fines educativos para el **Instituto Superior Gaspar L. Benavento**, en el marco de la **Tecnicatura Superior en Análisis y Desarrollo de Software** (3.er año).
+
 ---
 
 ## 1. Tecnologías utilizadas
@@ -255,6 +266,8 @@ El archivo `museo.sql` contiene la estructura de la base de datos y crea la base
 ### Registro inicial obligatorio
 
 El SQL incluye un `INSERT` de referencia en la tabla `museos`. Este registro es necesario para que el sistema disponga de los datos básicos del museo que utiliza la interfaz.
+
+Además, el SQL incluye un `INSERT` mínimo en la tabla `salas`: una sala raíz sin sala padre (`id_pertenece` en `null`), que representa al museo como ubicación base. Este registro es necesario para poder crear el anidamiento de las demás salas, ya que todas se organizan a partir de él.
 
 Los datos incluidos son de ejemplo y pueden modificarse luego desde la base de datos según corresponda.
 

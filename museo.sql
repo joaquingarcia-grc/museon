@@ -65,6 +65,7 @@ create table `salas` (
   constraint `fk_salas_pertenece` foreign key (`id_pertenece`) references `salas` (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
  
+ insert into salas (denominacion, id_pertenece) values ('museo', null);
  
 -- atributos
 create table `atributos` (
@@ -106,7 +107,9 @@ create table `museos` (
   primary key (`id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
  
- 
+ -- minimo para el funcionamiento
+ insert into museos (denominacion) values ('museo');
+
 -- objetos
 create table `objetos` (
   `id` int(11) not null auto_increment,
