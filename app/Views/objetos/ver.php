@@ -30,7 +30,7 @@
                             <img
                                 class="object-sheet-image-preview"
                                 data-visor-abrir="0"
-                                src="<?php echo base_url('images/' . rawurlencode($galeria[0]['nombrearchivo'])); ?>"
+                                src="<?php echo base_url('objetos_multimedia/images/' . rawurlencode($galeria[0]['nombrearchivo'])); ?>"
                                 alt="Imagen de <?php echo esc($objeto['denominacion']); ?>"
                             >
                         <?php else: ?>
@@ -118,7 +118,7 @@
                         <ul class="list-unstyled mb-0">
                             <?php foreach ($archivos as $archivo): ?>
                                 <?php
-                                    $urlArchivo = base_url('file/' . rawurlencode($archivo['nombrearchivo']));
+                                    $urlArchivo = base_url('objetos_multimedia/file/' . rawurlencode($archivo['nombrearchivo']));
                                     $extension = strtolower(pathinfo($archivo['nombrearchivo'], PATHINFO_EXTENSION));
                                 ?>
                                 <li>
@@ -146,7 +146,7 @@
             </h5>
             <div class="ficha-galeria-grid">
                 <?php foreach ($galeria as $indice => $imagen): ?>
-                    <?php $url = base_url('images/' . rawurlencode($imagen['nombrearchivo'])); ?>
+                    <?php $url = base_url('objetos_multimedia/images/' . rawurlencode($imagen['nombrearchivo'])); ?>
                     <button type="button" class="ficha-galeria-item" data-src="<?php echo $url; ?>"
                             aria-label="Ver imagen <?php echo $indice + 1; ?> de <?php echo count($galeria); ?>">
                         <img src="<?php echo $url; ?>" loading="lazy"
@@ -178,7 +178,7 @@
             </h5>
             <?php foreach ($galeria as $indice => $imagen): ?>
                 <figure class="ficha-impresion-item">
-                    <img src="<?php echo base_url('images/' . rawurlencode($imagen['nombrearchivo'])); ?>" alt="">
+                    <img src="<?php echo base_url('objetos_multimedia/images/' . rawurlencode($imagen['nombrearchivo'])); ?>" alt="">
                     <figcaption>
                         Imagen <?php echo $indice + 1; ?> de <?php echo count($galeria); ?><?php echo $imagen['portada'] == 1 ? ' (portada)' : ''; ?>
                     </figcaption>

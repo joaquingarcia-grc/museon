@@ -493,7 +493,7 @@ class Objetos extends BaseController {
             'image/png'  => 'png',
         ];
 
-        $directorio = FCPATH . 'images';
+        $directorio = FCPATH . 'objetos_multimedia/images';
         if (!is_dir($directorio)) {
             mkdir($directorio, 0755, true);
         }
@@ -545,7 +545,7 @@ class Objetos extends BaseController {
             'doc'  => ["\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1", "PK\x03\x04", '{\rtf'],
         ];
 
-        $directorio = FCPATH . 'file';
+        $directorio = FCPATH . 'objetos_multimedia/file';
         if (!is_dir($directorio)) {
             mkdir($directorio, 0755, true);
         }

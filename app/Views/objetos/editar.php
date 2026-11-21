@@ -47,7 +47,7 @@
                                     <?php foreach ($galeria as $imagen): ?>
                                         <div class="col-6 col-md-3 text-center imagen-actual">
                                             <div class="imagen-pieza">
-                                                <img class="img-thumbnail" src="<?php echo base_url('images/' . rawurlencode($imagen['nombrearchivo'])); ?>" alt="Imagen de la pieza">
+                                                <img class="img-thumbnail" src="<?php echo base_url('objetos_multimedia/images/' . rawurlencode($imagen['nombrearchivo'])); ?>" alt="Imagen de la pieza">
                                                 <button type="button" class="imagen-pieza-quitar" data-id="<?php echo $imagen['id']; ?>" title="Quitar imagen" aria-label="Quitar imagen">&times;</button>
                                             </div>
                                             <label class="d-block mt-1">
@@ -68,7 +68,7 @@
                                 <ul class="list-group mb-2">
                                     <?php foreach ($archivos as $archivo): ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-center archivo-actual">
-                                            <a href="<?php echo base_url('file/' . rawurlencode($archivo['nombrearchivo'])); ?>" target="_blank" rel="noopener">
+                                            <a href="<?php echo base_url('objetos_multimedia/file/' . rawurlencode($archivo['nombrearchivo'])); ?>" target="_blank" rel="noopener">
                                                 <?php echo esc($archivo['nombreoriginal']); ?>
                                             </a>
                                             <button type="button" class="btn btn-sm btn-outline-danger archivo-pieza-quitar"
