@@ -83,11 +83,11 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="denominacion" class="form-label">Denominacion</label>
+                    <label for="denominacion" class="form-label">Denominación</label>
                     <input type="text" class="form-control" id="denominacion" name='denominacion'>
                 </div>
                 <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <label for="descripcion" class="form-label">Descripción</label>
                     <textarea class="form-control" id="descripcion" name='descripcion' rows="3"></textarea>
                 </div>
             </div>
@@ -109,11 +109,11 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="denominacionEditar" class="form-label">Denominacion</label>
+                    <label for="denominacionEditar" class="form-label">Denominación</label>
                     <input type="text" class="form-control" id="denominacionEditar" name='denominacionEditar'>
                 </div>
                 <div class="mb-3">
-                    <label for="descripcionEditar" class="form-label">Descripcion</label>
+                    <label for="descripcionEditar" class="form-label">Descripción</label>
                     <textarea class="form-control" id="descripcionEditar" name='descripcionEditar' rows="3"></textarea>
                 </div>
             </div>
@@ -125,7 +125,7 @@
         </div>
     </div>
 </div>
-<!-- Modal para agregar un objeto a la sala seleccionada: lista los objetos que todavia no tienen ubicacion -->
+<!-- Modal para agregar un objeto a la sala seleccionada: lista los objetos que todavía no tienen ubicacion -->
 <div class="modal fade" id="modalAgregarObjeto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tituloModalAgregarObjeto" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">

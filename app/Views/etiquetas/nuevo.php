@@ -20,7 +20,7 @@
                     <form id="formularioET" method="post">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="denominacion">Denominacion</label>
+                                <label for="denominacion">Denominación</label>
                                 <input class="form-control" type="text" placeholder="" id="denominacion" name="denominacion" aria-label="default input example" autofocus>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Esta seguro que desea guardar los datos?
+        ¿Está seguro que desea guardar los datos?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

@@ -85,7 +85,7 @@ class Objetos extends BaseController {
         $permisos = $this->sesion->get('permisos');
         
         if (!in_array('b', $permisos['objeto'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;    
         }
         $this->objetos->delete($id);
@@ -144,7 +144,7 @@ class Objetos extends BaseController {
         $permisos = $this->sesion->get('permisos');
         
         if (!in_array('a', $permisos['objeto'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;    
         }
 
@@ -154,7 +154,7 @@ class Objetos extends BaseController {
         $descripcion = trim($this->request->getPost('descripcion'));
         
         if (empty($denominacion) || empty($codigo)){
-            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacíos']);
             exit;
         }
 
@@ -171,7 +171,7 @@ class Objetos extends BaseController {
             ];
         } else{
             if (($datoObjeto['fecha_baja'])) {
-                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recupérelo']);
             }
             exit;
         }
@@ -295,7 +295,7 @@ class Objetos extends BaseController {
         $permisos = $this->sesion->get('permisos');
         
         if (!in_array('m', $permisos['objeto'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;    
         }
 
@@ -310,7 +310,7 @@ class Objetos extends BaseController {
         $datoObjeto = $this->objetos->onlyDeleted()->where('denominacion', $denominacion)->where('id !=', $id)->first();
 
         if (!empty($datoObjeto)){
-            echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+            echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recupérelo']);
             exit;
         }
 
@@ -429,7 +429,7 @@ class Objetos extends BaseController {
         $permisos = $this->sesion->get('permisos');
         
         if (!in_array('b', $permisos['objeto'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;    
         }
         $objeto = $this->objetos->withDeleted()->find($id);

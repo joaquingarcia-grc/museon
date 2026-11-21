@@ -51,14 +51,14 @@ class Salas extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene permiso de alta no guardo nada
         if (!in_array('a', $permisos['sala'])){
-            return $this->response->setStatusCode(400)->setJSON(['mensaje'=>'Usted no tiene la autorizaciòn']);
+            return $this->response->setStatusCode(400)->setJSON(['mensaje'=>'Usted no tiene la autorización']);
         }
         $denominacion = trim($this->request->getPost('denominacion'));
         $descripcion = trim($this->request->getPost('descripcion'));
         $id_pertenece = $this->request->getPost('id_pertenece');
         // si no escriben denominacion no guardo nada
         if(empty($denominacion)){
-            return $this->response->setStatusCode(400)->setJSON(['mensaje'=>'Falta la denominacion']);
+            return $this->response->setStatusCode(400)->setJSON(['mensaje'=>'Falta la denominación']);
         }
         // busco si ya existe una con ese nombre (tambien en la papelera)
         $datoSala = $this->salas->where('denominacion', $denominacion)->withDeleted()->first();
@@ -66,7 +66,7 @@ class Salas extends BaseController{
             if(empty($datoSala['fecha_baja'])){
                 return $this->response->setStatusCode(400)->setJSON(['papelera'=>false, 'mensaje'=>'Dato existente']);
             }else{
-                return $this->response->setStatusCode(400)->setJSON(['papelera'=>true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+                return $this->response->setStatusCode(400)->setJSON(['papelera'=>true, 'mensaje'=>'Dato existente en la papelera, recupérelo']);
             }
         }
         // si no eligen ubicacion queda colgada del museo (id 1)
@@ -93,13 +93,13 @@ class Salas extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene permiso de modificar corto aca
         if (!in_array('m', $permisos['sala'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         $denominacion = trim($this->request->getPost('denominacion'));
         $descripcion = trim($this->request->getPost('descripcion'));
         if (empty($denominacion)) {
-            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacíos']);
             exit;
         }
         // busco si existe OTRA sala (id distinto) con el mismo nombre
@@ -108,7 +108,7 @@ class Salas extends BaseController{
             if(empty($datoSala['fecha_baja'])){
                 echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
-                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recupérelo']);
             }
             exit;
         }
@@ -130,7 +130,7 @@ class Salas extends BaseController{
         if (!in_array('b', $permisos['sala'])){
             return $this->response->setStatusCode(400)->setJSON([
                 'exito' => false,
-                'mensaje' => 'Usted no tiene la autorizaciòn'
+                'mensaje' => 'Usted no tiene la autorización'
             ]);
         }
         // cuento lo que tiene adentro esta sala
@@ -139,7 +139,7 @@ class Salas extends BaseController{
         if($cantidad > 0){
             return $this->response->setStatusCode(400)->setJSON([
                 'exito' => false,
-                'mensaje' => 'Primero tenes que borrar lo que hay adentro de esta ubicación para poder borrarla'
+                'mensaje' => 'Primero tenés que borrar lo que hay adentro de esta ubicación para poder borrarla'
             ]);
         }
         $this->salas->delete($id);
@@ -174,7 +174,7 @@ class Salas extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // recuperar usa el mismo permiso que borrar
         if (!in_array('b', $permisos['sala'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         $sala = $this->salas->withDeleted()->find($id);
@@ -192,7 +192,7 @@ class Salas extends BaseController{
         if (!empty($sala['id_pertenece'])){
             $padre = $this->salas->find($sala['id_pertenece']);
             if (!$padre){
-                echo json_encode(['exito' => false, 'mensaje' => 'La ubicación donde estaba esta en la papelera, recuperala primero']);
+                echo json_encode(['exito' => false, 'mensaje' => 'La ubicación donde estaba está en la papelera, recupérela primero']);
                 exit;
             }
         }
@@ -212,7 +212,7 @@ class Salas extends BaseController{
         $objetos = $this->objetos->where('id_ubicacion', $id)->orderBy('denominacion', 'asc')->findAll();
         return $this->response->setJSON(['sala'=>$sala, 'hijas'=>$hijas, 'objetos'=>$objetos]);
     }
-    // trae los objetos que todavia no estan en ninguna sala (id_ubicacion en null)
+    // trae los objetos que todavía no estan en ninguna sala (id_ubicacion en null)
     public function objetosLibres(){
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
@@ -230,7 +230,7 @@ class Salas extends BaseController{
         if (!in_array('a', $permisos['sala'])){
             return $this->response->setStatusCode(400)->setJSON([
                 'exito' => false,
-                'mensaje' => 'Usted no tiene la autorizaciòn'
+                'mensaje' => 'Usted no tiene la autorización'
             ]);
         }
         $id_objeto = $this->request->getPost('id_objeto');
@@ -266,7 +266,7 @@ class Salas extends BaseController{
         if (!in_array('b', $permisos['sala'])){
             return $this->response->setStatusCode(400)->setJSON([
                 'exito' => false,
-                'mensaje' => 'Usted no tiene la autorizaciòn'
+                'mensaje' => 'Usted no tiene la autorización'
             ]);
         }
         // me fijo que el objeto exista

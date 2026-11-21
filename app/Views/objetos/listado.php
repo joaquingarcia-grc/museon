@@ -9,7 +9,7 @@
         <?php if (in_array('a', $permisos['objeto'] ?? [])): ?> 
         <div class='col text-right'>
             <a class="btn btn-outline-success" href="<?php echo base_url();?>objetos/nuevo">
-                Nuevo piezas <i class="bi bi-box-seam-fill"></i>
+                Nueva Pieza <i class="bi bi-box-seam-fill"></i>
             </a>
         </div>
         <?php endif; ?>
@@ -28,8 +28,8 @@
                 <tr>
                     <th class='text-center'>ID</th>
                     <th class='text-center'>Código</th>
-                    <th class='text-center'>Denominacion</th>
-                    <th class='text-center'>Descripcion</th>
+                    <th class='text-center'>Denominación</th>
+                    <th class='text-center'>Descripción</th>
                     <th class='text-center'>Cargado por</th>
                     <th class='text-center'>Fecha alta</th>
                     <th class='text-center'>Acciones</th>
@@ -107,11 +107,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmacion de borrado</h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmación de borrado</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ¿Segura desa borrar este dato?
+              ¿Seguro que desea borrar este dato?
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

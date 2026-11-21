@@ -15,7 +15,7 @@
                     <form action="<?php echo base_url();?>usuarios/insertar" method="post">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="denominacion">Denominacion</label>
+                                <label for="denominacion">Denominación</label>
                                 <input class="form-control" type="text" placeholder="" id="denominacion" name="denominacion" aria-label="default input example">
                             </div>
                             <div class="col-md-6">
@@ -25,7 +25,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="telefono">Telefono</label>
+                                <label for="telefono">Teléfono</label>
                                 <input class="form-control" type="text" placeholder="" id="telefono" name="telefono" aria-label="default input example">
                             </div>
                             <div class="col-md-6">

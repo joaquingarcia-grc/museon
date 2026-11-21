@@ -19,8 +19,8 @@
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
-                            <th class="text-center">Denominacion</th>
-                            <th class="text-center">Descripcion</th>
+                            <th class="text-center">Denominación</th>
+                            <th class="text-center">Descripción</th>
                             <th class="text-center">Fecha de baja</th>
                             <th class="text-center">Acciones</th>
                         </tr>

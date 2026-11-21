@@ -9,7 +9,7 @@ $(document).ready(function(){
     let hijasActuales = [];
     // los objetos que ya estan en la sala seleccionada
     let objetosActuales = [];
-    // los objetos sin ubicacion que se muestran en el modal de agregar, y el que se eligio
+    // los objetos sin ubicación que se muestran en el modal de agregar, y el que se eligio
     let objetosLibres = [];
     let objetoElegido = null;
     // la sala que estoy editando, la que estoy por borrar y la que recupero
@@ -132,12 +132,12 @@ $(document).ready(function(){
     function armarDetalle(sala, hijas, objetos){
         const detalle = $('#detalleSala');
         detalle.empty();
-        // en el museo el boton dice nueva sala, en las demas nueva ubicacion
+        // en el museo el boton dice nueva sala, en las demas nueva ubicación
         let textoBoton = '';
         if(salaActual == ID_MUSEO){
             textoBoton = 'Nueva sala';
         } else {
-            textoBoton = 'Nueva ubicacion';
+            textoBoton = 'Nueva Ubicación';
         }
         const tarjeta = $('<div class="card shadow"></div>');
         const encabezado = $('<div class="card-header d-flex justify-content-between align-items-center"></div>');
@@ -162,12 +162,12 @@ $(document).ready(function(){
         if(sala != null && sala.descripcion){
             cuerpo.append($('<p class="mb-0"></p>').text(sala.descripcion));
         } else {
-            cuerpo.append('<p class="mb-0 text-muted">Esta sala no tiene descripcion</p>');
+            cuerpo.append('<p class="mb-0 text-muted">Esta sala no tiene descripción</p>');
         }
         tarjeta.append(cuerpo);
         const lista = $('<ul class="list-group list-group-flush"></ul>');
         if(hijas.length == 0){
-            lista.append('<li class="list-group-item text-muted">Esta sala no tiene nada adentro todavia</li>');
+            lista.append('<li class="list-group-item text-muted">Esta sala no tiene nada adentro todavía</li>');
         } else {
             for(let i = 0; i < hijas.length; i++){
                 const item = $('<li class="list-group-item d-flex justify-content-between align-items-center"></li>');
@@ -177,7 +177,7 @@ $(document).ready(function(){
                 if(hijas[i].descripcion){
                     textos.append($('<small class="text-muted"></small>').text(hijas[i].descripcion));
                 } else {
-                    textos.append('<small class="text-muted">Sin descripcion</small>');
+                    textos.append('<small class="text-muted">Sin descripción</small>');
                 }
                 item.append(textos);
                 // lapiz para editar y tachito para borrar, cada uno solo si tiene el permiso
@@ -199,7 +199,7 @@ $(document).ready(function(){
             tarjeta.append('<div class="card-header border-top fw-bold">Objetos</div>');
             const listaObjetos = $('<ul class="list-group list-group-flush"></ul>');
             if(objetos.length == 0){
-                listaObjetos.append('<li class="list-group-item text-muted">Esta sala no tiene objetos todavia</li>');
+                listaObjetos.append('<li class="list-group-item text-muted">Esta sala no tiene objetos todavía</li>');
             } else {
                 for(let i = 0; i < objetos.length; i++){
                     const itemObjeto = $('<li class="list-group-item d-flex justify-content-between align-items-center"></li>');
@@ -209,7 +209,7 @@ $(document).ready(function(){
                     // uso .text() para que lo que venga de la base no se interprete como html
                     textosObjeto.append($('<span></span>').text(objetos[i].denominacion));
                     itemObjeto.append(textosObjeto);
-                    // botoncito para sacar el objeto de la sala (queda sin ubicacion), el id va en el data-id
+                    // botoncito para sacar el objeto de la sala (queda sin ubicación), el id va en el data-id
                     if(permiso_SAL.includes('b')){
                         itemObjeto.append('<button type="button" class="btn btn-sm btn-outline-danger" id="btnQuitarObjeto" data-id="' + objetos[i].id + '" title="Sacar de esta sala"><i class="bi bi-x-lg"></i></button>');
                     }
@@ -250,7 +250,7 @@ $(document).ready(function(){
             }
         });
     }
-    // dibuja en el modal la lista de objetos sin ubicacion, filtrando por lo que se escribio en el buscador
+    // dibuja en el modal la lista de objetos sin ubicación, filtrando por lo que se escribio en el buscador
     function dibujarObjetosLibres(filtro){
         const lista = $('#listaObjetosLibres');
         lista.empty();
@@ -284,14 +284,14 @@ $(document).ready(function(){
             }
         }
         if(cantidad == 0){
-            lista.append('<div class="list-group-item text-muted">No hay objetos sin ubicacion</div>');
+            lista.append('<div class="list-group-item text-muted">No hay objetos sin ubicación</div>');
         }
     }
     // arma la hoja de ruta de la sala seleccionada en otra ventana y abre la impresion
     function imprimirHojaDeRuta(){
         const ventana = window.open('', '_blank');
         if(ventana == null){
-            mensajes('El navegador bloqueo la ventana de impresion', 'warning');
+            mensajes('El navegador bloqueó la ventana de impresión', 'warning');
             return;
         }
         const fecha = new Date().toLocaleDateString('es-AR');
@@ -299,7 +299,7 @@ $(document).ready(function(){
         if(datosSalaActual != null && datosSalaActual.descripcion){
             descripcionSala = escaparHtml(datosSalaActual.descripcion);
         } else {
-            descripcionSala = 'Sin descripcion';
+            descripcionSala = 'Sin descripción';
         }
         // la ruta completa de la sala, desde el museo hasta la sala seleccionada
         const rutaCompleta = armarRutaCompleta(salaActual);
@@ -319,13 +319,13 @@ $(document).ready(function(){
         html += '<h1>Hoja de ruta</h1>';
         html += '<h3>' + escaparHtml(nombreSalaActual) + ' - ' + fecha + '</h3>';
         // la ruta para llegar a la sala
-        html += '<p class="ruta">Ubicacion: ' + escaparHtml(rutaCompleta) + '</p>';
+        html += '<p class="ruta">Ubicación: ' + escaparHtml(rutaCompleta) + '</p>';
         html += '<p>' + descripcionSala + '</p>';
         html += '<hr>';
         // las salas que hay adentro, van con su propio titulo para que no se mezclen con los objetos
         html += '<h4>Ubicaciones</h4>';
         if(hijasActuales.length == 0){
-            html += '<p>Esta sala no tiene ubicaciones adentro todavia</p>';
+            html += '<p>Esta sala no tiene ubicaciones dentro todavía</p>';
         } else {
             html += '<ol>';
             for(let i = 0; i < hijasActuales.length; i++){
@@ -333,7 +333,7 @@ $(document).ready(function(){
                 if(hijasActuales[i].descripcion){
                     descripcionHija = escaparHtml(hijasActuales[i].descripcion);
                 } else {
-                    descripcionHija = 'Sin descripcion';
+                    descripcionHija = 'Sin descripción';
                 }
                 html += '<li><strong>' + escaparHtml(hijasActuales[i].denominacion) + '</strong>';
                 html += '<div class="desc">' + descripcionHija + '</div></li>';
@@ -345,7 +345,7 @@ $(document).ready(function(){
         if(salaActual != ID_MUSEO){
             html += '<h4>Objetos</h4>';
             if(objetosActuales.length == 0){
-                html += '<p>Esta sala no tiene objetos todavia</p>';
+                html += '<p>Esta sala no tiene objetos todavía</p>';
             } else {
                 html += '<ol>';
                 for(let i = 0; i < objetosActuales.length; i++){
@@ -378,7 +378,7 @@ $(document).ready(function(){
                     if(sala.descripcion){
                         descripcion = escaparHtml(sala.descripcion);
                     } else {
-                        descripcion = 'Sin descripcion';
+                        descripcion = 'Sin descripción';
                     }
                     // el boton de recuperar solo aparece si tiene permiso de borrar
                     let boton = '';
@@ -413,24 +413,24 @@ $(document).ready(function(){
                             buttons: [ 
                                 {   
                                     extend: 'excelHtml5',
-                                    text:'excel',
-                                    titleAttr:'formato exel'
+                                    text:'Excel',
+                                    titleAttr:'Formato Excel'
                                 },{ 
                                     extend: 'pdfHtml5',
-                                    text:'pdf',
-                                    titleAttr:'formato pdf'
+                                    text:'PDF',
+                                    titleAttr:'Formato PDF'
                                 },{
                                     extend: 'copyHtml5',
-                                    text:'copiar',
-                                    titleAttr:'formato texto plano'
+                                    text:'Copiar',
+                                    titleAttr:'Formato texto plano'
                                 },{
                                     extend: 'csvHtml5',
-                                    text:'csv',
-                                    titleAttr:'formato planilla'
+                                    text:'CSV',
+                                    titleAttr:'Formato planilla'
                                 },{
                                     extend: 'print',
-                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
-                                    titleAttr: 'imprimir tabla'
+                                    text: 'Imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'Imprimir tabla'
                                 }]
                         }
                     },
@@ -484,16 +484,16 @@ $(document).ready(function(){
         const denominacion = $(this).find('span').text();
         traerHijas(idSala, denominacion);
     });
-    // boton nueva sala / nueva ubicacion: abre el modal, el titulo dice en cual sala va a quedar
+    // boton nueva sala / nueva ubicación: abre el modal, el titulo dice en cual sala va a quedar
     $('#detalleSala').on('click', '#btnAgregarUbicacion', function(){
         if(salaActual == ID_MUSEO){
             $('#tituloModalSala').text('Nueva sala en ' + nombreSalaActual);
         } else {
-            $('#tituloModalSala').text('Nueva ubicacion en ' + nombreSalaActual);
+            $('#tituloModalSala').text('Nueva Ubicación en ' + nombreSalaActual);
         }
         $('#modalSala').modal('show');
     });
-    // boton agregar objeto: trae los objetos sin ubicacion y abre el modal para elegir uno
+    // boton agregar objeto: trae los objetos sin ubicación y abre el modal para elegir uno
     $('#detalleSala').on('click', '#btnAgregarObjeto', function(){
         $('#tituloModalAgregarObjeto').text('Agregar objeto a ' + nombreSalaActual);
         objetoElegido = null;
@@ -530,7 +530,7 @@ $(document).ready(function(){
     // guardar: le asigno a ese objeto la sala en la que estoy parado
     $('#btnGuardarAsignacion').on('click', function(){
         if(objetoElegido == null){
-            mensajes('Elegi un objeto de la lista', 'warning');
+            mensajes('Elegí un objeto de la lista', 'warning');
             return;
         }
         const dato = {
@@ -620,7 +620,7 @@ $(document).ready(function(){
         for(let i = 0; i < hijasActuales.length; i++){
             if(hijasActuales[i].id == idSala){
                 idABorrar = idSala;
-                $('#textoBorrarSala').text('Seguro que queres borrar "' + hijasActuales[i].denominacion + '"?');
+                $('#textoBorrarSala').text('¿Seguro que querés borrar "' + hijasActuales[i].denominacion + '"?');
                 $('#modalBorrarSala').modal('show');
             }
         }

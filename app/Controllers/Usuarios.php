@@ -61,7 +61,7 @@ class Usuarios extends BaseController{
             exit;
         }else{
             // No tiene permiso: respondemos error
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }  
     } 
@@ -102,7 +102,7 @@ class Usuarios extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // Si no tiene el permiso 'a' (agregar) respondemos error y cortamos
         if (!in_array('a', $permisos['usuario'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;    
         }
         // Tomamos los datos del POST y les quitamos espacios; denominación en minúsculas
@@ -158,7 +158,7 @@ class Usuarios extends BaseController{
                 echo json_encode(['exito' => false, 'papelera' => false, 'mensaje' => 'Usuario existente']);                
             }else{
                 //Está en la papelera
-                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Usuario existente en la papelera, recuperelo']);
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Usuario existente en la papelera, recupérelo']);
             }
             exit;
         }
@@ -204,7 +204,7 @@ class Usuarios extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // Si no tiene el permiso 'm' (modificar) respondemos error y cortamos
         if (!in_array('m', $permisos['usuario'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;    
         }
         // Tomamos los datos del POST y les quitamos espacios; denominación en minúsculas
@@ -259,7 +259,7 @@ class Usuarios extends BaseController{
                 echo json_encode(['exito' => false, 'papelera' => false, 'mensaje' => 'Usuario existente']);                
             }else{
                 //Papelera
-                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Usuario existente en la papelera, recuperelo']);
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Usuario existente en la papelera, recupérelo']);
             }
             exit;
         }

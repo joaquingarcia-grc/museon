@@ -17,10 +17,10 @@
         <table class='table-secondary table-striped' id="tablaUSRPapelera">
             <thead>
                 <tr>
-                    <th class='text-center'>id</th>
-                    <th class='text-center'>Denominacion</th>
+                    <th class='text-center'>ID</th>
+                    <th class='text-center'>Denominación</th>
                     <th class='text-center'>Correo</th>
-                    <th class='text-center'>fecha de borrado</th>
+                    <th class='text-center'>Fecha de borrado</th>
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
