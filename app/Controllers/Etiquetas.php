@@ -57,7 +57,7 @@ class Etiquetas extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene el permiso 'b' (borrar) cortamos y devolvemos el error en json
         if (!in_array('b', $permisos['etiqueta'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         // borramos la etiqueta (como el modelo tiene soft delete solo le pone la fecha_baja)
@@ -107,14 +107,14 @@ class Etiquetas extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene el permiso 'a' (alta) cortamos con el error en json
         if (!in_array('a', $permisos['etiqueta'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         // agarramos la denominacion del post, en minuscula y sin espacios de mas
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         // revisamos que no venga vacia
         if (empty($denominacion)) {
-            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacíos']);
             exit;
         }
         // buscamos si ya existe esa denominacion (tambien entre las borradas)
@@ -142,7 +142,7 @@ class Etiquetas extends BaseController{
                 echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
                 // existe pero esta en la papelera, avisamos para que la recupere
-                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recupérelo']);
             }exit;
         }return redirect()->to(base_url() . 'etiquetas');
     }
@@ -181,14 +181,14 @@ class Etiquetas extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene el permiso 'm' (modificar) cortamos con el error en json
         if (!in_array('m', $permisos['etiqueta'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         // agarramos la denominacion del post, en minuscula y sin espacios de mas
         $denominacion = strtolower(trim($this->request->getPost('denominacion')));
         // revisamos que no venga vacia
         if (empty($denominacion)) {
-            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacíos']);
             exit;}
         // Busca si existe OTRO registro (id distinto) con la misma denominación
         $datoEtiqueta = $this->etiquetas->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
@@ -213,7 +213,7 @@ class Etiquetas extends BaseController{
                 echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
                 // existe pero esta en la papelera, avisamos para que la recupere
-                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recupérelo']);
             }exit;
         }return redirect()->to(base_url() . 'etiquetas');
     }
@@ -250,7 +250,7 @@ class Etiquetas extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene el permiso 'b' (borrar) cortamos con el error en json
         if (!in_array('b', $permisos['etiqueta'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         // traemos la etiqueta borrada y despues buscamos si hay una activa con la misma denominacion
@@ -270,7 +270,7 @@ class Etiquetas extends BaseController{
                 'id_dato'    => $id,
                 'accion'     => 'r'
             ]);
-            echo json_encode(['exito' => true   , 'id' => $id, 'mensaje' => 'Se actualizo correctamente']);
+            echo json_encode(['exito' => true   , 'id' => $id, 'mensaje' => 'Se actualizó correctamente']);
             exit;
         }
     }

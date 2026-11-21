@@ -57,7 +57,7 @@ class Atributos extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene el permiso 'b' (borrar) cortamos y devolvemos el error en json
         if (!in_array('b', $permisos['atributo'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         // borramos el atributo (como el modelo tiene soft delete solo le pone la fecha_baja)
@@ -107,7 +107,7 @@ class Atributos extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene el permiso 'a' (alta) cortamos con el error en json
         if (!in_array('a', $permisos['atributo'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         //convertimos los datos que resivimos por post en las variables locales para poder trabajar
@@ -117,7 +117,7 @@ class Atributos extends BaseController{
         $unidad = trim($this->request->getPost('unidad'));
         //revisemson de no recibir vacios
         if (empty($denominacion) || empty($tipo_dato)){
-            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacíos']);
             exit;
         }
         // buscamos si ya existe esa denominacion (tambien entre los borrados)
@@ -148,7 +148,7 @@ class Atributos extends BaseController{
                 echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
                 // existe pero esta en la papelera, avisamos para que lo recupere
-                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recupérelo']);
             }
             exit;
         }
@@ -188,7 +188,7 @@ class Atributos extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene el permiso 'm' (modificar) cortamos con el error en json
         if (!in_array('m', $permisos['atributo'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         // agarramos los datos del post, en minuscula y sin espacios de mas
@@ -197,7 +197,7 @@ class Atributos extends BaseController{
         $unidad = trim($this->request->getPost('unidad'));
         // revisamos que no vengan vacios
         if (empty($denominacion)  || empty($tipoDato) ) {
-            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacios']);
+            echo json_encode(['exito' => false, 'mensaje' => ' Campos vacíos']);
             exit;
         }
         // Busca si existe OTRO registro (id distinto) con la misma denominación
@@ -226,7 +226,7 @@ class Atributos extends BaseController{
                 echo json_encode(['exito' => false,'papelera' => false, 'mensaje'=>'Dato existente']);
             }else{
                 // existe pero esta en la papelera, avisamos para que lo recupere
-                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recuperelo']);
+                echo json_encode(['exito' => false,'papelera'=> true, 'mensaje'=>'Dato existente en la papelera, recupérelo']);
             }
             exit;
         }
@@ -264,7 +264,7 @@ class Atributos extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // si no tiene el permiso 'b' (borrar) cortamos con el error en json
         if (!in_array('b', $permisos['atributo'])){
-            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorizaciòn']);
+            echo json_encode(['exito' => false, 'mensaje' => 'Usted no tiene la autorización']);
             exit;
         }
         // traemos el atributo borrado y despues buscamos si hay uno activo con la misma denominacion

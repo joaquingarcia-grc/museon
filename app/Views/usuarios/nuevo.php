@@ -27,7 +27,7 @@
                     <form id='formularioUSR' method="post">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="denominacion">Denominacion *</label>
+                                <label for="denominacion">Denominación *</label>
                                 <input class="form-control" type="text" placeholder="" id="denominacion" name="denominacion" aria-label="default input example" required>
                             </div>
                             <div class="col-md-6">
@@ -37,13 +37,13 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="telefono">Telefono</label>
+                                <label for="telefono">Teléfono</label>
                                 <input class="form-control" type="text" placeholder="" id="telefono" name="telefono" aria-label="default input example">
                             </div>
                             <div class="col-md-6">
                                 <label for="password" class="form-label">Contraseña *</label>
                                 <input type="password" class="form-control" name="password" id='password' placeholder="••••••••" required>
-                                <div class="form-text">Mínimo 8 caracteres y un caracter especial.</div>
+                                <div class="form-text">Mínimo 8 caracteres y un carácter especial.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -127,7 +127,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Esta seguro que desea guardar los datos?
+        ¿Está seguro que desea guardar los datos?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

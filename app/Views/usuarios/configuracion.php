@@ -15,7 +15,7 @@
                     <form id="formConfiguracion" method="post">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="denominacion">Denominacion</label>
+                                <label for="denominacion">Denominación</label>
                                 <input class="form-control" type="text" placeholder="" 
                                 id="denominacion" name="denominacion" 
                                 value="<?php echo($usuarios['denominacion']); ?>"
@@ -30,7 +30,7 @@
                         </div>         
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="telefono">Telefono</label>
+                                <label for="telefono">Teléfono</label>
                                 <input class="form-control" type="text" placeholder="" 
                                 id="telefono" name="telefono" 
                                 value="<?php echo($usuarios['telefono']); ?>"
@@ -40,7 +40,7 @@
                                 <label for="password" class="form-label">Contraseña</label>
                                 <input type="password" class="form-control" id='password' name="password" placeholder="••••••••">
                                 <div class="form-text">Dejar vacío para mantener la actual.</div>
-                                <div class="form-text">Si la cambiás: mínimo 8 caracteres y un caracter especial (# ! * @ $ % & ? ¿).</div>
+                                <div class="form-text">Si la cambiás: mínimo 8 caracteres y un carácter especial (# ! * @ $ % & ? ¿).</div>
                             </div>
                         </div>
                         <div>

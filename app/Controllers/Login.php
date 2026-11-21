@@ -73,7 +73,7 @@ class Login extends BaseController{
                 echo json_encode(['exito' => true, 'mensaje' => 'Bienvenido','redirigir' => base_url($url)]);
                 exit;              
             }else{
-                echo json_encode(['exito' => false, 'mensaje' => 'Credecial incorrecta']);
+                echo json_encode(['exito' => false, 'mensaje' => 'Credencial incorrecta']);
                 exit;
             }   
         }else{

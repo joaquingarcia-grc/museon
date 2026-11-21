@@ -167,24 +167,24 @@ $(document).ready(function(){
                     buttons: [
                         {
                             extend: 'excelHtml5',
-                            text: 'excel',
-                            titleAttr: 'formato exel'
+                            text: 'Excel',
+                            titleAttr: 'Formato Excel'
                         }, {
                             extend: 'pdfHtml5',
-                            text: 'pdf',
-                            titleAttr: 'formato pdf'
+                            text: 'PDF',
+                            titleAttr: 'Formato PDF'
                         }, {
                             extend: 'copyHtml5',
-                            text: 'copiar',
-                            titleAttr: 'formato texto plano'
+                            text: 'Copiar',
+                            titleAttr: 'Formato texto plano'
                         }, {
                             extend: 'csvHtml5',
-                            text: 'csv',
-                            titleAttr: 'formato planilla'
+                            text: 'CSV',
+                            titleAttr: 'Formato planilla'
                         }, {
                             extend: 'print',
-                            text: 'imprimir <i class="bi bi-printer-fill"></i>',
-                            titleAttr: 'imprimir tabla'
+                            text: 'Imprimir <i class="bi bi-printer-fill"></i>',
+                            titleAttr: 'Imprimir tabla'
                         }, {
                             text: 'Papelera <i class="bi bi-trash2-fill"></i>',
                             titleAttr: 'Papelera',
@@ -231,7 +231,7 @@ $(document).ready(function(){
             success: function(response){
                 if (response.exito){
                     //guardo el mensaje del servidor para mostrarlo ya estando en la ruta objetos
-                    sessionStorage.setItem('mensajeOBJ', "Pieza guardado con ID: " + response.id + response.mensaje);
+                    sessionStorage.setItem('mensajeOBJ', "Pieza guardada con ID: " + response.id + response.mensaje);
                     $('#formularioOBJ')[0].reset();
                     window.location.href = BASE + 'objetos';//dirije a la vista objetos al toque, sin esperar
                 }else if (response.papelera){
@@ -361,24 +361,24 @@ $(document).ready(function(){
                             buttons: [ 
                                 {   
                                     extend: 'excelHtml5',
-                                    text:'excel',
-                                    titleAttr:'formato exel'
+                                    text:'Excel',
+                                    titleAttr:'Formato Excel'
                                 },{ 
                                     extend: 'pdfHtml5',
-                                    text:'pdf',
-                                    titleAttr:'formato pdf'
+                                    text:'PDF',
+                                    titleAttr:'Formato PDF'
                                 },{
                                     extend: 'copyHtml5',
-                                    text:'copiar',
-                                    titleAttr:'formato texto plano'
+                                    text:'Copiar',
+                                    titleAttr:'Formato texto plano'
                                 },{
                                     extend: 'csvHtml5',
-                                    text:'csv',
-                                    titleAttr:'formato planilla'
+                                    text:'CSV',
+                                    titleAttr:'Formato planilla'
                                 },{
                                     extend: 'print',
-                                    text: 'imprimir <i class="bi bi-printer-fill"></i>',
-                                    titleAttr: 'imprimir tabla'
+                                    text: 'Imprimir <i class="bi bi-printer-fill"></i>',
+                                    titleAttr: 'Imprimir tabla'
                                 }]
                         }
                     },

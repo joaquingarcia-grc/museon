@@ -20,7 +20,7 @@
                     <form data-id="<?php echo $atributos['id'];?>" id="ATBactualizar" method="post">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="denominacion">Denominacion</label>
+                                <label for="denominacion">Denominación</label>
                                 <input class="form-control" type="text" placeholder="" 
                                 id="denominacion" name="denominacion" 
                                 value="<?php echo($atributos['denominacion']); ?>"
