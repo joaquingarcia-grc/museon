@@ -24,7 +24,7 @@
             <tr>
                 <td class="bg-light fw-bold" style="width: 35%;">Responsable</td>
                 <td><?php echo $objeto['cargado_por']; ?></td>
-                <td class="object-sheet-image-cell" rowspan="6">
+                <td class="object-sheet-image-cell" rowspan="7">
                     <div class="object-sheet-image-dropzone">
                         <?php if (!empty($galeria)): ?>
                             <img
@@ -61,6 +61,13 @@
                 <td class="bg-light fw-bold">Descripción</td>
                 <td style="text-align: justify;">
                     <?php echo $objeto['descripcion'] ? $objeto['descripcion'] : '-'; ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="bg-light fw-bold">Ubicación física</td>
+                <td>
+                    <?php echo $ubicacion ? esc($ubicacion['denominacion']) : 'Sin ubicación'; ?>
+                    <?php if ($ubicacion && !empty($ubicacion['fecha_baja'])): ?> (en la papelera)<?php endif; ?>
                 </td>
             </tr>
             <tr>

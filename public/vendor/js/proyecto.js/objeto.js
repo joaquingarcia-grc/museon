@@ -236,19 +236,13 @@ $(document).ready(function(){
                     window.location.href = BASE + 'objetos';//dirije a la vista objetos al toque, sin esperar
                 }else if (response.papelera){
                     mensajes('Aviso: ' + response.mensaje, 'warning');
-                    $('#formularioOBJ')[0].reset();
                 }else{
                     mensajes('Error: ' + response.mensaje, 'error');
-                    $('#formularioOBJ')[0].reset();
                 }
             },
             error: function() {
                 mensajes('Error en el servidor', 'error');
-                $('#formularioOBJ')[0].reset();
-            },
-            complete: function(){
-                $('#formularioOBJ')[0].reset();
-            } 
+            }
         });
     });
 //---------------------------------------------------------------------------------------------------//

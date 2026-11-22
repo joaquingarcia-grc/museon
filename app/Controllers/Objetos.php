@@ -13,6 +13,7 @@ use App\Models\PermisosModel;
 use App\Models\ActividadesModel;   // <-- NUEVA
 use App\Models\PiezasImagenesModel;
 use App\Models\PiezasArchivosModel;
+use App\Models\SalasModel;
 
 class Objetos extends BaseController {   
     
@@ -28,6 +29,7 @@ class Objetos extends BaseController {
     protected $piezasimagenes;
     protected $piezasarchivos;
     protected $usuarios;
+    protected $salas;
 
     public function __construct() {
     
@@ -43,6 +45,7 @@ class Objetos extends BaseController {
         $this->actividades = new ActividadesModel();   // <-- NUEVA
         $this->piezasimagenes = new PiezasImagenesModel();
         $this->piezasarchivos = new PiezasArchivosModel();
+        $this->salas = new SalasModel();
     }
 
     public function index(){
@@ -124,6 +127,7 @@ class Objetos extends BaseController {
             'museos'    => $museos,
             'etiquetas' => $etiquetas, 
             'atributos' => $atributos, 
+            'salas'     => $this->salas->where('id_pertenece IS NOT NULL')->orderBy('denominacion', 'ASC')->findAll(),
             'titulo'    => 'Formulario de objetos'
         ];
 
@@ -158,6 +162,13 @@ class Objetos extends BaseController {
             exit;
         }
 
+        $idUbicacion = $this->request->getPost('id_ubicacion');
+        $errorUbicacion = $this->validarUbicacion($idUbicacion, null, $permisos);
+        if ($errorUbicacion !== null) {
+            echo json_encode(['exito' => false, 'mensaje' => $errorUbicacion]);
+            exit;
+        }
+
         $datoObjeto = $this->objetos->where('denominacion', $denominacion)->withDeleted()->first();
 
         // 1. Guardamos el objeto principal
@@ -167,7 +178,8 @@ class Objetos extends BaseController {
                 'id_usuario'   => $id_usuario,
                 'denominacion' => $denominacion,
                 'codigo'       => $codigo,
-                'descripcion'  => $descripcion
+                'descripcion'  => $descripcion,
+                'id_ubicacion' => $idUbicacion === null || $idUbicacion === '' ? null : (int) $idUbicacion
             ];
         } else{
             if (($datoObjeto['fecha_baja'])) {
@@ -274,6 +286,8 @@ class Objetos extends BaseController {
             'atributos'              => $atributos,
             'galeria'                => $galeria,
             'archivos'               => $archivos,
+            'salas'                  => $this->salas->where('id_pertenece IS NOT NULL')->orderBy('denominacion', 'ASC')->findAll(),
+            'ubicacionActual'        => !empty($objetos['id_ubicacion']) ? $this->salas->withDeleted()->find($objetos['id_ubicacion']) : null,
             'etiquetasSeleccionadas' => $this->obtenerEtiquetasPorObjeto($id),
             'atributosSeleccionados' => $this->obtenerAtributosPorObjeto($id),
             'titulo'                 => 'Editar pieza'
@@ -307,6 +321,17 @@ class Objetos extends BaseController {
             echo json_encode(['exito' => false, 'mensaje' => 'Faltan datos obligatorios']);
             exit;
         }
+        $idUbicacion = $this->request->getPost('id_ubicacion');
+        $objetoActual = $this->objetos->find($id);
+        if (!$objetoActual) {
+            echo json_encode(['exito' => false, 'mensaje' => 'La pieza no existe']);
+            exit;
+        }
+        $errorUbicacion = $this->validarUbicacion($idUbicacion, $objetoActual['id_ubicacion'], $permisos);
+        if ($errorUbicacion !== null) {
+            echo json_encode(['exito' => false, 'mensaje' => $errorUbicacion]);
+            exit;
+        }
         $datoObjeto = $this->objetos->onlyDeleted()->where('denominacion', $denominacion)->where('id !=', $id)->first();
 
         if (!empty($datoObjeto)){
@@ -314,11 +339,15 @@ class Objetos extends BaseController {
             exit;
         }
 
-        $this->objetos->update($id,[
+        $datosActualizar = [
             'codigo' => $codigo,    
             'denominacion' => $denominacion,
             'descripcion' => $descripcion     
-        ]);
+        ];
+        if ($idUbicacion !== null) {
+            $datosActualizar['id_ubicacion'] = $idUbicacion === '' ? null : (int) $idUbicacion;
+        }
+        $this->objetos->update($id, $datosActualizar);
        
 
         $id_logueado = $this->sesion->get('id');
@@ -466,6 +495,7 @@ class Objetos extends BaseController {
         $objetosetiquetas = $this->obtenerEtiquetasPorObjeto($id);
         $galeria = $this->piezasimagenes->where('objeto_id', $id)->orderBy('portada', 'DESC')->orderBy('id', 'ASC')->findAll();
         $archivos = $this->piezasarchivos->where('objeto_id', $id)->orderBy('id', 'ASC')->findAll();
+        $ubicacion = !empty($objeto['id_ubicacion']) ? $this->salas->withDeleted()->find($objeto['id_ubicacion']) : null;
 
         $datos = [ 
             'museos'    => $museos,
@@ -475,6 +505,7 @@ class Objetos extends BaseController {
             'atributos' => $objetosatributos,
             'galeria'   => $galeria,
             'archivos'  => $archivos,
+            'ubicacion' => $ubicacion,
             'titulo'    => 'Detalle del Objeto'
         ];
         
@@ -482,6 +513,32 @@ class Objetos extends BaseController {
         echo view('objetos/ver'); // Llamamos a la nueva vista
         echo view('footer');
         
+    }
+
+    private function validarUbicacion($idUbicacion, $ubicacionActual, $permisos): ?string {
+        if ($idUbicacion === null) {
+            return null;
+        }
+        if (!is_string($idUbicacion) || ($idUbicacion !== '' && (!ctype_digit($idUbicacion) || (int) $idUbicacion < 1))) {
+            return 'La ubicación seleccionada no es válida';
+        }
+
+        $nuevaUbicacion = $idUbicacion === '' ? null : (int) $idUbicacion;
+        $ubicacionActual = $ubicacionActual === null ? null : (int) $ubicacionActual;
+        if ($nuevaUbicacion === $ubicacionActual) {
+            return null;
+        }
+        $permisoNecesario = $nuevaUbicacion === null ? 'b' : 'a';
+        if (!in_array($permisoNecesario, $permisos['sala'] ?? [], true)) {
+            return 'Usted no tiene autorización para cambiar la ubicación';
+        }
+        if ($nuevaUbicacion !== null) {
+            $sala = $this->salas->find($nuevaUbicacion);
+            if (!$sala || $sala['id_pertenece'] === null) {
+                return 'La ubicación seleccionada no existe o no está disponible';
+            }
+        }
+        return null;
     }
 
     // Guarda las imagenes que llegan en imagenes[] y devuelve cuantas fallaron y el id de cada una guardada

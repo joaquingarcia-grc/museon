@@ -41,7 +41,7 @@ Parte de las bibliotecas se carga desde CDN, por lo que el navegador necesita co
 - Alta, consulta, edición y baja lógica de objetos del museo.
 - Registro de código, denominación y descripción.
 - Asociación de atributos y etiquetas.
-- Asignación de ubicación dentro de las salas.
+- Asignación de ubicación desde el formulario de la pieza o desde las salas.
 - Visualización de la ficha identitaria del objeto.
 - Gestión de imágenes y archivos asociados a las piezas.
 - Papelera y recuperación de registros cuando la opción está disponible.

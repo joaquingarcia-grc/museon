@@ -40,6 +40,25 @@
                                 placeholder="Descripción breve" 
                                 value="<?php echo($objetos['descripcion']); ?>">
                             </div>
+                            <?php $permisosSala = session()->get('permisos')['sala'] ?? []; ?>
+                            <?php if (in_array('l', $permisosSala) && (in_array('a', $permisosSala) || in_array('b', $permisosSala))): ?>
+                                <div class="col-12 mt-3">
+                                    <label for="id_ubicacion" class="form-label fw-bold">Ubicación física</label>
+                                    <select class="form-select" id="id_ubicacion" name="id_ubicacion">
+                                        <option value="" <?php echo !empty($objetos['id_ubicacion']) && !in_array('b', $permisosSala) ? 'disabled' : ''; ?>>Sin ubicación</option>
+                                        <?php if ($ubicacionActual && (!empty($ubicacionActual['fecha_baja']) || $ubicacionActual['id_pertenece'] === null)): ?>
+                                            <option value="<?php echo esc($ubicacionActual['id'], 'attr'); ?>" selected><?php echo esc($ubicacionActual['denominacion']); ?> (no disponible)</option>
+                                        <?php endif; ?>
+                                        <?php foreach ($salas as $sala): ?>
+                                            <option value="<?php echo esc($sala['id'], 'attr'); ?>"
+                                                <?php echo $sala['id'] == $objetos['id_ubicacion'] ? 'selected' : ''; ?>
+                                                <?php echo !in_array('a', $permisosSala) && $sala['id'] != $objetos['id_ubicacion'] ? 'disabled' : ''; ?>>
+                                                <?php echo esc($sala['denominacion']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            <?php endif; ?>
                                 <div class="col-12 mt-3">
                                 <label for="imagenes" class="form-label fw-bold">Imágenes</label>
 

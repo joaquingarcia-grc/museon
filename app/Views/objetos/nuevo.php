@@ -31,6 +31,18 @@
                                 <label for="descripcion" class="form-label fw-bold">Descripción</label>
                                 <input class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Descripción breve">
                             </div>
+                            <?php $permisosSala = session()->get('permisos')['sala'] ?? []; ?>
+                            <?php if (in_array('l', $permisosSala) && in_array('a', $permisosSala)): ?>
+                                <div class="col-12 mt-3">
+                                    <label for="id_ubicacion" class="form-label fw-bold">Ubicación física</label>
+                                    <select class="form-select" id="id_ubicacion" name="id_ubicacion">
+                                        <option value="">Sin ubicación</option>
+                                        <?php foreach ($salas as $sala): ?>
+                                            <option value="<?php echo esc($sala['id'], 'attr'); ?>"><?php echo esc($sala['denominacion']); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            <?php endif; ?>
                             <div class="col-12 mt-3">
                                 <label for="imagenes" class="form-label fw-bold">Imágenes</label>
                                 <input class="form-control" type="file" id="imagenes" name="imagenes[]" accept="image/jpeg,image/png" multiple>

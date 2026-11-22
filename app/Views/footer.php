@@ -32,7 +32,7 @@
     <!-- Bootstrap core JavaScript-->
     <script src="<?php echo base_url();?>vendor/js/jquery.min.js"></script>
     
-    <script src="vendor/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="<?php echo base_url();?>vendor/js/jquery.easing.min.js"></script>
 
