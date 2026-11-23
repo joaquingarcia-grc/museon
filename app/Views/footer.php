@@ -94,6 +94,6 @@
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/barraLateral.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/btnSalida.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/salas.js"></script>
-    <script src="<?php echo base_url();?>vendor/js/proyecto.js/actividad.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/actividad.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/actividad.js'); ?>"></script>
 </body>
 </html>

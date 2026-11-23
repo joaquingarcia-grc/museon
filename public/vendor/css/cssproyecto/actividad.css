@@ -1,0 +1,70 @@
+.selector-tipo-actividad {
+    position: relative;
+}
+
+.selector-tipo-actividad summary {
+    cursor: pointer;
+    list-style: none;
+}
+
+.selector-tipo-actividad summary::-webkit-details-marker {
+    display: none;
+}
+
+.opciones-tipo-actividad {
+    position: absolute;
+    z-index: 20;
+    top: 100%;
+    left: 0;
+    min-width: 100%;
+    width: max-content;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ayuda-actividad {
+    position: relative;
+    cursor: help;
+}
+
+.ayuda-actividad::after {
+    content: attr(data-ayuda);
+    position: absolute;
+    z-index: 10;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: min(250px, 80vw);
+    padding: 8px;
+    border-radius: 4px;
+    background: #333;
+    color: #fff;
+    font-size: 0.875rem;
+    text-align: left;
+    white-space: normal;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+#filtroTipo .ayuda-actividad {
+    position: static;
+}
+
+#filtroTipo .ayuda-actividad::after {
+    bottom: calc(100% + 6px);
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+}
+
+.ayuda-actividad:hover::after,
+.ayuda-actividad:focus::after,
+.form-check-input:hover + .ayuda-actividad::after,
+.form-check-input:focus-visible + .ayuda-actividad::after {
+    visibility: visible;
+}

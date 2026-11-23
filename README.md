@@ -69,7 +69,8 @@ Parte de las bibliotecas se carga desde CDN, por lo que el navegador necesita co
 - Control de acceso mediante roles y permisos para los módulos principales.
 
 ### Actividad y auditoría
-- Consulta de registros de actividad.
+- Consulta de actividad por tipo de registro, combinable con filtros por campo y búsqueda exacta por ID de pieza.
+- Al pasar el cursor sobre una acción o tipo de registro se muestra una breve explicación.
 - La base de datos contempla eventos de alta, baja, modificación y recuperación para las entidades auditadas.
 
 ### Copias de seguridad
