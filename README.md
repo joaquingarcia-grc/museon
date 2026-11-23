@@ -66,6 +66,7 @@ Parte de las bibliotecas se carga desde CDN, por lo que el navegador necesita co
 - Administración de usuarios: alta, listado, edición y baja lógica.
 - Configuración de los datos del usuario que inició sesión.
 - Posibilidad de actualizar la contraseña desde la configuración personal.
+- Opción para mostrar u ocultar la contraseña al iniciar sesión y al crear un usuario.
 - Control de acceso mediante roles y permisos para los módulos principales.
 
 ### Actividad y auditoría

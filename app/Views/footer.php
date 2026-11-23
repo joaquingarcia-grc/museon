@@ -89,6 +89,7 @@
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/usuarios.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/contrasenia.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/contrasenia.js'); ?>"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/buscador.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/objeto.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/barraLateral.js"></script>

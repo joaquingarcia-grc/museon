@@ -42,7 +42,12 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="password" class="form-label">Contraseña *</label>
-                                <input type="password" class="form-control" name="password" id='password' placeholder="••••••••" required>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="password" id='password' placeholder="••••••••" required>
+                                    <button type="button" class="btn btn-outline-secondary" data-mostrar-contrasena aria-controls="password" aria-label="Mostrar contraseña" title="Mostrar contraseña" aria-pressed="false">
+                                        <i class="bi bi-eye" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                                 <div class="form-text">Mínimo 8 caracteres y un carácter especial.</div>
                             </div>
                         </div>

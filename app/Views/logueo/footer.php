@@ -7,5 +7,6 @@
     </script>
     <!-- Archivo JS propio -->
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/logins.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/contrasenia.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/contrasenia.js'); ?>"></script>
 </body>
 </html>
