@@ -9,6 +9,7 @@ $routes->get('/usuarios', 'Usuarios::index');
 $routes->post('/usuarios/borrar/(:num)','Usuarios::borrar/$1');
 $routes->get('/usuarios/nuevo','Usuarios::nuevo');
 $routes->post('/usuarios/insertar','Usuarios::insertar');
+$routes->post('/usuarios/crear-rol','Usuarios::crearRol');
 $routes->post('/usuarios/actualizar/(:num)', 'Usuarios::actualizar/$1');
 $routes->get('/usuarios/editar/(:num)', 'Usuarios::editar/$1');
 $routes->get('/usuarios/configuracion/', 'Usuarios::configuracion/');

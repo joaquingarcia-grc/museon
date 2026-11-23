@@ -44,12 +44,12 @@ class Login extends BaseController{
         $datosUsuario = $this->usuarios->where('denominacion',$denominacion)->first();
         
         if(!empty($datosUsuario)){
-            $permisos = $this->permisos->select('objeto, etiqueta, atributo, usuario,sala')
+            $permisos = $this->permisos->select('objeto, etiqueta, atributo, usuario, sala, actividad')
                                         ->where('id_rol', $datosUsuario['id_rol'])
                                         ->first();
 
             $permisosSesionTabla = [];
-            foreach ( ['usuario', 'objeto', 'atributo', 'etiqueta','sala'] as $tabla) {
+            foreach ( ['usuario', 'objeto', 'atributo', 'etiqueta','sala', 'actividad'] as $tabla) {
                 if (!empty($permisos[$tabla])){
                     $permisosSesionTabla[$tabla] = explode(',',$permisos[$tabla]);
                 }else{
@@ -63,10 +63,15 @@ class Login extends BaseController{
                     'permisos' => $permisosSesionTabla,
                     'rol' => $datosUsuario['id_rol']
                 ];
-                if ($datosUsuario['id_rol'] == 1){
-                    $url = 'usuarios';
-                }else{
-                    $url = 'objetos';
+                $url = 'usuarios/configuracion';
+                $secciones = $datosUsuario['id_rol'] == 1
+                    ? ['usuario' => 'usuarios', 'objeto' => 'objetos', 'sala' => 'salas', 'etiqueta' => 'etiquetas', 'atributo' => 'atributos']
+                    : ['objeto' => 'objetos', 'sala' => 'salas', 'etiqueta' => 'etiquetas', 'atributo' => 'atributos', 'usuario' => 'usuarios'];
+                foreach ($secciones as $modulo => $ruta) {
+                    if (in_array('l', $permisosSesionTabla[$modulo], true)) {
+                        $url = $ruta;
+                        break;
+                    }
                 }
                 $sesion = session();
                 $sesion->set($data_sesion);

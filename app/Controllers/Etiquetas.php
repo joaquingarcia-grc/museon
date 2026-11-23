@@ -3,12 +3,10 @@ namespace App\Controllers;
 // traemos los modelos que usa el controlador
 use App\Models\EtiquetasModel;
 use App\Models\MuseosModel;
-use App\Models\PermisosModel;
 use App\Models\ActividadesModel;
 class Etiquetas extends BaseController{
     // propiedades donde guardamos la sesion y los modelos para usarlos en todas las funciones
     protected $sesion;
-    protected $permisos;
     protected $etiquetas;
     protected $museos;
     protected $actividades;
@@ -18,7 +16,6 @@ class Etiquetas extends BaseController{
         $this->sesion = session();
         $this->etiquetas = new EtiquetasModel();
         $this->museos = new MuseosModel();
-        $this->permisos = new PermisosModel();
         $this->actividades = new ActividadesModel();
     }
     // muestra el listado de etiquetas
@@ -276,17 +273,23 @@ class Etiquetas extends BaseController{
     }
     // API: devuelve en JSON los etiquetas activos, del más nuevo al más viejo
     public function api_etiquetas(){
+        if (!$this->puedeVer('etiqueta')) {
+            return $this->accesoDenegado();
+        }
         // traemos las activas ordenadas por id de mayor a menor
         $etiquetas = $this->etiquetas->orderBy('id','DESC')->findAll();
-        $datos = ['etiquetas'=>$etiquetas];
+        $datos = ['etiquetas'=>$this->ocultarFechaAlta($etiquetas, 'etiqueta')];
         // las devolvemos en json
         return $this->response->setJSON($datos);
     }
     // API: devuelve en JSON los etiquetas borrados (papelera)
     public function api_etiquetas_borrados(){
+        if (!$this->puedeVer('etiqueta')) {
+            return $this->accesoDenegado();
+        }
         // traemos solo las borradas
         $etiquetas = $this->etiquetas->onlyDeleted()->findAll();
-        $datos = ['etiquetas'=>$etiquetas];
+        $datos = ['etiquetas'=>$this->ocultarFechaAlta($etiquetas, 'etiqueta')];
         // las devolvemos en json
         return $this->response->setJSON($datos);
     }

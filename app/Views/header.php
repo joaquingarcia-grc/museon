@@ -121,8 +121,8 @@
                 </div>
             </li>
 
-            <!-- Boton para generar la copia de seguridad (solo con lectura en usuario) -->
-            <?php if (in_array('l', $permisos['usuario'] ?? [])): ?>
+            <!-- La copia de seguridad contiene todos los datos del sistema -->
+            <?php if (session()->get('rol') == 1): ?>
                 <hr class="sidebar-divider">
                 <li class="nav-item">
                     <a class="nav-link" href="#" id="btnCopiaSeguridad">
@@ -208,7 +208,7 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Configuraciones
                                 </a>
-                                <?php if (session()->get('rol') == 1): ?>
+                                <?php if (in_array('l', $permisos['actividad'] ?? [], true)): ?>
                                 <a class="dropdown-item" href="<?php echo base_url('actividad'); ?>">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Actividad

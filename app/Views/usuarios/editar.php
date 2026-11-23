@@ -50,14 +50,14 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="id_rol" class="form-label">Rol</label>
+                                <label for="rol" class="form-label">Rol</label>
                                 <select class="form-select" name="rol" id="rol" required>
                                 <?php foreach ($roles as $rol){?>
-                                    <option value="<?php echo $rol["id"];?>"
+                                    <option value="<?php echo esc($rol["id"], 'attr');?>"
                                     <?php if ($rol['id']==$usuarios['id_rol']){
                                         echo  'selected';
                                     } ?>
-                                    > <?php echo $rol["denominacion"];?></option>
+                                    > <?php echo esc($rol["denominacion"]);?></option>
                                 <?php };?>
                                 </select>
                             </div>

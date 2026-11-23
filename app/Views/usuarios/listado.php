@@ -22,7 +22,7 @@
                     <th class='text-center'>Denominación</th>
                     <th class='text-center'>Email</th>
                     <th class='text-center'>Teléfono</th>
-                    <th class='text-center'>Fecha Alta</th>
+                    <?php if (in_array('f', $permisos['usuario'] ?? [], true)): ?><th class='text-center'>Fecha Alta</th><?php endif; ?>
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>

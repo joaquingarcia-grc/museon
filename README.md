@@ -64,6 +64,10 @@ Parte de las bibliotecas se carga desde CDN, por lo que el navegador necesita co
 
 ### Usuarios, roles y permisos
 - Administración de usuarios: alta, listado, edición y baja lógica.
+- La instalación inicial incluye el rol Administrador; los demás roles se crean desde la opción «Otros...» al registrar usuarios.
+- Creación de roles al dar de alta usuarios, con permisos por sección; solo se pueden otorgar permisos propios y únicamente un administrador puede asignar el rol Administrador. Crear, editar o eliminar requiere también el permiso Ver en esa sección; los cambios de rol se aplican en la siguiente petición.
+- Cada rol puede tener acceso a la fecha de alta por sección y al historial de actividad. El historial solo muestra registros de las secciones que el usuario puede consultar; las fechas de los eventos del historial son independientes de la fecha de alta del listado.
+- La copia de seguridad contiene todos los datos y solo está disponible para administradores.
 - Configuración de los datos del usuario que inició sesión.
 - Posibilidad de actualizar la contraseña desde la configuración personal.
 - Opción para mostrar u ocultar la contraseña al iniciar sesión y al crear un usuario.
@@ -140,6 +144,7 @@ El comando crea una carpeta llamada `museon` con los archivos del sistema.
 
 7. Abrir phpMyAdmin desde `http://localhost/phpmyadmin`.
 8. Importar el archivo `museo.sql`, ubicado en la raíz del proyecto. El script crea la base de datos `museo` y sus tablas.
+   En una instalación existente, ejecutar `php spark migrate` para agregar los permisos nuevos sin perder los roles existentes.
 9. Revisar la configuración de conexión a la base de datos en `app/Config/Database.php`. La configuración incluida utiliza:
    - Servidor: `localhost`
    - Usuario: `root`

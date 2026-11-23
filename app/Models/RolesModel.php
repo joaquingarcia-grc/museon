@@ -18,15 +18,7 @@
     //aca defino las columnas que quiero que sean visibles
     protected $allowedFields = ['denominacion'];
 
-    protected $dateFormat = 'datetime';
-
-    protected $useTimestamps = true;
-    //fecha de registro
-    protected $createdField  = 'fecha_alta';
-    //fecha de edicion
-    protected $updatedField  = 'fecha_edicion';
-    //Esto ayuda al borrado de datoss
-    protected $deletedField  = 'fecha_baja';
+    protected $useTimestamps = false;
 
     protected $validationRules    = [];
     protected $validationMessages = [];

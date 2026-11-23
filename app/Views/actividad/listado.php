@@ -18,13 +18,14 @@
                     </div>
                     <?php
                     $tiposActividad = [
-                        ['Pieza', 'Ejemplo: crear o editar una pieza.'],
-                        ['Etiquetas de pieza', 'Ejemplo: asignar una etiqueta a una pieza. Al editarla también se registra aunque no cambie.'],
-                        ['Atributos de pieza', 'Ejemplo: asignar un atributo a una pieza. Al editarla también se registra aunque no cambie.'],
-                        ['Etiqueta', 'Ejemplo: crear o editar la etiqueta Pintura.'],
-                        ['Atributo', 'Ejemplo: crear o editar el atributo Peso.']
+                        ['Pieza', 'Ejemplo: crear o editar una pieza.', 'objetos'],
+                        ['Etiquetas de pieza', 'Ejemplo: asignar una etiqueta a una pieza. Al editarla también se registra aunque no cambie.', 'objeto_etiquetas'],
+                        ['Atributos de pieza', 'Ejemplo: asignar un atributo a una pieza. Al editarla también se registra aunque no cambie.', 'objeto_atributos'],
+                        ['Etiqueta', 'Ejemplo: crear o editar la etiqueta Pintura.', 'etiquetas'],
+                        ['Atributo', 'Ejemplo: crear o editar el atributo Peso.', 'atributos']
                     ];
                     foreach ($tiposActividad as $indice => $tipo):
+                    if (!in_array($tipo[2], $tablasPermitidas, true)) continue;
                     ?>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="tipoActividad" id="tipoActividad<?php echo $indice; ?>" value="<?php echo esc($tipo[0], 'attr'); ?>" aria-label="<?php echo esc($tipo[0] . ': ' . $tipo[1], 'attr'); ?>">
@@ -41,7 +42,9 @@
                 <option value="fecha">Fecha</option>
                 <option value="usuario">Usuario</option>
                 <option value="accion">Acción</option>
+                <?php if (in_array('objetos', $tablasPermitidas, true)): ?>
                 <option value="pieza">ID de pieza (exacto)</option>
+                <?php endif; ?>
             </select>
         </div>
         <div class="col-md-3 valor-actividad" id="filtroTexto">

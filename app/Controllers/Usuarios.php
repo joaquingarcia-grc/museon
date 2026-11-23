@@ -6,6 +6,7 @@ use App\Models\MuseosModel;
 use App\Models\PermisosModel;
 use App\Models\RolesModel;
 class Usuarios extends BaseController{
+    private const MODULOS_ROL = ['objeto', 'etiqueta', 'atributo', 'usuario', 'sala'];
     // Propiedades: guardan la sesión y los modelos para usarlos en todos los métodos
     protected $sesion;
     protected $usuarios;
@@ -56,6 +57,11 @@ class Usuarios extends BaseController{
         $permisos = $this->sesion->get('permisos');
         // Si tiene el permiso 'b' (borrar) hacemos el borrado lógico
         if (in_array('b', $permisos['usuario'])) {
+            $usuario = $this->usuarios->find($id);
+            if (!$usuario || !$this->puedeAsignarRol((string) $usuario['id_rol'])) {
+                echo json_encode(['exito' => false, 'mensaje' => 'No tenés permiso para eliminar este usuario']);
+                exit;
+            }
             $this->usuarios->delete($id);
             echo json_encode(['exito' => true, 'mensaje' => 'Usuario borrado exitosamente']);
             exit;
@@ -78,7 +84,7 @@ class Usuarios extends BaseController{
             return redirect()->to(base_url() . 'objetos');    
         }
         // Traemos los roles para el select del formulario
-        $roles = $this->roles->findAll();
+        $roles = $this->rolesDisponibles();
         // Datos del museo para el header
         $museos = $this->museos->first();
         // Armamos el arreglo de datos que se envía a las vistas
@@ -89,6 +95,116 @@ class Usuarios extends BaseController{
         echo view('header', $datos);
         echo view('usuarios/nuevo');
         echo view('footer');
+    }
+    private function rolPermitido($rol): bool {
+        if (empty($rol) || empty($rol['id_rol'])) {
+            return false;
+        }
+        if ($this->sesion->get('rol') == 1) {
+            return true;
+        }
+        if ($rol['id_rol'] == 1) {
+            return false;
+        }
+        $permisos = $this->sesion->get('permisos');
+        foreach (array_merge(self::MODULOS_ROL, ['actividad']) as $modulo) {
+            $acciones = empty($rol[$modulo]) ? [] : explode(',', $rol[$modulo]);
+            if (array_diff($acciones, $permisos[$modulo] ?? [])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function rolesDisponibles(): array {
+        $roles = $this->roles
+            ->select('roles.id, roles.denominacion, rol_permiso.id_rol, rol_permiso.objeto, rol_permiso.etiqueta, rol_permiso.atributo, rol_permiso.usuario, rol_permiso.sala, rol_permiso.actividad')
+            ->join('rol_permiso', 'rol_permiso.id_rol = roles.id')
+            ->orderBy('roles.denominacion', 'ASC')
+            ->findAll();
+        return array_values(array_filter($roles, function($rol){
+            return $this->rolPermitido($rol);
+        }));
+    }
+
+    private function puedeAsignarRol($id): bool {
+        if (!is_string($id) || !ctype_digit($id) || (int) $id < 1) {
+            return false;
+        }
+        $rol = $this->permisos->where('id_rol', $id)->first();
+        return $this->rolPermitido($rol);
+    }
+
+    private function marcarUsuariosGestionables(array $usuarios): array {
+        $roles = array_map('strval', array_column($this->rolesDisponibles(), 'id'));
+        foreach ($usuarios as &$usuario) {
+            $usuario['puede_gestionar'] = in_array((string) $usuario['id_rol'], $roles, true);
+        }
+        unset($usuario);
+        return $usuarios;
+    }
+
+    public function crearRol(){
+        if (!isset($this->sesion->id)) {
+            return $this->response->setStatusCode(401)->setJSON(['exito' => false, 'mensaje' => 'Iniciá sesión nuevamente']);
+        }
+        $permisosSesion = $this->sesion->get('permisos');
+        if (!in_array('a', $permisosSesion['usuario'] ?? [], true)) {
+            return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'No tenés permiso para crear roles']);
+        }
+        $denominacion = $this->request->getPost('denominacion');
+        $seleccion = $this->request->getPost('permisos') ?? [];
+        if (!is_string($denominacion) || trim($denominacion) === '' || mb_strlen(trim($denominacion)) > 50) {
+            return $this->response->setJSON(['exito' => false, 'mensaje' => 'Ingresá una denominación de hasta 50 caracteres']);
+        }
+        $denominacion = mb_strtolower(trim($denominacion));
+        if ($this->roles->where('denominacion', $denominacion)->first()) {
+            return $this->response->setJSON(['exito' => false, 'mensaje' => 'Ya existe un rol con esa denominación']);
+        }
+        if (!is_array($seleccion) || array_diff(array_keys($seleccion), self::MODULOS_ROL)) {
+            return $this->response->setJSON(['exito' => false, 'mensaje' => 'Seleccioná permisos válidos para el rol']);
+        }
+        $datos = [];
+        foreach (self::MODULOS_ROL as $modulo) {
+            $acciones = $seleccion[$modulo] ?? [];
+            if (!is_array($acciones) || count(array_filter($acciones, 'is_string')) !== count($acciones) || array_diff($acciones, ['a', 'b', 'm', 'l', 'f'])) {
+                return $this->response->setJSON(['exito' => false, 'mensaje' => 'Seleccioná permisos válidos para el rol']);
+            }
+            if ($this->sesion->get('rol') != 1 && array_diff($acciones, $permisosSesion[$modulo] ?? [])) {
+                return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'Solo podés otorgar permisos que tenés habilitados']);
+            }
+            if ($acciones && !in_array('l', $acciones, true)) {
+                return $this->response->setJSON(['exito' => false, 'mensaje' => 'Para crear, editar, eliminar o ver la fecha de alta, habilitá también Ver en ese módulo']);
+            }
+            $datos[$modulo] = implode(',', array_unique($acciones));
+        }
+        $actividad = $this->request->getPost('actividad') ?? '';
+        if (!is_string($actividad) || !in_array($actividad, ['', 'l'], true)) {
+            return $this->response->setJSON(['exito' => false, 'mensaje' => 'El permiso de actividad no es válido']);
+        }
+        if ($actividad === 'l' && $this->sesion->get('rol') != 1 && !in_array('l', $permisosSesion['actividad'] ?? [], true)) {
+            return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'Solo podés otorgar permisos que tenés habilitados']);
+        }
+        $datos['actividad'] = $actividad;
+        $db = \Config\Database::connect();
+        if (!$db->transBegin()) {
+            return $this->response->setStatusCode(500)->setJSON(['exito' => false, 'mensaje' => 'No se pudo iniciar la creación del rol']);
+        }
+        try {
+            $id = $this->roles->insert(['denominacion' => $denominacion], true);
+            $guardado = $id && $this->permisos->insert(['id_rol' => $id] + $datos);
+            if (!$guardado || $db->transStatus() === false) {
+                $db->transRollback();
+                return $this->response->setStatusCode(500)->setJSON(['exito' => false, 'mensaje' => 'No se pudo guardar el rol']);
+            }
+            if (!$db->transCommit()) {
+                return $this->response->setStatusCode(500)->setJSON(['exito' => false, 'mensaje' => 'No se pudo guardar el rol']);
+            }
+        } catch (\Throwable $error) {
+            $db->transRollback();
+            throw $error;
+        }
+        return $this->response->setJSON(['exito' => true, 'id' => $id, 'denominacion' => $denominacion, 'permisos' => $datos, 'mensaje' => 'Rol creado correctamente']);
     }
     // Guarda un usuario nuevo (se llama por AJAX y responde JSON)
     public function insertar(){
@@ -131,9 +247,9 @@ class Usuarios extends BaseController{
             echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos un carácter especial']);
             exit;
         }
-        // Si no mandan rol, le ponemos el 3 por defecto
-        if (empty($rol)) {
-            $rol = 3;
+        if (!$this->puedeAsignarRol($rol)) {
+            echo json_encode(['exito' => false, 'mensaje' => 'Elegí un rol que tengas permitido asignar']);
+            exit;
         }
         // Buscamos si ya existe esa denominación, incluyendo los que están en la papelera
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->withDeleted()->first();
@@ -176,9 +292,12 @@ class Usuarios extends BaseController{
             return redirect()->to(base_url() . 'objetos');    
         }
         // Traemos los roles para el select del formulario
-        $roles = $this->roles->findAll();
+        $roles = $this->rolesDisponibles();
         // 1. Trae el usuarios de la BD
         $usuarios = $this->usuarios->where('id', $id)->first();
+        if (empty($usuarios) || !$this->puedeAsignarRol((string) $usuarios['id_rol'])) {
+            return redirect()->to(base_url() . 'usuarios');
+        }
         // Datos del museo para el header
         $museos = $this->museos->first();
         // Armamos el arreglo de datos que se envía a las vistas
@@ -230,9 +349,10 @@ class Usuarios extends BaseController{
             echo json_encode(['exito' => false, 'mensaje' => 'La contraseña debe tener al menos un carácter especial']);
             exit;
         }}
-        // Si no mandan rol, le ponemos el 3 por defecto
-        if (empty($rol)) {
-            $rol = 3;
+        $usuarioActual = $this->usuarios->find($id);
+        if (empty($usuarioActual) || !$this->puedeAsignarRol((string) $usuarioActual['id_rol']) || !$this->puedeAsignarRol($rol)) {
+            echo json_encode(['exito' => false, 'mensaje' => 'No tenés permiso para editar este usuario o asignar ese rol']);
+            exit;
         }
         // Buscamos si OTRO usuario (id distinto) ya usa esa denominación, incluso en la papelera   
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
@@ -307,6 +427,9 @@ class Usuarios extends BaseController{
         }
         // Traemos el usuario borrado (withDeleted incluye los borrados)
         $usuarios = $this->usuarios->withDeleted()->find($id);
+        if (!$usuarios || !$this->puedeAsignarRol((string) $usuarios['id_rol'])) {
+            return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'No tenés permiso para recuperar este usuario']);
+        }
         // Buscamos si ya hay un usuario ACTIVO con la misma denominación
         $usuarioActivo = $this->usuarios->where('denominacion', $usuarios['denominacion'])->first();
         // Si hay uno activo con esa denominación hay conflicto
@@ -323,16 +446,24 @@ class Usuarios extends BaseController{
     }
     // API: devuelve en JSON los usuarios activos menos el que esta logueado, del más nuevo al más viejo
     public function api_usuarios(){
+        if (!$this->puedeVer('usuario')) {
+            return $this->accesoDenegado();
+        }
         // Excluimos al logueado y ordenamos por id descendente
-        $usuarios = $this->usuarios->where('id !=', $this->sesion->id)->orderBy('id','DESC')->findAll();
+        $usuarios = $this->usuarios->select('id, denominacion, email, telefono, fecha_alta, id_rol')->where('id !=', $this->sesion->id)->orderBy('id','DESC')->findAll();
+        $usuarios = $this->ocultarFechaAlta($this->marcarUsuariosGestionables($usuarios), 'usuario');
         $datos = ['usuarios'=>$usuarios];
         // Respondemos en JSON
         return $this->response->setJSON($datos);
     }
     // API: devuelve en JSON los usuarios borrados (papelera) menos el que esta logueado
     public function api_usuarios_borrados(){
+        if (!$this->puedeVer('usuario')) {
+            return $this->accesoDenegado();
+        }
         // Excluimos al logueado y traemos solo los borrados
-        $usuarios = $this->usuarios->where('id !=', $this->sesion->id)->onlyDeleted()->findAll();
+        $usuarios = $this->usuarios->select('id, denominacion, email, fecha_baja, id_rol')->where('id !=', $this->sesion->id)->onlyDeleted()->findAll();
+        $usuarios = $this->marcarUsuariosGestionables($usuarios);
         $datos = ['usuarios'=>$usuarios];
         // Respondemos en JSON
         return $this->response->setJSON($datos);
@@ -342,6 +473,9 @@ class Usuarios extends BaseController{
         // Verificación de sesión
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+        if ($this->sesion->get('rol') != 1) {
+            return $this->response->setStatusCode(403)->setBody('Solo un administrador puede descargar la copia de seguridad');
         }
         // Si la extensión zip no está activa (en windows a veces viene comentada en el php.ini)
         if (!class_exists('ZipArchive')) {

@@ -21,7 +21,7 @@
                     <th class='text-center'>ID</th>
                     <th class='text-center'>Denominación</th>
                     <th class='text-center'>Tipo de dato</th>
-                    <th class='text-center'>Fecha Alta</th>
+                    <?php if (in_array('f', $permisos['atributo'] ?? [], true)): ?><th class='text-center'>Fecha Alta</th><?php endif; ?>
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>

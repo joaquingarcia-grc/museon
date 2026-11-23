@@ -9,7 +9,6 @@ use App\Models\EtiquetasModel;
 use App\Models\ObjetosAtributosModel;
 use App\Models\ObjetosEtiquetasModel;
 use App\Models\UsuariosModel;
-use App\Models\PermisosModel;
 use App\Models\ActividadesModel;   // <-- NUEVA
 use App\Models\PiezasImagenesModel;
 use App\Models\PiezasArchivosModel;
@@ -21,7 +20,6 @@ class Objetos extends BaseController {
     protected $objetos;
     protected $museos;
     protected $etiquetas;
-    protected $permisos;
     protected $atributos;
     protected $objetosatributos;
     protected $objetosetiquetas;
@@ -41,7 +39,6 @@ class Objetos extends BaseController {
         $this->atributos = new AtributosModel();
         $this->objetosatributos = new ObjetosAtributosModel();
         $this->objetosetiquetas = new ObjetosEtiquetasModel();
-        $this->permisos = new PermisosModel();
         $this->actividades = new ActividadesModel();   // <-- NUEVA
         $this->piezasimagenes = new PiezasImagenesModel();
         $this->piezasarchivos = new PiezasArchivosModel();
@@ -52,6 +49,9 @@ class Objetos extends BaseController {
         
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+        if (!$this->puedeVer('objeto')) {
+            return $this->response->setStatusCode(403)->setBody('No tenés permiso para ver piezas');
         }
         $objetos = $this->objetos->findAll();
         $museos = $this->museos->first();
@@ -434,6 +434,9 @@ class Objetos extends BaseController {
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        if (!$this->puedeVer('objeto')) {
+            return $this->response->setStatusCode(403)->setBody('No tenés permiso para ver piezas');
+        }
         $objetos = $this->objetos->onlyDeleted()->findAll();
         $museos = $this->museos->first();
 
@@ -480,6 +483,9 @@ class Objetos extends BaseController {
         
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+        if (!$this->puedeVer('objeto')) {
+            return $this->response->setStatusCode(403)->setBody('No tenés permiso para ver piezas');
         }
         // 1. Traemos los datos principales del objeto
         //$objeto = $this->objetos->where('id', $id)->first();
@@ -697,15 +703,15 @@ class Objetos extends BaseController {
     // API: devuelve en JSON los atributos activos, del más nuevo al más viejo
     public function api_objetos(){
 
-        if(!isset($this->sesion->id)){
-            return redirect()->to(base_url() . "registro/");
+        if (!$this->puedeVer('objeto')) {
+            return $this->accesoDenegado();
         }
         $objetos = $this->objetos->select('objetos.*, usuarios.denominacion AS cargado_por')
                     ->join('usuarios', 'usuarios.id = objetos.id_usuario', 'left')
                     ->orderBy('objetos.id','DESC')
                     ->findAll();
 
-        $datos = ['objetos'=>$objetos];
+        $datos = ['objetos'=>$this->ocultarFechaAlta($objetos, 'objeto')];
         return $this->response->setJSON($datos);
     }
 
@@ -715,6 +721,9 @@ class Objetos extends BaseController {
                 'exito' => false,
                 'mensaje' => 'La sesión expiró. Vuelve a iniciar sesión.'
             ]);
+        }
+        if (!$this->puedeVer('objeto')) {
+            return $this->accesoDenegado();
         }
 
         $etiquetaIds = $this->request->getPost('etiqueta_ids') ?? [];
@@ -743,6 +752,10 @@ class Objetos extends BaseController {
                 'exito' => false,
                 'mensaje' => 'Uno de los filtros enviados no es válido.'
             ]);
+        }
+        $permisos = $this->sesion->get('permisos');
+        if ($tipoFecha === 'alta' && ($fechaDesde !== '' || $fechaHasta !== '') && !in_array('f', $permisos['objeto'] ?? [], true)) {
+            return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'No tenés permiso para filtrar por fecha de alta']);
         }
 
         $descripcion = trim($descripcion);
@@ -825,21 +838,21 @@ class Objetos extends BaseController {
 
         return $this->response->setJSON([
             'exito' => true,
-            'objetos' => $consulta->findAll()
+            'objetos' => $this->ocultarFechaAlta($consulta->findAll(), 'objeto')
         ]);
     }
 
     // API: devuelve en JSON los atributos borrados (papelera)
     public function api_objetos_borrados(){
-        if(!isset($this->sesion->id)){
-            return redirect()->to(base_url() . "registro/");
+        if (!$this->puedeVer('objeto')) {
+            return $this->accesoDenegado();
         }
         $objetos = $this->objetos->select('objetos.*, usuarios.denominacion AS cargado_por')
                     ->join('usuarios', 'usuarios.id = objetos.id_usuario')
                     ->orderBy('objetos.id','DESC')
                     ->onlyDeleted()
                     ->findAll();
-        $datos = ['objetos'=>$objetos];
+        $datos = ['objetos'=>$this->ocultarFechaAlta($objetos, 'objeto')];
         return $this->response->setJSON($datos);
     }
 

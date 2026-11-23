@@ -24,7 +24,7 @@
             <tr>
                 <td class="bg-light fw-bold" style="width: 35%;">Responsable</td>
                 <td><?php echo $objeto['cargado_por']; ?></td>
-                <td class="object-sheet-image-cell" rowspan="7">
+                <td class="object-sheet-image-cell" rowspan="<?php echo in_array('f', session()->get('permisos')['objeto'] ?? [], true) ? 7 : 6; ?>">
                     <div class="object-sheet-image-dropzone">
                         <?php if (!empty($galeria)): ?>
                             <img
@@ -53,10 +53,12 @@
                 <td class="bg-light fw-bold">Código del objeto</td>
                 <td><?php echo $objeto['codigo']; ?></td>
             </tr>
+            <?php if (in_array('f', session()->get('permisos')['objeto'] ?? [], true)): ?>
             <tr>
                 <td class="bg-light fw-bold">Fecha de Alta en Sistema</td>
                 <td><?php echo date('d/m/Y', strtotime($objeto['fecha_alta'])); ?></td>
             </tr>
+            <?php endif; ?>
             <tr>
                 <td class="bg-light fw-bold">Descripción</td>
                 <td style="text-align: justify;">

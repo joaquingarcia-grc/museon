@@ -3,12 +3,10 @@ namespace App\Controllers;
 // traemos los modelos que usa el controlador
 use App\Models\AtributosModel;
 use App\Models\MuseosModel;
-use App\Models\PermisosModel;
 use App\Models\ActividadesModel;
 class Atributos extends BaseController{
     // propiedades donde guardamos la sesion y los modelos para usarlos en todas las funciones
     protected $sesion;
-    protected $permisos;
     protected $atributos;
     protected $museos;
     protected $actividades;
@@ -18,7 +16,6 @@ class Atributos extends BaseController{
         $this->sesion = session();
         $this->atributos = new AtributosModel();
         $this->museos = new MuseosModel();
-        $this->permisos = new PermisosModel();
         $this->actividades = new ActividadesModel();
     }
     // muestra el listado de atributos
@@ -294,9 +291,12 @@ class Atributos extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        if (!$this->puedeVer('atributo')) {
+            return $this->accesoDenegado();
+        }
         // traemos los activos ordenados por id de mayor a menor
         $atributos = $this->atributos->orderBy('id','DESC')->findAll();
-        $datos = ['atributos'=>$atributos];
+        $datos = ['atributos'=>$this->ocultarFechaAlta($atributos, 'atributo')];
         // los devolvemos en json
         return $this->response->setJSON($datos);
     }
@@ -306,9 +306,12 @@ class Atributos extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        if (!$this->puedeVer('atributo')) {
+            return $this->accesoDenegado();
+        }
         // traemos solo los borrados
         $atributos = $this->atributos->onlyDeleted()->findAll();
-        $datos = ['atributos'=>$atributos];
+        $datos = ['atributos'=>$this->ocultarFechaAlta($atributos, 'atributo')];
         // los devolvemos en json
         return $this->response->setJSON($datos);
     }

@@ -31,7 +31,7 @@
                     <th class='text-center'>Denominación</th>
                     <th class='text-center'>Descripción</th>
                     <th class='text-center'>Cargado por</th>
-                    <th class='text-center'>Fecha alta</th>
+                    <?php if (in_array('f', $permisos['objeto'] ?? [], true)): ?><th class='text-center'>Fecha alta</th><?php endif; ?>
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>
@@ -67,7 +67,7 @@
                     <legend class="form-label fs-6">Fecha</legend>
                     <label for="tipoFechaFiltro" class="form-label">Filtrar por fecha de</label>
                     <select class="form-select mb-2" id="tipoFechaFiltro" name="tipo_fecha">
-                        <option value="alta">Alta</option>
+                        <?php if (in_array('f', $permisos['objeto'] ?? [], true)): ?><option value="alta">Alta</option><?php endif; ?>
                         <option value="edicion">Modificación</option>
                     </select>
                     <div class="row g-2">

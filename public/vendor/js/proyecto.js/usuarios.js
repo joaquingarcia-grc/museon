@@ -4,9 +4,9 @@ $(document).ready(function(){
     let idARecuperar = null;
     let idEditar = null;
 
-    rellenarTabla();
+    if ($('#tablaUSR').length) rellenarTabla();
     //llamo a la funcion que rellena la tabla se uduarios en la papelera
-    rellenarTabla2();
+    if ($('#tablaUSRPapelera').length) rellenarTabla2();
 
     // si veníamos de guardar/actualizar un usuario, muestro el mensaje que quedó guardado
     let mensajeGuardado = sessionStorage.getItem('mensajeUSR');
@@ -14,6 +14,73 @@ $(document).ready(function(){
         sessionStorage.removeItem('mensajeUSR');//lo borro para que no se muestre de nuevo al recargar
         mensajes(mensajeGuardado);
     }
+
+    let rolSeleccionado = $('#rol').val();
+    $('#formularioUSR #rol').on('change', function(){
+        if (this.value === 'otros') {
+            $(this).val(rolSeleccionado);
+            $('#errorNuevoRol').prop('hidden', true);
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('modalNuevoRol')).show();
+        } else {
+            rolSeleccionado = this.value;
+        }
+    });
+
+    $('.permiso-rol').on('change', function(){
+        const grupo = $(this).closest('fieldset');
+        if (this.value !== 'l' && this.checked) {
+            grupo.find('.permiso-rol[value="l"]:not(:disabled)').prop('checked', true);
+        } else if (this.value === 'l' && !this.checked) {
+            grupo.find('.permiso-rol').prop('checked', false);
+        }
+    });
+
+    $('#modalNuevoRol').on('hidden.bs.modal', function(){
+        $('#formNuevoRol')[0].reset();
+        $('#errorNuevoRol').prop('hidden', true);
+    });
+
+    $('#formNuevoRol').on('submit', function(e){
+        e.preventDefault();
+        $('#errorNuevoRol').prop('hidden', true);
+        $('#guardarNuevoRol').prop('disabled', true);
+        $.ajax({
+            url: BASE + 'usuarios/crear-rol',
+            method: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response){
+                if (!response.exito) {
+                    $('#errorNuevoRol').text(response.mensaje).prop('hidden', false);
+                    return;
+                }
+                $('<option></option>').val(response.id).text(response.denominacion).insertBefore('#rol option[value="otros"]');
+                $('#rol').val(String(response.id));
+                rolSeleccionado = String(response.id);
+                const nombres = {objeto: 'Piezas', etiqueta: 'Etiquetas', atributo: 'Atributos', usuario: 'Usuarios', sala: 'Salas'};
+                const acciones = {l: 'ver', a: 'crear', m: 'editar', b: 'eliminar', f: 'ver fecha de alta'};
+                const bloque = $('<div class="mb-3"></div>').append($('<strong></strong>').text(response.denominacion));
+                const lista = $('<ul></ul>');
+                Object.keys(nombres).forEach(function(modulo){
+                    const seleccionados = response.permisos[modulo].split(',');
+                    const textos = Object.keys(acciones).filter(codigo => seleccionados.includes(codigo)).map(codigo => acciones[codigo]);
+                    lista.append($('<li></li>').text(nombres[modulo] + ': ' + (textos.length ? textos.join(', ') : 'sin permisos')));
+                });
+                lista.append($('<li></li>').text('Actividad: ' + (response.permisos.actividad === 'l' ? 'ver secciones permitidas' : 'sin permiso')));
+                $('#listaPermisosRoles').append(bloque.append(lista));
+                $('#formNuevoRol')[0].reset();
+                bootstrap.Modal.getInstance(document.getElementById('modalNuevoRol')).hide();
+                mensajes(response.mensaje);
+            },
+            error: function(xhr){
+                const mensaje = xhr.responseJSON && xhr.responseJSON.mensaje ? xhr.responseJSON.mensaje : 'No se pudo crear el rol';
+                $('#errorNuevoRol').text(mensaje).prop('hidden', false);
+            },
+            complete: function(){
+                $('#guardarNuevoRol').prop('disabled', false);
+            }
+        });
+    });
 
 //------------------------------------------------------------------------------------------------//
     //esta funcion rellena la tabla de usuarios
@@ -27,12 +94,12 @@ $(document).ready(function(){
                 response.usuarios.forEach(usuario => {
                     let botones = '';
 
-                    if (permiso_USR.includes('b')) {
+                    if (permiso_USR.includes('b') && usuario.puede_gestionar) {
                         botones += `<button type="submit" class="btn btn-danger" id="btnBorrarUSR" data-id="${usuario.id}">
                                         <i class='bi bi-trash2-fill'></i>
                                     </button>`;
                     }
-                    if (permiso_USR.includes('m')) {
+                    if (permiso_USR.includes('m') && usuario.puede_gestionar) {
                                 botones += `<a class='btn btn-primary' href='${BASE}usuarios/editar/${usuario.id}'>
                                                 <i class='bi bi-pencil-square'></i>
                                             </a>`;
@@ -43,7 +110,7 @@ $(document).ready(function(){
                         <td class='text-center'>${usuario.denominacion}</td>
                         <td class='text-center'>${usuario.email}</td>
                         <td class='text-center'>${usuario.telefono}</td>
-                        <td class='text-center'>${usuario.fecha_alta}</td>
+                        ${permiso_USR.includes('f') ? `<td class='text-center'>${usuario.fecha_alta}</td>` : ''}
                         <td class='text-center'>${botones}</td>
                     </tr>`;
                 });
@@ -114,7 +181,7 @@ $(document).ready(function(){
                 let conteUSR = " ";
                 response.usuarios.forEach(usuario => {
                     let boton = '';
-                    if (permiso_USR.includes('b')) {
+                    if (permiso_USR.includes('a') && usuario.puede_gestionar) {
                         boton +=`<button type="submit" class='btn btn-info' id="btnRecuperarUSR" data-id="${usuario.id}">
                                     <i class="bi bi-recycle"></i>
                                 </button>`;

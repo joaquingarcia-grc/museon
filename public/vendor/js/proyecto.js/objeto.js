@@ -4,8 +4,8 @@ $(document).ready(function(){
     let idABorrar = null;
     let idARecuperar = null; 
     
-    rellenarTabla();
-    rellenarTabla2();
+    if ($('#tablaOBJ').length) rellenarTabla();
+    if ($('#tablaOBJBr').length) rellenarTabla2();
 
     $("#buscador").on('keyup.objetos', function(){
         if ($.fn.DataTable.isDataTable('#tablaOBJ')) {
@@ -148,7 +148,7 @@ $(document).ready(function(){
                 <td class="text-center">${escaparHtml(objeto.denominacion)}</td>
                 <td class="text-center">${escaparHtml(objeto.descripcion)}</td>
                 <td class="text-center">${escaparHtml(objeto.cargado_por)}</td>
-                <td class="text-center">${escaparHtml(objeto.fecha_alta)}</td>
+                ${permiso_OBJ.includes('f') ? `<td class="text-center">${escaparHtml(objeto.fecha_alta)}</td>` : ''}
                 <td class="text-center text-nowrap">${botones}</td>
             </tr>`;
         });

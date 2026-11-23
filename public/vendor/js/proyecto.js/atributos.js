@@ -4,8 +4,8 @@ $(document).ready(function() {
     let idARecuperar = null;
     let idActualizar = null;
     
-    rellenarTabla();
-    rellenarTabla2();
+    if ($('#tablaATB').length) rellenarTabla();
+    if ($('#tablaATBBr').length) rellenarTabla2();
 
     // si veníamos de guardar/actualizar un atributo, muestro el mensaje que quedó guardado
     let mensajeGuardado = sessionStorage.getItem('mensajeATB');
@@ -40,7 +40,7 @@ $(document).ready(function() {
                         <td class='text-center'>${atributo.id}</td>
                         <td class='text-center'>${atributo.denominacion}</td>
                         <td class='text-center'>${atributo.tipo_dato}</td>
-                        <td class='text-center'>${atributo.fecha_alta}</td>
+                        ${permiso_ATB.includes('f') ? `<td class='text-center'>${atributo.fecha_alta}</td>` : ''}
                         <td class='text-center'>${botones}</td>
                     </tr>`;
                 });

@@ -16,7 +16,7 @@ $(document).ready(function(){
     let idActualizar = null;
     let idABorrar = null;
     let idARecuperar = null;
-    rellenarTablaPapelera();
+    if ($('#tablaSalasBr').length) rellenarTablaPapelera();
     // muestra un mensaje en pantalla, tipo: success, error, warning
     function mensajes(mensaje, tipo = 'success'){
         const toast = document.getElementById('toats');
@@ -150,7 +150,7 @@ $(document).ready(function(){
             botones.append('<button type="button" class="btn btn-sm btn-outline-success" id="btnAgregarUbicacion">' + textoBoton + ' <i class="bi bi-plus-lg"></i></button>');
         }
         // el boton de agregar objeto no aparece en el museo, porque un objeto tiene que estar en una sala o ubicacion
-        if(salaActual != ID_MUSEO){
+        if(salaActual != ID_MUSEO && permiso_OBJ.includes('l')){
             if(permiso_SAL.includes('a')){
                 botones.append('<button type="button" class="btn btn-sm btn-outline-success" id="btnAgregarObjeto">Agregar objeto <i class="bi bi-box"></i></button>');
             }
@@ -163,6 +163,9 @@ $(document).ready(function(){
             cuerpo.append($('<p class="mb-0"></p>').text(sala.descripcion));
         } else {
             cuerpo.append('<p class="mb-0 text-muted">Esta sala no tiene descripción</p>');
+        }
+        if (permiso_SAL.includes('f') && sala && sala.fecha_alta) {
+            cuerpo.append($('<small class="text-muted d-block"></small>').text('Fecha de alta: ' + sala.fecha_alta));
         }
         tarjeta.append(cuerpo);
         const lista = $('<ul class="list-group list-group-flush"></ul>');
@@ -195,7 +198,7 @@ $(document).ready(function(){
         }
         tarjeta.append(lista);
         // lista de objetos de la sala, abajo de las ubicaciones (en el museo no se muestra)
-        if(salaActual != ID_MUSEO){
+        if(salaActual != ID_MUSEO && permiso_OBJ.includes('l')){
             tarjeta.append('<div class="card-header border-top fw-bold">Objetos</div>');
             const listaObjetos = $('<ul class="list-group list-group-flush"></ul>');
             if(objetos.length == 0){

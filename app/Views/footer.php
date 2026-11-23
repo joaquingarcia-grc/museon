@@ -73,9 +73,20 @@
     <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/locales/es.min.js"></script>
     
     <script type="application/json" id="datosObjeto">
-        <?php echo json_encode([
-            'etiqueta' => $etiquetas ?? [],
-            'atributo' => $atributos ?? [],
+        <?php
+        $permisosDatos = session()->get('permisos') ?? [];
+        $sinFecha = static function (array $registros, string $modulo) use ($permisosDatos): array {
+            if (!in_array('f', $permisosDatos[$modulo] ?? [], true)) {
+                foreach ($registros as &$registro) {
+                    if (is_array($registro)) unset($registro['fecha_alta']);
+                }
+                unset($registro);
+            }
+            return $registros;
+        };
+        echo json_encode([
+            'etiqueta' => $sinFecha($etiquetas ?? [], 'etiqueta'),
+            'atributo' => $sinFecha($atributos ?? [], 'atributo'),
             'etiquetasSeleccionadas' => $etiquetasSeleccionadas ?? [],
             'atributosSeleccionados' => $atributosSeleccionados ?? []
         ]); ?>
@@ -86,15 +97,15 @@
     <script src="<?php echo base_url(); ?>vendor/js/jsproyecto/object-images-gallery.js"></script>
     <script src="<?php echo base_url(); ?>vendor/js/jsproyecto/object-files-form.js"></script>
 
-    <script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js"></script>
-    <script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js"></script>
-    <script src="<?php echo base_url();?>vendor/js/proyecto.js/usuarios.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/atributos.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/atributos.js'); ?>"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/etiquetas.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/etiquetas.js'); ?>"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/usuarios.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/usuarios.js'); ?>"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/contrasenia.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/contrasenia.js'); ?>"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/buscador.js"></script>
-    <script src="<?php echo base_url();?>vendor/js/proyecto.js/objeto.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/objeto.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/objeto.js'); ?>"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/barraLateral.js"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/btnSalida.js"></script>
-    <script src="<?php echo base_url();?>vendor/js/proyecto.js/salas.js"></script>
+    <script src="<?php echo base_url();?>vendor/js/proyecto.js/salas.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/salas.js'); ?>"></script>
     <script src="<?php echo base_url();?>vendor/js/proyecto.js/actividad.js?v=<?php echo filemtime(FCPATH . 'vendor/js/proyecto.js/actividad.js'); ?>"></script>
 </body>
 </html>

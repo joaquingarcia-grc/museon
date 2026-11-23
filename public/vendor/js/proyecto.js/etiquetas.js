@@ -3,8 +3,8 @@ $(document).ready(function() {
     let idABorrar = null;
     let idARecuperar = null;
     let idActualizar = null;
-    rellenarTabla();
-    rellenarTabla2();
+    if ($('#tablaETQ').length) rellenarTabla();
+    if ($('#tablaETQBr').length) rellenarTabla2();
 
     // si veníamos de guardar/actualizar una etiqueta, muestro el mensaje que quedó guardado
     let mensajeGuardado = sessionStorage.getItem('mensajeETQ');
@@ -38,7 +38,7 @@ $(document).ready(function() {
                     conteETQ += `<tr>
                         <td class='text-center'>${etiqueta.id}</td>
                         <td class='text-center'>${etiqueta.denominacion}</td>
-                        <td class='text-center'>${etiqueta.fecha_alta}</td>
+                        ${permiso_ETQ.includes('f') ? `<td class='text-center'>${etiqueta.fecha_alta}</td>` : ''}
                         <td class='text-center'>${botones}</td>
                     </tr>`;
                 });

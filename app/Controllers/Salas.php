@@ -2,7 +2,6 @@
 namespace App\Controllers;
 use App\Models\MuseosModel;
 use App\Models\UsuariosModel;
-use App\Models\PermisosModel;
 use App\Models\SalasModel;
 use App\Models\ObjetosModel;
 
@@ -12,14 +11,12 @@ class Salas extends BaseController{
     protected $sesion;
     protected $museos;
     protected $usuarios;
-    protected $permisos;
     protected $salas;
     public function __construct(){
         $this->sesion = session();
         $this->objetos = new ObjetosModel();
         $this->museos = new MuseosModel();
         $this->usuarios = new UsuariosModel();
-        $this->permisos = new PermisosModel();
         $this->salas = new SalasModel();
     }
     public function index(){
@@ -204,12 +201,20 @@ class Salas extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        if (!$this->puedeVer('sala')) {
+            return $this->accesoDenegado();
+        }
         $id = $this->request->getPost('id');
         // la sala seleccionada (para mostrar su descripcion) y lo que tiene adentro
         $sala = $this->salas->find($id);
         $hijas = $this->salas->where('id_pertenece', $id)->orderBy('denominacion', 'asc')->findAll();
         // los objetos que estan en esta sala
-        $objetos = $this->objetos->where('id_ubicacion', $id)->orderBy('denominacion', 'asc')->findAll();
+        $objetos = $this->puedeVer('objeto') ? $this->objetos->where('id_ubicacion', $id)->orderBy('denominacion', 'asc')->findAll() : [];
+        if ($sala) {
+            $sala = $this->ocultarFechaAlta([$sala], 'sala')[0];
+        }
+        $hijas = $this->ocultarFechaAlta($hijas, 'sala');
+        $objetos = $this->ocultarFechaAlta($objetos, 'objeto');
         return $this->response->setJSON(['sala'=>$sala, 'hijas'=>$hijas, 'objetos'=>$objetos]);
     }
     // trae los objetos que todavía no estan en ninguna sala (id_ubicacion en null)
@@ -217,13 +222,19 @@ class Salas extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        if (!$this->puedeVer('sala') || !$this->puedeVer('objeto')) {
+            return $this->accesoDenegado();
+        }
         $objetos = $this->objetos->where('id_ubicacion IS NULL')->orderBy('denominacion', 'asc')->findAll();
-        return $this->response->setJSON(['objetos'=>$objetos]);
+        return $this->response->setJSON(['objetos'=>$this->ocultarFechaAlta($objetos, 'objeto')]);
     }
     // le asigna a un objeto la sala en la que estoy parado
     public function asignarObjeto(){
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
+        }
+        if (!$this->puedeVer('objeto')) {
+            return $this->accesoDenegado();
         }
         $permisos = $this->sesion->get('permisos');
         // agregar un objeto a una sala usa el permiso de alta de salas
@@ -261,6 +272,9 @@ class Salas extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        if (!$this->puedeVer('objeto')) {
+            return $this->accesoDenegado();
+        }
         $permisos = $this->sesion->get('permisos');
         // sacar un objeto usa el permiso de borrar de salas
         if (!in_array('b', $permisos['sala'])){
@@ -287,8 +301,11 @@ class Salas extends BaseController{
         if(!isset($this->sesion->id)){
             return redirect()->to(base_url() . "registro/");
         }
+        if (!$this->puedeVer('sala')) {
+            return $this->accesoDenegado();
+        }
         $salas = $this->salas->onlyDeleted()->findAll();
-        $datos = ['salas'=>$salas];
+        $datos = ['salas'=>$this->ocultarFechaAlta($salas, 'sala')];
         return $this->response->setJSON($datos);
     }
 }

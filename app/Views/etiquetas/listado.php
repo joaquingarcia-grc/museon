@@ -20,7 +20,7 @@
                 <tr>
                     <th class='text-center'>ID</th>
                     <th class='text-center'>Denominación</th>
-                    <th class='text-center'>Fecha alta</th>
+                    <?php if (in_array('f', $permisos['etiqueta'] ?? [], true)): ?><th class='text-center'>Fecha alta</th><?php endif; ?>
                     <th class='text-center'>Acciones</th>
                 </tr>
             </thead>

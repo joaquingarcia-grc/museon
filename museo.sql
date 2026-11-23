@@ -29,27 +29,33 @@ create table `usuarios` (
   `fecha_alta` datetime default current_timestamp(),
   `fecha_baja` datetime default null,
   `fecha_edicion` datetime default null,
-  `id_rol` int(10) unsigned not null default 3,
+  `id_rol` int(10) unsigned not null,
   primary key (`id`),
   key `idx_usuarios_id_rol` (`id_rol`),
   constraint `fk_usuarios_rol` foreign key (`id_rol`) references `roles` (`id`) on update cascade
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
  
  
--- rol_permiso (a = alta, b = baja, m = modificación, l = listar)
+-- rol_permiso (a = alta, b = baja, m = modificación, l = listar, f = ver fecha de alta)
 create table `rol_permiso` (
   `id` int(10) unsigned not null auto_increment,
   `id_rol` int(10) unsigned not null,
-  `objeto` set('a','b','m','l') not null,
-  `etiqueta` set('a','b','m','l') not null,
-  `atributo` set('a','b','m','l') not null,
-  `usuario` set('a','b','m','l') not null,
-  `sala` set('a','b','m','l') not null,
+  `objeto` set('a','b','m','l','f') not null,
+  `etiqueta` set('a','b','m','l','f') not null,
+  `atributo` set('a','b','m','l','f') not null,
+  `usuario` set('a','b','m','l','f') not null,
+  `sala` set('a','b','m','l','f') not null,
+  `actividad` set('l') not null default '',
   primary key (`id`),
   unique key `id_rol` (`id_rol`),
   constraint `rol_permiso_ibfk_1` foreign key (`id_rol`) references `roles` (`id`) on delete cascade on update cascade
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
  
+-- El resto de los roles se crean desde la aplicación.
+insert into roles (id, denominacion) values (1, 'Administrador');
+insert into rol_permiso (id_rol, objeto, etiqueta, atributo, usuario, sala, actividad)
+values (1, 'a,b,m,l,f', 'a,b,m,l,f', 'a,b,m,l,f', 'a,b,m,l,f', 'a,b,m,l,f', 'l');
+
  
 -- salas (id_pertenece = sala padre)
 create table `salas` (
