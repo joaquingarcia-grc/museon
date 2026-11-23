@@ -137,6 +137,10 @@
           <?php foreach ($modulosRol as $modulo => $nombre): ?>
             <fieldset class="mb-3">
               <legend class="fs-6"><?php echo esc($nombre); ?></legend>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input seleccionar-todos-permisos" type="checkbox" id="todos_permiso_<?php echo $modulo; ?>">
+                <label class="form-check-label" for="todos_permiso_<?php echo $modulo; ?>">Todos</label>
+              </div>
               <?php foreach ($accionesRol as $codigo => $accion): ?>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input permiso-rol" type="checkbox" name="permisos[<?php echo $modulo; ?>][]" id="permiso_<?php echo $modulo . '_' . $codigo; ?>" value="<?php echo $codigo; ?>" <?php echo session()->get('rol') != 1 && !in_array($codigo, $permisosSesion[$modulo] ?? [], true) ? 'disabled' : ''; ?>>

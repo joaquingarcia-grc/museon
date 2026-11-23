@@ -33,6 +33,28 @@ $(document).ready(function(){
         } else if (this.value === 'l' && !this.checked) {
             grupo.find('.permiso-rol').prop('checked', false);
         }
+        actualizarTodosPermisos(grupo);
+    });
+
+    function actualizarTodosPermisos(grupo){
+        const seleccionarTodos = grupo.find('.seleccionar-todos-permisos')[0];
+        if (!seleccionarTodos) return;
+
+        const permisos = grupo.find('.permiso-rol:not(:disabled)');
+        const seleccionados = permisos.filter(':checked').length;
+        seleccionarTodos.disabled = permisos.length === 0;
+        seleccionarTodos.checked = permisos.length > 0 && seleccionados === permisos.length;
+        seleccionarTodos.indeterminate = seleccionados > 0 && seleccionados < permisos.length;
+    }
+
+    $('.seleccionar-todos-permisos').on('change', function(){
+        const grupo = $(this).closest('fieldset');
+        grupo.find('.permiso-rol:not(:disabled)').prop('checked', this.checked);
+        actualizarTodosPermisos(grupo);
+    });
+
+    $('#formNuevoRol fieldset, #permisosUsuario fieldset').each(function(){
+        actualizarTodosPermisos($(this));
     });
 
     const formularioEdicion = $('#actualizarUSR');
@@ -53,6 +75,9 @@ $(document).ready(function(){
                 $(this).prop('checked', acciones.includes(this.value))
                     .prop('disabled', !administrador && !(permisosActor[modulo] || []).includes(this.value));
             });
+            $('#permisosUsuario fieldset').each(function(){
+                actualizarTodosPermisos($(this));
+            });
             mostrarPermisosUsuario();
         }
 
@@ -67,6 +92,9 @@ $(document).ready(function(){
 
     $('#modalNuevoRol').on('hidden.bs.modal', function(){
         $('#formNuevoRol')[0].reset();
+        $('#formNuevoRol fieldset').each(function(){
+            actualizarTodosPermisos($(this));
+        });
         $('#errorNuevoRol').prop('hidden', true);
     });
 

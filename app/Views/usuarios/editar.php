@@ -82,6 +82,10 @@
                             ?>
                             <fieldset class="mb-3">
                                 <legend class="fs-6"><?php echo esc($nombre); ?></legend>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input seleccionar-todos-permisos" type="checkbox" id="usuario_todos_permiso_<?php echo $modulo; ?>">
+                                    <label class="form-check-label" for="usuario_todos_permiso_<?php echo $modulo; ?>">Todos</label>
+                                </div>
                                 <?php foreach ($accionesRol as $codigo => $accion): ?>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input permiso-rol permiso-usuario" type="checkbox" name="permisos[<?php echo $modulo; ?>][]" id="usuario_permiso_<?php echo $modulo . '_' . $codigo; ?>" data-modulo="<?php echo $modulo; ?>" value="<?php echo $codigo; ?>">
