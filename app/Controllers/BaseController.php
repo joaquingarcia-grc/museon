@@ -61,6 +61,30 @@ abstract class BaseController extends Controller
         return $registros;
     }
 
+    protected function usuarioConPermisos($id): ?array
+    {
+        return (new \App\Models\UsuariosModel())
+            ->select("usuarios.denominacion, usuarios.id_rol,
+                COALESCE(usuario_permiso.objeto, rol_permiso.objeto) AS objeto,
+                COALESCE(usuario_permiso.etiqueta, rol_permiso.etiqueta) AS etiqueta,
+                COALESCE(usuario_permiso.atributo, rol_permiso.atributo) AS atributo,
+                COALESCE(usuario_permiso.usuario, rol_permiso.usuario) AS usuario,
+                COALESCE(usuario_permiso.sala, rol_permiso.sala) AS sala,
+                COALESCE(usuario_permiso.actividad, rol_permiso.actividad) AS actividad", false)
+            ->join('rol_permiso', 'rol_permiso.id_rol = usuarios.id_rol')
+            ->join('usuario_permiso', 'usuario_permiso.id_usuario = usuarios.id AND usuarios.id_rol != 1', 'left')
+            ->find($id);
+    }
+
+    protected function permisosEnSesion(array $usuario): array
+    {
+        $permisos = [];
+        foreach (['objeto', 'etiqueta', 'atributo', 'usuario', 'sala', 'actividad'] as $modulo) {
+            $permisos[$modulo] = empty($usuario[$modulo]) ? [] : explode(',', $usuario[$modulo]);
+        }
+        return $permisos;
+    }
+
     /**
      * Be sure to declare properties for any property fetch you initialized.
      * The creation of dynamic property is deprecated in PHP 8.2.
@@ -77,18 +101,12 @@ abstract class BaseController extends Controller
 
         $sesion = session();
         if (isset($sesion->id)) {
-            $usuario = (new \App\Models\UsuariosModel())
-                ->select('usuarios.denominacion, usuarios.id_rol, rol_permiso.objeto, rol_permiso.etiqueta, rol_permiso.atributo, rol_permiso.usuario, rol_permiso.sala, rol_permiso.actividad')
-                ->join('rol_permiso', 'rol_permiso.id_rol = usuarios.id_rol')
-                ->find($sesion->id);
+            $usuario = $this->usuarioConPermisos($sesion->id);
             if (!$usuario) {
                 $sesion->remove(['id', 'denominacion', 'rol', 'permisos']);
                 $sesion->destroy();
             } else {
-                $permisos = [];
-                foreach (['objeto', 'etiqueta', 'atributo', 'usuario', 'sala', 'actividad'] as $modulo) {
-                    $permisos[$modulo] = empty($usuario[$modulo]) ? [] : explode(',', $usuario[$modulo]);
-                }
+                $permisos = $this->permisosEnSesion($usuario);
                 $sesion->set(['denominacion' => $usuario['denominacion'], 'rol' => $usuario['id_rol'], 'permisos' => $permisos]);
             }
         }

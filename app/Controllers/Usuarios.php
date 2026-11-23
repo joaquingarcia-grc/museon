@@ -58,7 +58,7 @@ class Usuarios extends BaseController{
         // Si tiene el permiso 'b' (borrar) hacemos el borrado lógico
         if (in_array('b', $permisos['usuario'])) {
             $usuario = $this->usuarios->find($id);
-            if (!$usuario || !$this->puedeAsignarRol((string) $usuario['id_rol'])) {
+            if (!$usuario || !$this->puedeGestionarUsuario($usuario)) {
                 echo json_encode(['exito' => false, 'mensaje' => 'No tenés permiso para eliminar este usuario']);
                 exit;
             }
@@ -135,13 +135,59 @@ class Usuarios extends BaseController{
         return $this->rolPermitido($rol);
     }
 
+    private function puedeGestionarUsuario(array $usuario): bool {
+        if (!$this->puedeAsignarRol((string) $usuario['id_rol'])) {
+            return false;
+        }
+        $personalizados = \Config\Database::connect()->table('usuario_permiso')
+            ->where('id_usuario', $usuario['id'])->get()->getRowArray();
+        return !$personalizados || $this->rolPermitido(['id_rol' => $usuario['id_rol']] + $personalizados);
+    }
+
     private function marcarUsuariosGestionables(array $usuarios): array {
+        if (!$usuarios) {
+            return $usuarios;
+        }
         $roles = array_map('strval', array_column($this->rolesDisponibles(), 'id'));
+        $personalizados = \Config\Database::connect()->table('usuario_permiso')
+            ->whereIn('id_usuario', array_column($usuarios, 'id'))->get()->getResultArray();
+        $porUsuario = array_column($personalizados, null, 'id_usuario');
         foreach ($usuarios as &$usuario) {
-            $usuario['puede_gestionar'] = in_array((string) $usuario['id_rol'], $roles, true);
+            $permisos = $porUsuario[$usuario['id']] ?? null;
+            $usuario['puede_gestionar'] = in_array((string) $usuario['id_rol'], $roles, true)
+                && (!$permisos || $this->rolPermitido(['id_rol' => $usuario['id_rol']] + $permisos));
         }
         unset($usuario);
         return $usuarios;
+    }
+
+    private function validarPermisos($seleccion, $actividad): array {
+        if (!is_array($seleccion) || array_diff(array_keys($seleccion), self::MODULOS_ROL)) {
+            return ['error' => 'Seleccioná permisos válidos', 'estado' => 400];
+        }
+        $permisosSesion = $this->sesion->get('permisos');
+        $datos = [];
+        foreach (self::MODULOS_ROL as $modulo) {
+            $acciones = $seleccion[$modulo] ?? [];
+            if (!is_array($acciones) || count(array_filter($acciones, 'is_string')) !== count($acciones) || array_diff($acciones, ['a', 'b', 'm', 'l', 'f'])) {
+                return ['error' => 'Seleccioná permisos válidos', 'estado' => 400];
+            }
+            if ($this->sesion->get('rol') != 1 && array_diff($acciones, $permisosSesion[$modulo] ?? [])) {
+                return ['error' => 'Solo podés otorgar permisos que tenés habilitados', 'estado' => 403];
+            }
+            if ($acciones && !in_array('l', $acciones, true)) {
+                return ['error' => 'Para crear, editar, eliminar o ver la fecha de alta, habilitá también Ver en ese módulo', 'estado' => 400];
+            }
+            $datos[$modulo] = implode(',', array_unique($acciones));
+        }
+        if (!is_string($actividad) || !in_array($actividad, ['', 'l'], true)) {
+            return ['error' => 'El permiso de actividad no es válido', 'estado' => 400];
+        }
+        if ($actividad === 'l' && $this->sesion->get('rol') != 1 && !in_array('l', $permisosSesion['actividad'] ?? [], true)) {
+            return ['error' => 'Solo podés otorgar permisos que tenés habilitados', 'estado' => 403];
+        }
+        $datos['actividad'] = $actividad;
+        return ['datos' => $datos];
     }
 
     public function crearRol(){
@@ -161,31 +207,11 @@ class Usuarios extends BaseController{
         if ($this->roles->where('denominacion', $denominacion)->first()) {
             return $this->response->setJSON(['exito' => false, 'mensaje' => 'Ya existe un rol con esa denominación']);
         }
-        if (!is_array($seleccion) || array_diff(array_keys($seleccion), self::MODULOS_ROL)) {
-            return $this->response->setJSON(['exito' => false, 'mensaje' => 'Seleccioná permisos válidos para el rol']);
+        $validacion = $this->validarPermisos($seleccion, $this->request->getPost('actividad') ?? '');
+        if (isset($validacion['error'])) {
+            return $this->response->setStatusCode($validacion['estado'])->setJSON(['exito' => false, 'mensaje' => $validacion['error']]);
         }
-        $datos = [];
-        foreach (self::MODULOS_ROL as $modulo) {
-            $acciones = $seleccion[$modulo] ?? [];
-            if (!is_array($acciones) || count(array_filter($acciones, 'is_string')) !== count($acciones) || array_diff($acciones, ['a', 'b', 'm', 'l', 'f'])) {
-                return $this->response->setJSON(['exito' => false, 'mensaje' => 'Seleccioná permisos válidos para el rol']);
-            }
-            if ($this->sesion->get('rol') != 1 && array_diff($acciones, $permisosSesion[$modulo] ?? [])) {
-                return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'Solo podés otorgar permisos que tenés habilitados']);
-            }
-            if ($acciones && !in_array('l', $acciones, true)) {
-                return $this->response->setJSON(['exito' => false, 'mensaje' => 'Para crear, editar, eliminar o ver la fecha de alta, habilitá también Ver en ese módulo']);
-            }
-            $datos[$modulo] = implode(',', array_unique($acciones));
-        }
-        $actividad = $this->request->getPost('actividad') ?? '';
-        if (!is_string($actividad) || !in_array($actividad, ['', 'l'], true)) {
-            return $this->response->setJSON(['exito' => false, 'mensaje' => 'El permiso de actividad no es válido']);
-        }
-        if ($actividad === 'l' && $this->sesion->get('rol') != 1 && !in_array('l', $permisosSesion['actividad'] ?? [], true)) {
-            return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'Solo podés otorgar permisos que tenés habilitados']);
-        }
-        $datos['actividad'] = $actividad;
+        $datos = $validacion['datos'];
         $db = \Config\Database::connect();
         if (!$db->transBegin()) {
             return $this->response->setStatusCode(500)->setJSON(['exito' => false, 'mensaje' => 'No se pudo iniciar la creación del rol']);
@@ -295,16 +321,19 @@ class Usuarios extends BaseController{
         $roles = $this->rolesDisponibles();
         // 1. Trae el usuarios de la BD
         $usuarios = $this->usuarios->where('id', $id)->first();
-        if (empty($usuarios) || !$this->puedeAsignarRol((string) $usuarios['id_rol'])) {
+        if (empty($usuarios) || !$this->puedeGestionarUsuario($usuarios)) {
             return redirect()->to(base_url() . 'usuarios');
         }
+        $permisosPersonalizados = \Config\Database::connect()->table('usuario_permiso')
+            ->where('id_usuario', $id)->get()->getRowArray();
         // Datos del museo para el header
         $museos = $this->museos->first();
         // Armamos el arreglo de datos que se envía a las vistas
         $datos = [  'museos'=>$museos,
                     'usuarios'=> $usuarios, // <--- Aquí enviamos los datos
                     'titulo'=> 'Editar usuario',
-                    'roles'=> $roles
+                    'roles'=> $roles,
+                    'permisosPersonalizados' => $permisosPersonalizados
         ];
         // Mostramos header, formulario de edición y footer
         echo view('header', $datos);
@@ -350,9 +379,24 @@ class Usuarios extends BaseController{
             exit;
         }}
         $usuarioActual = $this->usuarios->find($id);
-        if (empty($usuarioActual) || !$this->puedeAsignarRol((string) $usuarioActual['id_rol']) || !$this->puedeAsignarRol($rol)) {
+        if (empty($usuarioActual) || !$this->puedeGestionarUsuario($usuarioActual) || !$this->puedeAsignarRol($rol)) {
             echo json_encode(['exito' => false, 'mensaje' => 'No tenés permiso para editar este usuario o asignar ese rol']);
             exit;
+        }
+        $personalizar = $this->request->getPost('personalizar_permisos');
+        if ($personalizar !== null && !in_array($personalizar, ['0', '1'], true)) {
+            return $this->response->setStatusCode(400)->setJSON(['exito' => false, 'mensaje' => 'La opción de permisos no es válida']);
+        }
+        $permisosPersonalizados = null;
+        if ($personalizar === '1') {
+            if ((int) $rol === 1) {
+                return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'No se pueden personalizar los permisos de un administrador']);
+            }
+            $validacion = $this->validarPermisos($this->request->getPost('permisos') ?? [], $this->request->getPost('actividad') ?? '');
+            if (isset($validacion['error'])) {
+                return $this->response->setStatusCode($validacion['estado'])->setJSON(['exito' => false, 'mensaje' => $validacion['error']]);
+            }
+            $permisosPersonalizados = $validacion['datos'];
         }
         // Buscamos si OTRO usuario (id distinto) ya usa esa denominación, incluso en la papelera   
         $datoUsuario = $this->usuarios->where('denominacion', $denominacion)->where('id !=', $id)->withDeleted()->first();
@@ -369,8 +413,30 @@ class Usuarios extends BaseController{
             if (!empty($password)){
                 $datoActualizar['password'] = password_hash($password, PASSWORD_DEFAULT);  
             }
-            //Aca se genera el update
-            $this->usuarios->update($id, $datoActualizar);
+            $db = \Config\Database::connect();
+            if (!$db->transBegin()) {
+                return $this->response->setStatusCode(500)->setJSON(['exito' => false, 'mensaje' => 'No se pudo iniciar la actualización']);
+            }
+            try {
+                $guardado = $this->usuarios->update($id, $datoActualizar);
+                if ($guardado && ($personalizar !== null || (string) $usuarioActual['id_rol'] !== $rol)) {
+                    $tabla = $db->table('usuario_permiso');
+                    $guardado = $tabla->where('id_usuario', $id)->delete();
+                    if ($guardado && $permisosPersonalizados !== null) {
+                        $guardado = $db->table('usuario_permiso')->insert(['id_usuario' => $id] + $permisosPersonalizados);
+                    }
+                }
+                if (!$guardado || !$db->transStatus()) {
+                    $db->transRollback();
+                    return $this->response->setStatusCode(500)->setJSON(['exito' => false, 'mensaje' => 'No se pudo actualizar el usuario']);
+                }
+                if (!$db->transCommit()) {
+                    return $this->response->setStatusCode(500)->setJSON(['exito' => false, 'mensaje' => 'No se pudo actualizar el usuario']);
+                }
+            } catch (\Throwable $error) {
+                $db->transRollback();
+                throw $error;
+            }
             echo json_encode(['exito' => true, 'mensaje' => 'Actualizado con éxito']);
             exit;
         }else{
@@ -427,7 +493,7 @@ class Usuarios extends BaseController{
         }
         // Traemos el usuario borrado (withDeleted incluye los borrados)
         $usuarios = $this->usuarios->withDeleted()->find($id);
-        if (!$usuarios || !$this->puedeAsignarRol((string) $usuarios['id_rol'])) {
+        if (!$usuarios || !$this->puedeGestionarUsuario($usuarios)) {
             return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'No tenés permiso para recuperar este usuario']);
         }
         // Buscamos si ya hay un usuario ACTIVO con la misma denominación

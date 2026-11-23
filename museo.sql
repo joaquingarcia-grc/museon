@@ -50,6 +50,19 @@ create table `rol_permiso` (
   unique key `id_rol` (`id_rol`),
   constraint `rol_permiso_ibfk_1` foreign key (`id_rol`) references `roles` (`id`) on delete cascade on update cascade
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
+
+-- Permisos personalizados: si no hay fila, se utilizan los del rol.
+create table `usuario_permiso` (
+  `id_usuario` int(11) not null,
+  `objeto` set('a','b','m','l','f') not null default '',
+  `etiqueta` set('a','b','m','l','f') not null default '',
+  `atributo` set('a','b','m','l','f') not null default '',
+  `usuario` set('a','b','m','l','f') not null default '',
+  `sala` set('a','b','m','l','f') not null default '',
+  `actividad` set('l') not null default '',
+  primary key (`id_usuario`),
+  constraint `fk_usuario_permiso_usuario` foreign key (`id_usuario`) references `usuarios` (`id`) on delete cascade on update cascade
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;
  
 -- El resto de los roles se crean desde la aplicación.
 insert into roles (id, denominacion) values (1, 'Administrador');

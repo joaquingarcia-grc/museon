@@ -35,6 +35,36 @@ $(document).ready(function(){
         }
     });
 
+    const formularioEdicion = $('#actualizarUSR');
+    if (formularioEdicion.length) {
+        const rolInicial = String(formularioEdicion.attr('data-rol-inicial'));
+        const permisosIniciales = JSON.parse(formularioEdicion.attr('data-permisos-iniciales'));
+        const permisosActor = JSON.parse(formularioEdicion.attr('data-permisos-actor'));
+        const administrador = formularioEdicion.attr('data-administrador') === '1';
+
+        function cargarPermisosUsuario() {
+            const rol = String($('#rol').val());
+            const personalizados = rol === rolInicial ? permisosIniciales : null;
+            const permisos = personalizados || JSON.parse($('#rol option:selected').attr('data-permisos'));
+            $('#personalizarPermisos').prop('checked', Boolean(personalizados) && rol !== '1').prop('disabled', rol === '1');
+            $('.permiso-usuario').each(function(){
+                const modulo = $(this).attr('data-modulo');
+                const acciones = (permisos[modulo] || '').split(',');
+                $(this).prop('checked', acciones.includes(this.value))
+                    .prop('disabled', !administrador && !(permisosActor[modulo] || []).includes(this.value));
+            });
+            mostrarPermisosUsuario();
+        }
+
+        function mostrarPermisosUsuario() {
+            $('#permisosUsuario').prop('hidden', !$('#personalizarPermisos').prop('checked'));
+        }
+
+        $('#rol').on('change', cargarPermisosUsuario);
+        $('#personalizarPermisos').on('change', mostrarPermisosUsuario);
+        cargarPermisosUsuario();
+    }
+
     $('#modalNuevoRol').on('hidden.bs.modal', function(){
         $('#formNuevoRol')[0].reset();
         $('#errorNuevoRol').prop('hidden', true);
@@ -297,13 +327,7 @@ $(document).ready(function(){
     $('#actualizarUSR').on('submit',function(e){
         e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario   
         idActualizar = $(this).data('id');  //traemos un id el cual debe de viajar con el paquete de datos
-        const dato = {                      //posteriormente este id nos servira para guardar el objeto con el id que obtuvimos de la BBDD
-            denominacion : $('#denominacion').val(),
-            password : $('#password').val(),
-            telefono : $('#telefono').val(),
-            email : $('#email').val(),
-            rol : $('#rol').val()
-        }
+        const dato = $(this).serialize() + '&personalizar_permisos=' + ($('#personalizarPermisos').prop('checked') ? '1' : '0');
         //ajax de actualizar espera los datos y el id para poder actualizar el usuario con el id correspondiente
         //para esto trajimos el id desde la base de datos y lo almasenamos en la variable IDACTUALIZAR
         $.ajax({
@@ -323,8 +347,8 @@ $(document).ready(function(){
                     mensajes('Error: ' + response.mensaje, 'error');
                 }
             },
-            error: function() {
-                mensajes('Error en el servidor', 'error');
+            error: function(xhr) {
+                mensajes(xhr.responseJSON && xhr.responseJSON.mensaje ? xhr.responseJSON.mensaje : 'Error en el servidor', 'error');
             },
             complete: function(){} 
         });

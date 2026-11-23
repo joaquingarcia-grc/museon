@@ -4,18 +4,15 @@ namespace App\Controllers;
 
 use App\Models\MuseosModel;
 use App\Models\UsuariosModel;
-use App\Models\PermisosModel;
 
 class Login extends BaseController{
     
     protected $museos;
     protected $usuarios;
-    protected $permisos;
 
     public function __construct(){
         $this->museos = new MuseosModel();
         $this->usuarios = new UsuariosModel();
-        $this->permisos = new PermisosModel();
     }
 
     public function index(){
@@ -44,19 +41,12 @@ class Login extends BaseController{
         $datosUsuario = $this->usuarios->where('denominacion',$denominacion)->first();
         
         if(!empty($datosUsuario)){
-            $permisos = $this->permisos->select('objeto, etiqueta, atributo, usuario, sala, actividad')
-                                        ->where('id_rol', $datosUsuario['id_rol'])
-                                        ->first();
-
-            $permisosSesionTabla = [];
-            foreach ( ['usuario', 'objeto', 'atributo', 'etiqueta','sala', 'actividad'] as $tabla) {
-                if (!empty($permisos[$tabla])){
-                    $permisosSesionTabla[$tabla] = explode(',',$permisos[$tabla]);
-                }else{
-                    $permisosSesionTabla[$tabla] = [];
-                }
-            }
             if(password_verify($password, $datosUsuario['password'])){
+                $usuarioConPermisos = $this->usuarioConPermisos($datosUsuario['id']);
+                if (!$usuarioConPermisos) {
+                    return $this->response->setStatusCode(403)->setJSON(['exito' => false, 'mensaje' => 'El usuario no tiene un rol válido']);
+                }
+                $permisosSesionTabla = $this->permisosEnSesion($usuarioConPermisos);
                 $data_sesion = [
                     'id' => $datosUsuario['id'],
                     'denominacion' => $datosUsuario['denominacion'],
