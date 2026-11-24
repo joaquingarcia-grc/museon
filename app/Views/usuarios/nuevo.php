@@ -129,7 +129,7 @@
           <h1 class="modal-title fs-5" id="tituloNuevoRol">Crear rol</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" tabindex="0">
           <label for="nombreNuevoRol" class="form-label">Denominación *</label>
           <input type="text" class="form-control mb-3" id="nombreNuevoRol" name="denominacion" maxlength="50" required>
           <p>Elegí qué puede hacer en cada sección. Para crear, editar, eliminar o leer la fecha de alta también necesita permiso para leer.</p>

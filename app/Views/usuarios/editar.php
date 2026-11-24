@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-text">Los cambios solo afectan a este usuario, no a las demás personas con el mismo rol. Al cambiar de rol se restablecen sus permisos.</div>
                         </div>
-                        <div id="permisosUsuario" class="border rounded p-3 mb-3" hidden>
+                        <div id="permisosUsuario" class="border rounded p-3 mb-3" role="region" aria-label="Permisos del usuario" tabindex="0" hidden>
                             <p>Elegí qué puede hacer este usuario. Para crear, editar, eliminar o leer la fecha de alta también necesita permiso para leer.</p>
                             <?php
                             $modulosRol = ['objeto' => 'Piezas', 'etiqueta' => 'Etiquetas', 'atributo' => 'Atributos', 'usuario' => 'Usuarios', 'sala' => 'Salas'];
