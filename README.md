@@ -65,7 +65,7 @@ Parte de las bibliotecas se carga desde CDN, por lo que el navegador necesita co
 ### Usuarios, roles y permisos
 - Administración de usuarios: alta, listado, edición y baja lógica.
 - La instalación inicial incluye el rol Administrador; los demás roles se crean desde la opción «Otros...» al registrar usuarios.
-- Creación de roles al dar de alta usuarios, con permisos por sección; solo se pueden otorgar permisos propios y únicamente un administrador puede asignar el rol Administrador. Crear, editar o eliminar requiere también el permiso Ver en esa sección; los cambios de rol se aplican en la siguiente petición.
+- Creación de roles al dar de alta usuarios, con permisos por sección; solo se pueden otorgar permisos propios y únicamente un administrador puede asignar el rol Administrador. Crear, editar o eliminar requiere también el permiso Leer en esa sección; los cambios de rol se aplican en la siguiente petición.
 - Cada rol puede tener acceso a la fecha de alta por sección y al historial de actividad. El historial solo muestra registros de las secciones que el usuario puede consultar; las fechas de los eventos del historial son independientes de la fecha de alta del listado.
 - Al editar un usuario se pueden personalizar sus permisos sin modificar los de otras personas con el mismo rol. Solo se pueden otorgar permisos propios; el rol Administrador no admite personalización. Al cambiar de rol se restablecen los permisos del nuevo rol, salvo que se vuelvan a personalizar.
 - La copia de seguridad contiene todos los datos y solo está disponible para administradores.

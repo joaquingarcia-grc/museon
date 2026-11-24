@@ -93,7 +93,7 @@
       <div class="modal-body" id="listaPermisosRoles">
         <?php
         $modulosRol = ['objeto' => 'Piezas', 'etiqueta' => 'Etiquetas', 'atributo' => 'Atributos', 'usuario' => 'Usuarios', 'sala' => 'Salas'];
-        $accionesRol = ['l' => 'ver', 'a' => 'crear', 'm' => 'editar', 'b' => 'eliminar', 'f' => 'ver fecha de alta'];
+        $accionesRol = ['l' => 'leer', 'a' => 'crear', 'm' => 'editar', 'b' => 'eliminar', 'f' => 'leer fecha de alta'];
         foreach ($roles as $rol):
         ?>
             <div class="mb-3">
@@ -132,7 +132,7 @@
         <div class="modal-body">
           <label for="nombreNuevoRol" class="form-label">Denominación *</label>
           <input type="text" class="form-control mb-3" id="nombreNuevoRol" name="denominacion" maxlength="50" required>
-          <p>Elegí qué puede hacer en cada sección. Para crear, editar, eliminar o ver la fecha de alta también necesita permiso para ver.</p>
+          <p>Elegí qué puede hacer en cada sección. Para crear, editar, eliminar o leer la fecha de alta también necesita permiso para leer.</p>
           <?php $permisosSesion = session()->get('permisos') ?? []; ?>
           <?php foreach ($modulosRol as $modulo => $nombre): ?>
             <fieldset class="mb-3">
@@ -153,7 +153,7 @@
             <legend class="fs-6">Actividad</legend>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="actividad" id="permiso_actividad" value="l" <?php echo session()->get('rol') != 1 && !in_array('l', $permisosSesion['actividad'] ?? [], true) ? 'disabled' : ''; ?>>
-              <label class="form-check-label" for="permiso_actividad">Ver actividad de las secciones permitidas</label>
+              <label class="form-check-label" for="permiso_actividad">Leer actividad de las secciones permitidas</label>
             </div>
           </fieldset>
           <div class="alert alert-danger" id="errorNuevoRol" role="alert" hidden></div>

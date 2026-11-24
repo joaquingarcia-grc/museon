@@ -176,7 +176,7 @@ class Usuarios extends BaseController{
                 return ['error' => 'Solo podés otorgar permisos que tenés habilitados', 'estado' => 403];
             }
             if ($acciones && !in_array('l', $acciones, true)) {
-                return ['error' => 'Para crear, editar, eliminar o ver la fecha de alta, habilitá también Ver en ese módulo', 'estado' => 400];
+                return ['error' => 'Para crear, editar, eliminar o leer la fecha de alta, habilitá también Leer en ese módulo', 'estado' => 400];
             }
             $datos[$modulo] = implode(',', array_unique($acciones));
         }

@@ -74,10 +74,10 @@
                             <div class="form-text">Los cambios solo afectan a este usuario, no a las demás personas con el mismo rol. Al cambiar de rol se restablecen sus permisos.</div>
                         </div>
                         <div id="permisosUsuario" class="border rounded p-3 mb-3" hidden>
-                            <p>Elegí qué puede hacer este usuario. Para crear, editar, eliminar o ver la fecha de alta también necesita permiso para ver.</p>
+                            <p>Elegí qué puede hacer este usuario. Para crear, editar, eliminar o leer la fecha de alta también necesita permiso para leer.</p>
                             <?php
                             $modulosRol = ['objeto' => 'Piezas', 'etiqueta' => 'Etiquetas', 'atributo' => 'Atributos', 'usuario' => 'Usuarios', 'sala' => 'Salas'];
-                            $accionesRol = ['l' => 'Ver', 'a' => 'Crear', 'm' => 'Editar', 'b' => 'Eliminar', 'f' => 'Ver fecha de alta'];
+                            $accionesRol = ['l' => 'Leer', 'a' => 'Crear', 'm' => 'Editar', 'b' => 'Eliminar', 'f' => 'Leer fecha de alta'];
                             foreach ($modulosRol as $modulo => $nombre):
                             ?>
                             <fieldset class="mb-3">
@@ -98,7 +98,7 @@
                                 <legend class="fs-6">Actividad</legend>
                                 <div class="form-check">
                                     <input class="form-check-input permiso-usuario" type="checkbox" name="actividad" id="usuario_permiso_actividad" data-modulo="actividad" value="l">
-                                    <label class="form-check-label" for="usuario_permiso_actividad">Ver actividad de las secciones permitidas</label>
+                                    <label class="form-check-label" for="usuario_permiso_actividad">Leer actividad de las secciones permitidas</label>
                                 </div>
                             </fieldset>
                         </div>
