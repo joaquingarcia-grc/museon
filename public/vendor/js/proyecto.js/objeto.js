@@ -3,6 +3,8 @@ $(document).ready(function(){
     let idActualizar = null;
     let idABorrar = null;
     let idARecuperar = null; 
+
+    let enviandoFormularioOBJ = false;
     
     if ($('#tablaOBJ').length) rellenarTabla();
     if ($('#tablaOBJBr').length) rellenarTabla2();
@@ -218,33 +220,85 @@ $(document).ready(function(){
     }
 //------------------------------------------------------------------------------------------------------------------------------//
         
-    $('#formularioOBJ').on('submit',function(e){
-        e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
-        const dato = new FormData(this);  
-        $.ajax({
-            url: BASE + 'objetos/insertar',
-            method: 'POST',
-            data: dato,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            success: function(response){
-                if (response.exito){
-                    //guardo el mensaje del servidor para mostrarlo ya estando en la ruta objetos
-                    sessionStorage.setItem('mensajeOBJ', "Pieza guardada con ID: " + response.id + response.mensaje);
-                    $('#formularioOBJ')[0].reset();
-                    window.location.href = BASE + 'objetos';//dirije a la vista objetos al toque, sin esperar
-                }else if (response.papelera){
-                    mensajes('Aviso: ' + response.mensaje, 'warning');
-                }else{
-                    mensajes('Error: ' + response.mensaje, 'error');
-                }
-            },
-            error: function() {
-                mensajes('Error en el servidor', 'error');
+    
+$('#formularioOBJ').on('submit', function(e){
+    e.preventDefault();
+
+    // Evita múltiples envíos.
+    if (enviandoFormularioOBJ) return;
+
+    enviandoFormularioOBJ = true;
+
+    const formulario = $(this);
+    const botonEnviar = formulario.find('button[type="submit"], input[type="submit"]').first();
+
+    const textoOriginal = botonEnviar.is('input')
+        ? botonEnviar.val()
+        : botonEnviar.text();
+
+    // Deshabilitamos el botón inmediatamente.
+    botonEnviar.prop('disabled', true);
+
+    if (botonEnviar.is('input')) {
+        botonEnviar.val('Guardando...');
+    } else {
+        botonEnviar.text('Guardando...');
+    }
+
+    formulario.attr('aria-busy', 'true');
+
+    const dato = new FormData(this);
+    let envioExitoso = false;
+
+    $.ajax({
+        url: BASE + 'objetos/insertar',
+        method: 'POST',
+        data: dato,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+
+        success: function(response){
+            if (response.exito) {
+                envioExitoso = true;
+
+                sessionStorage.setItem(
+                    'mensajeOBJ',
+                    "Pieza guardada con ID: " + response.id + response.mensaje
+                );
+
+                window.location.href = BASE + 'objetos';
+
+            } else if (response.papelera) {
+                mensajes('Aviso: ' + response.mensaje, 'warning');
+
+            } else {
+                mensajes('Error: ' + response.mensaje, 'error');
             }
-        });
+        },
+
+        error: function(){
+            mensajes('Error en el servidor', 'error');
+        },
+
+        complete: function(){
+            if (!envioExitoso) {
+                enviandoFormularioOBJ = false;
+
+                botonEnviar.prop('disabled', false);
+
+                if (botonEnviar.is('input')) {
+                    botonEnviar.val(textoOriginal);
+                } else {
+                    botonEnviar.text(textoOriginal);
+                }
+
+                formulario.removeAttr('aria-busy');
+            }
+        }
     });
+});
+
 //---------------------------------------------------------------------------------------------------//
     //continuamos con el modal de borrar el cual lo obtenemos por el selector de clases 
     $(document).on('click', '#btnBorrarOBJ', function(){
@@ -282,36 +336,84 @@ $(document).ready(function(){
     });
 //---------------------------------------------------------------------------------------------------------------//
     //Este si va hacer un update
-    $('#OBJactualizar').on('submit',function(e){
-        e.preventDefault();//accionamos un evento por defecto el cual detiene las acciones del formulario
-        // en vez de guardar, solo mostramos el modal
-        idActualizar = $(this).data('id');
-        const dato = new FormData(this);
-        //controlador actualizar 
-        $.ajax({
-            url: BASE + 'objetos/actualizar/' + idActualizar,
-            method: 'POST',
-            data: dato,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            success: function(response) {
-                if (response.exito){
-                    //guardo el mensaje para mostrarlo ya estando en la ruta objetos
-                    sessionStorage.setItem('mensajeOBJ', "Objeto: " + response.mensaje);
-                    window.location.href = BASE + 'objetos';//dirije a la vista objetos al toque, sin esperar
-                }else{
-                    mensajes('Aviso: ' + response.mensaje, 'warning');
-                }
-            },
-            error: function() {
-                mensajes('Error en el servidor', 'error');
-            },
-            complete: function(){
+    
+$('#OBJactualizar').on('submit', function(e){
+    e.preventDefault();
 
-            } 
-        });
+    // Evita múltiples actualizaciones.
+    if (enviandoFormularioOBJ) return;
+
+    enviandoFormularioOBJ = true;
+
+    const formulario = $(this);
+    const botonEnviar = formulario.find('button[type="submit"], input[type="submit"]').first();
+
+    const textoOriginal = botonEnviar.is('input')
+        ? botonEnviar.val()
+        : botonEnviar.text();
+
+    // Deshabilitamos el botón inmediatamente.
+    botonEnviar.prop('disabled', true);
+
+    if (botonEnviar.is('input')) {
+        botonEnviar.val('Actualizando...');
+    } else {
+        botonEnviar.text('Actualizando...');
+    }
+
+    formulario.attr('aria-busy', 'true');
+
+    idActualizar = formulario.data('id');
+
+    const dato = new FormData(this);
+    let envioExitoso = false;
+
+    $.ajax({
+        url: BASE + 'objetos/actualizar/' + idActualizar,
+        method: 'POST',
+        data: dato,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+
+        success: function(response) {
+            if (response.exito) {
+                envioExitoso = true;
+
+                sessionStorage.setItem(
+                    'mensajeOBJ',
+                    "Objeto: " + response.mensaje
+                );
+
+                window.location.href = BASE + 'objetos';
+
+            } else {
+                mensajes('Aviso: ' + response.mensaje, 'warning');
+            }
+        },
+
+        error: function() {
+            mensajes('Error en el servidor', 'error');
+        },
+
+        complete: function(){
+            if (!envioExitoso) {
+                enviandoFormularioOBJ = false;
+
+                botonEnviar.prop('disabled', false);
+
+                if (botonEnviar.is('input')) {
+                    botonEnviar.val(textoOriginal);
+                } else {
+                    botonEnviar.text(textoOriginal);
+                }
+
+                formulario.removeAttr('aria-busy');
+            }
+        }
     });
+});
+
 
 //------------------------------------------------------------------------------------------------//
     //esta funcion rellena la tabla de atributos
