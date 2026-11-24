@@ -549,13 +549,13 @@ class Usuarios extends BaseController{
                 ->setStatusCode(500)
                 ->setBody('La extensión zip de PHP no está activada');
         }
-        // Carpetas reales dentro de public/ que se van a meter en el zip
+        // Carpetas reales dentro de public/objetos_multimedia/ que se van a meter en el zip
         $carpetas = [
-            'file' => FCPATH . 'file/',
-            'imagenes/objetos' => FCPATH . 'imagenes/objetos/'
+            'file' => FCPATH . 'objetos_multimedia/files/',
+            'images' => FCPATH . 'objetos_multimedia/images/'
         ];
-        // Crear ZIP (se guarda temporalmente en writable)
-        $rutaZip = WRITEPATH . 'copia_seguridad.zip';
+        // Crear ZIP (se guarda temporalmente en writable con nombre único para que nunca se reutilice uno viejo)
+        $rutaZip = WRITEPATH . 'copia_seguridad_' . uniqid() . '.zip';
         $zip = new \ZipArchive();
         // Abrimos el zip; si ya existe lo sobrescribimos
         if ($zip->open($rutaZip, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {
@@ -625,10 +625,12 @@ class Usuarios extends BaseController{
                 ->setStatusCode(500)
                 ->setBody('No se pudo finalizar el archivo ZIP');
         }//https://www.php.net/manual/en/class.ziparchive.php paginas de referencia
+        // Leemos el zip recién creado y lo borramos de writable para que no quede ninguno guardado
+        $contenido = file_get_contents($rutaZip);
+        unlink($rutaZip);
         // 3. Descargar copia de seguridad con la fecha en el nombre
         return $this->response
-            ->download($rutaZip, null)
-            ->setFileName('copia_seguridad_' . date('Y-m-d') . '.zip');
+            ->download('copia_seguridad_' . date('Y-m-d') . '.zip', $contenido);
     }
     // Muestra un formulario vacío para crear un usuario
     public function configuracion(){
