@@ -342,3 +342,106 @@ Para consultar los términos completos, revisar el archivo [`LICENSE`](LICENSE) 
 
 ---
 **Museon — Sistema de gestión de colecciones de museo.**
+
+## 12. Funcionalidades y mejoras incorporadas recientemente
+
+Esta sección complementa la descripción anterior y documenta las mejoras que se incorporaron posteriormente al sistema. No reemplaza la organización ni las funcionalidades ya detalladas en los apartados anteriores.
+
+### Roles y permisos avanzados
+
+- Creación de roles personalizados desde el formulario de alta de usuarios, mediante la opción «Otros...».
+- Selección de permisos por módulo para cada rol: objetos, etiquetas, atributos, usuarios y salas.
+- Los permisos disponibles por módulo contemplan **Alta**, **Baja**, **Modificar**, **Leer** y **Fecha de alta**.
+- El módulo de actividad cuenta con un permiso específico de lectura.
+- Se puede seleccionar o deseleccionar el conjunto de permisos de una sección para facilitar su configuración.
+- Al crear o editar usuarios, el sistema limita la asignación a los permisos que posee la persona que realiza la operación. La asignación del rol Administrador queda reservada a un administrador.
+- Es posible personalizar los permisos de un usuario individual sin modificar los permisos del resto de las personas que comparten su rol.
+- Cuando se cambia el rol de un usuario, se toman los permisos correspondientes al nuevo rol; estos pueden volver a personalizarse individualmente.
+- El permiso de fecha de alta controla si se muestra el dato `fecha_alta` en los listados de cada módulo.
+- Los cambios de permisos y roles se reflejan al procesarse la siguiente petición del sistema.
+- Los paneles de permisos de los formularios de alta y edición cuentan con desplazamiento vertical para facilitar su uso cuando hay muchas opciones.
+
+### Historial de actividad y auditoría
+
+- El acceso al historial se controla mediante el permiso de lectura del módulo de actividad.
+- Cada usuario puede consultar únicamente los registros de las secciones para las que tiene autorización.
+- El listado permite filtrar por tipo de registro y combinar ese filtro con criterios por campo.
+- Se incorpora la búsqueda exacta por ID de pieza.
+- La consulta de actividad dispone de un endpoint que devuelve los registros en formato JSON para su utilización desde JavaScript/AJAX.
+- La fecha de un evento del historial corresponde al momento de la operación registrada y es independiente de la fecha de alta que se muestra en los listados.
+
+### Gestión de objetos y archivos multimedia
+
+- La ficha de cada objeto puede consultarse desde la ruta `objetos/ver/{id}`.
+- Los objetos admiten la asociación de varias imágenes y archivos.
+- Se puede definir una imagen de portada para representar la pieza.
+- Los formularios de objetos permiten gestionar la ubicación física y las relaciones con atributos y etiquetas.
+- El sistema dispone de una operación para filtrar objetos por etiquetas.
+- Las imágenes y los archivos se administran desde el espacio `public/objetos_multimedia/`.
+
+### Gestión de salas
+
+- Consulta de salas dependientes de otra sala mediante una petición específica.
+- Consulta de objetos que todavía no tienen una sala asignada.
+- Asignación de objetos a una sala y posibilidad de quitarlos de esa ubicación.
+- La papelera permite recuperar salas eliminadas lógicamente.
+
+### Usuarios y configuración personal
+
+- La configuración personal permite consultar y actualizar los datos del usuario que inició sesión.
+- Se puede actualizar la contraseña desde esa sección.
+- Los listados de usuarios y de usuarios eliminados disponen de respuestas JSON para su actualización desde JavaScript/AJAX.
+- La interfaz de inicio de sesión y los formularios de alta permiten mostrar u ocultar la contraseña.
+
+### Respuestas JSON y operaciones AJAX
+
+Además de las vistas HTML, el sistema incorpora rutas que responden con datos JSON para alimentar listados, filtros y operaciones de la interfaz. Entre ellas se encuentran:
+
+| Módulo | Ruta | Uso |
+|---|---|---|
+| Usuarios | `usuarios/api` | Listado de usuarios activos |
+| Usuarios | `usuarios/api2` | Listado de usuarios eliminados |
+| Etiquetas | `etiquetas/api` | Listado de etiquetas activas |
+| Etiquetas | `etiquetas/api2` | Listado de etiquetas eliminadas |
+| Atributos | `atributos/api` | Listado de atributos activos |
+| Atributos | `atributos/api2` | Listado de atributos eliminados |
+| Objetos | `objetos/api` | Listado de objetos activos |
+| Objetos | `objetos/api2` | Listado de objetos eliminados |
+| Salas | `salas/api2` | Listado de salas eliminadas |
+| Actividad | `actividad/api` | Registros del historial de actividad |
+
+También existen rutas de operación para consultar salas hijas (`salas/hijas`), obtener objetos libres (`salas/objetosLibres`), asignar o quitar objetos de salas y filtrar objetos por etiquetas (`objetos/filtrar-etiquetas`). Las rutas que modifican información utilizan los métodos HTTP definidos en `app/Config/Routes.php`.
+
+### Mejoras en formularios y navegación
+
+- Se mejoró el comportamiento de los botones de guardar y actualizar en el módulo de objetos, junto con el manejo de sus operaciones desde JavaScript.
+- Se agregó desplazamiento vertical en los paneles de permisos y en el formulario modal de creación de roles.
+- Se incorporó una regla de redirección en `public/.htaccess` para que el acceso a la raíz de la aplicación conduzca al formulario de registro/inicio de sesión. La regla contiene una ruta de instalación concreta; si el proyecto se instala en otra subcarpeta, debe revisarse para que coincida con la ubicación local.
+
+### Copias de seguridad: funcionamiento actualizado
+
+La implementación actual de `Usuarios::copia_seguridad()` incorpora estas mejoras respecto de la descripción inicial:
+
+- La descarga está reservada al rol Administrador.
+- El archivo ZIP se crea con un nombre temporal único dentro de `writable/`, evitando reutilizar una copia anterior.
+- Al finalizar la preparación de la descarga, el archivo temporal se lee y se elimina de `writable/`.
+- La exportación SQL recorre las tablas existentes en la base conectada y guarda sus estructuras y registros en `base_de_datos.sql`.
+- El código busca archivos en `public/objetos_multimedia/files/` e imágenes en `public/objetos_multimedia/images/`. Si alguno de esos directorios no existe, se omite.
+- Dentro del ZIP, los archivos se organizan en las carpetas `file/` e `images/`.
+
+**Nota sobre las carpetas multimedia:** en la copia del proyecto revisada aparece `public/objetos_multimedia/file/` (singular), mientras que el controlador de copia de seguridad busca `public/objetos_multimedia/files/` (plural). Para que los archivos adjuntos se incluyan en la copia, la carpeta debe coincidir con la ruta que utiliza el controlador. La carpeta de imágenes utilizada por el código es `public/objetos_multimedia/images/`.
+
+### Migraciones de base de datos incorporadas
+
+En `app/Database/Migrations/` se incluyen las siguientes migraciones:
+
+- `2026-11-23-010000_AddActivityAndDatePermissions.php`: incorpora el permiso de fecha de alta (`f`) a los permisos de las secciones y agrega el permiso de lectura del módulo de actividad.
+- `2026-11-23-020000_AddUserPermissions.php`: crea la tabla `usuario_permiso`, que almacena permisos personalizados por usuario y mantiene una relación con `usuarios`.
+
+Para aplicar las migraciones pendientes en una base ya existente, ejecutar desde la raíz del proyecto:
+
+```bash
+php spark migrate
+```
+
+Si se importa una versión de `museo.sql` que ya contiene las tablas y columnas correspondientes, verificar el estado de las migraciones antes de ejecutarlas para evitar intentar aplicar cambios que ya estén presentes.
