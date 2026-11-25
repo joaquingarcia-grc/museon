@@ -11,6 +11,11 @@ Options -Indexes
 	Options +FollowSymlinks
 	RewriteEngine On
 
+	# regla mia: si entran a la raiz (http://localhost/ci.03/public/)
+	# los redirijo a /registro para que la barra del navegador
+	# muestre la ruta completa. 302 = redireccion temporal (no se cachea)
+	RewriteRule ^$ /ci.03/public/registro [R=302,L]
+
 	# If you installed CodeIgniter in a subfolder, you will need to
 	# change the following line to match the subfolder you need.
 	# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
